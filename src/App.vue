@@ -1,19 +1,20 @@
 <template>
-  <div id="app">
-    <img alt="Yeti logo" src="./assets/logo.png">
-    <main>
-      <router-view/>
-    </main>
-  </div>
+<div id="app">
+  <SideMenu/>
+  <main>
+    <router-view/>
+  </main>
+</div>
 </template>
 
 <script>
-
-export default {
-  name: 'app',
-  components: {
+  import SideMenu from './components/SideMenu'
+  export default {
+    name: 'app',
+    components: {
+      SideMenu,
+    }
   }
-}
 </script>
 
 <style>
@@ -25,4 +26,5 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
 </style>

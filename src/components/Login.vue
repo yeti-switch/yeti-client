@@ -1,46 +1,42 @@
 <template>
-  <div class="login">
-    <h1>{{ msg }}</h1>
-    <p>
-      Please authorize:
-    </p>
-      <form @submit.prevent="login">
-        <label><input placeholder="email"></label><br>
-        <label><input placeholder="password" type="password"></label><br>
-        <button type="submit">Login</button>
-        <p class="error">Bad login information</p>
-    </form>
-  </div>
+<div>
+  <img alt="Yeti logo" src="../assets/logo.png">
+  <br>
+  Welcome to Yeti
+  <form class="login" @submit.prevent="login">
+    <h3>Please log in</h3>
+    <input required v-model="username" type="text" placeholder="Login"/>
+    <input required v-model="password" type="password" placeholder="Password"/>
+    <hr/>
+    <button type="submit">Login</button>
+  </form>
+</div>
 </template>
 
 <script>
-import auth from '../auth'
 export default {
-  name: 'Login',
-  data() {
+  name: 'login',
+  data () {
     return {
-      input: {
-        username: '',
-        password: ''
-      }
+      username: 'sergtest',
+      password: 'test'
     }
   },
   methods: {
-    login() {
-      auth.login('admin@example.com','123', res => {
-        console.log(res);
-      });
+    login: function () {
+      const { username, password } = this
+      this.$store.dispatch('authRequest', { username, password }).then(() => this.$router.push('/'))
     }
-  },
-  props: {
-    msg: String
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.error {
-  color: red;
-}
+<style>
+  .login {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    padding: 10px;
+  }
 </style>

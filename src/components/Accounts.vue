@@ -1,9 +1,8 @@
 <template>
 <div id="accounts">
-  <h1>Accounts page</h1>
-  <ul>
-    <li v-for="account in accounts.data" v-bind:key="account.id" >{{account}}</li>
-  </ul>
+  <h1>Accounts</h1>
+  <b-spinner variant="primary" label="Spinning" v-if="loading"/>
+  <b-table hover :items="accounts" v-if="accounts"/>
 </div>
 </template>
 
@@ -11,12 +10,21 @@
 export default {
   name: 'accounts',
   data () {
-    return  {
-    }
+    return  {}
   },
   computed: {
     accounts: function () {
-      return this.$store.state.accounts.accounts
+      const accounts = this.$store.state.accounts.accounts
+      const accountsAttr = []
+      if (accounts && accounts.data) {
+        for(let account of accounts.data) {
+          accountsAttr.push(account.attributes)
+        }
+      }
+      return accountsAttr
+    },
+    loading: function () {
+      return this.$store.state.accounts.requestPending
     }
   },
   methods: {

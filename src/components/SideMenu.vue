@@ -1,29 +1,34 @@
 <template>
-<div id="side-menu" class="sidebar" v-if="isAuthenticated">
+<div id="side-menu" class="sidebar">
   Это меню, которое будет сбоку
   <nav>
       <ul>
-        <router-link to="/" tag="li">
+        <router-link to="/login" tag="li" v-if="!isAuthenticated">
+          <a>
+              <span>Login</span>
+          </a>
+        </router-link>
+        <router-link to="/" tag="li" v-if="isAuthenticated">
           <a>
               <span>Home</span>
           </a>
         </router-link>
-        <router-link to="/rates" tag="li">
+        <router-link to="/rates" tag="li" v-if="isAuthenticated">
           <a>
               <span>Rates</span>
           </a>
         </router-link>
-        <router-link to="/cdrs" tag="li">
+        <router-link to="/cdrs" tag="li" v-if="isAuthenticated">
           <a>
               <span>Cdrs</span>
           </a>
         </router-link>
-        <router-link to="/accounts" tag="li">
+        <router-link to="/accounts" tag="li" v-if="isAuthenticated">
           <a>
               <span>Accounts</span>
           </a>
         </router-link>
-        <li @click="logout">
+        <li @click="logout" v-if="isAuthenticated">
           <a href="#">
             <span>Logout</span>
           </a>

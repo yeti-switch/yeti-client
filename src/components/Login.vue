@@ -3,13 +3,13 @@
   <img alt="Yeti logo" src="../assets/logo.png">
   <br>
   Welcome to Yeti
-  <form class="login" @submit.prevent="login">
-    <h3>Please log in</h3>
-    <input required v-model="username" type="text" placeholder="Login"/>
-    <input required v-model="password" type="password" placeholder="Password"/>
-    <hr/>
-    <button type="submit">Login</button>
-  </form>
+  <b-form class="login" @submit.prevent="login">
+    <b-form-group label="Please log in">
+      <b-form-input required v-model="username" type="text" placeholder="Login"/>
+      <b-form-input required v-model="password" type="password" placeholder="Password"/>
+    </b-form-group>
+    <b-button type="submit" variant="primary">Login</b-button>
+  </b-form>
 </div>
 </template>
 

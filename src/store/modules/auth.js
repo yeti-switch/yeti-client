@@ -1,7 +1,7 @@
 import Authentication from '../../api/Authentication'
 
 const state = {
-    token: localStorage.getItem('yeti-token') || '',
+    token: sessionStorage.getItem('yeti-token') || '',
     status: ''
 }
 const getters = {
@@ -9,19 +9,19 @@ const getters = {
     authStatus: () => state.status
 }
 const actions = {
-    authRequest: async ({commit, dispatch}, { username, password }) => {
+    authRequest: async ({commit}, { username, password }) => {
         try {
             const response = await Authentication.getToken(username, password);
             commit('authSuccess', response)
-            localStorage.setItem('yeti-token', response.jwt)
+            sessionStorage.setItem('yeti-token', response.jwt)
         } catch (e) {
-            console.log(e);
+            sessionStorage.removeItem('yeti-token')
         }
     },
-    logout: ({commit, dispatch}) => {
-        return new Promise((resolve, reject) => {
+    logout: ({commit}) => {
+        return new Promise((resolve) => {
             commit('logout')
-            localStorage.removeItem('yeti-token')
+            sessionStorage.removeItem('yeti-token')
             resolve()
         })
     }

@@ -1,15 +1,22 @@
 import Rates from '../../api/Rates'
 
-const state = {};
+const state = {
+    rates: {}
+};
 const getters = {
-    token: () => state.token
+    rates: state => state.rates
 };
 const actions = {
-    getRates: async ({commit, dispatch}, token) => {
-        const rates = await Rates.getRates(token);
+    getRates: async ({commit, rootState}) => {
+        const rates = await Rates.getRates(rootState.auth.token);
+        commit('setRates', rates)
     }
 };
-const mutations = {};
+const mutations = {
+    setRates: (state, rates) => {
+        state.rates = rates
+    }
+};
 
 export default {
     state,

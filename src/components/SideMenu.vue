@@ -1,40 +1,14 @@
 <template>
 <div id="side-menu" class="sidebar">
-  Это меню, которое будет сбоку
-  <nav>
-      <ul>
-        <router-link to="/login" tag="li" v-if="!isAuthenticated">
-          <a>
-              <span>Login</span>
-          </a>
-        </router-link>
-        <router-link to="/" tag="li" v-if="isAuthenticated">
-          <a>
-              <span>Home</span>
-          </a>
-        </router-link>
-        <router-link to="/rates" tag="li" v-if="isAuthenticated">
-          <a>
-              <span>Rates</span>
-          </a>
-        </router-link>
-        <router-link to="/cdrs" tag="li" v-if="isAuthenticated">
-          <a>
-              <span>Cdrs</span>
-          </a>
-        </router-link>
-        <router-link to="/accounts" tag="li" v-if="isAuthenticated">
-          <a>
-              <span>Accounts</span>
-          </a>
-        </router-link>
-        <li @click="logout" v-if="isAuthenticated">
-          <a href="#">
-            <span>Logout</span>
-          </a>
-        </li>
-      </ul>
-  </nav>
+  <b-list-group>
+    <b-list-group-item><img alt="Yeti logo" src="../assets/logo.png"></b-list-group-item>
+    <b-list-group-item router-link to="/login" v-if="!isAuthenticated">Login</b-list-group-item>
+    <b-list-group-item router-link to="/"v-if="isAuthenticated">Home</b-list-group-item>
+    <b-list-group-item router-link to="/rates" v-if="isAuthenticated">Rates</b-list-group-item>
+    <b-list-group-item router-link to="/cdrs" v-if="isAuthenticated" >Cdrs</b-list-group-item>
+    <b-list-group-item router-link to="/accounts" v-if="isAuthenticated">Accounts</b-list-group-item>
+    <b-list-group-item href="#" @click="logout" v-if="isAuthenticated">Logout</b-list-group-item>
+  </b-list-group>
 </div>
 </template>
 

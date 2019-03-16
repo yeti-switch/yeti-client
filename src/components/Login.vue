@@ -1,8 +1,5 @@
 <template>
 <div>
-  <img alt="Yeti logo" src="../assets/logo.png">
-  <br>
-  Welcome to Yeti
   <b-form class="login" @submit.prevent="login">
     <b-form-group label="Please log in">
       <b-form-input required v-model="username" type="text" placeholder="Login"/>

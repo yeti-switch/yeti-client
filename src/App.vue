@@ -1,6 +1,6 @@
 <template>
 <div id="app">
-  <SideMenu/>
+  <NavBar/>
   <main>
     <router-view/>
   </main>
@@ -8,24 +8,20 @@
 </template>
 
 <script>
-  import SideMenu from './components/SideMenu'
+  import NavBar from './components/NavBar'
   export default {
     name: 'app',
     components: {
-      SideMenu,
+      NavBar,
     }
   }
 </script>
 
 <style>
 #app {
-  display: flex;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 00px;
 }
 
 </style>

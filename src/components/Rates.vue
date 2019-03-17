@@ -1,9 +1,8 @@
 <template>
 <div id="rates">
-  <h1>Rates page</h1>
-  <ul>
-    <li v-for="rate in rates.data" v-bind:key="rate.id" >{{rate}}</li>
-  </ul>
+  <h3>Rates</h3>
+  <b-spinner variant="primary" label="Spinning" v-if="loading"/>
+  <b-table hover :items="rates" v-if="rates"/>
 </div>
 </template>
 
@@ -16,7 +15,18 @@ export default {
   },
   computed: {
     rates: function () {
-      return this.$store.state.rates.rates
+      const rates = this.$store.state.rates.rates // TODO: move somewhere
+
+      const ratesAttr = []
+      if (rates && rates.data) {
+        for(let rate of rates.data) {
+          ratesAttr.push(rate.attributes)
+        }
+      }
+      return ratesAttr
+    },
+    loading: function () {
+      return this.$store.state.accounts.requestPending
     }
   },
   methods: {

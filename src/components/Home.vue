@@ -1,3 +1,3 @@
 <template>
-  <h1>Main application page</h1>
+  <h3>Main application page</h3>
 </template>

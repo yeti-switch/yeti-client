@@ -1,7 +1,8 @@
 <template>
 <div id="accounts">
-  <h1>Accounts</h1>
+  <h3>Accounts</h3>
   <b-spinner variant="primary" label="Spinning" v-if="loading"/>
+  <b-alert show variant="danger" v-if="error"> {{error}} </b-alert>
   <b-table hover :items="accounts" v-if="accounts"/>
 </div>
 </template>
@@ -14,7 +15,7 @@ export default {
   },
   computed: {
     accounts: function () {
-      const accounts = this.$store.state.accounts.accounts
+      const accounts = this.$store.state.accounts.accounts  // TODO: move somewhere
       const accountsAttr = []
       if (accounts && accounts.data) {
         for(let account of accounts.data) {
@@ -25,6 +26,9 @@ export default {
     },
     loading: function () {
       return this.$store.state.accounts.requestPending
+    },
+    error: function () {
+      return this.$store.state.accounts.error
     }
   },
   methods: {

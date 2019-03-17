@@ -1,3 +1,3 @@
 <template>
-  <h1>Cdr page</h1>
+  <h3>Cdr</h3>
 </template>

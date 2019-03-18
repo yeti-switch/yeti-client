@@ -1,15 +1,21 @@
 <template>
 <div id="accounts">
   <h3>Accounts</h3>
+  <Errors/>
   <b-spinner variant="primary" label="Spinning" v-if="loading"/>
-  <b-alert show variant="danger" v-if="error"> {{error}} </b-alert>
   <b-table hover :items="accounts" v-if="accounts"/>
 </div>
 </template>
 
 <script>
+import Errors from './Errors'
+
 export default {
   name: 'accounts',
+  components: {
+    Errors
+  },
+  props: ['id'],
   data () {
     return  {}
   },
@@ -26,9 +32,6 @@ export default {
     },
     loading: function () {
       return this.$store.state.accounts.requestPending
-    },
-    error: function () {
-      return this.$store.state.accounts.error
     }
   },
   methods: {

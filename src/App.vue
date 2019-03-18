@@ -9,10 +9,12 @@
 
 <script>
   import NavBar from './components/NavBar'
+  import Errors from './components/Errors'
   export default {
     name: 'app',
     components: {
       NavBar,
+      Errors
     }
   }
 </script>

@@ -1,35 +1,20 @@
-function handleErrors(response) {
-  if (!response.ok) {
-    throw Error(response.statusText);
-  }
-  return response;
-}
+import config from '../config'
 
 export default {
-  getCdrs: function (token) {
+  getCdrs: async function (token) {
+    let apiResponse = {};
     const headers = new Headers();
+    headers.append('Content-Type', 'application/json');
     headers.append('Authorization', `Bearer ${token}`);
-    return fetch ('https://demo.yeti-switch.org/api/rest/customer/v1/cdrs', {
-      method: 'get',
-      mode: 'no-cors',
-      headers: headers
-    })
-    .then(handleErrors)
-    .then(res => {
-      console.log(res);
-    });
-  },
-  getCdrById: function (token, cdrId) {
-    const headers = new Headers();
-    headers.append('Authorization', `Bearer ${token}`);
-    return fetch (`https://demo.yeti-switch.org/api/rest/customer/v1/cdrs/${id}`, {
-      method: 'get',
-      mode: 'no-cors',
-      headers: headers
-    })
-    .then(handleErrors)
-    .then(res => {
-      console.log(res);
-    });
+    try {
+      const response = await fetch (`${config.yeti.apiBaseUrl}/api/rest/customer/v1/cdrs`, {
+        method: 'get',
+        headers: headers
+      });
+      apiResponse = await response.json();
+    } catch (err) {
+      apiResponse.error = err;
+    }
+    return apiResponse;
   }
 }

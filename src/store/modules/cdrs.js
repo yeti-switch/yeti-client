@@ -1,0 +1,41 @@
+import Cdrs from '../../api/Cdrs'
+
+const state = {
+  cdrs: {},
+  requestPending: false,
+  error: null,
+};
+const getters = {
+  cdrs: state => state.cdrs,
+  isRequestPending: state => state.requestPending
+};
+const actions = {
+  getCdrs: async ({commit, rootState}) => {
+    commit('setRequestPending', true)
+    const cdrs = await Cdrs.getCdrs(rootState.auth.token);
+    if (cdrs.error) {
+      commit('setError', accounts.error)
+    } else {
+      commit('setCdrs', cdrs)
+    }
+    commit('setRequestPending', false)
+  }
+};
+const mutations = {
+  setCdrs: (state, cdrs) => {
+    state.cdrs = cdrs
+  },
+  setRequestPending: (state, isPending) => {
+    state.requestPending = isPending
+  },
+  setError: (state,error) => {
+    state.error = error
+  }
+};
+
+export default {
+  state,
+  getters,
+  actions,
+  mutations
+}

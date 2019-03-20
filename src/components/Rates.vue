@@ -26,7 +26,7 @@ export default {
       return ratesAttr
     },
     loading: function () {
-      return this.$store.state.accounts.requestPending
+      return this.$store.state.rates.requestPending
     }
   },
   methods: {

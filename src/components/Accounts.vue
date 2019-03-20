@@ -3,7 +3,7 @@
   <h3>Accounts</h3>
   <Errors/>
   <b-spinner variant="primary" label="Spinning" v-if="loading"/>
-  <b-table hover :items="accounts" v-if="accounts"/>
+  <b-table hover :small="small" :items="accounts" v-if="accounts"/>
 </div>
 </template>
 
@@ -17,7 +17,9 @@ export default {
   },
   props: ['id'],
   data () {
-    return  {}
+    return  {
+      small: true
+    }
   },
   computed: {
     accounts: function () {

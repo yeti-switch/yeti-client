@@ -1,20 +1,22 @@
 import config from '../config'
+import JsonApi from 'devour-client'
+
+const jsonApi = new JsonApi({apiUrl: `${config.yeti.apiBaseUrl}/api/rest/customer/v1`});
+
+jsonApi.define('account', {
+  name: '',
+  balance: '',
+  minBalance: '',
+  maxBalance: '',
+  destinationRateLimit: '',
+  originationCapacity: '',
+  terminationCapacity: '',
+  totalCapacity: ''
+})
 
 export default {
   getAccounts: async function (token) {
-    let apiResponse = {};
-    const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Authorization', `Bearer ${token}`);
-    try {
-      const response = await fetch (`${config.yeti.apiBaseUrl}/api/rest/customer/v1/accounts`, {
-        method: 'get',
-        headers: headers
-      });
-      apiResponse = await response.json();
-    } catch (err) {
-      apiResponse.error = err;
-    }
-    return apiResponse;
+    jsonApi.headers['Authorization'] = `Bearer ${token}`
+    return await jsonApi.findAll('account');
   }
 }

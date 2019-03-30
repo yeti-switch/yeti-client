@@ -23,14 +23,7 @@ export default {
   },
   computed: {
     accounts: function () {
-      const accounts = this.$store.state.accounts.accounts  // TODO: move somewhere
-      const accountsAttr = []
-      if (accounts && accounts.data) {
-        for(let account of accounts.data) {
-          accountsAttr.push(account.attributes)
-        }
-      }
-      return accountsAttr
+      return this.$store.state.accounts.accounts.data  // TODO: move somewhere
     },
     loading: function () {
       return this.$store.state.accounts.requestPending

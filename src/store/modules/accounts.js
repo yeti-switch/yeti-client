@@ -14,7 +14,8 @@ const actions = {
   getAccounts: async ({commit, rootState}) => {
     commit('setRequestPending', true)
     const accounts = await Accounts.getAccounts(rootState.auth.token)
-    if (accounts.error) {
+    console.log('AAAAA', accounts);
+    if (accounts && accounts.error) {
       commit('setError', accounts.error)
     } else {
       commit('setAccounts', accounts)

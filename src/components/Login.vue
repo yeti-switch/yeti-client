@@ -2,6 +2,7 @@
 <div>
   <b-form class="login" @submit.prevent="login">
     <b-form-group label="Welcome to Yeti">
+      <Errors/>
       <b-form-input required v-model="username" type="text" placeholder="Login"/>
       <b-form-input required v-model="password" type="password" placeholder="Password"/>
     </b-form-group>
@@ -11,8 +12,13 @@
 </template>
 
 <script>
+import Errors from './Errors'
+
 export default {
   name: 'login',
+  components: {
+    Errors
+  },
   data () {
     return {
       username: 'sergtest',
@@ -20,9 +26,14 @@ export default {
     }
   },
   methods: {
-    login: function () {
+    login () {
       const { username, password } = this
       this.$store.dispatch('authRequest', { username, password }).then(() => this.$router.push('/'))
+    }
+  },
+  computed: {
+    errors () {
+      this.$store.state.errors.error
     }
   }
 }
@@ -32,6 +43,7 @@ export default {
 <style>
   .login {
     display: flex;
+    margin: 0 auto;
     flex-direction: column;
     width: 300px;
     padding: 10px;

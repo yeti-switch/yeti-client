@@ -13,9 +13,12 @@ const actions = {
     try {
       const response = await Authentication.getToken(username, password);
       commit('authSuccess', response)
+      commit('setError', null)
       sessionStorage.setItem('yeti-token', response.jwt)
     } catch (e) {
       sessionStorage.removeItem('yeti-token')
+      commit('setError', e)
+      commit('logout');
     }
   },
   logout: ({commit}) => {
@@ -33,6 +36,10 @@ const mutations = {
   },
   logout: (state) => {
     state.token=''
+    state.status = 'unauthorized'
+  },
+  setError: (state, res) => {
+    state.error = res
   }
 }
 

@@ -15,6 +15,10 @@ export default {
             headers: headers
         });
 
-        return await response.json();
+        if(response.status !== 201) {
+            throw new Error('Authorization error');
+        }
+
+        return response.json()
     }
 }

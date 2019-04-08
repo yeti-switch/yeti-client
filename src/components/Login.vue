@@ -2,9 +2,8 @@
 <div>
   <b-form class="login" @submit.prevent="login">
     <b-form-group label="Welcome to Yeti">
-      <Errors/>
-      <b-form-input required v-model="username" type="text" placeholder="Login"/>
-      <b-form-input required v-model="password" type="password" placeholder="Password"/>
+      <b-form-input required v-model="username" type="text" placeholder="Login"  autocomplete="username"/>
+      <b-form-input required v-model="password" type="password" placeholder="Password" autocomplete="current-password"/>
     </b-form-group>
     <b-button type="submit" variant="primary">Login</b-button>
   </b-form>
@@ -12,28 +11,30 @@
 </template>
 
 <script>
-import Errors from './Errors'
 
 export default {
   name: 'login',
-  components: {
-    Errors
-  },
   data () {
     return {
-      username: 'sergtest',
-      password: 'test'
+      username: 'sergtestu',
+      password: 'test',
     }
   },
   methods: {
     login () {
       const { username, password } = this
-      this.$store.dispatch('authRequest', { username, password }).then(() => this.$router.push('/'))
-    }
-  },
-  computed: {
-    errors () {
-      this.$store.state.errors.error
+      this.$store.dispatch('authRequest', { username, password })
+        .then(() => this.$router.push('/'))
+        .then(() => this.$notify({
+          type: 'success',
+          text: 'Login successful'
+          }))
+        .catch(err => {
+          this.$notify({
+            type: 'error',
+            text: err
+          })
+        })
     }
   }
 }

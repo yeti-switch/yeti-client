@@ -1,21 +1,14 @@
 <template>
 <div id="accounts">
   <h3>Accounts</h3>
-  <Errors/>
   <b-spinner variant="primary" label="Spinning" v-if="loading"/>
   <b-table hover :small="small" :items="accounts" v-if="accounts"/>
 </div>
 </template>
 
 <script>
-import Errors from './Errors'
-
 export default {
   name: 'accounts',
-  components: {
-    Errors
-  },
-  props: ['id'],
   data () {
     return  {
       small: true
@@ -32,6 +25,13 @@ export default {
   methods: {
     getAccounts: function () {
       this.$store.dispatch('getAccounts')
+        .catch(err => {
+          this.$notify({
+            type: 'error',
+            title: err[0].title,
+            text: err[0].detail
+          })
+        })
     }
   },
   created: function () {

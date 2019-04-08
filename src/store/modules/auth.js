@@ -10,16 +10,9 @@ const getters = {
 }
 const actions = {
   authRequest: async ({commit}, { username, password }) => {
-    try {
-      const response = await Authentication.getToken(username, password);
-      commit('authSuccess', response)
-      commit('setError', null)
-      sessionStorage.setItem('yeti-token', response.jwt)
-    } catch (e) {
-      sessionStorage.removeItem('yeti-token')
-      commit('setError', e)
-      commit('logout');
-    }
+    const response = await Authentication.getToken(username, password);
+    commit('authSuccess', response)
+    sessionStorage.setItem('yeti-token', response.jwt)
   },
   logout: ({commit}) => {
     return new Promise((resolve) => {

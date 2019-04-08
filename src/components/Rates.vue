@@ -15,15 +15,7 @@ export default {
   },
   computed: {
     rates: function () {
-      const rates = this.$store.state.rates.rates // TODO: move somewhere
-
-      const ratesAttr = []
-      if (rates && rates.data) {
-        for(let rate of rates.data) {
-          ratesAttr.push(rate.attributes)
-        }
-      }
-      return ratesAttr
+      return this.$store.state.rates.rates.data
     },
     loading: function () {
       return this.$store.state.rates.requestPending

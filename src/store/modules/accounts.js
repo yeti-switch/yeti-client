@@ -13,16 +13,8 @@ const getters = {
 const actions = {
   getAccounts: async ({commit, rootState}) => {
     commit('setRequestPending', true)
-    try {
-      const accounts = await Accounts.getAccounts(rootState.auth.token)
-      if (accounts && accounts.error) {
-        commit('setError', accounts.error)
-      } else {
-        commit('setAccounts', accounts)
-      }
-    } catch (e) {
-      commit('setError', 'Authorization failed')
-    }
+    const accounts = await Accounts.getAccounts(rootState.auth.token)
+    commit('setAccounts', accounts)
     commit('setRequestPending', false)
   }
 };
@@ -32,9 +24,6 @@ const mutations = {
   },
   setRequestPending: (state, isPending) => {
     state.requestPending = isPending
-  },
-  setError: (state,error) => {
-    state.error = error
   }
 };
 

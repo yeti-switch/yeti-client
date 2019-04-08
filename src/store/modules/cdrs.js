@@ -14,7 +14,7 @@ const actions = {
     commit('setRequestPending', true)
     const cdrs = await Cdrs.getCdrs(rootState.auth.token);
     if (cdrs.error) {
-      commit('setError', accounts.error)
+      commit('setError', cdrs.error)
     } else {
       commit('setCdrs', cdrs)
     }

@@ -1,6 +1,7 @@
 <template>
 <div id="app">
   <NavBar/>
+  <notifications/>
   <main>
     <router-view/>
   </main>
@@ -13,6 +14,17 @@
     name: 'app',
     components: {
       NavBar,
+    },
+    data () {
+      return {
+        message: '',
+        type: 'error'
+      }
+    },
+    methods: {
+      setMessage (message) {
+        this.message = message
+      }
     }
   }
 </script>

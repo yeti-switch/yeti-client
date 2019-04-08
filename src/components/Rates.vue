@@ -24,6 +24,13 @@ export default {
   methods: {
     getRates: function () {
       this.$store.dispatch('getRates')
+        .catch(err => {
+          this.$notify({
+            type: 'error',
+            title: err[0].title,
+            text: err[0].detail
+          })
+        })
     }
   },
   created: function () {

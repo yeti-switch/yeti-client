@@ -42,15 +42,7 @@ export default {
   },
   computed: {
     cdrs: function () {
-      const cdrs = this.$store.state.cdrs.cdrs // TODO: move somewhere
-
-      const cdrsAttr = []
-      if (cdrs && cdrs.data) {
-        for(let cdr of cdrs.data) {
-          cdrsAttr.push(cdr.attributes)
-        }
-      }
-      return cdrsAttr
+      return this.$store.state.cdrs.cdrs.data // TODO: move somewhere
     },
     loading: function () {
       return this.$store.state.cdrs.requestPending
@@ -64,6 +56,13 @@ export default {
   methods: {
     getCdrs: function () {
       this.$store.dispatch('getCdrs')
+        .catch(err => {
+          this.$notify({
+            type: 'error',
+            title: err[0].title,
+            text: err[0].detail
+          })
+        })
     }
   },
   created: function () {

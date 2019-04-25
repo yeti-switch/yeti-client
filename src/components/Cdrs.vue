@@ -16,8 +16,13 @@
       :current-page="currentPage"
       :striped="striped"
       :fixed="fixed"
-      :fields="fields"
-      />
+      :fields="fields">
+
+      <template slot="success" slot-scope="row">
+        <b-badge pill v-bind:variant="row.item.success ? 'success' : 'danger'">{{row.item.success}}</b-badge>
+      </template>
+
+    </b-table>
     <b-pagination
       v-model="currentPage"
       :total-rows="rows"
@@ -30,6 +35,7 @@
 </template>
 
 <script>
+import formatDate from '../utils/date';
 export default {
   name: 'cdrs',
   data () {
@@ -37,7 +43,7 @@ export default {
       small: true,
       striped: true,
       fixed: false,
-      perPage: 10,
+      perPage: 50,
       currentPage: 1,
       fields: {
         timeStart: {
@@ -184,9 +190,9 @@ export default {
       const cdrs = this.$store.state.cdrs.cdrs.data
       if (cdrs) {
         const items = cdrs.map(item => {
-          item.timeStart = this.formatDate(item.timeStart)
-          item.timeConnect = this.formatDate(item.timeConnect)
-          item.timeEnd = this.formatDate(item.timeEnd)
+          item.timeStart = formatDate(item.timeStart)
+          item.timeConnect = formatDate(item.timeConnect)
+          item.timeEnd = formatDate(item.timeEnd)
           return item
         })
         return items || []
@@ -211,16 +217,7 @@ export default {
             text: err[0].detail
           })
         })
-    },
-    formatDate: function(dateStr) {
-      if(dateStr) {
-        const formattedDate = new Date(Date.parse(dateStr))
-        const addZero = number => number < 10 ? '0'+number : number
-    
-        return `${formattedDate.getFullYear()}/${formattedDate.getMonth()}/${formattedDate.getDate()} ${addZero(formattedDate.getHours())}:${addZero(formattedDate.getMinutes())}:${addZero(formattedDate.getSeconds())}`
-      }
-      return ''
-    },
+    }
   },
   created: function () {
     this.getCdrs()

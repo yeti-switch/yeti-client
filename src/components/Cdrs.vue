@@ -1,41 +1,37 @@
 <template>
   <div id="cdrs">
-    <h3>CDR</h3>
-    <b-spinner variant="primary" label="Spinning" v-if="loading"/>
-    <b-pagination
-      v-model="currentPage"
-      :total-rows="rows"
-      :per-page="perPage"
-      size="sm"
-      aria-controls="cdrsTable"
-      />
-    <b-table hover v-if="cdrs" class="cdrsTable"
-      :small="small"
-      :items="cdrs"
-      :per-page="perPage"
-      :current-page="currentPage"
-      :striped="striped"
-      :fixed="fixed"
-      :fields="fields">
+    <CdrFilter v-on:applyFilter="getCdrs"/>
+    <div class="cdrTable">
+      <b-spinner variant="primary" label="Spinning" v-if="loading"/>
+      <b-table hover v-if="cdrs" class="cdrsTable"
+        :small="small"
+        :items="cdrs"
+        :per-page="perPage"
+        :current-page="currentPage"
+        :striped="striped"
+        :fixed="fixed"
+        :fields="fields">
 
-      <template slot="success" slot-scope="row">
-        <b-badge pill v-bind:variant="row.item.success ? 'success' : 'danger'">{{row.item.success}}</b-badge>
-      </template>
+        <template slot="success" slot-scope="row">
+          <b-badge pill v-bind:variant="row.item.success ? 'success' : 'danger'">{{row.item.success}}</b-badge>
+        </template>
 
-    </b-table>
-    <b-pagination
-      v-model="currentPage"
-      :total-rows="rows"
-      :per-page="perPage"
-      size="sm"
-      aria-controls="cdrsTable"
-      />
-    <p class="mt-3">Total: {{ rows }}</p>
+      </b-table>
+      <b-pagination
+        v-model="currentPage"
+        :total-rows="rows"
+        :per-page="perPage"
+        size="sm"
+        aria-controls="cdrsTable"
+        />
+      <p class="mt-3">Total: {{ rows }}</p>
+    </div>
   </div>
 </template>
 
 <script>
-import formatDate from '../utils/date';
+import formatDate from '../utils/date'
+import CdrFilter from './CdrFilter'
 export default {
   name: 'cdrs',
   data () {
@@ -123,19 +119,19 @@ export default {
           sortable: true
         },
         legaDisconnectCode: {
-          label: 'Legal Disconnect Code',
+          label: 'Leg A Disconnect Code',
           sortable: true
         },
         legaDisconnectReason: {
-          label: 'Legal Disconnect Reason',
+          label: 'Leg A Disconnect Reason',
           sortable: true
         },
         legaRxPayloads: {
-          label: 'Legal Rx Payloads',
+          label: 'Leg A Rx Payloads',
           sortable: true
         },
         legaTxPayloads: {
-          label: 'Legal Tx Payloads',
+          label: 'Leg A Tx Payloads',
           sortable: true
         },
         authOrigTransportProtocolId: {
@@ -151,23 +147,23 @@ export default {
           sortable: true
         },
         legaRxBytes: {
-          label: 'Legal Rx Bytes',
+          label: 'Leg A Rx Bytes',
           sortable: true
         },
         legaTxBytes: {
-          label: 'Legal Tx Bytes',
+          label: 'Leg A Tx Bytes',
           sortable: true
         },
         legaRxDecodeErrs: {
-          label: 'Legal Rx Decode Errors',
+          label: 'Leg A Rx Decode Errors',
           sortable: true
         },
         legaRxNoBufErrs: {
-          label: 'Legal Rx No Buf Errors',
+          label: 'Leg A Rx No Buf Errors',
           sortable: true
         },
         legaRxParseErrs: {
-          label: 'Legal Rx Parse Errors',
+          label: 'Leg A Rx Parse Errors',
           sortable: true
         },
         srcPrefixRouting: {
@@ -208,8 +204,8 @@ export default {
     }
   },
   methods: {
-    getCdrs: function () {
-      this.$store.dispatch('getCdrs')
+    getCdrs: function (filter) {
+      this.$store.dispatch('getCdrs', filter)
         .catch(err => {
           this.$notify({
             type: 'error',
@@ -221,12 +217,23 @@ export default {
   },
   created: function () {
     this.getCdrs()
-  }
+  },
+  components: {
+    CdrFilter
+  },
 }
 </script>
 
 <style>
+  #cdrs {
+    font-size: 12px;
+  }
   table {
     white-space:nowrap;
   }
+
+  .cdrTable {
+    margin-inline-start: 250pt;
+  }
+
 </style>

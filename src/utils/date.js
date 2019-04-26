@@ -10,7 +10,7 @@ const formatDate = (dateStr, format) => {
   ss - Seconds
   */
   if (!format) {
-    format = 'YYYY/MM/DD HH:mm:ss';
+    format = 'YYYY-MM-DD HH:mm:ss';
   }
 
   if (dateStr) {

@@ -49,8 +49,8 @@ jsonApi.define('authOrigTransportProtocol', {
 
 
 export default {
-  getCdrs: function (token) {
+  getCdrs: function (token, filter) {
     jsonApi.headers['Authorization'] = `Bearer ${token}`
-    return jsonApi.findAll('cdr');
+    return jsonApi.findAll('cdr', {filter: filter, page: {size: 50}});
   }
 }

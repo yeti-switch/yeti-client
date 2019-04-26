@@ -1,5 +1,5 @@
 <template>
-<div>
+<div id='auth'>
   <b-form class="login" @submit.prevent="login">
     <b-form-group label="Welcome to Yeti">
       <b-form-input required v-model="username" type="text" placeholder="Login"  autocomplete="username"/>

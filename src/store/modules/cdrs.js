@@ -10,9 +10,9 @@ const getters = {
   isRequestPending: state => state.requestPending
 };
 const actions = {
-  getCdrs: async ({commit, rootState}) => {
+  getCdrs: async ({commit, rootState}, filter) => {
     commit('setRequestPending', true)
-    const cdrs = await Cdrs.getCdrs(rootState.auth.token);
+    const cdrs = await Cdrs.getCdrs(rootState.auth.token, filter);
     if (cdrs.error) {
       commit('setError', cdrs.error)
     } else {

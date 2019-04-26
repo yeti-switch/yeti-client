@@ -18,6 +18,7 @@
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
+  <b-breadcrumb :items="[this.$route.path]"></b-breadcrumb>
 </div>
 </template>
 

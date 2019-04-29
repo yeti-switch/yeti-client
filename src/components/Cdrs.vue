@@ -193,6 +193,7 @@ export default {
         })
         return items || []
       }
+      return []
     },
     loading: function () {
       return this.$store.state.cdrs.requestPending
@@ -201,6 +202,7 @@ export default {
       if (this.$store.state.cdrs.cdrs.data) {
         return this.$store.state.cdrs.cdrs.data.length
       }
+      return 0
     }
   },
   methods: {

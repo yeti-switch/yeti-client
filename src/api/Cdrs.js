@@ -15,8 +15,6 @@ jsonApi.define('cdr', {
   destinationNextRate: '',
   destinationFee: '',
   customerPrice: '',
-  duration: '',
-  success: '',
   srcNameIn: '',
   srcPrefixIn: '',
   fromDomain: '',

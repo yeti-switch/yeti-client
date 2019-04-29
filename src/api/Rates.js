@@ -14,7 +14,6 @@ jsonApi.define('rate', {
   validFrom: '',
   validTill: '',
   networkPrefixId: '',
-  prefix: ''
 })
 
 export default {

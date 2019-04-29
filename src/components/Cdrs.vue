@@ -43,140 +43,106 @@ export default {
       currentPage: 1,
       fields: {
         timeStart: {
-          label: 'Start Time',
-          sortable: true,
+          label: 'Start Time'
         },
         timeConnect: {
-          label: 'Connect Time',
-          sortable: true
+          label: 'Connect Time'
         },
         timeEnd: {
-          label: 'End Time',
-          sortable: true
+          label: 'End Time'
         },
         duration: {
-          label: 'Duration',
-          sortable: true
+          label: 'Duration'
         },
         success: {
-          label: 'Success',
-          sortable: true
+          label: 'Success'
         },
         destinationInitialInterval: {
-          label: 'Destination Initial Interval',
-          sortable: true
+          label: 'Destination Initial Interval'
         },
         destinationInitialRate: {
-          label: 'Destination Initial Rate',
-          sortable: true
+          label: 'Destination Initial Rate'
         },
         destinationNextInterval: {
-          label: 'Destination Next Initial',
-          sortable: true
+          label: 'Destination Next Initial'
         },
         destinationNextRate:{
-          label: 'Destination Next Rate',
-          sortable: true
+          label: 'Destination Next Rate'
         },
         destinationFee:{
-          label: 'Destination Fee',
-          sortable: true
+          label: 'Destination Fee'
         },
         customerPrice: {
-          label: 'Customer Price',
-          sortable: true
+          label: 'Customer Price'
         },
         srcNameIn:{
-          label: 'Src Name In',
-          sortable: true
+          label: 'Src Name In'
         },
         srcPrefixIn: {
-          label: 'Src Prefix In',
-          sortable: true
+          label: 'Src Prefix In'
         },
         fromDomain: {
-          label: 'From Domain',
-          sortable: true
+          label: 'From Domain'
         },
         dstPrefixIn: {
-          label: 'Dst Prefix In',
-          sortable: true
+          label: 'Dst Prefix In'
         },
         toDomain: {
-          label: 'To Domain',
-          sortable: true
+          label: 'To Domain'
         },
         ruriDomain: {
-          label: 'R-URI Domain',
-          sortable: true
+          label: 'R-URI Domain'
         },
         diversionIn: {
-          label: 'Diversion In',
-          sortable: true
+          label: 'Diversion In'
         },
         localTag: {
-          label: 'Local Tag',
-          sortable: true
+          label: 'Local Tag'
         },
         legaDisconnectCode: {
-          label: 'Leg A Disconnect Code',
-          sortable: true
+          label: 'Leg A Disconnect Code'
         },
         legaDisconnectReason: {
-          label: 'Leg A Disconnect Reason',
-          sortable: true
+          label: 'Leg A Disconnect Reason'
         },
         legaRxPayloads: {
-          label: 'Leg A Rx Payloads',
-          sortable: true
+          label: 'Leg A Rx Payloads'
         },
         legaTxPayloads: {
-          label: 'Leg A Tx Payloads',
-          sortable: true
+          label: 'Leg A Tx Payloads'
         },
         authOrigTransportProtocolId: {
-          label: 'Auth Origin Transport Protocol Id',
-          sortable: true
+          label: 'Auth Origin Transport Protocol Id'
         },
         authOrigIp: {
-          label: 'Auth Origin Ip',
-          sortable: true
+          label: 'Auth Origin Ip'
         },
         authOrigPort: {
-          label: 'Auth Origin Port',
-          sortable: true
+          label: 'Auth Origin Port'
         },
         legaRxBytes: {
-          label: 'Leg A Rx Bytes',
-          sortable: true
+          label: 'Leg A Rx Bytes'
         },
         legaTxBytes: {
-          label: 'Leg A Tx Bytes',
-          sortable: true
+          label: 'Leg A Tx Bytes'
         },
         legaRxDecodeErrs: {
-          label: 'Leg A Rx Decode Errors',
-          sortable: true
+          label: 'Leg A Rx Decode Errors'
         },
         legaRxNoBufErrs: {
-          label: 'Leg A Rx No Buf Errors',
-          sortable: true
+          label: 'Leg A Rx No Buf Errors'
         },
         legaRxParseErrs: {
-          label: 'Leg A Rx Parse Errors',
-          sortable: true
+          label: 'Leg A Rx Parse Errors'
         },
         srcPrefixRouting: {
-          label: 'Src Prefix Routing',
-          sortable: true
+          label: 'Src Prefix Routing'
         },
         dstPrefixRouting: {
-          label: 'Dst Prefix Routing',
-          sortable: true
+          label: 'Dst Prefix Routing'
         },
         destinationPrefix: {
-          label: 'Destination Prefix',
-          sortable: true
+          label: 'Destination Prefix'
         }
       }
     }

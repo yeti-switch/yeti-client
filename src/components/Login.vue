@@ -24,7 +24,7 @@ export default {
     login () {
       const { username, password } = this
       this.$store.dispatch('authRequest', { username, password })
-        .then(() => this.$router.push('/'))
+        .then(() => this.$router.push(this.$route.query.redirect || '/'))
         .then(() => this.$notify({
           type: 'success',
           text: 'Login successful'

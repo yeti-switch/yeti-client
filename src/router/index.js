@@ -12,7 +12,13 @@ const requiresAuth = (to, from, next) => {
     next()
     return 
   }
-  next ('/login')
+
+  next ({
+    path: '/login',
+    query: {
+      redirect: to.fullPath
+    }
+  })
 }
 
 const requiresNotAuth = (to, from, next) => {

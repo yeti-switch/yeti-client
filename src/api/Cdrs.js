@@ -1,7 +1,6 @@
-import config from '../config'
 import JsonApi from 'devour-client'
 
-const jsonApi = new JsonApi({apiUrl: `${config.yeti.apiBaseUrl}/api/rest/customer/v1`});
+const jsonApi = new JsonApi({apiUrl: `${CONFIG.yeti.apiBaseUrl}/api/rest/customer/v1`});
 
 jsonApi.define('cdr', {
   timeStart: '',

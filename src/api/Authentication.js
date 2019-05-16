@@ -9,7 +9,7 @@ export default {
         };
         headers.append('Content-Type', 'application/json')
 
-        const response = await fetch ('https://demo.yeti-switch.org/api/rest/customer/v1/auth', {
+        const response = await fetch (`${CONFIG.yeti.apiBaseUrl}/api/rest/customer/v1/auth`, {
             method: 'post',
             body: JSON.stringify(data),
             headers: headers

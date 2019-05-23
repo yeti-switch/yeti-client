@@ -1,9 +1,9 @@
 <template>
   <div id="cdrs">
     <CdrFilter v-on:applyFilter="getCdrs"/>
-    <div class="cdrTable">
+    <div class="cdrTable contentTable">
       <b-spinner variant="primary" label="Spinning" v-if="loading"/>
-      <b-table hover v-if="cdrs" class="cdrsTable"
+      <b-table hover v-if="cdrs"
         :small="small"
         :items="cdrs"
         :per-page="perPage"
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import formatDate from '../utils/date'
+import formatDate from '../../utils/date'
 import CdrFilter from './CdrFilter'
 export default {
   name: 'cdrs',
@@ -165,10 +165,7 @@ export default {
       return this.$store.state.cdrs.requestPending
     },
     rows: function () {
-      if (this.$store.state.cdrs.cdrs.data) {
-        return this.$store.state.cdrs.cdrs.data.length
-      }
-      return 0
+      return this.cdrs ? this.cdrs.length : 0; // TODO: move somewhere
     }
   },
   methods: {
@@ -193,15 +190,4 @@ export default {
 </script>
 
 <style>
-  #cdrs {
-    font-size: 12px;
-  }
-  table {
-    white-space:nowrap;
-  }
-
-  .cdrTable {
-    margin-inline-start: 250pt;
-  }
-
 </style>

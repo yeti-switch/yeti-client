@@ -36,4 +36,22 @@
   margin-top: 00px;
 }
 
+.filter {
+  background-color: #f2f2f2;
+  border:1px solid black;
+  font-size: 12px;
+  margin-left: 10px;
+  padding: 10px;
+  overflow: hidden;
+  width: 320px;
+  float: left;
+  text-align: left;
+}
+
+.contentTable {
+  font-size: 12px;
+  white-space:nowrap;
+  margin-inline-start: 340px;
+}
+
 </style>

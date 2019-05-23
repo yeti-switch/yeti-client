@@ -1,13 +1,13 @@
 <template>
-  <div id='cdrFilter'>
-    <b-form @submit="onSubmit" @reset="onReset"  class="filter">
+  <div id='cdrFilter' class="filter">
+    <b-form @submit="onSubmit" @reset="onReset">
 
       <b-form-group label="Start time greater or equal than:">
         <b-form-input v-model="form.timeStartGteq" type="date" size="sm"/>
       </b-form-group>
 
       <b-form-group label="Start time less or equal than:">
-        <b-form-input v-model="form.timeStartGteq" type="date" size="sm"/>
+        <b-form-input v-model="form.timeStartLteq" type="date" size="sm"/>
       </b-form-group>
 
       <b-form-group label="Source prefix routing:">
@@ -107,15 +107,4 @@ export default {
 </script>
 
 <style>
-  #cdrFilter {
-    background-color: #f2f2f2;
-    border:1px solid black;
-    font-size: 12px;
-    margin-left: 5pt;
-    padding: 5pt;
-    overflow: hidden;
-    width: 320px;
-    float: left;
-    text-align: left;
-  }
 </style>

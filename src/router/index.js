@@ -1,10 +1,10 @@
 import VueRouter from 'vue-router'
 import Login from '../components/Login'
 import NotFound from '../components/NotFound'
-import Cdrs from '../components/Cdrs'
-import Rates from '../components/Rates'
+import Cdrs from '../components/cdrs/Cdrs'
+import Rates from '../components/rates/Rates'
 import Home from '../components/Home'
-import Accounts from '../components/Accounts'
+import Accounts from '../components/accounts/Accounts'
 import store from '../store/store'
 
 const requiresAuth = (to, from, next) => {

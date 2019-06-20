@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - "10"
+stages:
+  - test
+  - build application
+jobs:
+  include:
+    - stage: test
+      name: "Unit Tests"
+      script: "yarn test"
+    - stage: build application
+      name: "Build Vue application"
+      script: "yarn build"

@@ -16,8 +16,8 @@ jsonApi.define('rate', {
 })
 
 export default {
-  getRates: function (token) {
+  getRates: function (token, filter) {
     jsonApi.headers['Authorization'] = `Bearer ${token}`
-    return jsonApi.findAll('rate');
+    return jsonApi.findAll('rate', {filter: filter});
   }
 }

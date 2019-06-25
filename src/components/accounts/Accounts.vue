@@ -27,7 +27,6 @@
 </template>
 
 <script>
-import formatDate from '../../utils/date'
 import AccountsFilter from './AccountsFilter'
 
 export default {
@@ -82,8 +81,8 @@ export default {
     }
   },
   methods: {
-    getAccounts: function () {
-      this.$store.dispatch('getAccounts')
+    getAccounts: function (filter) {
+      this.$store.dispatch('getAccounts', filter)
         .catch(err => {
           this.$notify({
             type: 'error',

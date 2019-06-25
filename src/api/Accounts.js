@@ -14,8 +14,8 @@ jsonApi.define('account', {
 })
 
 export default {
-  getAccounts: function (token) {
+  getAccounts: function (token, filter) {
     jsonApi.headers['Authorization'] = `Bearer ${token}`
-    return jsonApi.findAll('account');
+    return jsonApi.findAll('account', {filter: filter});
   }
 }

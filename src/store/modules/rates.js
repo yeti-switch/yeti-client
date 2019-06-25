@@ -7,8 +7,8 @@ const getters = {
   rates: state => state.rates
 };
 const actions = {
-  getRates: async ({commit, rootState}) => {
-    const rates = await Rates.getRates(rootState.auth.token);
+  getRates: async ({commit, rootState}, filter) => {
+    const rates = await Rates.getRates(rootState.auth.token, filter);
     commit('setRates', rates)
   }
 };

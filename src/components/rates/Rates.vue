@@ -97,8 +97,8 @@ export default {
     }
   },
   methods: {
-    getRates: function () {
-      this.$store.dispatch('getRates')
+    getRates: function (filter) {
+      this.$store.dispatch('getRates', filter)
         .catch(err => {
           this.$notify({
             type: 'error',

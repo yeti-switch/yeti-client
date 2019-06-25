@@ -11,9 +11,9 @@ const getters = {
 };
 
 const actions = {
-  getAccounts: async ({commit, rootState}) => {
+  getAccounts: async ({commit, rootState}, filter) => {
     commit('setRequestPending', true)
-    const accounts = await Accounts.getAccounts(rootState.auth.token)
+    const accounts = await Accounts.getAccounts(rootState.auth.token, filter)
     commit('setAccounts', accounts)
     commit('setRequestPending', false)
   }

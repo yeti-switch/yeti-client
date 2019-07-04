@@ -7,7 +7,6 @@
         :small="small"
         :items="rates"
         :per-page="perPage"
-        :current-page="currentPage"
         :striped="striped"
         :fixed="fixed"
         :fields="fields">

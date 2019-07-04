@@ -8,7 +8,6 @@
         :small="small"
         :items="accounts"
         :per-page="perPage"
-        :current-page="currentPage"
         :fixed="fixed"
         :striped="striped"
         :fields="fields"

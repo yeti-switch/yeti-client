@@ -1,6 +1,6 @@
 import JsonApi from 'devour-client'
 
-const jsonApi = new JsonApi({apiUrl: `${CONFIG.yeti.apiBaseUrl}/api/rest/customer/v1`});
+const jsonApi = new JsonApi({ apiUrl: `${CONFIG.yeti.apiBaseUrl}/api/rest/customer/v1` })
 
 jsonApi.define('rate', {
   prefix: '',
@@ -12,12 +12,12 @@ jsonApi.define('rate', {
   rejectCalls: '',
   validFrom: '',
   validTill: '',
-  networkPrefixId: '',
+  networkPrefixId: ''
 })
 
 export default {
-  getRates: function (token, filter) {
+  getRates: function (token, filter, pageNumber) {
     jsonApi.headers['Authorization'] = `Bearer ${token}`
-    return jsonApi.findAll('rate', {filter: filter});
+    return jsonApi.findAll('rate', { filter: filter, page: { size: 50, number: pageNumber } })
   }
 }

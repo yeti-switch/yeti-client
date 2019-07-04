@@ -8,12 +8,12 @@ import Accounts from '../components/accounts/Accounts'
 import store from '../store/store'
 
 const requiresAuth = (to, from, next) => {
-  if(store.getters.isAuthenticated) {
+  if (store.getters.isAuthenticated) {
     next()
-    return 
+    return
   }
 
-  next ({
+  next({
     path: '/login',
     query: {
       redirect: to.fullPath
@@ -22,11 +22,11 @@ const requiresAuth = (to, from, next) => {
 }
 
 const requiresNotAuth = (to, from, next) => {
-  if(!store.getters.isAuthenticated) {
+  if (!store.getters.isAuthenticated) {
     next()
     return
   }
-  next ('/')
+  next('/')
 }
 
 export default new VueRouter({
@@ -41,7 +41,7 @@ export default new VueRouter({
       path: '/login',
       name: 'login',
       component: Login,
-      beforeEnter: requiresNotAuth,
+      beforeEnter: requiresNotAuth
     },
     {
       path: '/404',
@@ -52,31 +52,32 @@ export default new VueRouter({
       path: '/cdrs',
       name: 'cdrs',
       component: Cdrs,
-      beforeEnter: requiresAuth,
+      beforeEnter: requiresAuth
     },
+
     {
       path: '/rates',
       name: 'rates',
       component: Rates,
-      beforeEnter: requiresAuth,
+      beforeEnter: requiresAuth
     },
     {
       path: '/home',
       name: 'home',
       component: Home,
-      beforeEnter: requiresAuth,
+      beforeEnter: requiresAuth
     },
     {
       path: '/accounts',
       name: 'accounts',
       component: Accounts,
-      beforeEnter: requiresAuth,
+      beforeEnter: requiresAuth
     },
     {
       path: '*',
       redirect: {
-          name: 'notfound'
+        name: 'notfound'
       }
-    },
+    }
   ]
 })

@@ -52,17 +52,18 @@ export default {
       this.form.rejectCallsEq = null
       this.form.enabledEq = null
       this.form.prefixEq = ''
-
+      this.$store.dispatch('setRateFilter', {})
       this.$emit('applyFilter')
     },
     onSubmit() {
       const filter = {};
       for(let key in this.form) {
         if (this.form[key]) {
-          filter[key] = this.form[key];
+          filter[key] = this.form[key]
         }
       }
-      this.$emit('applyFilter', filter)
+      this.$store.dispatch('setRateFilter', filter)
+      this.$emit('applyFilter')
     }
   }
 }

@@ -28,6 +28,7 @@ export default {
     onReset(evt) {
       evt.preventDefault()
       this.form.nameCont = ''
+      this.$store.dispatch('setAccountFilter', {})
       this.$emit('applyFilter')
     },
     onSubmit() {
@@ -37,7 +38,8 @@ export default {
           filter[key] = this.form[key];
         }
       }
-      this.$emit('applyFilter', filter)
+      this.$store.dispatch('setAccountFilter', filter)
+      this.$emit('applyFilter')
     }
   }
 }

@@ -4,23 +4,30 @@ const state = {
   cdrs: {},
   requestPending: false,
   error: null,
-};
+  cdrFilter: {}
+}
 const getters = {
   cdrs: state => state.cdrs,
-  isRequestPending: state => state.requestPending
-};
+  isRequestPending: state => state.requestPending,
+  cdrFilter: state => state.cdrFilter
+}
 const actions = {
-  getCdrs: async ({commit, rootState}, filter) => {
+  getCdrs: async ({ commit, rootState }, page) => {
     commit('setRequestPending', true)
-    const cdrs = await Cdrs.getCdrs(rootState.auth.token, filter);
+    const cdrs = await Cdrs.getCdrs(rootState.auth.token, state.cdrFilter, page)
     if (cdrs.error) {
       commit('setError', cdrs.error)
     } else {
       commit('setCdrs', cdrs)
     }
     commit('setRequestPending', false)
+  },
+  setCdrFilter: ({commit, rootState}, filter) => {
+    if(filter) {
+      commit('saveFilter', filter)
+    }
   }
-};
+}
 const mutations = {
   setCdrs: (state, cdrs) => {
     state.cdrs = cdrs
@@ -28,10 +35,13 @@ const mutations = {
   setRequestPending: (state, isPending) => {
     state.requestPending = isPending
   },
-  setError: (state,error) => {
+  setError: (state, error) => {
     state.error = error
+  },
+  saveFilter: (state, filter) => {
+    state.cdrFilter = filter
   }
-};
+}
 
 export default {
   state,

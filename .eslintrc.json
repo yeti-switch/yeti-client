@@ -1,0 +1,21 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "extends": "standard",
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly",
+        "CONFIG": "readonly"
+    },
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "vue"
+    ],
+    "rules": {
+    }
+}

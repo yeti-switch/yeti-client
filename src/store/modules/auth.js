@@ -9,12 +9,12 @@ const getters = {
   authStatus: () => state.status
 }
 const actions = {
-  authRequest: async ({commit}, { username, password }) => {
-    const response = await Authentication.getToken(username, password);
+  authRequest: async ({ commit }, { username, password }) => {
+    const response = await Authentication.getToken(username, password)
     commit('authSuccess', response)
     sessionStorage.setItem('yeti-token', response.jwt)
   },
-  logout: ({commit}) => {
+  logout: ({ commit }) => {
     return new Promise((resolve) => {
       commit('logout')
       sessionStorage.removeItem('yeti-token')
@@ -28,7 +28,7 @@ const mutations = {
     state.token = res.jwt
   },
   logout: (state) => {
-    state.token=''
+    state.token = ''
     state.status = 'unauthorized'
   },
   setError: (state, res) => {

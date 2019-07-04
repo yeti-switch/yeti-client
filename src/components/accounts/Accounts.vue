@@ -5,7 +5,7 @@
     <div class="accountsTable contentTable">
       <b-spinner variant="primary" label="Spinning" v-if="loading"/>
       <b-table hover v-if="accounts"
-        :small="small" 
+        :small="small"
         :items="accounts"
         :per-page="perPage"
         :current-page="currentPage"
@@ -13,7 +13,7 @@
         :striped="striped"
         :fields="fields"
         />
-      
+
       <b-pagination
         v-model="currentPage"
         :total-rows="rows"
@@ -39,31 +39,31 @@ export default {
       striped: true,
       currentPage: 1,
       fields: {
-        type: {
+        'type': {
 
         },
-        name: {
+        'name': {
 
         },
-        balance: {
+        'balance': {
 
         },
-        minBalance: {
+        'min-balance': {
 
         },
-        maxBalance: {
+        'max-balance': {
 
         },
-        destinationRateLimit: {
+        'destination-rate-limit': {
 
         },
-        originationCapacity: {
+        'origination-capacity': {
 
         },
-        terminationCapacity: {
+        'termination-capacity': {
 
         },
-        totalCapacity: {
+        'total-capacity': {
 
         }
       }
@@ -81,8 +81,8 @@ export default {
     }
   },
   methods: {
-    getAccounts: function (filter) {
-      this.$store.dispatch('getAccounts', filter)
+    getAccounts: function (pageNumber) {
+      this.$store.dispatch('getAccounts', pageNumber)
         .catch(err => {
           this.$notify({
             type: 'error',

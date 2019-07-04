@@ -43,34 +43,34 @@ export default {
       perPage: 50,
       currentPage: 1,
       fields: {
-        connectFee: {
+        'connect-fee': {
           label: 'Connect fee'
         },
-        initialInterval: {
+        'initial-interval': {
           label: 'Initial interval'
         },
-        initialRate: {
+        'initial-rate': {
           label: 'Initial rate'
         },
-        networkPrefix: {
+        'network-prefix': {
           label: 'Network prefix'
         },
-        nextInterval: {
+        'next-interval': {
           label: 'Next interval'
         },
-        nextRate: {
+        'next-rate': {
           label: 'Next rate'
         },
-        prefix: {
+        'prefix': {
           label: 'Prefix'
         },
-        rejectCalls: {
+        'reject-calls': {
           label: 'Reject calls'
         },
-        validFrom: {
+        'valid-from': {
           label: 'Valid from'
         },
-        validTill: {
+        'valid-till': {
           label: 'Valid till'
         }
       }
@@ -81,8 +81,8 @@ export default {
       const rates = this.$store.state.rates.rates.data
       if(rates) {
         const items = rates.map(item => {
-          item.validFrom = formatDate(item.validFrom)
-          item.validTill = formatDate(item.validTill)
+          item['valid-from'] = formatDate(item['valid-from'])
+          item['valid-till'] = formatDate(item['valid-till'])
           return item
         })
         return items || []
@@ -97,9 +97,10 @@ export default {
     }
   },
   methods: {
-    getRates: function (filter) {
-      this.$store.dispatch('getRates', filter)
+    getRates: function (pageNumber) {
+      this.$store.dispatch('getRates', pageNumber)
         .catch(err => {
+          console.log(err)
           this.$notify({
             type: 'error',
             title: err[0].title,

@@ -25,7 +25,7 @@ describe('Accounts.vue', () => {
         accounts: {
           state,
           store,
-          actions,
+          actions
         }
       }
     })

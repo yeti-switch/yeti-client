@@ -3,11 +3,10 @@
     <CdrFilter v-on:applyFilter="getCdrs"/>
     <div class="cdrTable contentTable">
       <b-spinner variant="primary" label="Spinning" v-if="loading"/>
-      <b-table hover v-if="cdrs"
+      <b-table hover v-if="!loading"
         :small="small"
         :items="cdrs"
         :per-page="perPage"
-        :current-page="currentPage"
         :striped="striped"
         :fixed="fixed"
         :fields="fields">
@@ -23,6 +22,7 @@
         :per-page="perPage"
         size="sm"
         aria-controls="cdrsTable"
+        v-on:change="getCdrs"
         />
       <p class="mt-3">Total: {{ rows }}</p>
     </div>
@@ -42,106 +42,106 @@ export default {
       perPage: 50,
       currentPage: 1,
       fields: {
-        timeStart: {
+        'time-start': {
           label: 'Start Time'
         },
-        timeConnect: {
+        'time-connect': {
           label: 'Connect Time'
         },
-        timeEnd: {
+        'time-end': {
           label: 'End Time'
         },
-        duration: {
+        'duration': {
           label: 'Duration'
         },
-        success: {
+        'success': {
           label: 'Success'
         },
-        destinationInitialInterval: {
+        'destination-initial-interval': {
           label: 'Destination Initial Interval'
         },
-        destinationInitialRate: {
+        'destination-initial-rate': {
           label: 'Destination Initial Rate'
         },
-        destinationNextInterval: {
+        'destination-next-interval': {
           label: 'Destination Next Initial'
         },
-        destinationNextRate:{
+        'destination-next-rate':{
           label: 'Destination Next Rate'
         },
-        destinationFee:{
+        'destination-fee':{
           label: 'Destination Fee'
         },
-        customerPrice: {
+        'customer-price': {
           label: 'Customer Price'
         },
-        srcNameIn:{
+        'src-name-in':{
           label: 'Src Name In'
         },
-        srcPrefixIn: {
+        'src-prefix-in': {
           label: 'Src Prefix In'
         },
-        fromDomain: {
+        'from-domain': {
           label: 'From Domain'
         },
-        dstPrefixIn: {
+        'dst-prefix-in': {
           label: 'Dst Prefix In'
         },
-        toDomain: {
+        'to-domain': {
           label: 'To Domain'
         },
-        ruriDomain: {
+        'ruri-domain': {
           label: 'R-URI Domain'
         },
-        diversionIn: {
+        'diversion-in': {
           label: 'Diversion In'
         },
-        localTag: {
+        'local-tag': {
           label: 'Local Tag'
         },
-        legaDisconnectCode: {
+        'lega-disconnect-code': {
           label: 'Leg A Disconnect Code'
         },
-        legaDisconnectReason: {
+        'lega-disconnect-reason': {
           label: 'Leg A Disconnect Reason'
         },
-        legaRxPayloads: {
+        'lega-rx-payloads': {
           label: 'Leg A Rx Payloads'
         },
-        legaTxPayloads: {
+        'lega-tx-payloads': {
           label: 'Leg A Tx Payloads'
         },
-        authOrigTransportProtocolId: {
+        'auth-orig-transport-protocol-id': {
           label: 'Auth Origin Transport Protocol Id'
         },
-        authOrigIp: {
+        'auth-orig-ip': {
           label: 'Auth Origin Ip'
         },
-        authOrigPort: {
+        'auth-orig-port': {
           label: 'Auth Origin Port'
         },
-        legaRxBytes: {
+        'lega-rx-bytes': {
           label: 'Leg A Rx Bytes'
         },
-        legaTxBytes: {
+        'lega-tx-bytes': {
           label: 'Leg A Tx Bytes'
         },
-        legaRxDecodeErrs: {
+        'lega-rx-decode-errs': {
           label: 'Leg A Rx Decode Errors'
         },
-        legaRxNoBufErrs: {
+        'lega-rx-no-buf-errs': {
           label: 'Leg A Rx No Buf Errors'
         },
-        legaRxParseErrs: {
+        'lega-rx-parse-errs': {
           label: 'Leg A Rx Parse Errors'
         },
-        srcPrefixRouting: {
+        'src-prefix-routing': {
           label: 'Src Prefix Routing'
         },
-        dstPrefixRouting: {
+        'dst-prefix-routing': {
           label: 'Dst Prefix Routing'
         },
-        destinationPrefix: {
+        'destination-prefix': {
           label: 'Destination Prefix'
         }
       }
@@ -149,12 +149,12 @@ export default {
   },
   computed: {
     cdrs: function () {
-      const cdrs = this.$store.state.cdrs.cdrs.data
+      const cdrs = this.$store.getters.cdrs.data
       if (cdrs) {
         const items = cdrs.map(item => {
-          item.timeStart = formatDate(item.timeStart)
-          item.timeConnect = formatDate(item.timeConnect)
-          item.timeEnd = formatDate(item.timeEnd)
+          item['time-start'] = formatDate(item['time-start'])
+          item['time-connect'] = formatDate(item['time-connect'])
+          item['time-end'] = formatDate(item['time-end'])
           return item
         })
         return items || []
@@ -162,15 +162,19 @@ export default {
       return []
     },
     loading: function () {
-      return this.$store.state.cdrs.requestPending
+      return this.$store.getters.isRequestPending
     },
     rows: function () {
-      return this.cdrs ? this.cdrs.length : 0; // TODO: move somewhere
+      if(this.$store.getters.cdrs && this.$store.getters.cdrs.meta) {
+        const totalCount = this.$store.getters.cdrs.meta['total-count']
+        return totalCount
+      }
+      return 0
     }
   },
   methods: {
-    getCdrs: function (filter) {
-      this.$store.dispatch('getCdrs', filter)
+    getCdrs: function (pageNumber) {
+      this.$store.dispatch('getCdrs', pageNumber)
         .catch(err => {
           this.$notify({
             type: 'error',

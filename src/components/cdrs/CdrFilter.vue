@@ -78,8 +78,8 @@ export default {
   methods: {
     onReset(evt) {
       evt.preventDefault()
-      this.form.timeStartGteq = '',
-      this.form.timeStartLteq = '',
+      this.form.timeStartGteq = ''
+      this.form.timeStartLteq = ''
       this.form.srcPrefixRouting = ''
       this.form.dstPrefixIn = ''
       this.form.dstPrefixRouting = ''
@@ -91,16 +91,18 @@ export default {
       this.form.srcPrefixIn = ''
       this.form.localTag = ''
       this.form.success = null
+      this.$store.dispatch('setCdrFilter', {})
       this.$emit('applyFilter')
     },
     onSubmit() {
       const filter = {};
       for(let key in this.form) {
         if (this.form[key]) {
-          filter[key] = this.form[key];
+          filter[key] = this.form[key]
         }
       }
-      this.$emit('applyFilter', filter)
+      this.$store.dispatch('setCdrFilter', filter)
+      this.$emit('applyFilter')
     }
   }
 }

@@ -1,19 +1,19 @@
 const state = {
-  error: null,
-};
+  error: null
+}
 
 const getters = {
   error: state => state.error
-};
+}
 
 const actions = {
-};
+}
 
 const mutations = {
-  setError: (state,error) => {
+  setError: (state, error) => {
     state.error = error
   }
-};
+}
 
 export default {
   state,

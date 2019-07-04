@@ -19,6 +19,7 @@
         :per-page="perPage"
         size="sm"
         aria-controls="ratesTable"
+        :disabled="loading"
         />
       <p class="mt-3">Total: {{ rows }}</p>
     </div>

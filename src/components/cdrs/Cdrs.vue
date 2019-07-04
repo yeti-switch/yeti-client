@@ -23,6 +23,7 @@
         size="sm"
         aria-controls="cdrsTable"
         v-on:change="getCdrs"
+        :disabled="loading"
         />
       <p class="mt-3">Total: {{ rows }}</p>
     </div>

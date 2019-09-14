@@ -6,9 +6,6 @@ stages:
   - build application
 jobs:
   include:
-    - stage: test
-      name: "Unit Tests"
-      script: "yarn test"
     - stage: build application
       name: "Build Vue application"
       script: "yarn build"

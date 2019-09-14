@@ -1,31 +1,46 @@
 <template>
   <div id="cdrs">
-    <CdrFilter v-on:applyFilter="getCdrs"/>
+    <CdrFilter v-on:applyFilter="getCdrs" />
     <div class="cdrTable contentTable">
-      <b-spinner variant="primary" label="Spinning" v-if="loading"/>
-      <b-table hover v-if="!loading"
+      <b-spinner
+        v-if="loading"
+        variant="primary"
+        label="Spinning"
+      />
+      <b-table
+        v-if="!loading"
         :small="small"
         :items="cdrs"
         :per-page="perPage"
         :striped="striped"
         :fixed="fixed"
-        :fields="fields">
-
-        <template slot="success" slot-scope="row">
-          <b-badge pill v-bind:variant="row.item.success ? 'success' : 'danger'">{{row.item.success}}</b-badge>
+        :fields="fields"
+        hover
+      >
+        <template
+          slot="success"
+          slot-scope="row"
+        >
+          <b-badge
+            v-bind:variant="row.item.success ? 'success' : 'danger'"
+            pill
+          >
+            {{ row.item.success }}
+          </b-badge>
         </template>
-
       </b-table>
       <b-pagination
         v-model="currentPage"
         :total-rows="rows"
         :per-page="perPage"
-        size="sm"
-        aria-controls="cdrsTable"
         v-on:change="getCdrs"
         :disabled="loading"
-        />
-      <p class="mt-3">Total: {{ rows }}</p>
+        size="sm"
+        aria-controls="cdrsTable"
+      />
+      <p class="mt-3">
+        Total: {{ rows }}
+      </p>
     </div>
   </div>
 </template>
@@ -34,7 +49,10 @@
 import formatDate from '../../utils/date'
 import CdrFilter from './CdrFilter'
 export default {
-  name: 'cdrs',
+  name: 'Cdrs',
+  components: {
+    CdrFilter
+  },
   data () {
     return {
       small: true,
@@ -67,16 +85,16 @@ export default {
         'destination-next-interval': {
           label: 'Destination Next Initial'
         },
-        'destination-next-rate':{
+        'destination-next-rate': {
           label: 'Destination Next Rate'
         },
-        'destination-fee':{
+        'destination-fee': {
           label: 'Destination Fee'
         },
         'customer-price': {
           label: 'Customer Price'
         },
-        'src-name-in':{
+        'src-name-in': {
           label: 'Src Name In'
         },
         'src-prefix-in': {
@@ -166,12 +184,15 @@ export default {
       return this.$store.getters.isRequestPending
     },
     rows: function () {
-      if(this.$store.getters.cdrs && this.$store.getters.cdrs.meta) {
+      if (this.$store.getters.cdrs && this.$store.getters.cdrs.meta) {
         const totalCount = this.$store.getters.cdrs.meta['total-count']
         return totalCount
       }
       return 0
     }
+  },
+  created: function () {
+    this.getCdrs()
   },
   methods: {
     getCdrs: function (pageNumber) {
@@ -184,12 +205,6 @@ export default {
           })
         })
     }
-  },
-  created: function () {
-    this.getCdrs()
-  },
-  components: {
-    CdrFilter
   },
 }
 </script>

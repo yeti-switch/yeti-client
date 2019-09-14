@@ -1,18 +1,32 @@
 <template>
   <div id="rates">
-    <RatesFilter v-on:applyFilter="getRates"/>
+    <RatesFilter v-on:applyFilter="getRates" />
     <div class="ratesTable contentTable">
-      <b-spinner variant="primary" label="Spinning" v-if="loading"/>
-      <b-table hover  v-if="rates"
+      <b-spinner
+        v-if="loading"
+        variant="primary"
+        label="Spinning"
+      />
+      <b-table
+        v-if="rates"
         :small="small"
         :items="rates"
         :per-page="perPage"
         :striped="striped"
         :fixed="fixed"
-        :fields="fields">
-
-        <template slot="rejectCalls" slot-scope="row">
-          <b-badge pill v-bind:variant="row.item.rejectCalls ? 'success' : 'danger'">{{row.item.rejectCalls}}</b-badge>
+        :fields="fields"
+        hover
+      >
+        <template
+          slot="rejectCalls"
+          slot-scope="row"
+        >
+          <b-badge
+            v-bind:variant="row.item.rejectCalls ? 'success' : 'danger'"
+            pill
+          >
+            {{ row.item.rejectCalls }}
+          </b-badge>
         </template>
       </b-table>
 
@@ -20,11 +34,13 @@
         v-model="currentPage"
         :total-rows="rows"
         :per-page="perPage"
+        :disabled="loading"
         size="sm"
         aria-controls="ratesTable"
-        :disabled="loading"
-        />
-      <p class="mt-3">Total: {{ rows }}</p>
+      />
+      <p class="mt-3">
+        Total: {{ rows }}
+      </p>
     </div>
   </div>
 </template>
@@ -34,7 +50,10 @@ import formatDate from '../../utils/date'
 import RatesFilter from './RatesFilter'
 
 export default {
-  name: 'rates',
+  name: 'Rates',
+  components: {
+    RatesFilter
+  },
   data () {
     return {
       small: true,
@@ -79,7 +98,7 @@ export default {
   computed: {
     rates: function () {
       const rates = this.$store.state.rates.rates.data
-      if(rates) {
+      if (rates) {
         const items = rates.map(item => {
           item['valid-from'] = formatDate(item['valid-from'])
           item['valid-till'] = formatDate(item['valid-till'])
@@ -93,8 +112,11 @@ export default {
       return this.$store.state.rates.requestPending
     },
     rows: function () {
-      return this.rates ? this.rates.length : 0; // TODO: move somewhere
+      return this.rates ? this.rates.length : 0 // TODO: move somewhere
     }
+  },
+  created: function () {
+    this.getRates()
   },
   methods: {
     getRates: function (pageNumber) {
@@ -108,12 +130,6 @@ export default {
           })
         })
     }
-  },
-  created: function () {
-    this.getRates()
-  },
-  components: {
-    RatesFilter
   }
 }
 </script>

@@ -1,27 +1,35 @@
 <template>
   <div id="accounts">
-    <AccountsFilter v-on:applyFilter="getAccounts"/>
+    <AccountsFilter v-on:applyFilter="getAccounts" />
 
     <div class="accountsTable contentTable">
-      <b-spinner variant="primary" label="Spinning" v-if="loading"/>
-      <b-table hover v-if="accounts"
+      <b-spinner
+        v-if="loading"
+        variant="primary"
+        label="Spinning"
+      />
+      <b-table
+        v-if="accounts"
         :small="small"
         :items="accounts"
         :per-page="perPage"
         :fixed="fixed"
         :striped="striped"
         :fields="fields"
-        />
+        hover
+      />
 
       <b-pagination
         v-model="currentPage"
         :total-rows="rows"
         :per-page="perPage"
+        :disabled="loading"
         size="sm"
         aria-controls="ratesTable"
-        :disabled="loading"
-        />
-      <p class="mt-3">Total: {{ rows }}</p>
+      />
+      <p class="mt-3">
+        Total: {{ rows }}
+      </p>
     </div>
   </div>
 </template>
@@ -30,9 +38,12 @@
 import AccountsFilter from './AccountsFilter'
 
 export default {
-  name: 'accounts',
+  name: 'Accounts',
+  components: {
+    AccountsFilter
+  },
   data () {
-    return  {
+    return {
       perPage: 50,
       small: true,
       fixed: false,
@@ -77,8 +88,11 @@ export default {
       return this.$store.state.accounts.requestPending
     },
     rows: function () {
-      return this.accounts ? this.accounts.length : 0; // TODO: move somewhere
+      return this.accounts ? this.accounts.length : 0 // TODO: move somewhere
     }
+  },
+  created: function () {
+    this.getAccounts()
   },
   methods: {
     getAccounts: function (pageNumber) {
@@ -91,12 +105,6 @@ export default {
           })
         })
     }
-  },
-  created: function () {
-    this.getAccounts()
-  },
-  components: {
-    AccountsFilter
   }
 }
 </script>

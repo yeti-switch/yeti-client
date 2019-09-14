@@ -15,7 +15,7 @@ const actions = {
     sessionStorage.setItem('yeti-token', response.jwt)
   },
   logout: ({ commit }) => {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       commit('logout')
       sessionStorage.removeItem('yeti-token')
       resolve()
@@ -27,7 +27,7 @@ const mutations = {
     state.status = 'success'
     state.token = res.jwt
   },
-  logout: (state) => {
+  logout: state => {
     state.token = ''
     state.status = 'unauthorized'
   },

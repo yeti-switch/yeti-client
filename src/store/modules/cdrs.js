@@ -14,7 +14,11 @@ const getters = {
 const actions = {
   getCdrs: async ({ commit, rootState }, page) => {
     commit('setRequestPending', true)
-    const cdrs = await Cdrs.getCdrs(rootState.auth.token, state.cdrFilter, page)
+    const cdrs = await Cdrs.getCdrs(
+      rootState.auth.token,
+      state.cdrFilter,
+      page
+    )
     if (cdrs.error) {
       commit('setError', cdrs.error)
     } else {
@@ -22,8 +26,8 @@ const actions = {
     }
     commit('setRequestPending', false)
   },
-  setCdrFilter: ({commit, rootState}, filter) => {
-    if(filter) {
+  setCdrFilter: ({ commit, rootState }, filter) => {
+    if (filter) {
       commit('saveFilter', filter)
     }
   }

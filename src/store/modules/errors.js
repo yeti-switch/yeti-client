@@ -6,8 +6,7 @@ const getters = {
   error: state => state.error
 }
 
-const actions = {
-}
+const actions = {}
 
 const mutations = {
   setError: (state, error) => {

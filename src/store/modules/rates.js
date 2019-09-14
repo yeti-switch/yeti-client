@@ -10,10 +10,14 @@ const getters = {
 }
 const actions = {
   getRates: async ({ commit, rootState }, page) => {
-    const rates = await Rates.getRates(rootState.auth.token, state.rateFilter, page)
+    const rates = await Rates.getRates(
+      rootState.auth.token,
+      state.rateFilter,
+      page
+    )
     commit('setRates', rates)
   },
-  setRateFilter: ({commit, rootState}, filter) => {
+  setRateFilter: ({ commit, rootState }, filter) => {
     if (filter) {
       commit('saveFilter', filter)
     }

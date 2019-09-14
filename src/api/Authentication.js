@@ -9,11 +9,14 @@ export default {
     }
     headers.append('Content-Type', 'application/json')
 
-    const response = await fetch(`${CONFIG.yeti.apiBaseUrl}/api/rest/customer/v1/auth`, {
-      method: 'post',
-      body: JSON.stringify(data),
-      headers: headers
-    })
+    const response = await fetch(
+      `${CONFIG.yeti.apiBaseUrl}/api/rest/customer/v1/auth`,
+      {
+        method: 'post',
+        body: JSON.stringify(data),
+        headers: headers
+      }
+    )
 
     if (response.status !== 201) {
       throw new Error('Authorization error')

@@ -47,10 +47,4 @@ export default {
   float: left;
   text-align: left;
 }
-
-.contentTable {
-  font-size: 12px;
-  white-space: nowrap;
-  margin-inline-start: 340px;
-}
 </style>

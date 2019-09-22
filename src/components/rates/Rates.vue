@@ -1,98 +1,73 @@
 <template>
-  <div id="rates">
-    <RatesFilter v-on:applyFilter="getRates" />
-    <div class="ratesTable contentTable">
-      <b-spinner
-        v-if="loading"
-        variant="primary"
-        label="Spinning"
-      />
-      <b-table
-        v-if="rates"
-        :small="small"
-        :items="rates"
-        :per-page="perPage"
-        :striped="striped"
-        :fixed="fixed"
-        :fields="fields"
-        hover
-      >
-        <template
-          slot="rejectCalls"
-          slot-scope="row"
-        >
-          <b-badge
-            v-bind:variant="row.item.rejectCalls ? 'success' : 'danger'"
-            pill
-          >
-            {{ row.item.rejectCalls }}
-          </b-badge>
-        </template>
-      </b-table>
-
-      <b-pagination
-        v-model="currentPage"
-        :total-rows="rows"
-        :per-page="perPage"
-        :disabled="loading"
-        size="sm"
-        aria-controls="ratesTable"
-      />
-      <p class="mt-3">
-        Total: {{ rows }}
-      </p>
-    </div>
-  </div>
+  <DataTable
+    :fields="fields"
+    :items="rates"
+    :rows="rows"
+    :badgedItem="badgedItem"
+    :getData="getRates"
+  >
+    <template v-slot:filter>
+      <RatesFilter v-on:applyFilter="getRates" />
+    </template>
+  </DataTable>
 </template>
 
 <script>
 import formatDate from '../../utils/date'
 import RatesFilter from './RatesFilter'
+import DataTable from '../DataTable/DataTable'
 
 export default {
   name: 'Rates',
   components: {
-    RatesFilter
+    RatesFilter,
+    DataTable
   },
   data () {
     return {
-      small: true,
-      striped: true,
-      fixed: false,
-      perPage: 50,
-      currentPage: 1,
-      fields: {
-        'connect-fee': {
+      badgedItem: 'rejectCalls',
+      fields: [
+        {
+          key:'connect-fee',
           label: 'Connect fee'
         },
-        'initial-interval': {
+        {
+          key:'initial-interval',
           label: 'Initial interval'
         },
-        'initial-rate': {
+        {
+          key:'initial-rate',
           label: 'Initial rate'
         },
-        'network-prefix': {
+        {
+          key:'network-prefix',
           label: 'Network prefix'
         },
-        'next-interval': {
+        {
+          key:'next-interval',
           label: 'Next interval'
         },
-        'next-rate': {
+        {
+          key:'next-rate',
           label: 'Next rate'
         },
-        'prefix': {
+        {
+          key:'prefix',
           label: 'Prefix'
         },
-        'reject-calls': {
+        {
+          key:'reject-calls',
           label: 'Reject calls'
         },
-        'valid-from': {
+        {
+          key:'valid-from',
           label: 'Valid from'
         },
-        'valid-till': {
+        {
+          key:'valid-till',
           label: 'Valid till'
         }
-      }
+      ]
     }
   },
   computed: {
@@ -107,9 +82,6 @@ export default {
         return items || []
       }
       return []
-    },
-    loading: function () {
-      return this.$store.state.rates.requestPending
     },
     rows: function () {
       return this.rates ? this.rates.length : 0 // TODO: move somewhere

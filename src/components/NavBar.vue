@@ -26,6 +26,7 @@
           </b-nav-item>
           <b-nav-item
             v-if="isAuthenticated"
+            :active="this.$route.path === '/home'"
             router-link
             to="/"
           >
@@ -33,6 +34,7 @@
           </b-nav-item>
           <b-nav-item
             v-if="isAuthenticated"
+            :active="this.$route.path === '/rates'"
             router-link
             to="/rates"
           >
@@ -40,6 +42,7 @@
           </b-nav-item>
           <b-nav-item
             v-if="isAuthenticated"
+            :active="this.$route.path === '/cdrs'"
             router-link
             to="/cdrs"
           >
@@ -47,6 +50,7 @@
           </b-nav-item>
           <b-nav-item
             v-if="isAuthenticated"
+            :active="this.$route.path === '/accounts'"
             router-link
             to="/accounts"
           >
@@ -68,7 +72,7 @@
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
-    <b-breadcrumb :items="[this.$route.path]" />
+    <b-breadcrumb :items="breadcrumbs" />
   </div>
 </template>
 
@@ -77,10 +81,25 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'NavBar',
   data () {
-    return ({})
+    return ({
+      breadcrumbsNames: {
+        '/cdrs': 'CDRs',
+        '/rates': 'Rates',
+        '/accounts': 'Accounts'
+      }
+    })
   },
   computed: {
     ...mapGetters(['isAuthenticated']),
+    breadcrumbs: function () {
+
+      const breadcrumbObject = {
+        text: this.$data.breadcrumbsNames[this.$route.path],
+        href: this.$route.path
+      }
+
+      return [breadcrumbObject]
+    }
   },
 
   methods: {

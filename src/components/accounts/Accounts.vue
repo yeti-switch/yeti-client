@@ -1,91 +1,44 @@
 <template>
-  <div id="accounts">
-    <AccountsFilter v-on:applyFilter="getAccounts" />
-
-    <div class="accountsTable contentTable">
-      <b-spinner
-        v-if="loading"
-        variant="primary"
-        label="Spinning"
-      />
-      <b-table
-        v-if="accounts"
-        :small="small"
-        :items="accounts"
-        :per-page="perPage"
-        :fixed="fixed"
-        :striped="striped"
-        :fields="fields"
-        hover
-      />
-
-      <b-pagination
-        v-model="currentPage"
-        :total-rows="rows"
-        :per-page="perPage"
-        :disabled="loading"
-        size="sm"
-        aria-controls="ratesTable"
-      />
-      <p class="mt-3">
-        Total: {{ rows }}
-      </p>
-    </div>
-  </div>
+  <DataTable
+    :fields="fields"
+    :items="accounts"
+    :rows="rows"
+    :getData="getAccounts"
+  >
+    <template v-slot:filter>
+      <AccountsFilter v-on:applyFilter="getAccounts" />
+    </template>
+  </DataTable>
 </template>
 
 <script>
 import AccountsFilter from './AccountsFilter'
+import DataTable from '../DataTable/DataTable'
 
 export default {
   name: 'Accounts',
   components: {
-    AccountsFilter
+    AccountsFilter,
+    DataTable
   },
   data () {
     return {
-      perPage: 50,
-      small: true,
-      fixed: false,
-      striped: true,
-      currentPage: 1,
-      fields: {
-        'type': {
-
-        },
-        'name': {
-
-        },
-        'balance': {
-
-        },
-        'min-balance': {
-
-        },
-        'max-balance': {
-
-        },
-        'destination-rate-limit': {
-
-        },
-        'origination-capacity': {
-
-        },
-        'termination-capacity': {
-
-        },
-        'total-capacity': {
-
-        }
-      }
+      fields: [
+        'type',
+        'name',
+        'balance',
+        'min-balance',
+        'max-balance',
+        'destination-rate-limit',
+        'origination-capacity',
+        'termination-capacity',
+        'total-capacity'
+      ]
     }
   },
   computed: {
     accounts: function () {
       return this.$store.state.accounts.accounts.data  // TODO: move somewhere
-    },
-    loading: function () {
-      return this.$store.state.accounts.requestPending
     },
     rows: function () {
       return this.accounts ? this.accounts.length : 0 // TODO: move somewhere

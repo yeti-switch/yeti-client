@@ -1,169 +1,170 @@
 <template>
-  <div id="cdrs">
-    <CdrFilter v-on:applyFilter="getCdrs" />
-    <div class="cdrTable contentTable">
-      <b-spinner
-        v-if="loading"
-        variant="primary"
-        label="Spinning"
-      />
-      <b-table
-        v-if="!loading"
-        :small="small"
-        :items="cdrs"
-        :per-page="perPage"
-        :striped="striped"
-        :fixed="fixed"
-        :fields="fields"
-        hover
-      >
-        <template
-          slot="success"
-          slot-scope="row"
-        >
-          <b-badge
-            v-bind:variant="row.item.success ? 'success' : 'danger'"
-            pill
-          >
-            {{ row.item.success }}
-          </b-badge>
-        </template>
-      </b-table>
-      <b-pagination
-        v-model="currentPage"
-        :total-rows="rows"
-        :per-page="perPage"
-        v-on:change="getCdrs"
-        :disabled="loading"
-        size="sm"
-        aria-controls="cdrsTable"
-      />
-      <p class="mt-3">
-        Total: {{ rows }}
-      </p>
-    </div>
-  </div>
+  <DataTable
+    :fields="fields"
+    :items="cdrs"
+    :rows="rows"
+    :badgedItem="badgedItem"
+    :getData="getCdrs"
+  >
+    <template v-slot:filter>
+      <CdrFilter v-on:applyFilter="getCdrs" />
+    </template>
+  </DataTable>
 </template>
 
 <script>
 import formatDate from '../../utils/date'
 import CdrFilter from './CdrFilter'
+import DataTable from '../DataTable/DataTable'
+
 export default {
   name: 'Cdrs',
   components: {
-    CdrFilter
+    CdrFilter,
+    DataTable
   },
   data () {
     return {
-      small: true,
-      striped: true,
-      fixed: false,
-      perPage: 50,
-      currentPage: 1,
-      fields: {
-        'time-start': {
-          label: 'Start Time'
+      badgedItem: 'success',
+      fields: [
+        {
+          key: 'time-start',
+          label: 'Start Time',
+          sortable: true
         },
-        'time-connect': {
+        {
+          key: 'time-connect',
           label: 'Connect Time'
         },
-        'time-end': {
+        {
+          key: 'time-end',
           label: 'End Time'
         },
-        'duration': {
+        {
+          key: 'duration',
           label: 'Duration'
         },
-        'success': {
+        {
+          key: 'success',
           label: 'Success'
         },
-        'destination-initial-interval': {
+        {
+          key: 'destination-initial-interval',
           label: 'Destination Initial Interval'
         },
-        'destination-initial-rate': {
+        {
+          key: 'destination-initial-rate',
           label: 'Destination Initial Rate'
         },
-        'destination-next-interval': {
+        {
+          key: 'destination-next-interval',
           label: 'Destination Next Initial'
         },
-        'destination-next-rate': {
+        {
+          key: 'destination-next-rate',
           label: 'Destination Next Rate'
         },
-        'destination-fee': {
+        {
+          key: 'destination-fee',
           label: 'Destination Fee'
         },
-        'customer-price': {
+        {
+          key: 'customer-price',
           label: 'Customer Price'
         },
-        'src-name-in': {
+        {
+          key: 'src-name-in',
           label: 'Src Name In'
         },
-        'src-prefix-in': {
+        {
+          key: 'src-prefix-in',
           label: 'Src Prefix In'
         },
-        'from-domain': {
+        {
+          key: 'from-domain',
           label: 'From Domain'
         },
-        'dst-prefix-in': {
+        {
+          key: 'dst-prefix-in',
           label: 'Dst Prefix In'
         },
-        'to-domain': {
+        {
+          key: 'to-domain',
           label: 'To Domain'
         },
-        'ruri-domain': {
+        {
+          key: 'ruri-domain',
           label: 'R-URI Domain'
         },
-        'diversion-in': {
+        {
+          key: 'diversion-in',
           label: 'Diversion In'
         },
-        'local-tag': {
+        {
+          key: 'local-tag',
           label: 'Local Tag'
         },
-        'lega-disconnect-code': {
+        {
+          key: 'lega-disconnect-code',
           label: 'Leg A Disconnect Code'
         },
-        'lega-disconnect-reason': {
+        {
+          key: 'lega-disconnect-reason',
           label: 'Leg A Disconnect Reason'
         },
-        'lega-rx-payloads': {
+        {
+          key: 'lega-rx-payloads',
           label: 'Leg A Rx Payloads'
         },
-        'lega-tx-payloads': {
+        {
+          key: 'lega-tx-payloads',
           label: 'Leg A Tx Payloads'
         },
-        'auth-orig-transport-protocol-id': {
+        {
+          key: 'auth-orig-transport-protocol-id',
           label: 'Auth Origin Transport Protocol Id'
         },
-        'auth-orig-ip': {
+        {
+          key: 'auth-orig-ip',
           label: 'Auth Origin Ip'
         },
-        'auth-orig-port': {
+        {
+          key: 'auth-orig-port',
           label: 'Auth Origin Port'
         },
-        'lega-rx-bytes': {
+        {
+          key: 'lega-rx-bytes',
           label: 'Leg A Rx Bytes'
         },
-        'lega-tx-bytes': {
+        {
+          key: 'lega-tx-bytes',
           label: 'Leg A Tx Bytes'
         },
-        'lega-rx-decode-errs': {
+        {
+          key: 'lega-rx-decode-errs',
           label: 'Leg A Rx Decode Errors'
         },
-        'lega-rx-no-buf-errs': {
+        {
+          key: 'lega-rx-no-buf-errs',
           label: 'Leg A Rx No Buf Errors'
         },
-        'lega-rx-parse-errs': {
+        {
+          key: 'lega-rx-parse-errs',
           label: 'Leg A Rx Parse Errors'
         },
-        'src-prefix-routing': {
+        {
+          key: 'src-prefix-routing',
           label: 'Src Prefix Routing'
         },
-        'dst-prefix-routing': {
+        {
+          key: 'dst-prefix-routing',
           label: 'Dst Prefix Routing'
         },
-        'destination-prefix': {
+        {
+          key: 'destination-prefix',
           label: 'Destination Prefix'
         }
-      }
+      ]
     }
   },
   computed: {
@@ -185,9 +186,9 @@ export default {
     },
     rows: function () {
       if (this.$store.getters.cdrs && this.$store.getters.cdrs.meta) {
-        const totalCount = this.$store.getters.cdrs.meta['total-count']
-        return totalCount
+        return this.$store.getters.cdrs.meta['total-count']
       }
+
       return 0
     }
   },

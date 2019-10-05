@@ -7,7 +7,7 @@
     :getData="getRates"
   >
     <template v-slot:filter>
-      <RatesFilter v-on:applyFilter="getRates" />
+      <!-- <RatesFilter v-on:applyFilter="getRates" /> -->
     </template>
   </DataTable>
 </template>
@@ -20,7 +20,7 @@ import DataTable from '../DataTable/DataTable'
 export default {
   name: 'Rates',
   components: {
-    RatesFilter,
+    // RatesFilter,
     DataTable
   },
   data () {

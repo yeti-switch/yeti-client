@@ -7,25 +7,82 @@
     :getData="getCdrs"
   >
     <template v-slot:filter>
-      <CdrFilter v-on:applyFilter="getCdrs" />
+      <!-- <CdrFilter v-on:applyFilter="getCdrs" /> -->
+    </template>
+    <template v-slot:quickFilter>
+      <div class="quickfilter">
+        <div>
+          <b-link>Apply custom filters</b-link>, or
+        </div>
+        <div class="quickfilter-wrapper">
+          <span>use quick filter by Start Time: </span>
+          <date-range-picker
+            ref="picker"
+            :opens="opens"
+            :locale-data="localeData"
+            :timePicker="timePicker"
+            v-model="dateRange"
+            @update="updateValues"
+            :linkedCalendars="linkedCalendars"
+          >
+            >
+            <div
+              slot="input"
+              slot-scope="picker"
+              style="min-width: 250px;"
+            >
+              {{ picker.startDate | date }} - {{ picker.endDate | date }}
+            </div>
+          </date-range-picker>
+          <b-button
+            v-if="Boolean(dateRange)"
+            v-on:click="onResetClick"
+            type="reset"
+            variant="light"
+            size="sm"
+            class="ml-2"
+          >
+            Reset
+          </b-button>
+        </div>
+      </div>
     </template>
   </DataTable>
 </template>
 
 <script>
+import { format }from 'date-fns'
+import DateRangePicker from 'vue2-daterange-picker'
+
 import formatDate from '../../utils/date'
 import CdrFilter from './CdrFilter'
 import DataTable from '../DataTable/DataTable'
 
+import 'vue2-daterange-picker/dist/vue2-daterange-picker.css'
+
+
 export default {
   name: 'Cdrs',
   components: {
-    CdrFilter,
-    DataTable
+    // CdrFilter,
+    DataTable,
+    DateRangePicker
+  },
+  filters: {
+    date: function (date) {
+      return date ? format(date, 'yyyy-MM-dd hh:mm') : date
+    }
   },
   data () {
     return {
       badgedItem: 'success',
+      // Picker stuff
+      opens: 'right',
+      timePicker: true,
+      dateRange: '',
+      linkedCalendars: false,
+      localeData: { firstDay: 1, format: 'DD-MM-YYYY HH:mm:ss', applyLabel: 'Filter' },
+      // Table fields
       fields: [
         {
           key: 'time-start',
@@ -192,6 +249,9 @@ export default {
       return 0
     }
   },
+  destroyed: function () {
+    this.resetCdrFilter()
+  },
   created: function () {
     this.getCdrs()
   },
@@ -205,10 +265,30 @@ export default {
             text: err[0].detail
           })
         })
+    },
+    updateValues: function (event) {
+      this.$store.dispatch('setCdrFilter', {timeStartGteq: event.startDate, timeStartLteq: event.endDate})
+      this.getCdrs()
+    },
+    onResetClick: function () {
+      this.$data.dateRange = ''
+      this.resetCdrFilter()
+      this.getCdrs()
+    },
+    resetCdrFilter: function () {
+      this.$store.dispatch('setCdrFilter', {})
     }
-  },
+  }
 }
 </script>
 
 <style>
+.quickfilter {
+  text-align: left;
+  padding: 0 0 10px 15px;
+}
+.quickfilter .form-control {
+  font-size: 0.9rem;
+  text-align: center;
+}
 </style>

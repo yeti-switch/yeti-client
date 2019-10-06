@@ -6,7 +6,7 @@
     :getData="getAccounts"
   >
     <template v-slot:filter>
-      <AccountsFilter v-on:applyFilter="getAccounts" />
+      <!-- <AccountsFilter v-on:applyFilter="getAccounts" /> -->
     </template>
   </DataTable>
 </template>
@@ -18,7 +18,7 @@ import DataTable from '../DataTable/DataTable'
 export default {
   name: 'Accounts',
   components: {
-    AccountsFilter,
+    // AccountsFilter,
     DataTable
   },
   data () {

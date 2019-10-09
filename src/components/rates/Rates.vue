@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import formatDate from '../../utils/date'
+import utils from '../../utils'
 import RatesFilter from './RatesFilter'
 import DataTable from '../DataTable/DataTable'
 
@@ -75,8 +75,8 @@ export default {
       const rates = this.$store.state.rates.rates.data
       if (rates) {
         const items = rates.map(item => {
-          item['valid-from'] = formatDate(item['valid-from'])
-          item['valid-till'] = formatDate(item['valid-till'])
+          item['valid-from'] = utils.formatTableDate(item['valid-from'])
+          item['valid-till'] = utils.formatTableDate(item['valid-till'])
           return item
         })
         return items || []

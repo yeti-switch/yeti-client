@@ -19,7 +19,7 @@ const actions = {
   },
   setRateFilter: ({ commit, rootState }, filter) => {
     if (filter) {
-      commit('saveFilter', filter)
+      commit('saveRateFilter', filter)
     }
   }
 }
@@ -27,7 +27,7 @@ const mutations = {
   setRates: (state, rates) => {
     state.rates = rates
   },
-  saveFilter: (state, filter) => {
+  saveRateFilter: (state, filter) => {
     state.rateFilter = filter
   }
 }

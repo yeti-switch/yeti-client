@@ -35,7 +35,6 @@
             </div>
           </date-range-picker>
           <b-button
-            v-if="Boolean(dateRange)"
             v-on:click="onResetClick"
             type="reset"
             variant="light"
@@ -51,10 +50,10 @@
 </template>
 
 <script>
-import { format }from 'date-fns'
+import { isEmpty } from 'lodash'
 import DateRangePicker from 'vue2-daterange-picker'
 
-import formatDate from '../../utils/date'
+import utils from '../../utils'
 import CdrFilter from './CdrFilter'
 import DataTable from '../DataTable/DataTable'
 
@@ -69,8 +68,8 @@ export default {
     DateRangePicker
   },
   filters: {
-    date: function (date) {
-      return date ? format(date, 'yyyy-MM-dd hh:mm') : date
+    date: function (dateStr) {
+      return utils.formatPickerDate(dateStr)
     }
   },
   data () {
@@ -79,7 +78,7 @@ export default {
       // Picker stuff
       opens: 'right',
       timePicker: true,
-      dateRange: '',
+      dateRange: utils.getLast24Hours(),
       linkedCalendars: false,
       localeData: { firstDay: 1, format: 'DD-MM-YYYY HH:mm:ss', applyLabel: 'Filter' },
       // Table fields
@@ -229,14 +228,17 @@ export default {
       const cdrs = this.$store.getters.cdrs.data
       if (cdrs) {
         const items = cdrs.map(item => {
-          item['time-start'] = formatDate(item['time-start'])
-          item['time-connect'] = formatDate(item['time-connect'])
-          item['time-end'] = formatDate(item['time-end'])
+          item['time-start'] = utils.formatTableDate(item['time-start'])
+          item['time-connect'] = utils.formatTableDate(item['time-connect'])
+          item['time-end'] = utils.formatTableDate(item['time-end'])
           return item
         })
         return items || []
       }
       return []
+    },
+    filterValue: function () {
+      return { timeStartGteq: this.$data.dateRange.startDate, timeStartLteq: this.$data.dateRange.endDate }
     },
     loading: function () {
       return this.$store.getters.isRequestPending
@@ -249,10 +251,10 @@ export default {
       return 0
     }
   },
-  destroyed: function () {
-    this.resetCdrFilter()
-  },
   created: function () {
+    if (isEmpty(this.$store.getters.cdrFilter)) {
+      this.$store.dispatch('setCdrFilter', this.filterValue)
+    }
     this.getCdrs()
   },
   methods: {
@@ -267,16 +269,16 @@ export default {
         })
     },
     updateValues: function (event) {
-      this.$store.dispatch('setCdrFilter', {timeStartGteq: event.startDate, timeStartLteq: event.endDate})
+      this.$store.dispatch('setCdrFilter', this.filterValue)
       this.getCdrs()
     },
     onResetClick: function () {
-      this.$data.dateRange = ''
+      this.$data.dateRange = utils.getLast24Hours()
       this.resetCdrFilter()
       this.getCdrs()
     },
     resetCdrFilter: function () {
-      this.$store.dispatch('setCdrFilter', {})
+      this.$store.dispatch('setCdrFilter', this.filterValue)
     }
   }
 }

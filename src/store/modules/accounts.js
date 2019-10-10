@@ -25,7 +25,7 @@ const actions = {
   },
   setAccountFilter: ({ commit, rootState }, filter) => {
     if (filter) {
-      commit('saveFilter', filter)
+      commit('saveAccountsFilter', filter)
     }
   }
 }
@@ -36,7 +36,7 @@ const mutations = {
   setRequestPending: (state, isPending) => {
     state.requestPending = isPending
   },
-  saveFilter: (state, filter) => {
+  saveAccountsFilter: (state, filter) => {
     state.accountFilter = filter
   }
 }

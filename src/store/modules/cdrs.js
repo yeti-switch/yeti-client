@@ -28,7 +28,7 @@ const actions = {
   },
   setCdrFilter: ({ commit, rootState }, filter) => {
     if (filter) {
-      commit('saveFilter', filter)
+      commit('saveCdrFilter', filter)
     }
   }
 }
@@ -42,7 +42,7 @@ const mutations = {
   setError: (state, error) => {
     state.error = error
   },
-  saveFilter: (state, filter) => {
+  saveCdrFilter: (state, filter) => {
     state.cdrFilter = filter
   }
 }

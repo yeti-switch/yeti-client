@@ -1,5 +1,7 @@
-import * as dateUtils from './date/date'
+import * as date from './date/date';
+import * as response from './normalizers/response';
 
 export default {
-  ...dateUtils
-}
+  ...date,
+  ...response,
+};

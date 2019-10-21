@@ -2,22 +2,10 @@
   <div id="dataTable">
     <slot name="filter" />
     <div class="dataTable">
-      <b-spinner
-        v-if="loading"
-        variant="primary"
-        label="Spinning"
-      />
-      <slot
-        v-if="!loading"
-        name="quickFilter"
-      />
+      <b-spinner v-if="loading" variant="primary" label="Spinning" />
+      <slot v-if="!loading" name="quickFilter" />
 
-      <h6
-        v-if="!loading"
-        class="datatable-total"
-      >
-        Items in table: {{ rows }}
-      </h6>
+      <h6 v-if="!loading" class="datatable-total">Items in table: {{ rows }}</h6>
       <b-table
         v-if="!loading"
         :small="small"
@@ -29,16 +17,11 @@
         sticky-header="calc(100vh - 17rem)"
         hover
       >
-        <template
-          :slot="badgedItem"
-          slot-scope="row"
-        >
+        <template :slot="badgedItem" slot-scope="row">
           <b-badge
             v-bind:variant="row.item[badgedItem] ? 'success' : 'danger'"
             pill
-          >
-            {{ row.item[badgedItem] }}
-          </b-badge>
+          >{{ row.item[badgedItem] }}</b-badge>
         </template>
       </b-table>
       <b-pagination
@@ -58,23 +41,50 @@
 
 <script>
 export default {
-  name: 'Cdrs',
-  props: ['fields', 'items', 'rows', 'badgedItem', 'getData'],
-  data () {
+  name: "Cdrs",
+  props: {
+    fields: {
+      type: Array,
+      default: function() {
+        return [];
+      }
+    },
+    items: {
+      type: Array,
+      default: function() {
+        return [];
+      }
+    },
+    rows: {
+      type: Number,
+      default: 0
+    },
+    badgedItem: {
+      type: String,
+      default: ""
+    },
+    getData: {
+      type: Function,
+      default: function() {
+        return [];
+      }
+    }
+  },
+  data() {
     return {
       small: false,
       striped: true,
       fixed: false,
       perPage: 50,
       currentPage: 1
-    }
+    };
   },
   computed: {
-    loading: function () {
-      return this.$store.getters.isRequestPending
-    },
+    loading: function() {
+      return this.$store.getters.isRequestPending;
+    }
   }
-}
+};
 </script>
 
 

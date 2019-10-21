@@ -29,11 +29,11 @@ export default {
       error: (payload) => {
         this.$notify({
           type: 'error',
-          title: payload.title,
-          text: payload.detail,
+          title: payload[0].title,
+          text: payload[0].detail,
         });
 
-        if (payload.message === 'Request failed with status code 401') {
+        if (payload[0].title === 'Authorization failed') {
           this.$store.dispatch('logout');
           this.$router.push('/login');
         }

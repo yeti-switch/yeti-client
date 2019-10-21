@@ -1,83 +1,83 @@
-import VueRouter from 'vue-router'
-import Login from '../components/Login'
-import NotFound from '../components/NotFound'
-import Cdrs from '../components/cdrs/Cdrs'
-import Rates from '../components/rates/Rates'
-import Home from '../components/Home'
-import Accounts from '../components/accounts/Accounts'
-import store from '../store/store'
+import VueRouter from 'vue-router';
+import Login from '../components/Login';
+import NotFound from '../components/NotFound';
+import Cdrs from '../components/cdrs/Cdrs';
+import Rates from '../components/rates/Rates';
+import Home from '../components/Home';
+import Accounts from '../components/accounts/Accounts';
+import store from '../store/store';
 
 const requiresAuth = (to, from, next) => {
   if (store.getters.isAuthenticated) {
-    next()
-    return
+    next();
+    return;
   }
 
   next({
     path: '/login',
     query: {
-      redirect: to.fullPath
-    }
-  })
-}
+      redirect: to.fullPath,
+    },
+  });
+};
 
 const requiresNotAuth = (to, from, next) => {
   if (!store.getters.isAuthenticated) {
-    next()
-    return
+    next();
+    return;
   }
-  next('/')
-}
+  next('/');
+};
 
 export default new VueRouter({
   routes: [
     {
       path: '/',
       redirect: {
-        name: 'home'
-      }
+        name: 'home',
+      },
     },
     {
       path: '/login',
       name: 'login',
       component: Login,
-      beforeEnter: requiresNotAuth
+      beforeEnter: requiresNotAuth,
     },
     {
       path: '/404',
       name: 'notfound',
-      component: NotFound
+      component: NotFound,
     },
     {
       path: '/cdrs',
       name: 'cdrs',
       component: Cdrs,
-      beforeEnter: requiresAuth
+      beforeEnter: requiresAuth,
     },
 
     {
       path: '/rates',
       name: 'rates',
       component: Rates,
-      beforeEnter: requiresAuth
+      beforeEnter: requiresAuth,
     },
     {
       path: '/home',
       name: 'home',
       component: Home,
-      beforeEnter: requiresAuth
+      beforeEnter: requiresAuth,
     },
     {
       path: '/accounts',
       name: 'accounts',
       component: Accounts,
-      beforeEnter: requiresAuth
+      beforeEnter: requiresAuth,
     },
     {
       path: '*',
       redirect: {
-        name: 'notfound'
-      }
-    }
-  ]
-})
+        name: 'notfound',
+      },
+    },
+  ],
+});

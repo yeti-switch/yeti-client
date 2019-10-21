@@ -2,8 +2,8 @@ export const RESOURCES = {
   RATE: 'rate',
   CDR: 'cdr',
   AUTH_ORIGIN_TRANSPORT_PROTOCOL: 'authOrigTransportProtocol',
-  ACCOUNT: 'account'
-}
+  ACCOUNT: 'account',
+};
 
 export const RELATIONSHIPS = {
   [RESOURCES.RATE]: {
@@ -16,7 +16,7 @@ export const RELATIONSHIPS = {
     rejectCalls: '',
     validFrom: '',
     validTill: '',
-    networkPrefixId: ''
+    networkPrefixId: '',
   },
   [RESOURCES.CDR]: {
     timeStart: '',
@@ -55,11 +55,11 @@ export const RELATIONSHIPS = {
     destinationPrefix: '',
     authOrigTransportProtocol: {
       jsonApi: 'hasMany',
-      type: 'comments'
-    }
+      type: 'comments',
+    },
   },
   [RESOURCES.AUTH_ORIGIN_TRANSPORT_PROTOCOL]: {
-    authOrigTransportProtocol: 'authOrigTransportProtocol'
+    authOrigTransportProtocol: 'authOrigTransportProtocol',
   },
   [RESOURCES.ACCOUNT]: {
     name: '',
@@ -69,6 +69,6 @@ export const RELATIONSHIPS = {
     destinationRateLimit: '',
     originationCapacity: '',
     terminationCapacity: '',
-    totalCapacity: ''
-  }
-}
+    totalCapacity: '',
+  },
+};

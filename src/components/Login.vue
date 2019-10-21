@@ -1,8 +1,8 @@
 <template>
   <div id="auth">
     <b-form
-      @submit.prevent="login"
       class="login"
+      @submit.prevent="login"
     >
       <b-form-group label="Welcome to Yeti">
         <b-form-input
@@ -34,30 +34,30 @@
 
 export default {
   name: 'Login',
-  data () {
+  data() {
     return {
       username: '',
       password: '',
-    }
+    };
   },
   methods: {
-    login () {
-      const { username, password } = this
+    login() {
+      const { username, password } = this;
       this.$store.dispatch('authRequest', { username, password })
         .then(() => this.$router.push(this.$route.query.redirect || '/'))
         .then(() => this.$notify({
           type: 'success',
-          text: 'Login successful'
+          text: 'Login successful',
         }))
-        .catch(err => {
+        .catch((err) => {
           this.$notify({
             type: 'error',
-            text: err
-          })
-        })
-    }
-  }
-}
+            text: err,
+          });
+        });
+    },
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

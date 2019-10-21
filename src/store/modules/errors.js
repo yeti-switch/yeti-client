@@ -1,22 +1,22 @@
 const state = {
-  error: null
-}
+  error: null,
+};
 
 const getters = {
-  error: state => state.error
-}
+  error: (currentState) => currentState.error,
+};
 
-const actions = {}
+const actions = {};
 
 const mutations = {
-  setError: (state, error) => {
-    state.error = error
-  }
-}
+  setError: (currentState, error) => {
+    currentState.error = error;
+  },
+};
 
 export default {
   state,
   getters,
   actions,
-  mutations
-}
+  mutations,
+};

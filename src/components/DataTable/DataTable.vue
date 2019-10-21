@@ -2,10 +2,22 @@
   <div id="dataTable">
     <slot name="filter" />
     <div class="dataTable">
-      <b-spinner v-if="loading" variant="primary" label="Spinning" />
-      <slot v-if="!loading" name="quickFilter" />
+      <b-spinner
+        v-if="loading"
+        variant="primary"
+        label="Spinning"
+      />
+      <slot
+        v-if="!loading"
+        name="quickFilter"
+      />
 
-      <h6 v-if="!loading" class="datatable-total">Items in table: {{ rows }}</h6>
+      <h6
+        v-if="!loading"
+        class="datatable-total"
+      >
+        Items in table: {{ rows }}
+      </h6>
       <b-table
         v-if="!loading"
         :small="small"
@@ -17,11 +29,16 @@
         sticky-header="calc(100vh - 17rem)"
         hover
       >
-        <template :slot="badgedItem" slot-scope="row">
+        <template
+          :slot="badgedItem"
+          slot-scope="row"
+        >
           <b-badge
-            v-bind:variant="row.item[badgedItem] ? 'success' : 'danger'"
+            :variant="row.item[badgedItem] ? 'success' : 'danger'"
             pill
-          >{{ row.item[badgedItem] }}</b-badge>
+          >
+            {{ row.item[badgedItem] }}
+          </b-badge>
         </template>
       </b-table>
       <b-pagination
@@ -29,10 +46,10 @@
         v-model="currentPage"
         :total-rows="rows"
         :per-page="perPage"
-        v-on:change="getData"
         align="center"
         size="sm"
         aria-controls="dataTable"
+        @change="getData"
       />
     </div>
   </div>
@@ -41,34 +58,34 @@
 
 <script>
 export default {
-  name: "Cdrs",
+  name: 'Cdrs',
   props: {
     fields: {
       type: Array,
-      default: function() {
+      default() {
         return [];
-      }
+      },
     },
     items: {
       type: Array,
-      default: function() {
+      default() {
         return [];
-      }
+      },
     },
     rows: {
       type: Number,
-      default: 0
+      default: 0,
     },
     badgedItem: {
       type: String,
-      default: ""
+      default: '',
     },
     getData: {
       type: Function,
-      default: function() {
+      default() {
         return [];
-      }
-    }
+      },
+    },
   },
   data() {
     return {
@@ -76,14 +93,14 @@ export default {
       striped: true,
       fixed: false,
       perPage: 50,
-      currentPage: 1
+      currentPage: 1,
     };
   },
   computed: {
-    loading: function() {
+    loading() {
       return this.$store.getters.isRequestPending;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -105,4 +122,3 @@ export default {
   padding-left: 15px;
 }
 </style>
-

@@ -64,8 +64,8 @@
           class="ml-auto"
         >
           <b-nav-item
-            @click="logout"
             href="#"
+            @click="logout"
           >
             Logout
           </b-nav-item>
@@ -77,35 +77,35 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'NavBar',
-  data () {
+  data() {
     return ({
       breadcrumbsNames: {
         '/cdrs': 'CDRs',
         '/rates': 'Rates',
-        '/accounts': 'Accounts'
-      }
-    })
+        '/accounts': 'Accounts',
+      },
+    });
   },
   computed: {
     ...mapGetters(['isAuthenticated']),
-    breadcrumbs: function () {
-
+    breadcrumbs() {
       const breadcrumbObject = {
         text: this.$data.breadcrumbsNames[this.$route.path],
-        href: this.$route.path
-      }
+        href: this.$route.path,
+      };
 
-      return [breadcrumbObject]
-    }
+      return [breadcrumbObject];
+    },
   },
 
   methods: {
-    logout: function () {
-      this.$store.dispatch('logout').then(() => this.$router.push('/login'))
-    }
-  }
-}
+    logout() {
+      this.$store.dispatch('logout').then(() => this.$router.push('/login'));
+    },
+  },
+};
 </script>

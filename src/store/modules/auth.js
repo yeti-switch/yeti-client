@@ -1,7 +1,8 @@
 import Authentication from '../../api/Authentication'
+import { jsonApi } from '../../api'
 
 const state = {
-  token: sessionStorage.getItem('yeti-token') || '',
+  token: '',
   status: ''
 }
 const getters = {
@@ -10,9 +11,21 @@ const getters = {
 }
 const actions = {
   authRequest: async ({ commit }, { username, password }) => {
-    const response = await Authentication.getToken(username, password)
-    commit('authSuccess', response)
-    sessionStorage.setItem('yeti-token', response.jwt)
+    const { jwt } = await Authentication.getToken(username, password)
+
+    jsonApi.setToken(jwt)
+    commit('authSuccess', jwt)
+    sessionStorage.setItem('yeti-token', jwt)
+  },
+  localAuth: function ({ commit }) {
+    const jwt = sessionStorage.getItem('yeti-token')
+
+    jsonApi.setToken(jwt)
+    if (jwt) {
+      commit('authSuccess', jwt)
+    } else {
+      commit('logout')
+    }
   },
   logout: ({ commit }) => {
     return new Promise(resolve => {
@@ -23,9 +36,9 @@ const actions = {
   }
 }
 const mutations = {
-  authSuccess: (state, res) => {
+  authSuccess: (state, token) => {
     state.status = 'success'
-    state.token = res.jwt
+    state.token = token // @todo probably not needed anymore
   },
   logout: state => {
     state.token = ''

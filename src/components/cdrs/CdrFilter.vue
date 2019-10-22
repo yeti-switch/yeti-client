@@ -128,7 +128,7 @@
 <script>
 export default {
   name: 'CdrFilter',
-  data () {
+  data() {
     return {
       form: {
         timeStartGteq: '',
@@ -143,42 +143,42 @@ export default {
         dstPrefixIn: '',
         diversionIn: '',
         srcNameIn: '',
-        localTag: ''
+        localTag: '',
       },
-      success: [{ text: 'Select One', value: null }, 'true', 'false']
-    }
+      success: [{ text: 'Select One', value: null }, 'true', 'false'],
+    };
   },
   methods: {
-    onReset (evt) {
-      evt.preventDefault()
-      this.form.timeStartGteq = ''
-      this.form.timeStartLteq = ''
-      this.form.srcPrefixRouting = ''
-      this.form.dstPrefixIn = ''
-      this.form.dstPrefixRouting = ''
-      this.form.legaDisconnectCode = ''
-      this.form.legaDisconnectReason = ''
-      this.form.diversionIn = ''
-      this.form.duration = ''
-      this.form.srcNameIn = ''
-      this.form.srcPrefixIn = ''
-      this.form.localTag = ''
-      this.form.success = null
-      this.$store.dispatch('setCdrFilter', {})
-      this.$emit('applyFilter')
+    onReset(evt) {
+      evt.preventDefault();
+      this.form.timeStartGteq = '';
+      this.form.timeStartLteq = '';
+      this.form.srcPrefixRouting = '';
+      this.form.dstPrefixIn = '';
+      this.form.dstPrefixRouting = '';
+      this.form.legaDisconnectCode = '';
+      this.form.legaDisconnectReason = '';
+      this.form.diversionIn = '';
+      this.form.duration = '';
+      this.form.srcNameIn = '';
+      this.form.srcPrefixIn = '';
+      this.form.localTag = '';
+      this.form.success = null;
+      this.$store.dispatch('setCdrFilter', {});
+      this.$emit('applyFilter');
     },
-    onSubmit () {
-      const filter = {}
-      for (let key in this.form) {
+    onSubmit() {
+      const filter = {};
+      for (const key in this.form) {
         if (this.form[key]) {
-          filter[key] = this.form[key]
+          filter[key] = this.form[key];
         }
       }
-      this.$store.dispatch('setCdrFilter', filter)
-      this.$emit('applyFilter')
-    }
-  }
-}
+      this.$store.dispatch('setCdrFilter', filter);
+      this.$emit('applyFilter');
+    },
+  },
+};
 </script>
 
 <style>

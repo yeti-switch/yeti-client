@@ -1,40 +1,42 @@
-import Rates from '../../api/Rates'
+import { jsonApi } from '../../api';
+import { RESOURCES } from '../../static/constants/api';
+import utils from '../../utils';
 
 const state = {
   rates: {},
-  rateFilter: {}
-}
+  rateFilter: {},
+};
 const getters = {
-  rates: state => state.rates,
-  rateFilter: state => state.rateFilter
-}
+  rates: (currentState) => utils.normalizeRates(currentState.rates.data),
+  rateFilter: (currentState) => currentState.rateFilter,
+};
 const actions = {
-  getRates: async ({ commit, rootState }, page) => {
-    const rates = await Rates.getRates(
-      rootState.auth.token,
-      state.rateFilter,
-      page
-    )
-    commit('setRates', rates)
+  getRates: async ({ commit }, page) => {
+    const rates = await jsonApi.findAllResources({
+      resourceName: RESOURCES.RATE,
+      filter: state.rateFilter,
+      page,
+    });
+    commit('setRates', rates);
   },
-  setRateFilter: ({ commit, rootState }, filter) => {
+  setRateFilter: ({ commit }, filter) => {
     if (filter) {
-      commit('saveRateFilter', filter)
+      commit('saveRateFilter', filter);
     }
-  }
-}
-const mutations = {
-  setRates: (state, rates) => {
-    state.rates = rates
   },
-  saveRateFilter: (state, filter) => {
-    state.rateFilter = filter
-  }
-}
+};
+const mutations = {
+  setRates: (currentState, rates) => {
+    currentState.rates = rates;
+  },
+  saveRateFilter: (currentState, filter) => {
+    currentState.rateFilter = filter;
+  },
+};
 
 export default {
   state,
   getters,
   actions,
-  mutations
-}
+  mutations,
+};

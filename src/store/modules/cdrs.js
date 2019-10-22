@@ -1,55 +1,57 @@
-import Cdrs from '../../api/Cdrs'
+import { jsonApi } from '../../api';
+import { RESOURCES } from '../../static/constants/api';
+import utils from '../../utils';
 
 const state = {
   cdrs: {},
   requestPending: false,
   error: null,
-  cdrFilter: {}
-}
+  cdrFilter: {},
+};
 const getters = {
-  cdrs: state => state.cdrs,
-  isRequestPending: state => state.requestPending,
-  cdrFilter: state => state.cdrFilter
-}
+  cdrs: (currentState) => utils.normalizeCdrs(currentState.cdrs.data),
+  isRequestPending: (currentState) => currentState.requestPending,
+  cdrFilter: (currentState) => currentState.cdrFilter,
+};
 const actions = {
-  getCdrs: async ({ commit, rootState }, page) => {
-    commit('setRequestPending', true)
-    const cdrs = await Cdrs.getCdrs(
-      rootState.auth.token,
-      state.cdrFilter,
-      page
-    )
+  getCdrs: async ({ commit }, page) => {
+    commit('setRequestPending', true);
+    const cdrs = await jsonApi.findAllResources({
+      resourceName: RESOURCES.CDR,
+      filter: state.cdrFilter,
+      page,
+    });
     if (cdrs.error) {
-      commit('setError', cdrs.error)
+      commit('setError', cdrs.error);
     } else {
-      commit('setCdrs', cdrs)
+      commit('setCdrs', cdrs);
     }
-    commit('setRequestPending', false)
+    commit('setRequestPending', false);
   },
-  setCdrFilter: ({ commit, rootState }, filter) => {
+  setCdrFilter: ({ commit }, filter) => {
     if (filter) {
-      commit('saveCdrFilter', filter)
+      commit('saveCdrFilter', filter);
     }
-  }
-}
+  },
+};
 const mutations = {
-  setCdrs: (state, cdrs) => {
-    state.cdrs = cdrs
+  setCdrs: (currentState, cdrs) => {
+    currentState.cdrs = cdrs;
   },
-  setRequestPending: (state, isPending) => {
-    state.requestPending = isPending
+  setRequestPending: (currentState, isPending) => {
+    currentState.requestPending = isPending;
   },
-  setError: (state, error) => {
-    state.error = error
+  setError: (currentState, error) => {
+    currentState.error = error;
   },
-  saveCdrFilter: (state, filter) => {
-    state.cdrFilter = filter
-  }
-}
+  saveCdrFilter: (currentState, filter) => {
+    currentState.cdrFilter = filter;
+  },
+};
 
 export default {
   state,
   getters,
   actions,
-  mutations
-}
+  mutations,
+};

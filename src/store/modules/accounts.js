@@ -1,49 +1,50 @@
-import Accounts from '../../api/Accounts'
+import { jsonApi } from '../../api';
+import { RESOURCES } from '../../static/constants/api';
 
 const state = {
   accounts: {},
   error: null,
   requestPending: false,
-  accountFilter: {}
-}
+  accountFilter: {},
+};
 const getters = {
-  accounts: state => state.accounts,
-  isRequestPending: state => state.requestPending,
-  accountsFilter: state => state.accountsFilter
-}
+  accounts: (currentState) => currentState.accounts,
+  isRequestPending: (currentState) => currentState.requestPending,
+  accountsFilter: (currentState) => currentState.accountsFilter,
+};
 
 const actions = {
-  getAccounts: async ({ commit, rootState }, page) => {
-    commit('setRequestPending', true)
-    const accounts = await Accounts.getAccounts(
-      rootState.auth.token,
-      state.accountFilter,
-      page
-    )
-    commit('setAccounts', accounts)
-    commit('setRequestPending', false)
+  getAccounts: async ({ commit }, page) => {
+    commit('setRequestPending', true);
+    const accounts = await jsonApi.findAllResources({
+      resourceName: RESOURCES.ACCOUNT,
+      filter: state.cdrFilter,
+      page,
+    });
+    commit('setAccounts', accounts);
+    commit('setRequestPending', false);
   },
-  setAccountFilter: ({ commit, rootState }, filter) => {
+  setAccountFilter: ({ commit }, filter) => {
     if (filter) {
-      commit('saveAccountsFilter', filter)
+      commit('saveAccountsFilter', filter);
     }
-  }
-}
+  },
+};
 const mutations = {
-  setAccounts: (state, accounts) => {
-    state.accounts = accounts
+  setAccounts: (currentState, accounts) => {
+    currentState.accounts = accounts;
   },
-  setRequestPending: (state, isPending) => {
-    state.requestPending = isPending
+  setRequestPending: (currentState, isPending) => {
+    currentState.requestPending = isPending;
   },
-  saveAccountsFilter: (state, filter) => {
-    state.accountFilter = filter
-  }
-}
+  saveAccountsFilter: (currentState, filter) => {
+    currentState.accountFilter = filter;
+  },
+};
 
 export default {
   state,
   getters,
   actions,
-  mutations
-}
+  mutations,
+};

@@ -34,7 +34,7 @@
           slot-scope="row"
         >
           <b-badge
-            v-bind:variant="row.item[badgedItem] ? 'success' : 'danger'"
+            :variant="row.item[badgedItem] ? 'success' : 'danger'"
             pill
           >
             {{ row.item[badgedItem] }}
@@ -46,10 +46,10 @@
         v-model="currentPage"
         :total-rows="rows"
         :per-page="perPage"
-        v-on:change="getData"
         align="center"
         size="sm"
         aria-controls="dataTable"
+        @change="getData"
       />
     </div>
   </div>
@@ -59,22 +59,49 @@
 <script>
 export default {
   name: 'Cdrs',
-  props: ['fields', 'items', 'rows', 'badgedItem', 'getData'],
-  data () {
+  props: {
+    fields: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
+    items: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
+    rows: {
+      type: Number,
+      default: 0,
+    },
+    badgedItem: {
+      type: String,
+      default: '',
+    },
+    getData: {
+      type: Function,
+      default() {
+        return [];
+      },
+    },
+  },
+  data() {
     return {
       small: false,
       striped: true,
       fixed: false,
       perPage: 50,
-      currentPage: 1
-    }
+      currentPage: 1,
+    };
   },
   computed: {
-    loading: function () {
-      return this.$store.getters.isRequestPending
+    loading() {
+      return this.$store.getters.isRequestPending;
     },
-  }
-}
+  },
+};
 </script>
 
 
@@ -95,4 +122,3 @@ export default {
   padding-left: 15px;
 }
 </style>
-

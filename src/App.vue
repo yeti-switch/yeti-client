@@ -23,7 +23,9 @@ export default {
       type: 'error',
     };
   },
-  beforeMount() {
+  beforeCreate() {
+    this.$store.dispatch('localAuth');
+
     const errorMiddleware = {
       name: 'logout-redirect',
       error: (payload) => {

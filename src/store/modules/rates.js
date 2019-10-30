@@ -12,8 +12,7 @@ const getters = {
 };
 const actions = {
   getRates: async ({ commit }, page) => {
-    const rates = await jsonApi.findAllResources({
-      resourceName: RESOURCES.RATE,
+    const rates = await jsonApi.findAllResources(RESOURCES.RATE, {
       filter: state.rateFilter,
       page,
     });

@@ -16,8 +16,7 @@ const getters = {
 const actions = {
   getCdrs: async ({ commit }, page) => {
     commit('setRequestPending', true);
-    const cdrs = await jsonApi.findAllResources({
-      resourceName: RESOURCES.CDR,
+    const cdrs = await jsonApi.findAllResources(RESOURCES.CDR, {
       filter: state.cdrFilter,
       page,
     });

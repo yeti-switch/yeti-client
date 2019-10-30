@@ -2,15 +2,15 @@
   <div id="auth">
     <b-form
       class="login"
-      @submit.prevent="login"
+      @submit.prevent="onSubmit"
     >
       <b-form-group label="Welcome to Yeti">
         <b-form-input
-          v-model="username"
+          v-model="login"
           required
           type="text"
           placeholder="Login"
-          autocomplete="username"
+          autocomplete="login"
         />
         <b-form-input
           v-model="password"
@@ -36,14 +36,14 @@ export default {
   name: 'Login',
   data() {
     return {
-      username: '',
+      login: '',
       password: '',
     };
   },
   methods: {
-    login() {
-      const { username, password } = this;
-      this.$store.dispatch('authRequest', { username, password })
+    onSubmit() {
+      const { login, password } = this;
+      this.$store.dispatch('authRequest', { login, password })
         .then(() => this.$router.push(this.$route.query.redirect || '/'))
         .then(() => this.$notify({
           type: 'success',

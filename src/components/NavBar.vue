@@ -33,7 +33,7 @@
             Home
           </b-nav-item>
           <b-nav-item
-            v-if="isAuthenticated"
+            v-if="isAuthenticated && checkIfBreadcrumbIsDisabled('rates')"
             :active="this.$route.path === '/rates'"
             router-link
             to="/rates"
@@ -41,7 +41,7 @@
             Rates
           </b-nav-item>
           <b-nav-item
-            v-if="isAuthenticated"
+            v-if="isAuthenticated && checkIfBreadcrumbIsDisabled('cdrs')"
             :active="this.$route.path === '/cdrs'"
             router-link
             to="/cdrs"
@@ -49,7 +49,7 @@
             Cdrs
           </b-nav-item>
           <b-nav-item
-            v-if="isAuthenticated"
+            v-if="isAuthenticated && checkIfBreadcrumbIsDisabled('accounts')"
             :active="this.$route.path === '/accounts'"
             router-link
             to="/accounts"
@@ -105,6 +105,9 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch('logout').then(() => this.$router.push('/login'));
+    },
+    checkIfBreadcrumbIsDisabled(name) {
+      return !this.$store.getters.blockedPages.has(name);
     },
   },
 };

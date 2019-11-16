@@ -1,15 +1,20 @@
 <template>
-  <DataTable
-    :fields="fields"
-    :items="rates"
-    :rows="rows"
-    :badged-item="badgedItem"
-    :get-data="getRates"
-  >
-    <template v-slot:filter>
-      <!-- <RatesFilter v-on:applyFilter="getRates" /> -->
-    </template>
-  </DataTable>
+  <div>
+    <h3 class="text-left pl-5">
+      Rates
+    </h3>
+    <DataTable
+      :fields="fields"
+      :items="rates"
+      :rows="rows"
+      :badged-item="badgedItem"
+      :get-data="getRates"
+    >
+      <template v-slot:filter>
+        <!-- <RatesFilter v-on:applyFilter="getRates" /> -->
+      </template>
+    </DataTable>
+  </div>
 </template>
 
 <script>
@@ -71,10 +76,11 @@ export default {
   },
   computed: {
     rates() {
-      return this.$store.getters.rates;
+      return this.$store.getters.rates.items;
     },
     rows() {
-      return this.rates ? this.rates.length : 0; // TODO: move somewhere
+      return this.$store.getters.rates && this.$store.getters.rates.meta
+        ? this.$store.getters.rates.meta['total-count'] : 0;
     },
   },
   created() {

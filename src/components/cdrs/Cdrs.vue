@@ -1,52 +1,57 @@
 <template>
-  <DataTable
-    :fields="fields"
-    :items="cdrs"
-    :rows="rows"
-    :badged-item="badgedItem"
-    :get-data="getCdrs"
-  >
-    <template v-slot:filter>
-      <!-- <CdrFilter v-on:applyFilter="getCdrs" /> -->
-    </template>
-    <template v-slot:quickFilter>
-      <div class="quickfilter">
-        <div>
-          <b-link>Apply custom filters</b-link>, or
-        </div>
-        <div class="quickfilter-wrapper">
-          <span>use quick filter by Start Time:&nbsp;</span>
-          <date-range-picker
-            ref="picker"
-            v-model="dateRange"
-            :opens="opens"
-            :locale-data="localeData"
-            :time-picker="timePicker"
-            :linked-calendars="linkedCalendars"
-            @update="updateValues"
-          >
+  <div>
+    <h3 class="text-left pl-5">
+      CDRs
+    </h3>
+    <DataTable
+      :fields="fields"
+      :items="cdrs"
+      :rows="rows"
+      :badged-item="badgedItem"
+      :get-data="getCdrs"
+    >
+      <template v-slot:filter>
+        <!-- <CdrFilter v-on:applyFilter="getCdrs" /> -->
+      </template>
+      <template v-slot:quickFilter>
+        <div class="quickfilter">
+          <div>
+            <b-link>Apply custom filters</b-link>, or
+          </div>
+          <div class="quickfilter-wrapper">
+            <span>use quick filter by Start Time:&nbsp;</span>
+            <date-range-picker
+              ref="picker"
+              v-model="dateRange"
+              :opens="opens"
+              :locale-data="localeData"
+              :time-picker="timePicker"
+              :linked-calendars="linkedCalendars"
+              @update="updateValues"
             >
-            <div
-              slot="input"
-              slot-scope="picker"
-              style="min-width: 250px;"
+              >
+              <div
+                slot="input"
+                slot-scope="picker"
+                style="min-width: 250px;"
+              >
+                {{ picker.startDate | date }} - {{ picker.endDate | date }}
+              </div>
+            </date-range-picker>
+            <b-button
+              type="reset"
+              variant="light"
+              size="sm"
+              class="ml-2"
+              @click="onResetClick"
             >
-              {{ picker.startDate | date }} - {{ picker.endDate | date }}
-            </div>
-          </date-range-picker>
-          <b-button
-            type="reset"
-            variant="light"
-            size="sm"
-            class="ml-2"
-            @click="onResetClick"
-          >
-            Reset
-          </b-button>
+              Reset
+            </b-button>
+          </div>
         </div>
-      </div>
-    </template>
-  </DataTable>
+      </template>
+    </DataTable>
+  </div>
 </template>
 
 <script>
@@ -227,7 +232,7 @@ export default {
   },
   computed: {
     cdrs() {
-      return this.$store.getters.cdrs;
+      return this.$store.getters.cdrs.items;
     },
     filterValue() {
       return {
@@ -239,11 +244,8 @@ export default {
       return this.$store.getters.isRequestPending;
     },
     rows() {
-      if (this.$store.getters.cdrs && this.$store.getters.cdrs.meta) {
-        return this.$store.getters.cdrs.meta['total-count'];
-      }
-
-      return 0;
+      return this.$store.getters.cdrs && this.$store.getters.cdrs.meta
+        ? this.$store.getters.cdrs.meta['total-count'] : 0;
     },
   },
   created() {

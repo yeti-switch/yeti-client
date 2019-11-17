@@ -1,14 +1,19 @@
 <template>
-  <DataTable
-    :fields="fields"
-    :items="accounts"
-    :rows="rows"
-    :get-data="getAccounts"
-  >
-    <template v-slot:filter>
-      <!-- <AccountsFilter v-on:applyFilter="getAccounts" /> -->
-    </template>
-  </DataTable>
+  <div>
+    <h3 class="text-left pl-5">
+      Accounts
+    </h3>
+    <DataTable
+      :fields="fields"
+      :items="accounts"
+      :rows="rows"
+      :get-data="getAccounts"
+    >
+      <template v-slot:filter>
+        <!-- <AccountsFilter v-on:applyFilter="getAccounts" /> -->
+      </template>
+    </DataTable>
+  </div>
 </template>
 
 <script>
@@ -38,10 +43,11 @@ export default {
   },
   computed: {
     accounts() {
-      return this.$store.state.accounts.accounts.data; // TODO: move somewhere
+      return this.$store.getters.accounts.items;
     },
     rows() {
-      return this.accounts ? this.accounts.length : 0; // TODO: move somewhere
+      return this.$store.getters.accounts && this.$store.getters.accounts.meta
+        ? this.$store.getters.accounts.meta['total-count'] : 0;
     },
   },
   created() {

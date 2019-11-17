@@ -26,7 +26,7 @@
         :striped="striped"
         :fixed="fixed"
         :fields="fields"
-        sticky-header="calc(100vh - 17rem)"
+        sticky-header="calc(100vh - 12rem)"
         hover
       >
         <template
@@ -42,7 +42,7 @@
         </template>
       </b-table>
       <b-pagination
-        v-if="!loading"
+        v-if="!loading && rows >= perPage"
         v-model="currentPage"
         :total-rows="rows"
         :per-page="perPage"
@@ -100,25 +100,32 @@ export default {
     loading() {
       return this.$store.getters.isRequestPending;
     },
+    onlyOnePage() {
+      return false;
+    },
   },
 };
 </script>
 
 
-<style>
+<style lang="scss">
 .dataTable {
   font-size: 12px;
   white-space: nowrap;
   position: relative;
-}
 
-.dataTable .datatable-total {
-  position: absolute;
-  top: 0.5rem;
-  right: 15px;
-}
+  .datatable-total {
+    position: absolute;
+    top: 0.5rem;
+    right: 15px;
+  }
 
-.dataTable .pagination {
-  padding-left: 15px;
+  .pagination {
+    padding-left: 15px;
+  }
+
+  tr:nth-child(2n) {
+    background-color: #fff;
+  }
 }
 </style>

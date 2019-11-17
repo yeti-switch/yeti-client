@@ -1,83 +1,61 @@
 import VueRouter from 'vue-router';
+
 import Login from '../components/Login';
 import NotFound from '../components/NotFound';
-import Cdrs from '../components/cdrs/Cdrs';
-import Rates from '../components/rates/Rates';
+import { routes as CdrsRoutes } from '../components/cdrs/routes';
+import { routes as RatesRoutes } from '../components/rates/routes';
+import { routes as AccountsRoutes } from '../components/accounts/routes';
 import Home from '../components/Home';
-import Accounts from '../components/accounts/Accounts';
-import store from '../store/store';
+import { requiresAuth, requiresNotAuth, beforeGuardEnchancer } from './helpers';
+import { GENERAL_ROUTE_NAMES, GENERAL_PATHS } from '../constants/routing';
 
-const requiresAuth = (to, from, next) => {
-  if (store.getters.isAuthenticated) {
-    next();
-    return;
+const staticRoutes = [
+  {
+    path: '/',
+    redirect: {
+      name: GENERAL_ROUTE_NAMES.HOME,
+    },
+  },
+  {
+    path: GENERAL_PATHS.LOG_IN,
+    name: GENERAL_ROUTE_NAMES.LOG_IN,
+    component: Login,
+    beforeEnter: beforeGuardEnchancer([requiresNotAuth]),
+  },
+  {
+    path: GENERAL_PATHS.NOT_FOUND,
+    name: GENERAL_ROUTE_NAMES.NOT_FOUND,
+    component: NotFound,
+  },
+  {
+    path: GENERAL_PATHS.HOME,
+    name: GENERAL_ROUTE_NAMES.HOME,
+    component: Home,
+    beforeEnter: beforeGuardEnchancer([requiresAuth]),
+  },
+  {
+    path: '*',
+    redirect: {
+      name: GENERAL_ROUTE_NAMES.NOT_FOUND,
+    },
+  },
+  ...RatesRoutes,
+  ...CdrsRoutes,
+  ...AccountsRoutes,
+];
+
+export class Router {
+  static routes = staticRoutes;
+
+  instance = new VueRouter();
+
+  constructor() {
+    this.addRoutes(Router.routes);
   }
 
-  next({
-    path: '/login',
-    query: {
-      redirect: to.fullPath,
-    },
-  });
-};
+  addRoutes = (routes) => {
+    this.instance.addRoutes(routes);
+  };
+}
 
-const requiresNotAuth = (to, from, next) => {
-  if (!store.getters.isAuthenticated) {
-    next();
-    return;
-  }
-  next('/');
-};
-
-export default new VueRouter({
-  routes: [
-    {
-      path: '/',
-      redirect: {
-        name: 'home',
-      },
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login,
-      beforeEnter: requiresNotAuth,
-    },
-    {
-      path: '/404',
-      name: 'notfound',
-      component: NotFound,
-    },
-    {
-      path: '/cdrs',
-      name: 'cdrs',
-      component: Cdrs,
-      beforeEnter: requiresAuth,
-    },
-
-    {
-      path: '/rates',
-      name: 'rates',
-      component: Rates,
-      beforeEnter: requiresAuth,
-    },
-    {
-      path: '/home',
-      name: 'home',
-      component: Home,
-      beforeEnter: requiresAuth,
-    },
-    {
-      path: '/accounts',
-      name: 'accounts',
-      component: Accounts,
-      beforeEnter: requiresAuth,
-    },
-    {
-      path: '*',
-      redirect: {
-        name: 'notfound',
-      },
-    },
-  ],
-});
+export const router = new Router();

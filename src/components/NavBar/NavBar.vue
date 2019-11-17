@@ -26,23 +26,26 @@
         v-model="statisticsVisible"
       >
         <b-nav-item
-          :active="this.$route.path === paths.RATES"
+          v-if="isNavItemVisible(navigationRoutesNames.RATES)"
+          :active="this.$route.path === navigationRoutesPaths.RATES"
           router-link
-          :to="paths.RATES"
+          :to="navigationRoutesPaths.RATES"
         >
           Rates
         </b-nav-item>
         <b-nav-item
-          :active="this.$route.path === paths.CDRS"
+          v-if="isNavItemVisible(navigationRoutesNames.CDRS)"
+          :active="this.$route.path === navigationRoutesPaths.CDRS"
           router-link
-          :to="paths.CDRS"
+          :to="navigationRoutesPaths.CDRS"
         >
           Cdrs
         </b-nav-item>
         <b-nav-item
-          :active="this.$route.path === paths.ACCOUNTS"
+          v-if="isNavItemVisible(navigationRoutesNames.ACCOUNTS)"
+          :active="this.$route.path === navigationRoutesPaths.ACCOUNTS"
           router-link
-          :to="paths.ACCOUNTS"
+          :to="navigationRoutesPaths.ACCOUNTS"
         >
           Accounts
         </b-nav-item>
@@ -53,13 +56,14 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { STATISTICS_PATHS } from '../../constants/routing';
+import { STATISTICS_PATHS, STATISTICS_ROUTE_NAMES } from '../../constants/routing';
 
 export default {
   name: 'NavBar',
   data() {
     return {
-      paths: { ...STATISTICS_PATHS },
+      navigationRoutesPaths: { ...STATISTICS_PATHS },
+      navigationRoutesNames: { ...STATISTICS_ROUTE_NAMES },
       navOpened: true,
     };
   },
@@ -77,6 +81,11 @@ export default {
     },
     mainNavClass() {
       return `vertical-navbar-menu ${this.$data.navOpened ? 'opened' : 'collapsed'}`;
+    },
+  },
+  methods: {
+    isNavItemVisible(name) {
+      return !this.$store.getters.blockedPages.has(name);
     },
   },
 };

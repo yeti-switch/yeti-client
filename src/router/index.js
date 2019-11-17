@@ -7,36 +7,36 @@ import { routes as RatesRoutes } from '../components/rates/routes';
 import { routes as AccountsRoutes } from '../components/accounts/routes';
 import Home from '../components/Home';
 import { requiresAuth, requiresNotAuth, beforeGuardEnchancer } from './helpers';
-
+import { GENERAL_ROUTE_NAMES, GENERAL_PATHS } from '../constants/routing';
 
 const staticRoutes = [
   {
     path: '/',
     redirect: {
-      name: 'home',
+      name: GENERAL_ROUTE_NAMES.HOME,
     },
   },
   {
-    path: '/login',
-    name: 'login',
+    path: GENERAL_PATHS.LOG_IN,
+    name: GENERAL_ROUTE_NAMES.LOG_IN,
     component: Login,
     beforeEnter: beforeGuardEnchancer([requiresNotAuth]),
   },
   {
-    path: '/404',
-    name: 'notfound',
+    path: GENERAL_PATHS.NOT_FOUND,
+    name: GENERAL_ROUTE_NAMES.NOT_FOUND,
     component: NotFound,
   },
   {
-    path: '/home',
-    name: 'home',
+    path: GENERAL_PATHS.HOME,
+    name: GENERAL_ROUTE_NAMES.HOME,
     component: Home,
     beforeEnter: beforeGuardEnchancer([requiresAuth]),
   },
   {
     path: '*',
     redirect: {
-      name: 'notfound',
+      name: GENERAL_ROUTE_NAMES.NOT_FOUND,
     },
   },
   ...RatesRoutes,
@@ -52,7 +52,6 @@ export class Router {
   constructor() {
     this.addRoutes(Router.routes);
   }
-
 
   addRoutes = (routes) => {
     this.instance.addRoutes(routes);

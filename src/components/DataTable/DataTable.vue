@@ -1,7 +1,11 @@
 <template>
   <div id="dataTable">
     <slot name="filter" />
-    <div class="dataTable">
+    <div
+      :style="{overflow: hiddenIfLoading}"
+      class="dataTable"
+    >
+
       <slot
         name="quickFilter"
       />
@@ -12,6 +16,15 @@
       >
         Items in table: {{ rows }}
       </h6>
+
+      <b-progress
+        :value="100"
+        :animated="true"
+        v-if="loading"
+        variant="secondary"
+        class="mt-1"
+        height="7px"
+      />
       <b-table
         :busy="loading"
         :small="small"
@@ -20,24 +33,11 @@
         :striped="striped"
         :fixed="fixed"
         :fields="fields"
+        class="datatable-content"
         show-empty
         sticky-header="calc(100vh - 12rem)"
         hover
       >
-        <template
-          v-slot:table-busy
-        >
-          <div
-            class="text-left my-2"
-          >
-            <b-spinner
-              class="align-middle"
-            />
-            <strong>
-              Loading...
-            </strong>
-          </div>
-        </template>
 
         <template
           v-slot:empty="scope">
@@ -123,6 +123,9 @@ export default {
     onlyOnePage() {
       return false;
     },
+    hiddenIfLoading() {
+      return this.loading ? 'hidden' : 'visible';
+    },
   },
 };
 </script>
@@ -138,6 +141,11 @@ export default {
     position: absolute;
     top: 0.5rem;
     right: 15px;
+  }
+
+  .datatable-content {
+    display: table;
+    min-width: 100%;
   }
 
   .pagination {

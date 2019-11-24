@@ -1,14 +1,12 @@
 <template>
   <div id="dataTable">
     <slot name="filter" />
-    <div class="dataTable">
-      <b-spinner
-        v-if="loading"
-        variant="primary"
-        label="Spinning"
-      />
+    <div
+      :style="{overflow: hiddenIfLoading}"
+      class="dataTable"
+    >
+
       <slot
-        v-if="!loading"
         name="quickFilter"
       />
 
@@ -18,17 +16,39 @@
       >
         Items in table: {{ rows }}
       </h6>
+
+      <b-progress
+        :value="100"
+        :animated="true"
+        v-if="loading"
+        variant="secondary"
+        class="mt-1"
+        height="7px"
+      />
       <b-table
-        v-if="!loading"
+        :busy="loading"
         :small="small"
         :items="items"
         :per-page="perPage"
         :striped="striped"
         :fixed="fixed"
         :fields="fields"
+        class="datatable-content"
+        show-empty
         sticky-header="calc(100vh - 12rem)"
         hover
       >
+
+        <template
+          v-slot:empty="scope">
+          <div
+            class="text-left"
+          >
+            <b>
+              {{ scope.emptyFilteredText }}
+            </b>
+          </div>
+        </template>
         <template
           :slot="badgedItem"
           slot-scope="row"
@@ -103,6 +123,9 @@ export default {
     onlyOnePage() {
       return false;
     },
+    hiddenIfLoading() {
+      return this.loading ? 'hidden' : 'visible';
+    },
   },
 };
 </script>
@@ -118,6 +141,11 @@ export default {
     position: absolute;
     top: 0.5rem;
     right: 15px;
+  }
+
+  .datatable-content {
+    display: table;
+    min-width: 100%;
   }
 
   .pagination {

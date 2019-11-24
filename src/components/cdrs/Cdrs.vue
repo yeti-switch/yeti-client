@@ -27,6 +27,7 @@
               :locale-data="localeData"
               :time-picker="timePicker"
               :linked-calendars="linkedCalendars"
+              @toggle="toggleIfNotLoading"
               @update="updateValues"
             >
               >
@@ -44,6 +45,7 @@
               size="sm"
               class="ml-2"
               @click="onResetClick"
+              :disabled="loading"
             >
               Reset
             </b-button>
@@ -269,6 +271,11 @@ export default {
     },
     resetCdrFilter() {
       this.$store.dispatch('setCdrFilter', this.filterValue);
+    },
+    toggleIfNotLoading() {
+      if (this.loading) {
+        this.$refs.picker.open = false;
+      }
     },
   },
 };

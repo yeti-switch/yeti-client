@@ -5,10 +5,6 @@
       :style="{overflow: hiddenIfLoading}"
       class="dataTable"
     >
-      <<<<<<< HEAD
-      =======
-
-      >>>>>>> changed spinner to progress bar. changed table scroll to browser scroll
       <slot
         name="quickFilter"
       />

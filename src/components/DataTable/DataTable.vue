@@ -138,18 +138,11 @@ export default {
     right: 15px;
   }
 
-<<<<<<< HEAD
   // @todo this code breaks layout of table with large number of entries
   // .datatable-content {
   //   display: table;
   //   min-width: 100%;
   // }
-=======
-  .datatable-content {
-    display: table;
-    min-width: 100%;
-  }
->>>>>>> changed spinner to progress bar. changed table scroll to browser scroll
 
   .pagination {
     padding-left: 15px;

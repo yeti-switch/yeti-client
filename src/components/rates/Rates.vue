@@ -7,7 +7,6 @@
       :fields="fields"
       :items="rates"
       :rows="rows"
-      :badged-item="badgedItem"
       :get-data="getRates"
     >
       <template v-slot:filter>
@@ -18,8 +17,10 @@
 </template>
 
 <script>
+import { flow } from 'lodash';
 // import RatesFilter from './RatesFilter';
 import DataTable from '../DataTable/DataTable';
+import utils from '../../utils';
 
 export default {
   name: 'Rates',
@@ -29,7 +30,6 @@ export default {
   },
   data() {
     return {
-      badgedItem: 'rejectCalls',
       fields: [
         {
           key: 'connect-fee',
@@ -76,7 +76,7 @@ export default {
   },
   computed: {
     rates() {
-      return this.$store.getters.rates.items;
+      return flow(utils.formatRates)(this.$store.getters.rates.items);
     },
     rows() {
       return this.$store.getters.rates && this.$store.getters.rates.meta

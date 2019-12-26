@@ -1,7 +1,6 @@
 // eslint-disable-next-line
 import { jsonApi } from '../../api';
 import { RESOURCES } from '../../static/constants/api';
-import utils from '../../utils';
 
 const state = {
   rates: {},
@@ -9,7 +8,7 @@ const state = {
 };
 const getters = {
   rates: (currentState) => ({
-    items: utils.normalizeRates(currentState.rates.data),
+    items: currentState.rates.data,
     meta: currentState.rates.meta,
   }),
   rateFilter: (currentState) => currentState.rateFilter,

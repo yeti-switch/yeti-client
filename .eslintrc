@@ -17,7 +17,8 @@
   },
   "rules": {
     "implicit-arrow-linebreak": "off",
-    "no-param-reassign": ["error", { "props": false }]
+    "no-param-reassign": ["error", { "props": false }],
+    "no-underscore-dangle": ["error", { "allow": ["_cellVariants"] }]
   },
   "globals": {
     "CONFIG": "readonly"

@@ -20,16 +20,17 @@ jobs:
 
     - stage: stable package
       if: branch != master OR tag =~ ^.*$
-      env: CACHE_NAME=stretch_package
-      name: Stable Stretch Package
+      env: CACHE_NAME=yeti_client_package
+      name: Stable package - Stretch + Buster
       script: &1
-        - docker build -t yeti-client -f ./ci/build_stretch.Dockerfile .
+        - docker build -t yeti-client -f ./ci/build_buster.Dockerfile .
         - docker run --name yeti-client yeti-client && docker commit yeti-client yeti-client:built
       deploy:
         skip_cleanup: true
         provider: script
-        script: docker run --name yeti-client-deploy yeti-client:built ci/deploy.sh "$API_ENDPOINT"
-          stretch "${TRAVIS_TAG:0:3}" main /build/*.deb
+        script:
+          - docker run --name yeti-client-deploy yeti-client:built ci/deploy.sh "$API_ENDPOINT" stretch "${TRAVIS_TAG:0:3}" main /build/*.deb
+          - docker run --name yeti-client-deploy yeti-client:built ci/deploy.sh "$API_ENDPOINT" buster "${TRAVIS_TAG:0:3}" main /build/*.deb
         on:
           tags: true
           condition: "$TRAVIS_TAG != *-master*"
@@ -37,14 +38,15 @@ jobs:
 
     - stage: nightly package
       if: branch = master
-      env: CACHE_NAME=stretch_package
-      name: Nightly Stretch Package
+      env: CACHE_NAME=yeti_client_package
+      name: Nightly package - Stretch + Buster
       script: *1
       deploy:
         skip_cleanup: true
         provider: script
-        script: docker run --name yeti-client-deploy yeti-client:built ci/deploy.sh "$API_ENDPOINT"
-          stretch nightly main /build/*.deb
+        script:
+          - docker run --name yeti-client-deploy yeti-client:built ci/deploy.sh "$API_ENDPOINT" stretch nightly main /build/*.deb
+          - docker run --name yeti-client-deploy yeti-client:built ci/deploy.sh "$API_ENDPOINT" buster nightly main /build/*.deb
         on:
           all_branches: true
           repo: yeti-switch/yeti-client

@@ -1,0 +1,13 @@
+Source: yeti-client
+Maintainer: yeti team <team@yeti-switch.org>
+Section: net
+Priority: optional
+Standards-Version: 3.9.2
+Build-Depends: debhelper (>= 9)
+
+Package: yeti-client
+Section: net
+Architecture: amd64
+Depends: ${shlibs:Depends}
+Conflicts: yeti-client
+Description: YETI Customer UI

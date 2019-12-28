@@ -8,10 +8,11 @@ RUN echo "deb https://deb.nodesource.com/node_10.x buster main" >> /etc/apt/sour
 
 RUN apt-get update && apt-get -y --no-install-recommends install build-essential devscripts \
     debhelper fakeroot lintian python-jinja2 \
-    git-changelog python-setuptools lsb-release curl
+    git-changelog python-setuptools lsb-release curl \ 
+    nodejs
 
 ADD . /build/yeti-client/
 
 WORKDIR /build/yeti-client/
-CMD make package
+CMD nmp install yarn -g && make package
 

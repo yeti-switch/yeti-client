@@ -14,5 +14,5 @@ RUN apt-get update && apt-get -y --no-install-recommends install build-essential
 ADD . /build/yeti-client/
 
 WORKDIR /build/yeti-client/
-CMD nmp install yarn -g && make package
+CMD npm install yarn -g && make package
 

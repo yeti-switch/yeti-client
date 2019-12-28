@@ -15,7 +15,7 @@ stages:
 jobs:
   include:
     - stage: build application
-      name: "Build Vue application"
+      name: "Test build"
       script: "yarn build"
 
     - stage: stable package

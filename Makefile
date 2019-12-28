@@ -21,8 +21,9 @@ all:
 
 install:
 	@$(info:msg=Installging)
-	@echo "DESTDIR = '$(DESTDIR)'"	
-	make -C src install
+	@echo "DESTDIR = '$(DESTDIR)'"
+	@mkdir -v -p $(DESTDIR)/opt/yeti-client
+	@install -v -m0644 -D dist config-examples $(DESTDIR)/opt/yeti-client
 
 clean:
 	make -C debian clean
@@ -30,7 +31,7 @@ clean:
 .PHONY: package
 package: chlog
 	@$(info:msg=Building JS)
-	yarnpkg build
+	yarn build
 	@$(info:msg=Building package)
 	dpkg-buildpackage -us -uc -b
 

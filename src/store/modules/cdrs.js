@@ -1,7 +1,6 @@
 // eslint-disable-next-line
 import { jsonApi } from '../../api';
 import { RESOURCES } from '../../static/constants/api';
-import utils from '../../utils';
 
 const state = {
   cdrs: {},
@@ -11,7 +10,7 @@ const state = {
 };
 const getters = {
   cdrs: (currentState) => ({
-    items: utils.normalizeCdrs(currentState.cdrs.data), meta: currentState.cdrs.meta,
+    items: currentState.cdrs.data, meta: currentState.cdrs.meta,
   }),
   isRequestPending: (currentState) => currentState.requestPending,
   cdrFilter: (currentState) => currentState.cdrFilter,

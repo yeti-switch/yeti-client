@@ -7,7 +7,6 @@
       :fields="fields"
       :items="cdrs"
       :rows="rows"
-      :badged-item="badgedItem"
       :get-data="getCdrs"
     >
       <template v-slot:filter>
@@ -17,38 +16,11 @@
         <div class="quickfilter">
           <div>
             <b-link>Apply custom filters</b-link>, or
-          </div>
-          <div class="quickfilter-wrapper">
-            <span>use quick filter by Start Time:&nbsp;</span>
-            <date-range-picker
-              ref="picker"
-              v-model="dateRange"
-              :opens="opens"
-              :locale-data="localeData"
-              :time-picker="timePicker"
-              :linked-calendars="linkedCalendars"
-              @toggle="toggleIfNotLoading"
-              @update="updateValues"
-            >
-              >
-              <div
-                slot="input"
-                slot-scope="picker"
-                style="min-width: 250px;"
-              >
-                {{ picker.startDate | date }} - {{ picker.endDate | date }}
-              </div>
-            </date-range-picker>
-            <b-button
-              type="reset"
-              variant="light"
-              size="sm"
-              class="ml-2"
-              @click="onResetClick"
-              :disabled="loading"
-            >
-              Reset
-            </b-button>
+            <QuickTableFilter
+              :get-data="getCdrs"
+              :on-reset="onReset"
+              :date-range="dateRange"
+            />
           </div>
         </div>
       </template>
@@ -57,11 +29,11 @@
 </template>
 
 <script>
-import { isEmpty } from 'lodash';
-import DateRangePicker from 'vue2-daterange-picker';
+import { isEmpty, flow } from 'lodash';
 
 import utils from '../../utils';
 import DataTable from '../DataTable/DataTable';
+import QuickTableFilter from '../QuickTableFilter/QuickTableFilter';
 
 import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
 
@@ -70,26 +42,12 @@ export default {
   components: {
     // CdrFilter,
     DataTable,
-    DateRangePicker,
+    QuickTableFilter,
   },
-  filters: {
-    date(dateStr) {
-      return utils.formatPickerDate(dateStr);
-    },
-  },
+
   data() {
     return {
-      badgedItem: 'success',
-      // Picker stuff
-      opens: 'right',
-      timePicker: true,
       dateRange: utils.getLast24Hours(),
-      linkedCalendars: false,
-      localeData: {
-        firstDay: 1,
-        format: 'DD-MM-YYYY HH:mm:ss',
-        applyLabel: 'Filter',
-      },
       // Table fields
       fields: [
         {
@@ -234,16 +192,13 @@ export default {
   },
   computed: {
     cdrs() {
-      return this.$store.getters.cdrs.items;
+      return flow(utils.formatCdrs, utils.colorCdrsTable)(this.$store.getters.cdrs.items);
     },
     filterValue() {
       return {
         timeStartGteq: this.$data.dateRange.startDate,
         timeStartLteq: this.$data.dateRange.endDate,
       };
-    },
-    loading() {
-      return this.$store.getters.isRequestPending;
     },
     rows() {
       return this.$store.getters.cdrs && this.$store.getters.cdrs.meta
@@ -260,34 +215,12 @@ export default {
     getCdrs(pageNumber) {
       this.$store.dispatch('getCdrs', pageNumber);
     },
-    updateValues() {
-      this.$store.dispatch('setCdrFilter', this.filterValue);
-      this.getCdrs();
-    },
-    onResetClick() {
+    onReset() {
       this.$data.dateRange = utils.getLast24Hours();
-      this.resetCdrFilter();
-      this.getCdrs();
-    },
-    resetCdrFilter() {
-      this.$store.dispatch('setCdrFilter', this.filterValue);
-    },
-    toggleIfNotLoading() {
-      if (this.loading) {
-        this.$refs.picker.open = false;
-      }
     },
   },
 };
 </script>
 
 <style>
-.quickfilter {
-  text-align: left;
-  padding: 0 0 10px 15px;
-}
-.quickfilter .form-control {
-  font-size: 0.9rem;
-  text-align: center;
-}
 </style>

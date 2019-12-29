@@ -1,11 +1,52 @@
+sudo: required
+services:
+  - docker
+
+git:
+  depth: false
+
 language: node_js
 node_js:
   - "10"
 stages:
-  - test
   - build application
+  - stable package
+  - nightly package
 jobs:
   include:
     - stage: build application
-      name: "Build Vue application"
+      name: "Test build"
       script: "yarn build"
+
+    - stage: stable package
+      if: branch != master OR tag =~ ^.*$
+      env: CACHE_NAME=yeti_client_package
+      name: Stable package - Stretch + Buster
+      script: &1
+        - docker build -t yeti-client -f ./ci/build_buster.Dockerfile .
+        - docker run --name yeti-client yeti-client && docker commit yeti-client yeti-client:built
+      deploy:
+        skip_cleanup: true
+        provider: script
+        script:
+          - docker run --name yeti-client-deploy yeti-client:built ci/deploy.sh "$API_ENDPOINT" stretch "${TRAVIS_TAG:0:3}" main /build/*.deb
+          - docker run --name yeti-client-deploy yeti-client:built ci/deploy.sh "$API_ENDPOINT" buster "${TRAVIS_TAG:0:3}" main /build/*.deb
+        on:
+          tags: true
+          condition: "$TRAVIS_TAG != *-master*"
+          repo: yeti-switch/yeti-client
+
+    - stage: nightly package
+      if: branch = master
+      env: CACHE_NAME=yeti_client_package
+      name: Nightly package - Stretch + Buster
+      script: *1
+      deploy:
+        skip_cleanup: true
+        provider: script
+        script:
+          - docker run --name yeti-client-deploy yeti-client:built ci/deploy.sh "$API_ENDPOINT" stretch nightly main /build/*.deb
+          - docker run --name yeti-client-deploy yeti-client:built ci/deploy.sh "$API_ENDPOINT" buster nightly main /build/*.deb
+        on:
+          all_branches: true
+          repo: yeti-switch/yeti-client

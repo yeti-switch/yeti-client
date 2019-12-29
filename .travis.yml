@@ -34,7 +34,7 @@ jobs:
       - skip_cleanup: true
         provider: script
         script:
-          docker run --name yeti-client-deploy yeti-client:built ci/deploy.sh "$API_ENDPOINT" buster "${TRAVIS_TAG:0:3}" main /build/*.deb
+          docker run --name yeti-client-deploy2 yeti-client:built ci/deploy.sh "$API_ENDPOINT" buster "${TRAVIS_TAG:0:3}" main /build/*.deb
         on:
           tags: true
           condition: "$TRAVIS_TAG != *-master*"
@@ -56,7 +56,7 @@ jobs:
       - skip_cleanup: true
         provider: script
         script:
-          docker run --name yeti-client-deploy yeti-client:built ci/deploy.sh "$API_ENDPOINT" buster nightly main /build/*.deb 
+          docker run --name yeti-client-deploy2 yeti-client:built ci/deploy.sh "$API_ENDPOINT" buster nightly main /build/*.deb 
         on:
           all_branches: true
           repo: yeti-switch/yeti-client

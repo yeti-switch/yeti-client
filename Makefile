@@ -24,10 +24,10 @@ all:
 
 .PHONY: install
 install: $(app_files)
-        $(info:msg=install app files)
-        @mkdir -p $(DESTDIR)$(app_dir)
-        tar -c --no-auto-compress $^ | tar -x -C $(DESTDIR)$(app_dir)
-        @mkdir -v -p $(addprefix $(DESTDIR)$(app_dir)/, log tmp )
+	$(info:msg=install app files)
+	@mkdir -p $(DESTDIR)$(app_dir)
+	tar -c --no-auto-compress $^ | tar -x -C $(DESTDIR)$(app_dir)
+	@mkdir -v -p $(addprefix $(DESTDIR)$(app_dir)/, log tmp )
 
 clean:
 	make -C debian clean

@@ -10,11 +10,6 @@ stages:
 - build application
 - stable package
 - nightly package
-
-env:
-  global:
-    secure: lAtM9PFp2ah8RSyUJ/U8/ICnhzvzHgkjvq4lGkwIy9HU2ok36jaZZkyKsnHD/cFe3swQDCD6LLrn5ViNpGtfl5173v3X1qFNm95ar0TvmFYiEYJeqhzDbqdCBKX+NZ6zvU7a4bm2gBxSHpb77pcBNA/uafPOsWLdbcyUGBkVzVPwR4PiMwo+whubwyZ244nt1MaN6IzOCX8byMkrIBBKiu+L/3preM/Y5KYkxfwrH+lTmfYoYgVRU3zzzkSSqFskM18QDmxcs3De0830+jWI2VbMYH3zKxO8mAc1q3AgbjKsm5P/WL7FIpdGcnzpNxyotQjDAAK1RsebT4+3BzETcGn9R2ocPkfk5t2ivWjvFUPNdof57Idu7v9Kz+3jbyShUoGbFaKKoLUz7hGbyNWmtf0Cw17vb3YU82ZkrzDfKeCShll1+UxCS/6b5fQ9FaLZkEf1La4ox/tcD0wIRgq3Lzq+eD1o755AZyjJbHQAzmYb7tYxviEf/RHMQ6CoPQs/J7jt3XBenhvzuR9xGXBVFujMvS/SKyWSBrFDbSge+eBJt+6018gAWpC3OLArkT/UZu//Alj7XaerO2cIrCHeXtHxijzD7IksRZpzLGA7gNq3R5zn2JOzYxNQM1JPiemhSmiZzDFXmIulGgUQvvvP368KkJ9hkRf78ieJjhSfOMo=
-
 jobs:
   include:
   - stage: build application
@@ -55,4 +50,6 @@ jobs:
       on:
         all_branches: true
         repo: yeti-switch/yeti-client
-
+env:
+  global:
+    secure: q8zuN8jLovW63+ZkSCGudL31vm6LJEbbIkJzyqqw0KE+EeTVMoeIIZ3J6gb++db3cEuAH0QQvYTivrxLu30PohdgDWg6xEwBoLLFA9DA7nE5kCNK22IaSzdTJZPtgow/fAGpnpOui6ubtQD4vr3mbxYYdiFhR4eXaueU4UOcnEw18jZ1/NTGY0XeWL7Xz2iSuvYhLEFRF/bDIwrFOJ8Jxkv5Bu6qz2RIINfifgWCexeAsHihJrxHIrInksyh36nuDSYa41H37ftKLeOeLZcdiom2r5EPI8jEopiQyOVXMnNBTwLovsSdrIBnZK+P4SI5fIvOipuOJgtGrfuvpSXrvNV3fjrBbdX9n0syf22FPxrji8mZD1la89Z383dNdj7x+1RP9/AsuB15bzSNihzXRcRe4d+cmxwcmOx6ghvnkd3fuKSqZTQXPBcnREtyueuIsBmoYuGXl0CRdHev3vTI5zs98OUobhNS90fitz8EbDT4iag/+h7BgK9X+QIORPGCr20IHU8pvhmU5MD0tejNCHExiqwVs5oVyUBpIrVP0A3gDhhfA24oAoGlSYuFbJCaRP/vO5bD/r6b6vIGphmCCcFLY801ot6hKPX1dFkihQfQa3NtYwhsgMRolYGrzM8ryCfx0BtMP+NzH7iIQvU+wj1W52KBCe6/EvKUNDfb2K0=

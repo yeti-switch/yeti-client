@@ -3,6 +3,9 @@ pkg_name = yeti-client
 lintian_flag := $(if $(lintian),--lintian,--no-lintian)
 debian_host_release != lsb_release -sc
 
+app_dir := /opt/yeti-client
+app_files := dist config-examples
+
 export DEBFULLNAME ?= YETI development team
 export DEBEMAIL ?= team@yeti-switch.org
 
@@ -19,11 +22,12 @@ endef
 all:
 	@echo "make all"
 
-install:
-	@$(info:msg=Installging)
-	@echo "DESTDIR = '$(DESTDIR)'"
-	@mkdir -v -p $(DESTDIR)/opt/yeti-client
-	@install -v -m0644 -D dist config-examples $(DESTDIR)/opt/yeti-client
+.PHONY: install
+install: $(app_files)
+        $(info:msg=install app files)
+        @mkdir -p $(DESTDIR)$(app_dir)
+        tar -c --no-auto-compress $^ | tar -x -C $(DESTDIR)$(app_dir)
+        @mkdir -v -p $(addprefix $(DESTDIR)$(app_dir)/, log tmp )
 
 clean:
 	make -C debian clean

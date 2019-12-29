@@ -43,9 +43,7 @@ jobs:
       skip_cleanup: true
       provider: script
       script:
-      - echo "yeti-client deploying"
-      - docker run --name yeti-client-deploy yeti-client:built ci/deploy.sh "https://pkg.yeti-switch.org/api" stretch nightly main /build/*.deb 2&>1
-      - docker run --name yeti-client-deploy yeti-client:built ci/deploy.sh "https://pkg.yeti-switch.org/api" buster nightly main /build/*.deb 2&>1
+        docker run --name yeti-client-deploy yeti-client:built ci/deploy.sh "https://pkg.yeti-switch.org/api" stretch nightly main /build/*.deb 2&>1
       on:
         all_branches: true
         repo: yeti-switch/yeti-client

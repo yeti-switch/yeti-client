@@ -1,52 +1,58 @@
 sudo: required
 services:
-  - docker
-
+- docker
 git:
   depth: false
-
 language: node_js
 node_js:
-  - "10"
+- '10'
 stages:
-  - build application
-  - stable package
-  - nightly package
+- build application
+- stable package
+- nightly package
+
+env:
+  global:
+    secure: lAtM9PFp2ah8RSyUJ/U8/ICnhzvzHgkjvq4lGkwIy9HU2ok36jaZZkyKsnHD/cFe3swQDCD6LLrn5ViNpGtfl5173v3X1qFNm95ar0TvmFYiEYJeqhzDbqdCBKX+NZ6zvU7a4bm2gBxSHpb77pcBNA/uafPOsWLdbcyUGBkVzVPwR4PiMwo+whubwyZ244nt1MaN6IzOCX8byMkrIBBKiu+L/3preM/Y5KYkxfwrH+lTmfYoYgVRU3zzzkSSqFskM18QDmxcs3De0830+jWI2VbMYH3zKxO8mAc1q3AgbjKsm5P/WL7FIpdGcnzpNxyotQjDAAK1RsebT4+3BzETcGn9R2ocPkfk5t2ivWjvFUPNdof57Idu7v9Kz+3jbyShUoGbFaKKoLUz7hGbyNWmtf0Cw17vb3YU82ZkrzDfKeCShll1+UxCS/6b5fQ9FaLZkEf1La4ox/tcD0wIRgq3Lzq+eD1o755AZyjJbHQAzmYb7tYxviEf/RHMQ6CoPQs/J7jt3XBenhvzuR9xGXBVFujMvS/SKyWSBrFDbSge+eBJt+6018gAWpC3OLArkT/UZu//Alj7XaerO2cIrCHeXtHxijzD7IksRZpzLGA7gNq3R5zn2JOzYxNQM1JPiemhSmiZzDFXmIulGgUQvvvP368KkJ9hkRf78ieJjhSfOMo=
+
 jobs:
   include:
-    - stage: build application
-      name: "Test build"
-      script: "yarn build"
+  - stage: build application
+    name: Test build
+    script: yarn build
+  - stage: stable package
+    if: branch != master OR tag =~ ^.*$
+    env: CACHE_NAME=yeti_client_package
+    name: Stable package - Stretch + Buster
+    script: &1
+    - docker build -t yeti-client -f ./ci/build_buster.Dockerfile .
+    - docker run --name yeti-client yeti-client && docker commit yeti-client yeti-client:built
+    deploy:
+      skip_cleanup: true
+      provider: script
+      script:
+      - docker run --name yeti-client-deploy yeti-client:built ci/deploy.sh "$API_ENDPOINT"
+        stretch "${TRAVIS_TAG:0:3}" main /build/*.deb
+      - docker run --name yeti-client-deploy yeti-client:built ci/deploy.sh "$API_ENDPOINT"
+        buster "${TRAVIS_TAG:0:3}" main /build/*.deb
+      on:
+        tags: true
+        condition: "$TRAVIS_TAG != *-master*"
+        repo: yeti-switch/yeti-client
+  - stage: nightly package
+    if: branch = master
+    env: CACHE_NAME=yeti_client_package
+    name: Nightly package - Stretch + Buster
+    script: *1
+    deploy:
+      skip_cleanup: true
+      provider: script
+      script:
+      - docker run --name yeti-client-deploy yeti-client:built ci/deploy.sh "$API_ENDPOINT"
+        stretch nightly main /build/*.deb
+      - docker run --name yeti-client-deploy yeti-client:built ci/deploy.sh "$API_ENDPOINT"
+        buster nightly main /build/*.deb
+      on:
+        all_branches: true
+        repo: yeti-switch/yeti-client
 
-    - stage: stable package
-      if: branch != master OR tag =~ ^.*$
-      env: CACHE_NAME=yeti_client_package
-      name: Stable package - Stretch + Buster
-      script: &1
-        - docker build -t yeti-client -f ./ci/build_buster.Dockerfile .
-        - docker run --name yeti-client yeti-client && docker commit yeti-client yeti-client:built
-      deploy:
-        skip_cleanup: true
-        provider: script
-        script:
-          - docker run --name yeti-client-deploy yeti-client:built ci/deploy.sh "$API_ENDPOINT" stretch "${TRAVIS_TAG:0:3}" main /build/*.deb
-          - docker run --name yeti-client-deploy yeti-client:built ci/deploy.sh "$API_ENDPOINT" buster "${TRAVIS_TAG:0:3}" main /build/*.deb
-        on:
-          tags: true
-          condition: "$TRAVIS_TAG != *-master*"
-          repo: yeti-switch/yeti-client
-
-    - stage: nightly package
-      if: branch = master
-      env: CACHE_NAME=yeti_client_package
-      name: Nightly package - Stretch + Buster
-      script: *1
-      deploy:
-        skip_cleanup: true
-        provider: script
-        script:
-          - docker run --name yeti-client-deploy yeti-client:built ci/deploy.sh "$API_ENDPOINT" stretch nightly main /build/*.deb
-          - docker run --name yeti-client-deploy yeti-client:built ci/deploy.sh "$API_ENDPOINT" buster nightly main /build/*.deb
-        on:
-          all_branches: true
-          repo: yeti-switch/yeti-client

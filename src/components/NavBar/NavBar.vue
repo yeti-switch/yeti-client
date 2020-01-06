@@ -3,54 +3,39 @@
     v-if="isAuthenticated"
     :class="mainNavClass"
   >
+    <b-nav vertical>
+      <b-nav-item
+        v-if="isNavItemVisible(navigationRoutesNames.RATES)"
+        :active="this.$route.path === navigationRoutesPaths.RATES"
+        router-link
+        :to="navigationRoutesPaths.RATES"
+      >
+        {{ navItemNameHadler('Rates') }}
+      </b-nav-item>
+      <b-nav-item
+        v-if="isNavItemVisible(navigationRoutesNames.CDRS)"
+        :active="this.$route.path === navigationRoutesPaths.CDRS"
+        router-link
+        :to="navigationRoutesPaths.CDRS"
+      >
+        {{ navItemNameHadler('Cdrs') }}
+      </b-nav-item>
+      <b-nav-item
+        v-if="isNavItemVisible(navigationRoutesNames.ACCOUNTS)"
+        :active="this.$route.path === navigationRoutesPaths.ACCOUNTS"
+        router-link
+        :to="navigationRoutesPaths.ACCOUNTS"
+      >
+        {{ navItemNameHadler('Accounts') }}
+      </b-nav-item>
+    </b-nav>
     <b-button
       v-b-toggle
       class="nav-bar-collapse-button"
       :pressed.sync="navOpened"
     >
-      Toggle NavBar
+      {{ collapseButtonText }}
     </b-button>
-
-    <b-nav vertical>
-      <div class="placeholder-for-future-use">
-        Search element can be placed here
-      </div>
-      <b-button
-        v-b-toggle.statistics-pages-collapse
-        class="menu-collapse"
-      >
-        Statistics pages
-      </b-button>
-      <b-collapse
-        id="statistics-pages-collapse"
-        v-model="statisticsVisible"
-      >
-        <b-nav-item
-          v-if="isNavItemVisible(navigationRoutesNames.RATES)"
-          :active="this.$route.path === navigationRoutesPaths.RATES"
-          router-link
-          :to="navigationRoutesPaths.RATES"
-        >
-          Rates
-        </b-nav-item>
-        <b-nav-item
-          v-if="isNavItemVisible(navigationRoutesNames.CDRS)"
-          :active="this.$route.path === navigationRoutesPaths.CDRS"
-          router-link
-          :to="navigationRoutesPaths.CDRS"
-        >
-          Cdrs
-        </b-nav-item>
-        <b-nav-item
-          v-if="isNavItemVisible(navigationRoutesNames.ACCOUNTS)"
-          :active="this.$route.path === navigationRoutesPaths.ACCOUNTS"
-          router-link
-          :to="navigationRoutesPaths.ACCOUNTS"
-        >
-          Accounts
-        </b-nav-item>
-      </b-collapse>
-    </b-nav>
   </div>
 </template>
 
@@ -82,10 +67,16 @@ export default {
     mainNavClass() {
       return `vertical-navbar-menu ${this.$data.navOpened ? 'opened' : 'collapsed'}`;
     },
+    collapseButtonText() {
+      return this.$data.navOpened ? 'Collapse' : '';
+    },
   },
   methods: {
     isNavItemVisible(name) {
       return !this.$store.getters.blockedPages.has(name);
+    },
+    navItemNameHadler(name) {
+      return this.$data.navOpened ? name : name[0];
     },
   },
 };
@@ -97,50 +88,60 @@ export default {
   flex: 1 1 230px;
   background-color: #222d32;
   position: relative;
-  transition: all ease-in-out 0.5s;
+  padding-top: 40px;
 
   & > .nav {
     width: 230px;
-    transition: all ease-in-out 0.5s 0.1s;
-    opacity: 1;
+
+    .router-link-exact-active {
+      border-left: 1px solid #3c8dbc;
+    }
   }
 
   &.collapsed {
     & > .nav {
-      width: 0;
-      overflow: hidden;
-      opacity: 0;
+      width: 50px;
+      text-align: center;
     }
 
     flex-basis: 0px;
     flex-grow: 0;
 
     .nav-bar-collapse-button {
-      opacity: 0.5;
+      &:after {
+        transform: rotateY(180deg)
+      }
     }
   }
 
   .nav-bar-collapse-button {
     position: absolute;
-    top: 0;
+    bottom: 0;
+    left: 0;
     z-index: 3;
-    font-size: 14px;
+    width: 100%;
     padding: 10px;
+    font-size: 14px;
     border-radius: initial;
     box-shadow: initial;
-    transition: all ease-in-out 0.5s;
+    outline: none;
+    height: 40px;
+
+    &:after {
+      content: '';
+      background: url('../../assets/arrow.svg') center no-repeat;
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 100%;
+      width: 50px;
+    }
   }
 
   & * {
     text-align: left;
   }
 
-  .placeholder-for-future-use {
-    text-align: center;
-    height: 200px;
-    padding: 70px 20px 0;
-    color: gray;
-  }
 
   .menu-collapse {
     box-shadow: initial;

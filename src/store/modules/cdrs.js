@@ -1,6 +1,6 @@
 // eslint-disable-next-line
 import { jsonApi } from '../../api';
-import { RESOURCES } from '../../static/constants/api';
+import { RESOURCES, CDRS } from '../../constants';
 
 const state = {
   cdrs: {},
@@ -17,35 +17,35 @@ const getters = {
 };
 const actions = {
   getCdrs: async ({ commit }, page) => {
-    commit('setRequestPending', true);
+    commit(CDRS.MUTATIONS.SET_REQUEST_PENDING, true);
     const cdrs = await jsonApi.findAllResources(RESOURCES.CDR, {
       filter: state.cdrFilter,
       page,
     });
     if (cdrs.error) {
-      commit('setError', cdrs.error);
+      commit(CDRS.MUTATIONS.SET_ERROR, cdrs.error);
     } else {
-      commit('setCdrs', cdrs);
+      commit(CDRS.MUTATIONS.SET_CDRS, cdrs);
     }
-    commit('setRequestPending', false);
+    commit(CDRS.MUTATIONS.SET_REQUEST_PENDING, false);
   },
-  setCdrFilter: ({ commit }, filter) => {
+  [CDRS.ACTIONS.SET_CDRS_FILTER]: ({ commit }, filter) => {
     if (filter) {
-      commit('saveCdrFilter', filter);
+      commit(CDRS.MUTATIONS.SAVE_CDRS_FILTER, filter);
     }
   },
 };
 const mutations = {
-  setCdrs: (currentState, cdrs) => {
+  [CDRS.MUTATIONS.SET_CDRS]: (currentState, cdrs) => {
     currentState.cdrs = cdrs;
   },
-  setRequestPending: (currentState, isPending) => {
+  [CDRS.MUTATIONS.SET_REQUEST_PENDING]: (currentState, isPending) => {
     currentState.requestPending = isPending;
   },
-  setError: (currentState, error) => {
+  [CDRS.MUTATIONS.SET_ERROR]: (currentState, error) => {
     currentState.error = error;
   },
-  saveCdrFilter: (currentState, filter) => {
+  [CDRS.MUTATIONS.SAVE_CDRS_FILTER]: (currentState, filter) => {
     currentState.cdrFilter = filter;
   },
 };

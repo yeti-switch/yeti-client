@@ -1,6 +1,6 @@
 // eslint-disable-next-line
 import { jsonApi } from '../../api';
-import { RESOURCES } from '../../static/constants/api';
+import { ACCOUNTS, RESOURCES } from '../../constants';
 
 const state = {
   accounts: {},
@@ -17,31 +17,31 @@ const getters = {
 };
 
 const actions = {
-  getAccounts: async ({ commit }, page) => {
-    commit('setRequestPending', true);
+  [ACCOUNTS.ACTIONS.GET_ACCOUNTS]: async ({ commit }, page) => {
+    commit(ACCOUNTS.MUTATIONS.SET_REQUEST_PENDING, true);
     const accounts = await jsonApi.findAllResources(RESOURCES.ACCOUNT, {
       filter: state.cdrFilter,
       page,
     });
-    commit('setAccounts', accounts);
-    commit('setRequestPending', false);
+    commit(ACCOUNTS.MUTATIONS.SET_ACCOUNTS, accounts);
+    commit(ACCOUNTS.MUTATIONS.SET_REQUEST_PENDING, false);
   },
-  setAccountFilter: ({ commit }, filter) => {
-    if (filter) {
-      commit('saveAccountsFilter', filter);
-    }
-  },
+  // [ACCOUNTS.ACTIONS.SET_ACCOUNTS_FILTER]: ({ commit }, filter) => {
+  //   if (filter) {
+  //     commit(ACCOUNTS.MUTATIONS.SAVE_ACCOUNTS_FILTER, filter);
+  //   }
+  // },
 };
 const mutations = {
-  setAccounts: (currentState, accounts) => {
+  [ACCOUNTS.MUTATIONS.SET_ACCOUNTS]: (currentState, accounts) => {
     currentState.accounts = accounts;
   },
-  setRequestPending: (currentState, isPending) => {
+  [ACCOUNTS.MUTATIONS.SET_REQUEST_PENDING]: (currentState, isPending) => {
     currentState.requestPending = isPending;
   },
-  saveAccountsFilter: (currentState, filter) => {
-    currentState.accountFilter = filter;
-  },
+  // [ACCOUNTS.MUTATIONS.SAVE_ACCOUNTS_FILTER]: (currentState, filter) => {
+  //   currentState.accountFilter = filter;
+  // },
 };
 
 export default {

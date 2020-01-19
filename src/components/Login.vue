@@ -32,6 +32,8 @@
 
 <script>
 
+import { AUTH, NOTIFICATION_TYPES } from '../constants';
+
 export default {
   name: 'Login',
   data() {
@@ -43,15 +45,15 @@ export default {
   methods: {
     onSubmit() {
       const { login, password } = this;
-      this.$store.dispatch('authRequest', { login, password })
+      this.$store.dispatch(AUTH.ACTIONS.AUTH_REQUEST, { login, password })
         .then(() => this.$router.push(this.$route.query.redirect || '/'))
         .then(() => this.$notify({
-          type: 'success',
+          type: NOTIFICATION_TYPES.SUCCESS,
           text: 'Login successful',
         }))
         .catch((err) => {
           this.$notify({
-            type: 'error',
+            type: NOTIFICATION_TYPES.ERROR,
             text: err,
           });
         });

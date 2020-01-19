@@ -1,6 +1,7 @@
 // eslint-disable-next-line
 import { jsonApi } from '../../api';
-import { RESOURCES } from '../../static/constants/api';
+import { RESOURCES, RATES } from '../../constants';
+
 
 const state = {
   rates: {},
@@ -14,26 +15,26 @@ const getters = {
   rateFilter: (currentState) => currentState.rateFilter,
 };
 const actions = {
-  getRates: async ({ commit }, page) => {
+  [RATES.ACTIONS.GET_RATES]: async ({ commit }, page) => {
     const rates = await jsonApi.findAllResources(RESOURCES.RATE, {
       filter: state.rateFilter,
       page,
     });
-    commit('setRates', rates);
+    commit(RATES.MUTATIONS.SET_RATES, rates);
   },
-  setRateFilter: ({ commit }, filter) => {
-    if (filter) {
-      commit('saveRateFilter', filter);
-    }
-  },
+  // [RATES.ACTIONS.SET_RATES_FILTER]: ({ commit }, filter) => {
+  //   if (filter) {
+  //     commit(RATES.MUTATIONS.SAVE_RATES_FILTER, filter);
+  //   }
+  // },
 };
 const mutations = {
-  setRates: (currentState, rates) => {
+  [RATES.MUTATIONS.SET_RATES]: (currentState, rates) => {
     currentState.rates = rates;
   },
-  saveRateFilter: (currentState, filter) => {
-    currentState.rateFilter = filter;
-  },
+  // [RATES.MUTATIONS.SAVE_RATES_FILTER]: (currentState, filter) => {
+  //   currentState.rateFilter = filter;
+  // },
 };
 
 export default {

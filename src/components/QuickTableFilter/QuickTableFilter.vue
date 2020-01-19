@@ -7,6 +7,7 @@
       :opens="settings.opens"
       :locale-data="settings.localeData"
       :time-picker="settings.timePicker"
+      :auto-apply="settings.autoApply"
       :linked-calendars="settings.linkedCalendars"
       @toggle="toggleIfNotLoading"
       @update="updateValues"
@@ -37,6 +38,7 @@
 import DateRangePicker from 'vue2-daterange-picker';
 
 import utils from '../../utils';
+import { CDRS } from '../../constants';
 
 import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
 
@@ -76,6 +78,7 @@ export default {
           opens: 'right',
           timePicker: true,
           linkedCalendars: false,
+          autoApply: true, // should be removed in case https://github.com/Innologica/vue2-daterange-picker/pull/120 will be merged
           localeData: {
             firstDay: 1,
             format: 'DD-MM-YYYY HH:mm:ss',
@@ -103,7 +106,8 @@ export default {
   },
   methods: {
     updateValues() {
-      this.$store.dispatch('setCdrFilter', this.filterValue);
+      this.$store.dispatch(CDRS.ACTIONS.SET_CDRS_FILTER, this.filterValue);
+
       this.$props.getData();
     },
     onResetClick() {
@@ -112,7 +116,7 @@ export default {
       this.$props.onReset();
     },
     resetCdrFilter() {
-      this.$store.dispatch('setCdrFilter', this.filterValue);
+      this.$store.dispatch(CDRS.ACTIONS.SET_CDRS_FILTER, this.filterValue);
     },
     toggleIfNotLoading() {
       if (this.loading) {

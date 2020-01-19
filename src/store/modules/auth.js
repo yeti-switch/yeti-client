@@ -1,6 +1,7 @@
 // eslint-disable-next-line
 import { jsonApi } from '../../api';
-import { RESOURCES } from '../../static/constants/api';
+import { RESOURCES, AUTH } from '../../constants';
+
 
 const state = {
   token: sessionStorage.getItem('yeti-token'),
@@ -11,44 +12,44 @@ const getters = {
   authStatus: () => state.status,
 };
 const actions = {
-  authRequest: async ({ commit }, { login, password }) => {
+  [AUTH.ACTIONS.AUTH_REQUEST]: async ({ commit }, { login, password }) => {
     const { data: { jwt } } = await jsonApi.createResource(RESOURCES.AUTH, {
       login, password,
     });
 
     jsonApi.setToken(jwt);
-    commit('authSuccess', jwt);
+    commit(AUTH.MUTATIONS.AUTH_SUCCESS, jwt);
     sessionStorage.setItem('yeti-token', jwt);
   },
-  localAuth: ({ commit }) => {
+  [AUTH.ACTIONS.LOCAL_AUTH]: ({ commit }) => {
     const jwt = sessionStorage.getItem('yeti-token');
 
     jsonApi.setToken(jwt);
     if (jwt) {
-      commit('authSuccess', jwt);
+      commit(AUTH.MUTATIONS.AUTH_SUCCESS, jwt);
     } else {
-      commit('logout');
+      commit(AUTH.MUTATIONS.LOGOUT);
     }
   },
-  logout: ({ commit }) =>
+  [AUTH.ACTIONS.LOGOUT]: ({ commit }) =>
     new Promise((resolve) => {
-      commit('logout');
+      commit(AUTH.MUTATIONS.LOGOUT);
       sessionStorage.removeItem('yeti-token');
       resolve();
     }),
 };
 const mutations = {
-  authSuccess: (currentState, token) => {
+  [AUTH.MUTATIONS.AUTH_SUCCESS]: (currentState, token) => {
     currentState.status = 'success';
     currentState.token = token; // @todo probably not needed anymore
   },
-  logout: (currentState) => {
+  [AUTH.MUTATIONS.LOGOUT]: (currentState) => {
     currentState.token = '';
     currentState.status = 'unauthorized';
   },
-  setError: (currentState, res) => {
-    currentState.error = res;
-  },
+  // setError: (currentState, res) => {
+  //   currentState.error = res;
+  // },
 };
 
 export default {

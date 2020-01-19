@@ -14,6 +14,7 @@
 <script>
 import TopBar from './components/TopBar/TopBar';
 import NavBar from './components/NavBar/NavBar';
+import { AUTH, NOTIFICATION_TYPES } from './constants';
 import { jsonApi } from './api';
 
 export default {
@@ -25,23 +26,23 @@ export default {
   data() {
     return {
       message: '',
-      type: 'error',
+      type: NOTIFICATION_TYPES.ERROR,
     };
   },
   beforeCreate() {
-    this.$store.dispatch('localAuth');
+    this.$store.dispatch(AUTH.ACTIONS.LOCAL_AUTH);
 
     const errorMiddleware = {
       name: 'logout-redirect',
       error: (payload) => {
         this.$notify({
-          type: 'error',
+          type: NOTIFICATION_TYPES.ERROR,
           title: payload[0].title,
           text: payload[0].detail,
         });
 
         if (payload[0].title === 'Authorization failed') {
-          this.$store.dispatch('logout');
+          this.$store.dispatch(AUTH.ACTIONS.LOGOUT);
           this.$router.push('/login');
         }
 

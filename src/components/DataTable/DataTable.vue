@@ -28,10 +28,10 @@
         :busy="loading"
         :small="small"
         :items="items"
-        :per-page="perPage"
         :striped="striped"
         :fixed="fixed"
         :fields="fields"
+        :per-page="perPage"
         class="datatable-content"
         show-empty
         sticky-header="calc(100vh - 15rem)"
@@ -44,7 +44,7 @@
             class="text-left"
           >
             <b>
-              {{ scope.emptyFilteredText }}
+              {{ scope.emptyText }}
             </b>
           </div>
         </template>
@@ -68,7 +68,7 @@
         align="center"
         size="sm"
         aria-controls="dataTable"
-        @change="getData"
+        @input="getData"
       />
     </div>
   </div>
@@ -114,9 +114,6 @@ export default {
   computed: {
     loading() {
       return this.$store.getters.isRequestPending;
-    },
-    onlyOnePage() {
-      return false;
     },
     hiddenIfLoading() {
       return this.loading ? 'hidden' : 'visible';

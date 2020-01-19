@@ -1,6 +1,6 @@
 import Api from 'devour-client';
 
-import { RELATIONSHIPS, RESOURCES } from '../static/constants/api';
+import { RELATIONSHIPS, RESOURCES } from '../constants';
 // eslint-disable-next-line
 import store from '../store/store';
 

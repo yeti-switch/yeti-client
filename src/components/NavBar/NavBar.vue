@@ -123,7 +123,7 @@ export default {
     padding: 10px;
     font-size: 14px;
     border-radius: initial;
-    box-shadow: initial;
+    box-shadow: initial !important; // Needed to overwrite default library box-shadow
     outline: none;
     height: 40px;
 

@@ -41,6 +41,8 @@
 <script>
 import { mapGetters } from 'vuex';
 
+import { AUTH } from '../../constants';
+
 export default {
   name: 'TopBar',
   computed: {
@@ -48,7 +50,7 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.dispatch('logout').then(() => this.$router.push('/login'));
+      this.$store.dispatch(AUTH.ACTIONS.LOGOUT).then(() => this.$router.push('/login'));
     },
   },
 };

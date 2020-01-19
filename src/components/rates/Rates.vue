@@ -17,10 +17,12 @@
 </template>
 
 <script>
-import { flow } from 'lodash';
+import { flow, get } from 'lodash';
 // import RatesFilter from './RatesFilter';
 import DataTable from '../DataTable/DataTable';
 import utils from '../../utils';
+import { RATES } from '../../constants';
+import { TABLE_HEADERS } from './constants';
 
 export default {
   name: 'Rates',
@@ -30,48 +32,7 @@ export default {
   },
   data() {
     return {
-      fields: [
-        {
-          key: 'connect-fee',
-          label: 'Connect fee',
-        },
-        {
-          key: 'initial-interval',
-          label: 'Initial interval',
-        },
-        {
-          key: 'initial-rate',
-          label: 'Initial rate',
-        },
-        {
-          key: 'network-prefix',
-          label: 'Network prefix',
-        },
-        {
-          key: 'next-interval',
-          label: 'Next interval',
-        },
-        {
-          key: 'next-rate',
-          label: 'Next rate',
-        },
-        {
-          key: 'prefix',
-          label: 'Prefix',
-        },
-        {
-          key: 'reject-calls',
-          label: 'Reject calls',
-        },
-        {
-          key: 'valid-from',
-          label: 'Valid from',
-        },
-        {
-          key: 'valid-till',
-          label: 'Valid till',
-        },
-      ],
+      fields: TABLE_HEADERS,
     };
   },
   computed: {
@@ -79,8 +40,7 @@ export default {
       return flow(utils.formatRates)(this.$store.getters.rates.items);
     },
     rows() {
-      return this.$store.getters.rates && this.$store.getters.rates.meta
-        ? this.$store.getters.rates.meta['total-count'] : 0;
+      return get(this.$store.getters, ['rates', 'meta', 'total-count'], 0);
     },
   },
   created() {
@@ -88,7 +48,7 @@ export default {
   },
   methods: {
     getRates(pageNumber) {
-      this.$store.dispatch('getRates', pageNumber);
+      this.$store.dispatch(RATES.ACTIONS.GET_RATES, pageNumber);
     },
   },
 };

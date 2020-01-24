@@ -21,6 +21,8 @@ const actions = {
     const cdrs = await jsonApi.findAllResources(RESOURCES.CDR, {
       filter: state.cdrFilter,
       page,
+      // @todo this is kinda hardcoded inclusion of auth-origin... relationships
+      include: RESOURCES.AUTH_ORIGIN_TRANSPORT_PROTOCOL,
     });
     if (cdrs.error) {
       commit(CDRS.MUTATIONS.SET_ERROR, cdrs.error);

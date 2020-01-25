@@ -62,10 +62,6 @@ export const TABLE_HEADERS = [
     label: 'Customer Price',
   },
   {
-    key: 'auth-orig-transport-protocol-id', // not convenient
-    label: 'Transport',
-  },
-  {
     key: 'originator-address',
     label: 'Originator Address',
   },

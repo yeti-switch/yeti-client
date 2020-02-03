@@ -1,29 +1,24 @@
 <template>
-  <div>
-    <h3 class="text-left pl-5">
-      CDRs
-    </h3>
-    <DataTable
-      :fields="fields"
-      :items="cdrs"
-      :rows="rows"
-      :get-data="getCdrs"
-    >
-      <template v-slot:filter>
-        <!-- <CdrFilter v-on:applyFilter="getCdrs" /> -->
-      </template>
-      <template v-slot:quickFilter>
-        <div class="quickfilter">
-          <b-link>Apply custom filters</b-link>, or
-          <QuickTableFilter
-            :get-data="getCdrs"
-            :on-reset="onReset"
-            :date-range="dateRange"
-          />
-        </div>
-      </template>
-    </DataTable>
-  </div>
+  <DataTable
+    :fields="fields"
+    :items="cdrs"
+    :rows="rows"
+    :get-data="getCdrs"
+  >
+    <template v-slot:filter>
+      <!-- <CdrFilter v-on:applyFilter="getCdrs" /> -->
+    </template>
+    <template v-slot:quickFilter>
+      <div class="quickfilter">
+        <b-link>Apply custom filters</b-link>, or
+        <QuickTableFilter
+          :get-data="getCdrs"
+          :on-reset="onReset"
+          :date-range="dateRange"
+        />
+      </div>
+    </template>
+  </DataTable>
 </template>
 
 <script>

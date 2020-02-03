@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import { sync } from 'vuex-router-sync';
 import VueRouter from 'vue-router';
 import BootstrapVue from 'bootstrap-vue';
 import Notifications from 'vue-notification';
@@ -14,6 +15,8 @@ Vue.use(BootstrapVue);
 Vue.use(Notifications);
 
 Vue.config.productionTip = false;
+
+sync(store, router.instance);
 
 new Vue({
   render: (h) => h(App),

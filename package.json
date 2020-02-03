@@ -13,6 +13,7 @@
     "bootstrap-vue": "^2.0.2",
     "date-fns": "^2.4.1",
     "devour-client": "^2.0.23",
+    "lightweight-charts": "^1.2.1",
     "lodash": "^4.17.15",
     "node-sass": "^4.13.0",
     "sass-loader": "^8.0.0",

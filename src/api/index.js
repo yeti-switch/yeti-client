@@ -61,6 +61,8 @@ export class JsonApi {
 
   findOneResource = (resourceName, id) => this.instance.find(resourceName, id);
 
+  createResource = (resourceName, data) => this.instance.create(resourceName, data);
+
   setToken = (token) => {
     this.instance.headers.Authorization = `Bearer ${token}`;
   };

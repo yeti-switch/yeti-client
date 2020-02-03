@@ -6,6 +6,7 @@ import { routes as CdrsRoutes } from '../components/cdrs/routes';
 import { routes as RatesRoutes } from '../components/rates/routes';
 import { routes as AccountsRoutes } from '../components/accounts/routes';
 import Home from '../components/Home';
+import ActiveCallsChart from '../components/ActiveCallsChart/ActiveCallsChart';
 import { requiresAuth, requiresNotAuth, beforeGuardEnchancer } from './helpers';
 import { GENERAL_ROUTE_NAMES, GENERAL_PATHS } from '../constants/routing';
 
@@ -44,6 +45,13 @@ const STATIC_ROUTES = [
   ...RatesRoutes,
   ...CdrsRoutes,
   ...AccountsRoutes,
+  // @todo this need to be removed
+  {
+    path: '/test',
+    name: 'TestRoute',
+    component: ActiveCallsChart,
+    beforeEnter: beforeGuardEnchancer([requiresAuth]),
+  },
 ];
 
 export class Router {

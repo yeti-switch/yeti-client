@@ -6,6 +6,7 @@ export const RESOURCES = {
   ACCOUNTS: 'accounts',
   AUTH: 'auth',
   TRANSPORT_PROTOCOLS: 'transport-protocols',
+  ACTIVE_CALLS: 'chart-active-calls',
 };
 
 export const SPARSE_FIELDS = {
@@ -111,5 +112,14 @@ export const RELATIONSHIPS = {
     'origination-capacity': '',
     'termination-capacity': '',
     'total-capacity': '',
+  },
+  [RESOURCES.ACTIVE_CALLS]: {
+    'from-time': '',
+    'to-time': '',
+    account: {
+      jsonApi: 'hasOne',
+      type: 'accounts',
+      id: '',
+    },
   },
 };

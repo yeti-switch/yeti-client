@@ -25,6 +25,17 @@ export const CDRS = {
   },
 };
 
+export const ACTIVE_CALLS = {
+  MUTATIONS: {
+    SET_REQUEST_PENDING: 'setRequestPending',
+    SET_ACTIVE_CALLS: 'setActiveCalls',
+    SET_ERROR: 'setError',
+  },
+  ACTIONS: {
+    GET_ACTIVE_CALLS: 'getActiveCalls',
+  },
+};
+
 export const RATES = {
   MUTATIONS: {
     SET_RATES: 'setRates',

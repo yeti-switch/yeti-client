@@ -4115,6 +4115,11 @@ extsprintf@^1.2.0:
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
   integrity sha1-4mifjzVvrWLMplo6kcXfX5VRaS8=
 
+fancy-canvas@0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/fancy-canvas/-/fancy-canvas-0.2.1.tgz#aa8e814cf352305492b5ec31e200182f5b7a0316"
+  integrity sha512-DuN+pTHJUAdgqY+k7zABWwjr3OAC6LasHUZ3UzKLUdGuctGjR5q0jbMqobTWZ7P0R18EtXEHRUXc7zOwpywreQ==
+
 fast-deep-equal@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-2.0.1.tgz#7b05218ddf9667bf7f370bf7fdb2cb15fdd0aa49"
@@ -6082,6 +6087,13 @@ levn@^0.3.0, levn@~0.3.0:
   dependencies:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
+
+lightweight-charts@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/lightweight-charts/-/lightweight-charts-1.2.1.tgz#af7b730b41fcff5ee974e39b4a016ac48e1f3b60"
+  integrity sha512-EGWpNePOceB96xX4RhgYVCb9V1LAs1Y2hDijz2uDGvKZ5bk8MQrX0ign74tuK40HFHTO/VY3wQkkQ1Fvf/gvpw==
+  dependencies:
+    fancy-canvas "0.2.1"
 
 lines-and-columns@^1.1.6:
   version "1.1.6"

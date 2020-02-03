@@ -6,7 +6,7 @@
       class="dataTable"
     >
       <slot
-        name="quickFilter"
+        name="timeRangeFilter"
       />
 
       <h6

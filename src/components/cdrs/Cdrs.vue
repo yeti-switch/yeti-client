@@ -8,10 +8,10 @@
     <template v-slot:filter>
       <!-- <CdrFilter v-on:applyFilter="getCdrs" /> -->
     </template>
-    <template v-slot:quickFilter>
-      <div class="quickfilter">
+    <template v-slot:timeRangeFilter>
+      <div class="time-range-filter">
         <b-link>Apply custom filters</b-link>, or
-        <QuickTableFilter />
+        <TimeRangeFilter />
       </div>
     </template>
   </DataTable>
@@ -22,7 +22,7 @@ import { isEmpty, flow, get } from 'lodash';
 
 import utils from '../../utils';
 import DataTable from '../DataTable/DataTable';
-import QuickTableFilter from '../QuickTableFilter/QuickTableFilter';
+import TimeRangeFilter from '../TimeRangeFilter/TimeRangeFilter';
 import { CDRS, TIME_RANGE_FILTER } from '../../constants';
 import { TABLE_HEADERS } from './constants';
 
@@ -33,7 +33,7 @@ export default {
   components: {
     // CdrFilter,
     DataTable,
-    QuickTableFilter,
+    TimeRangeFilter,
   },
 
   data() {

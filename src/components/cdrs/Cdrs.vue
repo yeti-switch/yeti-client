@@ -11,11 +11,7 @@
     <template v-slot:quickFilter>
       <div class="quickfilter">
         <b-link>Apply custom filters</b-link>, or
-        <QuickTableFilter
-          :get-data="getCdrs"
-          :on-reset="onReset"
-          :date-range="dateRange"
-        />
+        <QuickTableFilter />
       </div>
     </template>
   </DataTable>
@@ -27,7 +23,7 @@ import { isEmpty, flow, get } from 'lodash';
 import utils from '../../utils';
 import DataTable from '../DataTable/DataTable';
 import QuickTableFilter from '../QuickTableFilter/QuickTableFilter';
-import { CDRS } from '../../constants';
+import { CDRS, TIME_RANGE_FILTER } from '../../constants';
 import { TABLE_HEADERS } from './constants';
 
 import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
@@ -42,20 +38,14 @@ export default {
 
   data() {
     return {
-      dateRange: utils.getLast24Hours(),
       // Table fields
       fields: TABLE_HEADERS,
+      storeSubscriber: undefined,
     };
   },
   computed: {
     cdrs() {
       return flow(utils.formatCdrs, utils.colorCdrsTable)(this.$store.getters.cdrs.items);
-    },
-    filterValue() {
-      return {
-        timeStartGteq: this.$data.dateRange.startDate,
-        timeStartLteq: this.$data.dateRange.endDate,
-      };
     },
     rows() {
       return get(this.$store.getters, ['cdrs', 'meta', 'total-count'], 0);
@@ -66,6 +56,17 @@ export default {
       this.$store.dispatch(CDRS.ACTIONS.SET_CDRS_FILTER, this.filterValue);
     }
     this.getCdrs();
+    this.$data.storeSubscriber = this.$store.subscribe((mutation) => {
+      switch (mutation.type) {
+        case TIME_RANGE_FILTER.MUTATIONS.SET_VALUE:
+          this.getCdrs();
+          break;
+        default:
+      }
+    });
+  },
+  beforeDestroy() {
+    this.$data.storeSubscriber();
   },
   methods: {
     getCdrs(pageNumber) {

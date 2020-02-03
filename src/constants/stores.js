@@ -46,3 +46,13 @@ export const AUTH = {
     LOGOUT: 'logout',
   },
 };
+
+export const TIME_RANGE_FILTER = {
+  MUTATIONS: {
+    SET_VALUE: 'setValue',
+  },
+  ACTIONS: {
+    FILTER_SET: 'filterSet',
+    FILTER_RESET: 'filterReset',
+  },
+};

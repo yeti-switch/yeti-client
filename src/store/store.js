@@ -4,6 +4,7 @@ import Vuex from 'vuex';
 /* eslint-disable import/no-cycle */
 
 import auth from './modules/auth';
+import timeRangeFilter from './modules/timeRangeFilter';
 import rates from './modules/rates';
 import accounts from './modules/accounts';
 import errors from './modules/errors';
@@ -23,5 +24,6 @@ export default new Vuex.Store({
     errors,
     cdrs,
     config,
+    timeRangeFilter,
   },
 });

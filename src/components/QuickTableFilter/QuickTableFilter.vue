@@ -3,7 +3,7 @@
     <span>use quick filter by Start Time:&nbsp;</span>
     <date-range-picker
       ref="picker"
-      v-model="dateRangeModel"
+      v-model="timeFilterValue"
       :opens="settings.opens"
       :locale-data="settings.localeData"
       :time-picker="settings.timePicker"
@@ -38,7 +38,7 @@
 import DateRangePicker from 'vue2-daterange-picker';
 
 import utils from '../../utils';
-import { CDRS } from '../../constants';
+import { TIME_RANGE_FILTER } from '../../constants';
 
 import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
 
@@ -53,24 +53,6 @@ export default {
     },
   },
   props: {
-    getData: {
-      type: Function,
-      default() {
-        return [];
-      },
-    },
-    onReset: {
-      type: Function,
-      default() {
-        return undefined;
-      },
-    },
-    dateRange: {
-      type: Object,
-      default() {
-        return {};
-      },
-    },
     settings: {
       type: Object,
       default() {
@@ -88,35 +70,27 @@ export default {
       },
     },
   },
-  data() {
-    return {
-      dateRangeModel: this.$props.dateRange,
-    };
-  },
   computed: {
-    filterValue() {
-      return {
-        timeStartGteq: this.$data.dateRangeModel.startDate,
-        timeStartLteq: this.$data.dateRangeModel.endDate,
-      };
+    timeFilterValue: {
+      get() {
+        return this.$store.getters.timeFilterValue;
+      },
+
+      // Silly setter just to suppress vue warning
+      set() {
+        return null;
+      },
     },
     loading() {
-      return this.$store.getters.isRequestPending;
+      return false;
     },
   },
   methods: {
-    updateValues() {
-      this.$store.dispatch(CDRS.ACTIONS.SET_CDRS_FILTER, this.filterValue);
-
-      this.$props.getData();
+    updateValues(value) {
+      this.$store.dispatch(TIME_RANGE_FILTER.ACTIONS.FILTER_SET, value);
     },
     onResetClick() {
-      this.resetCdrFilter();
-      this.$props.getData();
-      this.$props.onReset();
-    },
-    resetCdrFilter() {
-      this.$store.dispatch(CDRS.ACTIONS.SET_CDRS_FILTER, this.filterValue);
+      this.$store.dispatch(TIME_RANGE_FILTER.ACTIONS.FILTER_RESET);
     },
     toggleIfNotLoading() {
       if (this.loading) {

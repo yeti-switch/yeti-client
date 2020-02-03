@@ -3,7 +3,7 @@ export {
 } from './routing';
 
 export {
-  RATES, ACCOUNTS, CDRS, AUTH,
+  RATES, ACCOUNTS, CDRS, AUTH, TIME_RANGE_FILTER,
 } from './stores';
 
 export { NOTIFICATION_TYPES } from './common';

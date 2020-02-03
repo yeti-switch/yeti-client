@@ -16,10 +16,14 @@ const getters = {
   cdrFilter: (currentState) => currentState.cdrFilter,
 };
 const actions = {
-  getCdrs: async ({ commit }, page) => {
+  getCdrs: async ({ commit, rootState }, page) => {
     commit(CDRS.MUTATIONS.SET_REQUEST_PENDING, true);
     const cdrs = await jsonApi.findAllResources(RESOURCES.CDR, {
-      filter: state.cdrFilter,
+      filter: {
+        timeStartGteq: rootState.timeRangeFilter.timeFilterValue.startDate,
+        timeStartLteq: rootState.timeRangeFilter.timeFilterValue.endDate,
+
+      },
       page,
       // @todo this is kinda hardcoded inclusion of auth-origin... relationships
       include: RESOURCES.AUTH_ORIGIN_TRANSPORT_PROTOCOL,

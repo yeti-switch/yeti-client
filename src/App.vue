@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <TopBar />
     <notifications />
     <main>
       <NavBar />
@@ -12,7 +11,6 @@
 </template>
 
 <script>
-import TopBar from './components/TopBar/TopBar';
 import NavBar from './components/NavBar/NavBar';
 import { AUTH, NOTIFICATION_TYPES } from './constants';
 import { jsonApi } from './api';
@@ -20,7 +18,6 @@ import { jsonApi } from './api';
 export default {
   name: 'App',
   components: {
-    TopBar,
     NavBar,
   },
   data() {
@@ -79,7 +76,7 @@ export default {
   text-align: left;
 }
 main {
-  height: calc(100vh - 56px);
+  height: 100vh;
   display: flex;
 }
 

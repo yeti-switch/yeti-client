@@ -1,18 +1,24 @@
 <template>
   <div class="view-filters">
     <AccountsFilter />
-    <TimeRangeFilter />
+    <TimeRangeFilter v-if="isTimeRangeEnabled" />
   </div>
 </template>
 
 <script>
 import TimeRangeFilter from './components/TimeRangeFilter/TimeRangeFilter';
 import AccountsFilter from './components/AccountsFilter/AccountsFilter';
+import { STATISTICS_ROUTE_NAMES } from '../../constants';
 
 export default {
   components: {
     TimeRangeFilter,
     AccountsFilter,
+  },
+  computed: {
+    isTimeRangeEnabled() {
+      return this.$store.state.route.name === STATISTICS_ROUTE_NAMES.CDRS;
+    },
   },
 };
 </script>

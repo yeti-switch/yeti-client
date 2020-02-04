@@ -10,6 +10,7 @@ import accounts from './modules/accounts';
 import errors from './modules/errors';
 import cdrs from './modules/cdrs';
 import config from './modules/config';
+import networkServices from './modules/networkServices';
 
 import { currentAccountWatcher } from './plugins/currentAccountWatcher';
 
@@ -28,5 +29,6 @@ export default new Vuex.Store({
     cdrs,
     config,
     timeRangeFilter,
+    networkServices,
   },
 });

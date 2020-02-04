@@ -81,7 +81,9 @@ export default {
       },
     },
     loading() {
-      return false;
+      console.log('this.$store.getters.requestIsPending', this.$store.getters.requestIsPending);
+
+      return this.$store.getters.requestIsPending;
     },
   },
   methods: {

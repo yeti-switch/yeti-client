@@ -1,10 +1,9 @@
 // eslint-disable-next-line
 import { jsonApi } from '../../api';
-import { RESOURCES, CDRS } from '../../constants';
+import { RESOURCES, CDRS, NETWORK_SERVICE } from '../../constants';
 
 const state = {
   cdrs: {},
-  requestPending: false,
   error: null,
   cdrFilter: {},
 };
@@ -12,12 +11,11 @@ const getters = {
   cdrs: (currentState) => ({
     items: currentState.cdrs.data, meta: currentState.cdrs.meta,
   }),
-  isRequestPending: (currentState) => currentState.requestPending,
   cdrFilter: (currentState) => currentState.cdrFilter,
 };
 const actions = {
   getCdrs: async ({ commit, rootState }, page) => {
-    commit(CDRS.MUTATIONS.SET_REQUEST_PENDING, true);
+    commit(NETWORK_SERVICE.MUTATIONS.SWITCH_PENDING_STATE, true, { root: true });
     const filter = {
       timeStartGteq: rootState.timeRangeFilter.timeFilterValue.startDate,
       timeStartLteq: rootState.timeRangeFilter.timeFilterValue.endDate,
@@ -31,7 +29,7 @@ const actions = {
     } else {
       commit(CDRS.MUTATIONS.SET_CDRS, cdrs);
     }
-    commit(CDRS.MUTATIONS.SET_REQUEST_PENDING, false);
+    commit(NETWORK_SERVICE.MUTATIONS.SWITCH_PENDING_STATE, false, { root: true });
   },
   [CDRS.ACTIONS.SET_CDRS_FILTER]: ({ commit }, filter) => {
     if (filter) {
@@ -42,9 +40,6 @@ const actions = {
 const mutations = {
   [CDRS.MUTATIONS.SET_CDRS]: (currentState, cdrs) => {
     currentState.cdrs = cdrs;
-  },
-  [CDRS.MUTATIONS.SET_REQUEST_PENDING]: (currentState, isPending) => {
-    currentState.requestPending = isPending;
   },
   [CDRS.MUTATIONS.SET_ERROR]: (currentState, error) => {
     currentState.error = error;

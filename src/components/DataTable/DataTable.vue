@@ -109,7 +109,7 @@ export default {
   },
   computed: {
     loading() {
-      return this.$store.getters.isRequestPending;
+      return this.$store.getters.requestIsPending;
     },
     hiddenIfLoading() {
       return this.loading ? 'hidden' : 'visible';

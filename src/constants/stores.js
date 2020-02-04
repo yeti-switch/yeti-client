@@ -1,6 +1,5 @@
 export const ACCOUNTS = {
   MUTATIONS: {
-    SET_REQUEST_PENDING: 'setRequestPending',
     SET_ACCOUNTS: 'setAccounts',
     SAVE_ACCOUNTS_FILTER: 'saveAccountsFilter',
     SET_CHOSEN_ACCOUNT_ID: 'setChosenAccountId',
@@ -14,7 +13,6 @@ export const ACCOUNTS = {
 
 export const CDRS = {
   MUTATIONS: {
-    SET_REQUEST_PENDING: 'setRequestPending',
     SET_CDRS: 'setCdrs',
     SET_ERROR: 'setError',
     SAVE_CDRS_FILTER: 'saveCdrsFilter',
@@ -56,5 +54,14 @@ export const TIME_RANGE_FILTER = {
   ACTIONS: {
     FILTER_SET: 'filterSet',
     FILTER_RESET: 'filterReset',
+  },
+};
+
+export const NETWORK_SERVICE = {
+  MUTATIONS: {
+    SWITCH_PENDING_STATE: 'switchPendingState',
+  },
+  ACTIONS: {
+    SWITCH_PENDING_STATE: 'switchPendingState',
   },
 };

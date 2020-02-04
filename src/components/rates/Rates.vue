@@ -1,19 +1,14 @@
 <template>
-  <div>
-    <h3 class="text-left pl-5">
-      Rates
-    </h3>
-    <DataTable
-      :fields="fields"
-      :items="rates"
-      :rows="rows"
-      :get-data="getRates"
-    >
-      <template v-slot:filter>
-        <!-- <RatesFilter v-on:applyFilter="getRates" /> -->
-      </template>
-    </DataTable>
-  </div>
+  <DataTable
+    :fields="fields"
+    :items="rates"
+    :rows="rows"
+    :get-data="getRates"
+  >
+    <template v-slot:filter>
+      <!-- <RatesFilter v-on:applyFilter="getRates" /> -->
+    </template>
+  </DataTable>
 </template>
 
 <script>

@@ -3,6 +3,16 @@
     v-if="isAuthenticated"
     :class="mainNavClass"
   >
+    <b-navbar-brand
+      href="/"
+    >
+      <img
+        v-if="this.$data.navOpened"
+        alt="Yeti logo"
+        src="../../assets/logo.png"
+      >
+      <home-compact v-if="!this.$data.navOpened" />
+    </b-navbar-brand>
     <b-nav vertical>
       <b-nav-item
         v-if="isNavItemVisible(navigationRoutesNames.RATES)"
@@ -29,6 +39,27 @@
         {{ navItemNameHadler('Accounts') }}
       </b-nav-item>
     </b-nav>
+    <b-nav
+      vertical
+      class="logout-wrapper"
+    >
+      <b-nav-item
+        v-if="isAuthenticated"
+        href="#"
+        @click="logout"
+      >
+        <span v-if="this.$data.navOpened">
+
+          {{ navItemNameHadler('Logout') }}
+        </span>
+        <logout-compact
+          v-if="!this.$data.navOpened"
+          href="#"
+          @click="logout"
+        />
+      </b-nav-item>
+    </b-nav>
+
     <b-button
       v-b-toggle
       class="nav-bar-collapse-button"
@@ -40,11 +71,16 @@
 </template>
 
 <script>
+import { BIconHouse, BIconBoxArrowLeft } from 'bootstrap-vue';
 import { mapGetters } from 'vuex';
-import { STATISTICS_PATHS, STATISTICS_ROUTE_NAMES } from '../../constants/routing';
+import { STATISTICS_PATHS, STATISTICS_ROUTE_NAMES, AUTH } from '../../constants';
 
 export default {
   name: 'NavBar',
+  components: {
+    HomeCompact: BIconHouse,
+    LogoutCompact: BIconBoxArrowLeft,
+  },
   data() {
     return {
       navigationRoutesPaths: { ...STATISTICS_PATHS },
@@ -78,6 +114,9 @@ export default {
     navItemNameHadler(name) {
       return this.$data.navOpened ? name : name[0];
     },
+    logout() {
+      this.$store.dispatch(AUTH.ACTIONS.LOGOUT).then(() => this.$router.push('/login'));
+    },
   },
 };
 </script>
@@ -88,7 +127,13 @@ export default {
   flex: 1 1 230px;
   background-color: #222d32;
   position: relative;
-  padding-top: 40px;
+    text-align: left;
+
+
+  .navbar-brand {
+    margin: 10px 0 20px 15px;
+    color: #fff
+  }
 
   & > .nav {
     width: 230px;
@@ -112,6 +157,23 @@ export default {
         transform: rotateY(180deg)
       }
     }
+
+    .logout-wrapper {
+      .nav-link {
+        padding: .5rem 0;
+        .b-icon.bi {
+          font-size: 150%;
+          color: #fff;
+        }
+      }
+    }
+
+  }
+
+  .logout-wrapper {
+    position: absolute;
+    left: 0;
+    bottom: 60px;
   }
 
   .nav-bar-collapse-button {
@@ -137,11 +199,6 @@ export default {
       width: 50px;
     }
   }
-
-  & * {
-    text-align: left;
-  }
-
 
   .menu-collapse {
     box-shadow: initial;

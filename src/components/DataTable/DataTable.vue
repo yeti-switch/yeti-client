@@ -5,10 +5,6 @@
       :style="{overflow: hiddenIfLoading}"
       class="dataTable"
     >
-      <slot
-        name="quickFilter"
-      />
-
       <h6
         v-if="!loading"
         class="datatable-total"
@@ -34,7 +30,7 @@
         :per-page="perPage"
         class="datatable-content"
         show-empty
-        sticky-header="calc(100vh - 15rem)"
+        sticky-header="calc(100vh - 7rem)"
         hover
       >
         <template
@@ -113,7 +109,7 @@ export default {
   },
   computed: {
     loading() {
-      return this.$store.getters.isRequestPending;
+      return this.$store.getters.requestIsPending;
     },
     hiddenIfLoading() {
       return this.loading ? 'hidden' : 'visible';

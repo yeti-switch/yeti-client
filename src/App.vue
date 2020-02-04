@@ -1,33 +1,39 @@
 <template>
   <div id="app">
-    <TopBar />
     <notifications />
     <main>
       <NavBar />
       <div class="working-area-wrapper">
-        <router-view />
+        <router-view :name="loginRouteName" />
+        <router-view :name="filtersRouteName" />
+        <router-view v-if="accountsAreLoaded" />
       </div>
     </main>
   </div>
 </template>
 
 <script>
-import TopBar from './components/TopBar/TopBar';
 import NavBar from './components/NavBar/NavBar';
-import { AUTH, NOTIFICATION_TYPES } from './constants';
+import { AUTH, NOTIFICATION_TYPES, GENERAL_ROUTE_NAMES } from './constants';
 import { jsonApi } from './api';
 
 export default {
   name: 'App',
   components: {
-    TopBar,
     NavBar,
   },
   data() {
     return {
       message: '',
       type: NOTIFICATION_TYPES.ERROR,
+      loginRouteName: GENERAL_ROUTE_NAMES.LOG_IN,
+      filtersRouteName: GENERAL_ROUTE_NAMES.VIEW_FILTERS,
     };
+  },
+  computed: {
+    accountsAreLoaded() {
+      return this.$store.getters.accounts.items.length > 0;
+    },
   },
   beforeCreate() {
     this.$store.dispatch(AUTH.ACTIONS.LOCAL_AUTH);
@@ -79,7 +85,7 @@ export default {
   text-align: left;
 }
 main {
-  height: calc(100vh - 56px);
+  height: 100vh;
   display: flex;
 }
 

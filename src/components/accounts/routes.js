@@ -7,14 +7,19 @@ import {
 import {
   STATISTICS_ROUTE_NAMES,
   STATISTICS_PATHS,
+  GENERAL_ROUTE_NAMES,
 } from '../../constants/routing';
+import ViewFilters from '../ViewFilters/ViewFilters';
 
 // eslint-disable-next-line
 export const routes = [
   {
     path: STATISTICS_PATHS.ACCOUNTS,
     name: STATISTICS_ROUTE_NAMES.ACCOUNTS,
-    component: Accounts,
+    components: {
+      default: Accounts,
+      [GENERAL_ROUTE_NAMES.VIEW_FILTERS]: ViewFilters,
+    },
     beforeEnter: beforeGuardEnchancer([requiresAuth, filterBlockedPages]),
   },
 ];

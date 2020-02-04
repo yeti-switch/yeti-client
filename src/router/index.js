@@ -19,7 +19,9 @@ const STATIC_ROUTES = [
   {
     path: GENERAL_PATHS.LOG_IN,
     name: GENERAL_ROUTE_NAMES.LOG_IN,
-    component: Login,
+    components: {
+      [GENERAL_ROUTE_NAMES.LOG_IN]: Login,
+    },
     beforeEnter: beforeGuardEnchancer([requiresNotAuth]),
   },
   {

@@ -20,4 +20,5 @@ export const GENERAL_ROUTE_NAMES = {
   LOG_IN: 'login',
   HOME: 'home',
   NOT_FOUND: 'notFound',
+  VIEW_FILTERS: 'viewFilters',
 };

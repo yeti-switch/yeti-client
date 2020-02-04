@@ -1,16 +1,18 @@
 <template>
   <div class="view-filters">
-    <span>Accounts dropdown</span>
+    <AccountsFilter />
     <TimeRangeFilter />
   </div>
 </template>
 
 <script>
-import TimeRangeFilter from '../TimeRangeFilter/TimeRangeFilter';
+import TimeRangeFilter from './components/TimeRangeFilter/TimeRangeFilter';
+import AccountsFilter from './components/AccountsFilter/AccountsFilter';
 
 export default {
   components: {
     TimeRangeFilter,
+    AccountsFilter,
   },
 };
 </script>

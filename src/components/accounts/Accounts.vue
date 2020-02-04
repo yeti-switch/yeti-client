@@ -41,8 +41,8 @@ export default {
     this.getAccounts();
   },
   methods: {
-    getAccounts(pageNumber) {
-      this.$store.dispatch(ACCOUNTS.ACTIONS.GET_ACCOUNTS, pageNumber).catch((err) => {
+    getAccounts() {
+      this.$store.dispatch(ACCOUNTS.ACTIONS.GET_ACCOUNTS).catch((err) => {
         if (err[0]) {
           this.$notify({
             type: NOTIFICATION_TYPES.ERROR,

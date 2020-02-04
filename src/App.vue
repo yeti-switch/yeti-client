@@ -4,8 +4,9 @@
     <main>
       <NavBar />
       <div class="working-area-wrapper">
-        <ViewFilters />
-        <router-view />
+        <router-view :name="loginRouteName" />
+        <router-view :name="filtersRouteName" />
+        <router-view v-if="accountsAreLoaded" />
       </div>
     </main>
   </div>
@@ -13,21 +14,26 @@
 
 <script>
 import NavBar from './components/NavBar/NavBar';
-import ViewFilters from './components/ViewFilters/ViewFilters';
-import { AUTH, NOTIFICATION_TYPES } from './constants';
+import { AUTH, NOTIFICATION_TYPES, GENERAL_ROUTE_NAMES } from './constants';
 import { jsonApi } from './api';
 
 export default {
   name: 'App',
   components: {
     NavBar,
-    ViewFilters,
   },
   data() {
     return {
       message: '',
       type: NOTIFICATION_TYPES.ERROR,
+      loginRouteName: GENERAL_ROUTE_NAMES.LOG_IN,
+      filtersRouteName: GENERAL_ROUTE_NAMES.VIEW_FILTERS,
     };
+  },
+  computed: {
+    accountsAreLoaded() {
+      return this.$store.getters.accounts.items.length > 0;
+    },
   },
   beforeCreate() {
     this.$store.dispatch(AUTH.ACTIONS.LOCAL_AUTH);

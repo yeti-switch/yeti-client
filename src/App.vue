@@ -4,6 +4,7 @@
     <main>
       <NavBar />
       <div class="working-area-wrapper">
+        <ViewFilters />
         <router-view />
       </div>
     </main>
@@ -12,6 +13,7 @@
 
 <script>
 import NavBar from './components/NavBar/NavBar';
+import ViewFilters from './components/ViewFilters/ViewFilters';
 import { AUTH, NOTIFICATION_TYPES } from './constants';
 import { jsonApi } from './api';
 
@@ -19,6 +21,7 @@ export default {
   name: 'App',
   components: {
     NavBar,
+    ViewFilters,
   },
   data() {
     return {

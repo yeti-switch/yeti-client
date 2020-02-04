@@ -9,7 +9,7 @@ import Home from '../components/Home';
 import { requiresAuth, requiresNotAuth, beforeGuardEnchancer } from './helpers';
 import { GENERAL_ROUTE_NAMES, GENERAL_PATHS } from '../constants/routing';
 
-const staticRoutes = [
+const STATIC_ROUTES = [
   {
     path: '/',
     redirect: {
@@ -45,12 +45,10 @@ const staticRoutes = [
 ];
 
 export class Router {
-  static routes = staticRoutes;
-
   instance = new VueRouter();
 
   constructor() {
-    this.addRoutes(Router.routes);
+    this.addRoutes(STATIC_ROUTES);
   }
 
   addRoutes = (routes) => {

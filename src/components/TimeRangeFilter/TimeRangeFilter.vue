@@ -1,6 +1,5 @@
 <template>
   <div class="time-range-filter-wrapper">
-    <span>use quick filter by Start Time:&nbsp;</span>
     <date-range-picker
       ref="picker"
       v-model="timeFilterValue"

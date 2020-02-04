@@ -5,10 +5,6 @@
       :style="{overflow: hiddenIfLoading}"
       class="dataTable"
     >
-      <slot
-        name="timeRangeFilter"
-      />
-
       <h6
         v-if="!loading"
         class="datatable-total"

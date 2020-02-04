@@ -4,17 +4,7 @@
     :items="cdrs"
     :rows="rows"
     :get-data="getCdrs"
-  >
-    <template v-slot:filter>
-      <!-- <CdrFilter v-on:applyFilter="getCdrs" /> -->
-    </template>
-    <template v-slot:timeRangeFilter>
-      <div class="time-range-filter">
-        <b-link>Apply custom filters</b-link>, or
-        <TimeRangeFilter />
-      </div>
-    </template>
-  </DataTable>
+  />
 </template>
 
 <script>
@@ -22,7 +12,6 @@ import { isEmpty, flow, get } from 'lodash';
 
 import utils from '../../utils';
 import DataTable from '../DataTable/DataTable';
-import TimeRangeFilter from '../TimeRangeFilter/TimeRangeFilter';
 import { CDRS, TIME_RANGE_FILTER } from '../../constants';
 import { TABLE_HEADERS } from './constants';
 
@@ -33,7 +22,6 @@ export default {
   components: {
     // CdrFilter,
     DataTable,
-    TimeRangeFilter,
   },
 
   data() {

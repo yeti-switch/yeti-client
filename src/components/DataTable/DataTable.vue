@@ -30,7 +30,7 @@
         :per-page="perPage"
         class="datatable-content"
         show-empty
-        sticky-header="calc(100vh - 15rem)"
+        sticky-header="calc(100vh - 7rem)"
         hover
       >
         <template

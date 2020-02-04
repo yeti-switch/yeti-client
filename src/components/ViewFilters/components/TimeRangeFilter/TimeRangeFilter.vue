@@ -1,5 +1,6 @@
 <template>
   <div class="time-range-filter-wrapper">
+    Filter by time:
     <date-range-picker
       ref="picker"
       v-model="timeFilterValue"
@@ -81,8 +82,6 @@ export default {
       },
     },
     loading() {
-      console.log('this.$store.getters.requestIsPending', this.$store.getters.requestIsPending);
-
       return this.$store.getters.requestIsPending;
     },
   },

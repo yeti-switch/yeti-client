@@ -24,7 +24,7 @@ const actions = {
     } else {
       // commit(CDRS.MUTATIONS.SET_ERROR, rates.error);
     }
-    commit(NETWORK_SERVICE.MUTATIONS.SWITCH_PENDING_STATE, true, { root: true });
+    commit(NETWORK_SERVICE.MUTATIONS.SWITCH_PENDING_STATE, false, { root: true });
   },
 };
 const mutations = {

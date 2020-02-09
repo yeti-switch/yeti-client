@@ -2,7 +2,7 @@ export const RESOURCES = {
   RATE: 'rates',
   CDR: 'cdrs',
   AUTH_ORIGIN_TRANSPORT_PROTOCOL: 'auth-orig-transport-protocol',
-  ACCOUNT: 'accounts',
+  ACCOUNTS: 'accounts',
   AUTH: 'auth',
   TRANSPORT_PROTOCOLS: 'transport-protocols',
 };
@@ -71,7 +71,7 @@ export const RELATIONSHIPS = {
   [RESOURCES.TRANSPORT_PROTOCOLS]: {
     'transport-protocols': 'transport-protocols',
   },
-  [RESOURCES.ACCOUNT]: {
+  [RESOURCES.ACCOUNTS]: {
     name: '',
     balance: '',
     'min-balance': '',

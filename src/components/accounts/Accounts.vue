@@ -1,48 +1,37 @@
 <template>
-  <DataTable
-    :fields="fields"
-    :items="accounts"
-    :rows="rows"
-    :get-data="getAccounts"
-  >
-    <template v-slot:filter>
-      <!-- <AccountsFilter v-on:applyFilter="getAccounts" /> -->
-    </template>
-  </DataTable>
+  <div class="accounts-page">
+    <b-table
+      stacked
+      :items="account"
+    />
+  </div>
 </template>
 
 <script>
-import { get } from 'lodash';
-// import AccountsFilter from './AccountsFilter';
-import DataTable from '../DataTable/DataTable';
+import { omit, lowerCase, capitalize } from 'lodash';
 import { ACCOUNTS, NOTIFICATION_TYPES } from '../../constants';
-import { TABLE_HEADERS } from './constants';
 
 export default {
-  name: 'Accounts',
-  components: {
-    // AccountsFilter,
-    DataTable,
-  },
-  data() {
-    return {
-      fields: TABLE_HEADERS,
-    };
-  },
+  name: 'Account',
   computed: {
-    accounts() {
-      return this.$store.getters.accounts.items;
-    },
-    rows() {
-      return get(this.$store.getters, ['accounts', 'meta', 'total-count'], 0);
+    account() {
+      const result = Object.entries(
+        omit(this.$store.getters.activeAccount, ['links', 'id']),
+      ).reduce((resultObj, [key, value]) => {
+        resultObj[capitalize(lowerCase(key))] = value;
+
+        return resultObj;
+      }, {});
+
+      return [result];
     },
   },
   created() {
-    this.getAccounts();
+    this.getAccount();
   },
   methods: {
-    getAccounts() {
-      this.$store.dispatch(ACCOUNTS.ACTIONS.GET_ACCOUNTS).catch((err) => {
+    getAccount() {
+      this.$store.dispatch(ACCOUNTS.ACTIONS.GET_ACCOUNT).catch((err) => {
         if (err[0]) {
           this.$notify({
             type: NOTIFICATION_TYPES.ERROR,
@@ -55,3 +44,23 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.accounts-page {
+  .table.b-table.b-table-stacked {
+    & > tbody {
+      & > tr {
+        & > [data-label] {
+          text-align: left;
+
+          &::before {
+            text-align: left;
+            width: 20%;
+          }
+        }
+
+      }
+    }
+  }
+}
+</style>

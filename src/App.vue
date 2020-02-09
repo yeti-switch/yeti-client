@@ -94,5 +94,6 @@ main {
   width: calc(100vw - 230px);
   padding: 10px;
   background-color: #ecf0f5;
+  overflow: auto;
 }
 </style>

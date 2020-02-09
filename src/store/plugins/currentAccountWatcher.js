@@ -12,7 +12,7 @@ export const currentAccountWatcher = (store) => {
           break;
         case STATISTICS_ROUTE_NAMES.ACCOUNTS:
           // @todo changes this to "get particular account info"
-          store.dispatch(ACCOUNTS.ACTIONS.GET_ACCOUNT);
+          store.dispatch(ACCOUNTS.ACTIONS.GET_ACCOUNT_DETAILS);
           break;
         case STATISTICS_ROUTE_NAMES.RATES:
           store.dispatch(RATES.ACTIONS.GET_RATES);

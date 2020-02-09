@@ -1,12 +1,12 @@
 export const ACCOUNTS = {
   MUTATIONS: {
-    SET_ACCOUNT: 'setAccount',
+    SET_ACCOUNT_DETAILS: 'setAccountDetails',
     SET_ACCOUNTS: 'setAccounts',
     SAVE_ACCOUNTS_FILTER: 'saveAccountsFilter',
     SET_CHOSEN_ACCOUNT_ID: 'setChosenAccountId',
   },
   ACTIONS: {
-    GET_ACCOUNT: 'getAccount',
+    GET_ACCOUNT_DETAILS: 'getAccountDetails',
     GET_ACCOUNTS: 'getAccounts',
     SET_ACCOUNTS_FILTER: 'setAccountsFilter',
     SET_CHOSEN_ACCOUNT_ID: 'setChosenAccountId',

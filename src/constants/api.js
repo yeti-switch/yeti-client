@@ -1,3 +1,4 @@
+
 export const RESOURCES = {
   RATE: 'rates',
   CDR: 'cdrs',
@@ -5,6 +6,10 @@ export const RESOURCES = {
   ACCOUNTS: 'accounts',
   AUTH: 'auth',
   TRANSPORT_PROTOCOLS: 'transport-protocols',
+};
+
+export const SPARSE_FIELDS = {
+  [RESOURCES.ACCOUNTS]: 'name',
 };
 
 export const RELATIONSHIPS = {

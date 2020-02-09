@@ -16,8 +16,10 @@ export default {
   computed: {
     account() {
       const result = Object.entries(
+        // Get rid of not needed properties
         omit(this.$store.getters.activeAccount, ['links', 'id']),
       ).reduce((resultObj, [key, value]) => {
+        // Make keys more human-readable
         resultObj[capitalize(lowerCase(key))] = value;
 
         return resultObj;

@@ -1,5 +1,5 @@
 <template>
-  <div class="time-range-filter-wrapper">
+  <div class="time-range-filter">
     Filter by time:
     <date-range-picker
       ref="picker"
@@ -57,7 +57,7 @@ export default {
       type: Object,
       default() {
         return {
-          opens: 'right',
+          opens: 'left',
           timePicker: true,
           linkedCalendars: false,
           autoApply: true, // should be removed in case https://github.com/Innologica/vue2-daterange-picker/pull/120 will be merged

@@ -25,10 +25,8 @@ const actions = {
   [ACCOUNTS.ACTIONS.GET_ACCOUNTS]: async ({ commit }) => {
     commit(NETWORK_SERVICE.MUTATIONS.SWITCH_PENDING_STATE, true, { root: true });
 
-    console.log(123123123123);
 
     const accounts = await jsonApi.findAllResources(RESOURCES.ACCOUNTS);
-    console.log(222222222);
 
     commit(ACCOUNTS.MUTATIONS.SET_ACCOUNTS, accounts);
 
@@ -41,14 +39,11 @@ const actions = {
     const account = await jsonApi
       .findOneResource(RESOURCES.ACCOUNTS, localGetters.activeAccount.id);
 
-    console.log('account', account, localGetters.activeAccount.id);
 
     commit(ACCOUNTS.MUTATIONS.SET_ACCOUNT, account);
     commit(NETWORK_SERVICE.MUTATIONS.SWITCH_PENDING_STATE, false, { root: true });
   },
   [ACCOUNTS.ACTIONS.SET_CHOSEN_ACCOUNT_ID]: ({ commit }, id) => {
-    console.log(111222333, id);
-
     commit(ACCOUNTS.MUTATIONS.SET_CHOSEN_ACCOUNT_ID, id);
   },
 };
@@ -60,7 +55,6 @@ const mutations = {
     currentState.account = account;
   },
   [ACCOUNTS.MUTATIONS.SET_CHOSEN_ACCOUNT_ID]: (currentState, id) => {
-    console.log('id', id);
     currentState.activeAccountId = id;
   },
 };

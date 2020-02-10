@@ -8,4 +8,4 @@ export {
 
 export { NOTIFICATION_TYPES } from './common';
 
-export { RELATIONSHIPS, RESOURCES } from './api';
+export { RELATIONSHIPS, RESOURCES, SPARSE_FIELDS } from './api';

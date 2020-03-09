@@ -38,6 +38,13 @@
       >
         {{ navItemNameHadler('Accounts') }}
       </b-nav-item>
+      <b-nav-item
+        router-link
+        :to="navigationRoutesPaths.ACTIVE_CALLS"
+        :active="this.$route.path === navigationRoutesPaths.ACTIVE_CALLS"
+      >
+        {{ navItemNameHadler('Active Calls') }}
+      </b-nav-item>
     </b-nav>
     <b-nav
       vertical
@@ -73,7 +80,9 @@
 <script>
 import { BIconHouse, BIconBoxArrowLeft } from 'bootstrap-vue';
 import { mapGetters } from 'vuex';
-import { STATISTICS_PATHS, STATISTICS_ROUTE_NAMES, AUTH } from '../../constants';
+import {
+  STATISTICS_PATHS, STATISTICS_ROUTE_NAMES, AUTH, CHARTS_PATHS, CHARTS_ROUTE_NAMES,
+} from '../../constants';
 
 export default {
   name: 'NavBar',
@@ -83,8 +92,8 @@ export default {
   },
   data() {
     return {
-      navigationRoutesPaths: { ...STATISTICS_PATHS },
-      navigationRoutesNames: { ...STATISTICS_ROUTE_NAMES },
+      navigationRoutesPaths: { ...STATISTICS_PATHS, ...CHARTS_PATHS },
+      navigationRoutesNames: { ...STATISTICS_ROUTE_NAMES, CHARTS_ROUTE_NAMES },
       navOpened: true,
     };
   },

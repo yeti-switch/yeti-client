@@ -7,7 +7,14 @@ const { reactiveProp } = mixins;
 export default {
   extends: Line,
   mixins: [reactiveProp],
-  props: ['options'],
+  props: {
+    options: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
+  },
   mounted() {
     this.addPlugin(Downsample);
     this.renderChart(this.chartData, this.options);

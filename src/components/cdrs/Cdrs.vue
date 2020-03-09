@@ -12,7 +12,7 @@ import { isEmpty, flow, get } from 'lodash';
 
 import utils from '../../utils';
 import DataTable from '../DataTable/DataTable';
-import { CDRS, TIME_RANGE_FILTER } from '../../constants';
+import { CDRS } from '../../constants';
 import { TABLE_HEADERS } from './constants';
 
 import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
@@ -20,7 +20,6 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
 export default {
   name: 'Cdrs',
   components: {
-    // CdrFilter,
     DataTable,
   },
 
@@ -28,7 +27,6 @@ export default {
     return {
       // Table fields
       fields: TABLE_HEADERS,
-      storeSubscriber: undefined,
     };
   },
   computed: {
@@ -44,17 +42,6 @@ export default {
       this.$store.dispatch(CDRS.ACTIONS.SET_CDRS_FILTER, this.filterValue);
     }
     this.getCdrs();
-    this.$data.storeSubscriber = this.$store.subscribe((mutation) => {
-      switch (mutation.type) {
-        case TIME_RANGE_FILTER.MUTATIONS.SET_VALUE:
-          this.getCdrs();
-          break;
-        default:
-      }
-    });
-  },
-  beforeDestroy() {
-    this.$data.storeSubscriber();
   },
   methods: {
     getCdrs(pageNumber) {

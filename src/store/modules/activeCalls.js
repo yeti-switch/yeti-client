@@ -20,7 +20,6 @@ const actions = {
     const fromTime = utils.pickerDateToActiveCallsFilter(startDate);
     const toTime = utils.pickerDateToActiveCallsFilter(endDate);
 
-
     const activeCalls = await jsonApi.createResource(RESOURCES.ACTIVE_CALLS, {
       'from-time': fromTime,
       'to-time': toTime,

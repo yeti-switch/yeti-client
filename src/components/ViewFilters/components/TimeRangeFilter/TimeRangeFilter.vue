@@ -60,7 +60,6 @@ export default {
           opens: 'left',
           timePicker: true,
           linkedCalendars: false,
-          autoApply: true, // should be removed in case https://github.com/Innologica/vue2-daterange-picker/pull/120 will be merged
           localeData: {
             firstDay: 1,
             format: 'DD-MM-YYYY HH:mm:ss',

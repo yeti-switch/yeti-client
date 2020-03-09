@@ -1,6 +1,7 @@
 // eslint-disable-next-line
 import { jsonApi } from '../../api';
-import { RESOURCES, ACTIVE_CALLS } from '../../constants';
+import { RESOURCES, ACTIVE_CALLS, NETWORK_SERVICE } from '../../constants';
+import utils from '../../utils';
 
 const state = {
   activeCalls: {},
@@ -8,18 +9,21 @@ const state = {
   error: null,
 };
 const getters = {
-  activeCalls: (currentState) => ({
-    items: currentState.activeCalls.data, meta: currentState.activeCalls.meta,
-  }),
+  activeCalls: (currentState) => currentState.activeCalls.data,
   isRequestPending: (currentState) => currentState.requestPending,
 };
 const actions = {
-  [ACTIVE_CALLS.ACTIONS.GET_ACTIVE_CALLS]: async ({ commit }) => {
-    commit(ACTIVE_CALLS.MUTATIONS.SET_REQUEST_PENDING, true);
+  [ACTIVE_CALLS.ACTIONS.GET_ACTIVE_CALLS]: async ({ commit, rootState }) => {
+    commit(NETWORK_SERVICE.MUTATIONS.SWITCH_PENDING_STATE, true, { root: true });
+
+    const { startDate, endDate } = rootState.timeRangeFilter.timeFilterValue;
+    const fromTime = utils.pickerDateToActiveCallsFilter(startDate);
+    const toTime = utils.pickerDateToActiveCallsFilter(endDate);
+
 
     const activeCalls = await jsonApi.createResource(RESOURCES.ACTIVE_CALLS, {
-      'from-time': '2019-01-01 00:00:00',
-      'to-time': '2020-01-20 00:00:00',
+      'from-time': fromTime,
+      'to-time': toTime,
       account: {
         id: '33fefc7a-0e61-11ea-95b4-525400e13b18',
       },
@@ -30,7 +34,7 @@ const actions = {
     } else {
       commit(ACTIVE_CALLS.MUTATIONS.SET_ACTIVE_CALLS, activeCalls);
     }
-    commit(ACTIVE_CALLS.MUTATIONS.SET_REQUEST_PENDING, false);
+    commit(NETWORK_SERVICE.MUTATIONS.SWITCH_PENDING_STATE, false, { root: true });
   },
 };
 const mutations = {

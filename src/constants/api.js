@@ -121,5 +121,15 @@ export const RELATIONSHIPS = {
       type: 'accounts',
       id: '',
     },
+    terminatedCalls: {
+      jsonApi: 'hasMany',
+      x: null,
+      y: '',
+    },
+    originatedCalls: {
+      jsonApi: 'hasMany',
+      x: null,
+      y: '',
+    },
   },
 };

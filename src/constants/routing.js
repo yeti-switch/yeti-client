@@ -22,3 +22,11 @@ export const GENERAL_ROUTE_NAMES = {
   NOT_FOUND: 'notFound',
   VIEW_FILTERS: 'viewFilters',
 };
+
+export const CHARTS_PATHS = {
+  ACTIVE_CALLS: '/activeCalls',
+};
+
+export const CHARTS_ROUTE_NAMES = {
+  ACTIVE_CALLS: 'activeCalls',
+};

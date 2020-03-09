@@ -1,5 +1,5 @@
 import {
-  ACCOUNTS, STATISTICS_ROUTE_NAMES, CDRS, RATES,
+  ACCOUNTS, STATISTICS_ROUTE_NAMES, CDRS, RATES, ACTIVE_CALLS, CHARTS_ROUTE_NAMES,
 } from '../../constants';
 
 // eslint-disable-next-line
@@ -16,6 +16,9 @@ export const currentAccountWatcher = (store) => {
           break;
         case STATISTICS_ROUTE_NAMES.RATES:
           store.dispatch(RATES.ACTIONS.GET_RATES);
+          break;
+        case CHARTS_ROUTE_NAMES.ACTIVE_CALLS:
+          store.dispatch(ACTIVE_CALLS.ACTIONS.GET_ACTIVE_CALLS);
           break;
         default:
       }

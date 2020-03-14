@@ -8,7 +8,7 @@
 <script>
 import TimeRangeFilter from './components/TimeRangeFilter/TimeRangeFilter';
 import AccountsFilter from './components/AccountsFilter/AccountsFilter';
-import { STATISTICS_ROUTE_NAMES } from '../../constants';
+import { STATISTICS_ROUTE_NAMES, CHARTS_ROUTE_NAMES } from '../../constants';
 
 export default {
   components: {
@@ -17,7 +17,8 @@ export default {
   },
   computed: {
     isTimeRangeEnabled() {
-      return this.$store.state.route.name === STATISTICS_ROUTE_NAMES.CDRS;
+      return this.$store.state.route.name === STATISTICS_ROUTE_NAMES.CDRS
+        || this.$store.state.route.name === CHARTS_ROUTE_NAMES.ACTIVE_CALLS;
     },
   },
 };

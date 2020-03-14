@@ -2,18 +2,21 @@ import { NETWORK_SERVICE } from '../../constants';
 
 
 const state = {
-  requestIsPending: false,
+  requestIsPending: 0,
 };
 
 const getters = {
-  requestIsPending: (currentState) => currentState.requestIsPending,
+  requestIsPending: (currentState) => Boolean(currentState.requestIsPending),
 };
 
 const actions = {};
 
 const mutations = {
   [NETWORK_SERVICE.MUTATIONS.SWITCH_PENDING_STATE]: (currentState, requestIsPending) => {
-    currentState.requestIsPending = requestIsPending;
+    // Here we're simply sum active network requests. It can be dangerous
+    const quntator = requestIsPending ? 1 : -1;
+
+    currentState.requestIsPending += quntator;
   },
 };
 

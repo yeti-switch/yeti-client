@@ -14,7 +14,7 @@ const getters = {
   cdrFilter: (currentState) => currentState.cdrFilter,
 };
 const actions = {
-  getCdrs: async ({ commit, rootState }, page) => {
+  [CDRS.ACTIONS.GET_CDRS]: async ({ commit, rootState }, page) => {
     commit(NETWORK_SERVICE.MUTATIONS.SWITCH_PENDING_STATE, true, { root: true });
     const filter = {
       timeStartGteq: rootState.timeRangeFilter.timeFilterValue.startDate,

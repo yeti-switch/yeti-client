@@ -11,6 +11,7 @@
 <script>
 
 import { ACTIVE_CALLS } from '../../constants';
+import { CHART_OPTIONS, INITIAL_DATASETS_SETTINGS } from './fixtures';
 import DataChart from '../DataChart/DataChart';
 
 export default {
@@ -21,67 +22,7 @@ export default {
     return {
       currentXLength: 500,
       currentThreshold: 300,
-      chartOptions: {
-        responsive: true,
-        maintainAspectRatio: true,
-        elements: {
-          line: {
-            tension: 0,
-          },
-          point: {
-            radius: 0, // disable points
-          },
-        },
-        scales: {
-          xAxes: [{
-            type: 'time',
-            position: 'bottom',
-            // bounds: 'ticks',
-            ticks: {
-              major: {
-                enabled: true,
-              },
-              maxRotation: 0,
-              autoSkipPadding: 60,
-            },
-            time: {
-              displayFormats: {
-                hour: 'HH:mm',
-                day: 'MM-DD-YY HH:mm',
-              },
-              // round: true,
-              minUnit: 'hour',
-            },
-            scaleLabel: {
-              display: true,
-              labelString: 'Time',
-            },
-          }],
-          yAxes: [{
-            id: 0,
-            type: 'linear',
-            position: 'left',
-            ticks: {
-              maxRotation: 0,
-              suggestedMin: 0,
-              // suggestedMax: 110,
-            },
-          }],
-        },
-        animation: {
-          duration: 0,
-        },
-        downsample: {
-          enabled: true,
-          threshold: 300, // change this
-
-          auto: false,
-          onInit: true,
-
-          preferOriginalData: true,
-          restoreOriginalData: false,
-        },
-      },
+      chartOptions: CHART_OPTIONS,
       chart: undefined,
     };
   },
@@ -95,8 +36,13 @@ export default {
       };
 
       if (this.$store.getters.activeCalls) {
+        // For some reason, pushing dataset configs in scope of below Object.keys
+        // cause continous dataset refresh, which results in page crash
         chartData.datasets.push({
-          label: 'Originated calls', data: [], backgroundColor: 'transparent', borderColor: 'lightgreen',
+          label: 'Originated calls',
+          data: [],
+          backgroundColor: 'transparent',
+          borderColor: 'lightgreen',
         });
         chartData.datasets.push({
           label: 'Terminated calls',
@@ -105,15 +51,11 @@ export default {
           borderColor: 'lightblue',
         });
 
-        this.$store.getters.activeCalls.originatedCalls.forEach((originatedCall) => {
-          chartData.datasets[0].data.push({
-            y: originatedCall.x, x: Date.parse(originatedCall.y),
-          });
-        });
-
-        this.$store.getters.activeCalls.terminatedCalls.forEach((terminatedCall) => {
-          chartData.datasets[1].data.push({
-            y: terminatedCall.x, x: Date.parse(terminatedCall.y),
+        Object.keys(INITIAL_DATASETS_SETTINGS).forEach((key, index) => {
+          this.$store.getters.activeCalls[key].forEach((dataEntry) => {
+            chartData.datasets[index].data.push({
+              y: dataEntry.x, x: Date.parse(dataEntry.y),
+            });
           });
         });
       }

@@ -73,7 +73,7 @@
 <script>
 export default {
   name: 'RatesFilter',
-  data () {
+  data() {
     return {
       form: {
         validFromGteq: '',
@@ -81,35 +81,35 @@ export default {
         rejectCallsEq: null,
         enabledEq: null,
         prefixEq: '',
-        networkPrefixEq: ''
+        networkPrefixEq: '',
       },
       enabledEq: [{ text: 'Select One', value: null }, 'true', 'false'],
-      rejectCallsEq: [{ text: 'Select One', value: null }, 'true', 'false']
-    }
+      rejectCallsEq: [{ text: 'Select One', value: null }, 'true', 'false'],
+    };
   },
   methods: {
-    onReset (evt) {
-      evt.preventDefault()
-      this.form.validFromGteq = ''
-      this.form.validTillLteq = ''
-      this.form.rejectCallsEq = null
-      this.form.enabledEq = null
-      this.form.prefixEq = ''
-      this.$store.dispatch('setRateFilter', {})
-      this.$emit('applyFilter')
+    onReset(evt) {
+      evt.preventDefault();
+      this.form.validFromGteq = '';
+      this.form.validTillLteq = '';
+      this.form.rejectCallsEq = null;
+      this.form.enabledEq = null;
+      this.form.prefixEq = '';
+      this.$store.dispatch('setRateFilter', {});
+      this.$emit('applyFilter');
     },
-    onSubmit () {
-      const filter = {}
-      for (let key in this.form) {
+    onSubmit() {
+      const filter = {};
+      for (const key in this.form) {
         if (this.form[key]) {
-          filter[key] = this.form[key]
+          filter[key] = this.form[key];
         }
       }
-      this.$store.dispatch('setRateFilter', filter)
-      this.$emit('applyFilter')
-    }
-  }
-}
+      this.$store.dispatch('setRateFilter', filter);
+      this.$emit('applyFilter');
+    },
+  },
+};
 </script>
 
 <style>

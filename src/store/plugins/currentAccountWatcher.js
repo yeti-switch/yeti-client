@@ -2,7 +2,6 @@ import {
   ACCOUNTS, STATISTICS_ROUTE_NAMES, CDRS, RATES, ACTIVE_CALLS, CHARTS_ROUTE_NAMES,
 } from '../../constants';
 
-// eslint-disable-next-line
 export const currentAccountWatcher = (store) => {
   store.subscribe((mutation, state) => {
     if (mutation.type === ACCOUNTS.MUTATIONS.SET_CHOSEN_ACCOUNT_ID) {

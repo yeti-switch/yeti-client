@@ -11,7 +11,6 @@ import {
 } from '../../constants/routing';
 import ViewFilters from '../ViewFilters/ViewFilters';
 
-// eslint-disable-next-line
 export const routes = [
   {
     path: STATISTICS_PATHS.CDRS,

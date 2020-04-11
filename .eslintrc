@@ -17,6 +17,7 @@
   },
   "rules": {
     "implicit-arrow-linebreak": "off",
+    "import/prefer-default-export": "off",
     "no-param-reassign": ["error", { "props": false }],
     "no-underscore-dangle": ["error", { "allow": ["_cellVariants"] }]
   },

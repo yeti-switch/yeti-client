@@ -1,8 +1,6 @@
 import Api from 'devour-client';
 
 import { RELATIONSHIPS, RESOURCES } from '../constants';
-// eslint-disable-next-line
-import store from '../store/store';
 
 export class JsonApi {
   static authDataReqTransformationMiddleware = {
@@ -35,10 +33,14 @@ export class JsonApi {
   };
 
   constructor() {
-    this.instance = new Api({
-      apiUrl: `${store.getters.apiBaseUrl}/api/rest/customer/v1`,
-      pluralize: false,
-    });
+    try {
+      this.instance = new Api({
+        apiUrl: `${CONFIG.yeti.apiBaseUrl}/api/rest/customer/v1`,
+        pluralize: false,
+      });
+    } catch (e) {
+      throw new Error(`Api was not initialized due to error: ${e}. Please check your config file.`);
+    }
 
 
     this.initializeResources();

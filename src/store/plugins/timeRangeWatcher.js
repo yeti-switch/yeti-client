@@ -2,7 +2,6 @@ import {
   STATISTICS_ROUTE_NAMES, CDRS, TIME_RANGE_FILTER, ACTIVE_CALLS, CHARTS_ROUTE_NAMES,
 } from '../../constants';
 
-// eslint-disable-next-line
 export const timeRangeWatcher = (store) => {
   store.subscribe((mutation, state) => {
     if (mutation.type === TIME_RANGE_FILTER.MUTATIONS.SET_VALUE) {

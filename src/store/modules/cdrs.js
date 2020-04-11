@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 import { jsonApi } from '../../api';
 import { RESOURCES, CDRS, NETWORK_SERVICE } from '../../constants';
 

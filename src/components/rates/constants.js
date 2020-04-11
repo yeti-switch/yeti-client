@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 export const TABLE_HEADERS = [
   {
     key: 'connect-fee',

@@ -1,14 +1,15 @@
-import Accounts from './Accounts';
 import {
   requiresAuth,
   filterBlockedPages,
   beforeGuardEnchancer,
-} from '../../router/helpers';
+} from '@/router/helpers';
 import {
   STATISTICS_ROUTE_NAMES,
   STATISTICS_PATHS,
   GENERAL_ROUTE_NAMES,
-} from '../../constants/routing';
+} from '@/constants/routing';
+
+import Accounts from './Accounts';
 import ViewFilters from '../ViewFilters/ViewFilters';
 
 export const routes = [

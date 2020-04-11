@@ -13,10 +13,11 @@
 
 <script>
 import { flow, get } from 'lodash';
-// import RatesFilter from './RatesFilter';
+
+import utils from '@/utils';
+import { RATES } from '@/constants';
+
 import DataTable from '../DataTable/DataTable';
-import utils from '../../utils';
-import { RATES } from '../../constants';
 import { TABLE_HEADERS } from './constants';
 
 export default {

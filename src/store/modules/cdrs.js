@@ -1,5 +1,5 @@
-import { jsonApi } from '../../api';
-import { RESOURCES, CDRS, NETWORK_SERVICE } from '../../constants';
+import { jsonApi } from '@/api';
+import { RESOURCES, CDRS, NETWORK_SERVICE } from '@/constants';
 
 const state = {
   cdrs: {},

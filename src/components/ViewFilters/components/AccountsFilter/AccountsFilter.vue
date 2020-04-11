@@ -17,8 +17,7 @@
 </template>
 
 <script>
-import { ACCOUNTS } from '../../../../constants';
-
+import { ACCOUNTS } from '@/constants';
 
 export default {
   computed: {

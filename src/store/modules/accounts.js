@@ -1,7 +1,7 @@
-import { jsonApi } from '../../api';
+import { jsonApi } from '@/api';
 import {
   ACCOUNTS, RESOURCES, NETWORK_SERVICE, SPARSE_FIELDS,
-} from '../../constants';
+} from '@/constants';
 
 const state = {
   accounts: {

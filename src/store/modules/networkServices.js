@@ -1,5 +1,4 @@
-import { NETWORK_SERVICE } from '../../constants';
-
+import { NETWORK_SERVICE } from '@/constants';
 
 const state = {
   requestIsPending: 0,

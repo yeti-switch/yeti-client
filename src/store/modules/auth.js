@@ -1,6 +1,5 @@
-import { jsonApi } from '../../api';
-import { RESOURCES, AUTH } from '../../constants';
-
+import { jsonApi } from '@/api';
+import { RESOURCES, AUTH } from '@/constants';
 
 const state = {
   token: sessionStorage.getItem('yeti-token'),

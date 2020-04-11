@@ -1,6 +1,6 @@
 import {
   STATISTICS_ROUTE_NAMES, CDRS, TIME_RANGE_FILTER, ACTIVE_CALLS, CHARTS_ROUTE_NAMES,
-} from '../../constants';
+} from '@/constants';
 
 export const timeRangeWatcher = (store) => {
   store.subscribe((mutation, state) => {

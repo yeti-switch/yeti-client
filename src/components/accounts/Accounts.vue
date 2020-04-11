@@ -9,7 +9,8 @@
 
 <script>
 import { omit, lowerCase, capitalize } from 'lodash';
-import { ACCOUNTS } from '../../constants';
+
+import { ACCOUNTS } from '@/constants';
 
 import { EXLUDED_RESPONSE_FIELDS } from './constants';
 

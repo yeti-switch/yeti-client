@@ -1,6 +1,6 @@
 import {
   ACCOUNTS, STATISTICS_ROUTE_NAMES, CDRS, RATES, ACTIVE_CALLS, CHARTS_ROUTE_NAMES,
-} from '../../constants';
+} from '@/constants';
 
 export const currentAccountWatcher = (store) => {
   store.subscribe((mutation, state) => {

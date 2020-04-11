@@ -1,4 +1,8 @@
-{
+const config = require.resolve('@vue/cli-service/webpack.config.js');
+
+console.log('config:', config);
+
+module.exports = {
   "env": {
     "browser": true,
     "es6": true,
@@ -11,7 +15,13 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [".js", ".vue"]
+        "extensions": [".js", ".vue"],
+      },
+      alias: {
+        map: [
+          ['@', './src'],
+        ],
+        extensions: ['.vue', '.js', '.json']
       }
     }
   },

@@ -82,7 +82,7 @@ import { BIconHouse, BIconBoxArrowLeft } from 'bootstrap-vue';
 import { mapGetters } from 'vuex';
 import {
   STATISTICS_PATHS, STATISTICS_ROUTE_NAMES, AUTH, CHARTS_PATHS, CHARTS_ROUTE_NAMES,
-} from '../../constants';
+} from '@/constants';
 
 export default {
   name: 'NavBar',

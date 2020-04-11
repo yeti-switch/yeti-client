@@ -37,8 +37,8 @@
 <script>
 import DateRangePicker from 'vue2-daterange-picker';
 
-import utils from '../../../../utils';
-import { TIME_RANGE_FILTER } from '../../../../constants';
+import utils from '@/utils';
+import { TIME_RANGE_FILTER } from '@/constants';
 
 import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
 

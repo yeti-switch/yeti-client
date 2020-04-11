@@ -6,6 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
+    "inspect": "vue-cli-service inspect",
     "test": "jest"
   },
   "dependencies": {
@@ -36,6 +37,7 @@
     "babel-jest": "^24.8.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "14.0.0",
+    "eslint-import-resolver-alias": "1.1.2",
     "eslint-plugin-import": "2.18.2",
     "eslint-plugin-node": "^9.1.0",
     "eslint-plugin-promise": "^4.2.1",

@@ -1,5 +1,5 @@
-import { TIME_RANGE_FILTER } from '../../constants';
-import utils from '../../utils';
+import { TIME_RANGE_FILTER } from '@/constants';
+import utils from '@/utils';
 
 const state = {
   timeFilterValue: utils.getLast24Hours(),

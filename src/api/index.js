@@ -35,7 +35,7 @@ export class JsonApi {
   constructor() {
     try {
       this.instance = new Api({
-        apiUrl: `${CONFIG.yeti.apiBaseUrl}/api/rest/customer/v1`,
+        apiUrl: `${YETI_CONFIG.yeti.apiBaseUrl}/api/rest/customer/v1`,
         pluralize: false,
       });
     } catch (e) {

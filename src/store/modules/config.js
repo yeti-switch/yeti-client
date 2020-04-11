@@ -1,6 +1,6 @@
 const getters = {
-  blockedPages: () => CONFIG.yeti.blockedPages,
-  apiBaseUrl: () => CONFIG.yeti.apiBaseUrl,
+  blockedPages: () => YETI_CONFIG.yeti.blockedPages,
+  apiBaseUrl: () => YETI_CONFIG.yeti.apiBaseUrl,
 };
 
 export default {

@@ -47,9 +47,6 @@ const mutations = {
     currentState.token = '';
     currentState.status = 'unauthorized';
   },
-  // setError: (currentState, res) => {
-  //   currentState.error = res;
-  // },
 };
 
 export default {

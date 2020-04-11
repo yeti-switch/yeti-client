@@ -9,7 +9,6 @@ const state = {
     data: [],
   },
   currentAccountDetails: {},
-  error: null,
   activeAccountId: '',
 };
 const getters = {

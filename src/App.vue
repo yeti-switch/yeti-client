@@ -52,7 +52,10 @@ export default {
           this.$router.push('/login');
         }
 
-        return payload;
+        throw new Error(`Network error caught. Title: ${payload[0].title}. Details: ${payload[0].detail}`);
+
+        // return payload; // Payload (error) can be passed in particular cases when we'll need it
+        // For example to apply another actions
       },
     };
 

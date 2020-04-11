@@ -16,7 +16,6 @@ export const ACCOUNTS = {
 export const CDRS = {
   MUTATIONS: {
     SET_CDRS: 'setCdrs',
-    SET_ERROR: 'setError',
     SAVE_CDRS_FILTER: 'saveCdrsFilter',
   },
   ACTIONS: {
@@ -29,7 +28,6 @@ export const ACTIVE_CALLS = {
   MUTATIONS: {
     SET_REQUEST_PENDING: 'setRequestPending',
     SET_ACTIVE_CALLS: 'setActiveCalls',
-    SET_ERROR: 'setError',
   },
   ACTIONS: {
     GET_ACTIVE_CALLS: 'getActiveCalls',
@@ -51,7 +49,6 @@ export const AUTH = {
   MUTATIONS: {
     AUTH_SUCCESS: 'authSuccess',
     LOGOUT: 'logout',
-    SET_ERROR: 'setError',
   },
   ACTIONS: {
     AUTH_REQUEST: 'authRequest',

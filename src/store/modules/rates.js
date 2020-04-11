@@ -15,15 +15,14 @@ const getters = {
 const actions = {
   [RATES.ACTIONS.GET_RATES]: async ({ commit }, page) => {
     commit(NETWORK_SERVICE.MUTATIONS.SWITCH_PENDING_STATE, true, { root: true });
+
     const rates = await jsonApi.findAllResources(RESOURCES.RATE, {
       filter: state.rateFilter,
       page,
     });
-    if (!rates.error) {
-      commit(RATES.MUTATIONS.SET_RATES, rates);
-    } else {
-      // commit(CDRS.MUTATIONS.SET_ERROR, rates.error);
-    }
+
+    commit(RATES.MUTATIONS.SET_RATES, rates);
+
     commit(NETWORK_SERVICE.MUTATIONS.SWITCH_PENDING_STATE, false, { root: true });
   },
 };

@@ -9,7 +9,7 @@
 
 <script>
 import { omit, lowerCase, capitalize } from 'lodash';
-import { ACCOUNTS, NOTIFICATION_TYPES } from '../../constants';
+import { ACCOUNTS } from '../../constants';
 
 import { EXLUDED_RESPONSE_FIELDS } from './constants';
 
@@ -35,15 +35,7 @@ export default {
   },
   methods: {
     getAccount() {
-      this.$store.dispatch(ACCOUNTS.ACTIONS.GET_ACCOUNT_DETAILS).catch((err) => {
-        if (err[0]) {
-          this.$notify({
-            type: NOTIFICATION_TYPES.ERROR,
-            title: err[0].title,
-            text: err[0].detail,
-          });
-        }
-      });
+      this.$store.dispatch(ACCOUNTS.ACTIONS.GET_ACCOUNT_DETAILS);
     },
   },
 };

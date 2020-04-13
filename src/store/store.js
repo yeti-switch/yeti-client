@@ -1,8 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-/* eslint-disable import/no-cycle */
-
 import auth from './modules/auth';
 import timeRangeFilter from './modules/timeRangeFilter';
 import rates from './modules/rates';

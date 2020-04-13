@@ -17,8 +17,7 @@
 </template>
 
 <script>
-import { ACCOUNTS, NOTIFICATION_TYPES } from '../../../../constants';
-
+import { ACCOUNTS } from '@/constants';
 
 export default {
   computed: {
@@ -34,15 +33,7 @@ export default {
   },
   methods: {
     getAccounts() {
-      this.$store.dispatch(ACCOUNTS.ACTIONS.GET_ACCOUNTS).catch((err) => {
-        if (err[0]) {
-          this.$notify({
-            type: NOTIFICATION_TYPES.ERROR,
-            title: err[0].title,
-            text: err[0].detail,
-          });
-        }
-      });
+      this.$store.dispatch(ACCOUNTS.ACTIONS.GET_ACCOUNTS);
     },
     optionClick(id) {
       this.$store.dispatch(ACCOUNTS.ACTIONS.SET_CHOSEN_ACCOUNT_ID, id);

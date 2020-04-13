@@ -1,17 +1,17 @@
-import ActiveCallsChart from './ActiveCallsChart';
 import {
   requiresAuth,
   filterBlockedPages,
   beforeGuardEnchancer,
-} from '../../router/helpers';
+} from '@/router/helpers';
 import {
   CHARTS_ROUTE_NAMES,
   CHARTS_PATHS,
   GENERAL_ROUTE_NAMES,
-} from '../../constants/routing';
+} from '@/constants/routing';
+
+import ActiveCallsChart from './ActiveCallsChart';
 import ViewFilters from '../ViewFilters/ViewFilters';
 
-// eslint-disable-next-line
 export const routes = [
   {
     path: CHARTS_PATHS.ACTIVE_CALLS,

@@ -6,9 +6,10 @@
 </template>
 
 <script>
+import { STATISTICS_ROUTE_NAMES, CHARTS_ROUTE_NAMES } from '@/constants';
+
 import TimeRangeFilter from './components/TimeRangeFilter/TimeRangeFilter';
 import AccountsFilter from './components/AccountsFilter/AccountsFilter';
-import { STATISTICS_ROUTE_NAMES, CHARTS_ROUTE_NAMES } from '../../constants';
 
 export default {
   components: {

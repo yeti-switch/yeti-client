@@ -1,7 +1,5 @@
-// eslint-disable-next-line
-import { jsonApi } from '../../api';
-import { RESOURCES, AUTH } from '../../constants';
-
+import { jsonApi } from '@/api';
+import { RESOURCES, AUTH } from '@/constants';
 
 const state = {
   token: sessionStorage.getItem('yeti-token'),
@@ -47,9 +45,6 @@ const mutations = {
     currentState.token = '';
     currentState.status = 'unauthorized';
   },
-  // setError: (currentState, res) => {
-  //   currentState.error = res;
-  // },
 };
 
 export default {

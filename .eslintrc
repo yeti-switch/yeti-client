@@ -11,16 +11,23 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [".js", ".vue"]
+        "extensions": [".js", ".vue"],
+      },
+      "alias": {
+        "map": [
+          ["@", "./src"],
+        ],
+        "extensions": [".vue", ".js", ".json"]
       }
     }
   },
   "rules": {
     "implicit-arrow-linebreak": "off",
+    "import/prefer-default-export": "off",
     "no-param-reassign": ["error", { "props": false }],
     "no-underscore-dangle": ["error", { "allow": ["_cellVariants"] }]
   },
   "globals": {
-    "CONFIG": "readonly"
+    "YETI_CONFIG": "readonly"
   }
 }

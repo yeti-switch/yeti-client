@@ -50,13 +50,7 @@ export default {
         .then(() => this.$notify({
           type: NOTIFICATION_TYPES.SUCCESS,
           text: 'Login successful',
-        }))
-        .catch((err) => {
-          this.$notify({
-            type: NOTIFICATION_TYPES.ERROR,
-            text: err,
-          });
-        });
+        }));
     },
   },
 };

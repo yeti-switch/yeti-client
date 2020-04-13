@@ -10,7 +10,8 @@
 
 <script>
 
-import { ACTIVE_CALLS } from '../../constants';
+import { ACTIVE_CALLS } from '@/constants';
+
 import { CHART_OPTIONS, INITIAL_DATASETS_SETTINGS } from './fixtures';
 import DataChart from '../DataChart/DataChart';
 

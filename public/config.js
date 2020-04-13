@@ -1,5 +1,5 @@
-// eslint-disable-next-line
-CONFIG = {
+// eslint-disable-next-line no-global-assign
+YETI_CONFIG = {
   yeti: {
     apiBaseUrl: 'https://demo.yeti-switch.org',
     blockedPages: new Set([]),

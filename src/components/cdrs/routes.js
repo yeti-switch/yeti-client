@@ -1,17 +1,17 @@
-import Cdrs from './Cdrs';
 import {
   requiresAuth,
   filterBlockedPages,
   beforeGuardEnchancer,
-} from '../../router/helpers';
+} from '@/router/helpers';
 import {
   STATISTICS_PATHS,
   STATISTICS_ROUTE_NAMES,
   GENERAL_ROUTE_NAMES,
-} from '../../constants/routing';
+} from '@/constants/routing';
+
+import Cdrs from './Cdrs';
 import ViewFilters from '../ViewFilters/ViewFilters';
 
-// eslint-disable-next-line
 export const routes = [
   {
     path: STATISTICS_PATHS.CDRS,

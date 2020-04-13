@@ -13,7 +13,6 @@ export const CHART_OPTIONS = {
     xAxes: [{
       type: 'time',
       position: 'bottom',
-      // bounds: 'ticks',
       ticks: {
         major: {
           enabled: true,
@@ -23,11 +22,12 @@ export const CHART_OPTIONS = {
       },
       time: {
         displayFormats: {
+          minute: 'HH:mm',
           hour: 'HH:mm',
           day: 'MM-DD-YY HH:mm',
         },
-        // round: true,
-        minUnit: 'hour',
+        round: true,
+        stepSize: 1,
       },
       scaleLabel: {
         display: true,
@@ -52,11 +52,13 @@ export const CHART_OPTIONS = {
     enabled: true,
     threshold: 300, // change this
 
-    auto: false,
+    auto: true,
     onInit: true,
-
-    preferOriginalData: true,
-    restoreOriginalData: false,
+  },
+  tooltips: {
+    intersect: false,
+    mode: 'index',
+    position: 'nearest',
   },
 };
 

@@ -14,7 +14,9 @@
 
 <script>
 import NavBar from './components/NavBar/NavBar';
-import { AUTH, NOTIFICATION_TYPES, GENERAL_ROUTE_NAMES } from './constants';
+import {
+  AUTH, NOTIFICATION_TYPES, GENERAL_ROUTE_NAMES, NETWORK_SERVICE,
+} from './constants';
 import { jsonApi } from './api';
 
 export default {
@@ -51,6 +53,8 @@ export default {
           this.$store.dispatch(AUTH.ACTIONS.LOGOUT);
           this.$router.push('/login');
         }
+
+        this.$store.dispatch(NETWORK_SERVICE.ACTIONS.SWITCH_PENDING_STATE, false);
 
         return payload;
       },

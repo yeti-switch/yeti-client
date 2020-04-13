@@ -8,7 +8,11 @@ const getters = {
   requestIsPending: (currentState) => Boolean(currentState.requestIsPending),
 };
 
-const actions = {};
+const actions = {
+  [NETWORK_SERVICE.ACTIONS.SWITCH_PENDING_STATE]: ({ commit }, pendingStatus) => {
+    commit(NETWORK_SERVICE.MUTATIONS.SWITCH_PENDING_STATE, pendingStatus);
+  },
+};
 
 const mutations = {
   [NETWORK_SERVICE.MUTATIONS.SWITCH_PENDING_STATE]: (currentState, requestIsPending) => {

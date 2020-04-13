@@ -68,8 +68,6 @@ export class JsonApi {
   setToken = (token) => {
     this.instance.headers.Authorization = `Bearer ${token}`;
   };
-
-  createResource = (resourceName, data) => this.instance.create(resourceName, data)
 }
 
 export const jsonApi = new JsonApi();

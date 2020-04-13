@@ -14,7 +14,9 @@
 
 <script>
 import NavBar from './components/NavBar/NavBar';
-import { AUTH, NOTIFICATION_TYPES, GENERAL_ROUTE_NAMES } from './constants';
+import {
+  AUTH, NOTIFICATION_TYPES, GENERAL_ROUTE_NAMES, NETWORK_SERVICE,
+} from './constants';
 import { jsonApi } from './api';
 
 export default {
@@ -52,10 +54,9 @@ export default {
           this.$router.push('/login');
         }
 
-        throw new Error(`Network error caught. Title: ${payload[0].title}. Details: ${payload[0].detail}`);
+        this.$store.dispatch(NETWORK_SERVICE.ACTIONS.SWITCH_PENDING_STATE, false);
 
-        // return payload; // Payload (error) can be passed in particular cases when we'll need it
-        // For example to apply another actions
+        return payload;
       },
     };
 

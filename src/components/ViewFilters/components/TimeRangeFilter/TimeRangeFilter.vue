@@ -8,6 +8,7 @@
       :locale-data="settings.localeData"
       :time-picker="settings.timePicker"
       :auto-apply="settings.autoApply"
+      :date-util="settings.dateUtil"
       :linked-calendars="settings.linkedCalendars"
       @toggle="toggleIfNotLoading"
       @update="updateValues"
@@ -35,7 +36,7 @@
 </template>
 
 <script>
-import DateRangePicker from 'vue2-daterange-picker';
+import DateRangePicker from 'vue2-daterange-picker/src';
 
 import utils from '@/utils';
 import { TIME_RANGE_FILTER } from '@/constants';
@@ -60,6 +61,7 @@ export default {
           opens: 'left',
           timePicker: true,
           linkedCalendars: false,
+          dateUtil: 'moment',
           localeData: {
             firstDay: 1,
             format: 'DD-MM-YYYY HH:mm:ss',

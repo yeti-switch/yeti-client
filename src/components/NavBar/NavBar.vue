@@ -5,6 +5,7 @@
   >
     <b-navbar-brand
       :href="linkOnLogo"
+      target="_blank"
     >
       <img
         v-if="this.$data.navOpened"

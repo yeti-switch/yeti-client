@@ -11,9 +11,23 @@
         alt="Yeti logo"
         src="../../assets/logo.png"
       >
-      <home-compact v-if="!this.$data.navOpened" />
+      <img
+        v-if="!this.$data.navOpened"
+        width="50px"
+        height="40px"
+        alt="Yeti logo"
+        src="../../assets/yeti.svg"
+      >
     </b-navbar-brand>
     <b-nav vertical>
+      <b-nav-item
+        v-if="isNavItemVisible(navigationRoutesNames.ACCOUNTS)"
+        :active="this.$route.path === navigationRoutesPaths.ACCOUNTS"
+        router-link
+        :to="navigationRoutesPaths.ACCOUNTS"
+      >
+        {{ navItemNameHadler('Account info') }}
+      </b-nav-item>
       <b-nav-item
         v-if="isNavItemVisible(navigationRoutesNames.RATES)"
         :active="this.$route.path === navigationRoutesPaths.RATES"
@@ -31,15 +45,6 @@
       >
         <cdrs-icon />
         {{ this.$data.navOpened ? "Cdrs" : '' }}
-      </b-nav-item>
-      <b-nav-item
-        v-if="isNavItemVisible(navigationRoutesNames.ACCOUNTS)"
-        :active="this.$route.path === navigationRoutesPaths.ACCOUNTS"
-        router-link
-        :to="navigationRoutesPaths.ACCOUNTS"
-      >
-        <accounts-icon />
-        {{ this.$data.navOpened ? "Accounts" : '' }}
       </b-nav-item>
       <b-nav-item
         router-link
@@ -75,9 +80,13 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import {
   BIconHouse, BIconPeople, BIconCalendar, BIconBoxArrowLeft, BIconWallet, BIconGraphUp,
 } from 'bootstrap-vue';
+=======
+import { BIconBoxArrowLeft } from 'bootstrap-vue';
+>>>>>>> WIP: most changes done
 import { mapGetters } from 'vuex';
 import {
   AUTH, ACCOUNT_INFO_PATHS, ACCOUNT_INFO_ROUTE_NAMES,
@@ -86,12 +95,16 @@ import {
 export default {
   name: 'NavBar',
   components: {
+<<<<<<< HEAD
     HomeCompact: BIconHouse,
     LogoutCompactIcon: BIconBoxArrowLeft,
     AccountsIcon: BIconPeople,
     CdrsIcon: BIconCalendar,
     RatesIcon: BIconWallet,
     StatisticsIcon: BIconGraphUp,
+=======
+    LogoutCompact: BIconBoxArrowLeft,
+>>>>>>> WIP: most changes done
   },
   data() {
     return {
@@ -141,7 +154,7 @@ export default {
 
   .navbar-brand {
     margin: 10px 0 20px 15px;
-    color: #fff
+    color: #fff;
   }
 
   & > .nav {
@@ -153,6 +166,10 @@ export default {
   }
 
   &.collapsed {
+    .navbar-brand {
+      margin: 10px 0 20px 0;
+    }
+
     & > .nav {
       width: 50px;
       text-align: center;

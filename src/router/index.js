@@ -14,7 +14,7 @@ const STATIC_ROUTES = [
   {
     path: '/',
     redirect: {
-      name: GENERAL_ROUTE_NAMES.HOME,
+      name: STATISTICS_ROUTE_NAMES.ACCOUNTS,
     },
   },
   {
@@ -29,12 +29,6 @@ const STATIC_ROUTES = [
     path: GENERAL_PATHS.NOT_FOUND,
     name: GENERAL_ROUTE_NAMES.NOT_FOUND,
     component: NotFound,
-  },
-  {
-    path: GENERAL_PATHS.HOME,
-    name: GENERAL_ROUTE_NAMES.HOME,
-    component: Home,
-    beforeEnter: beforeGuardEnchancer([requiresAuth]),
   },
   {
     path: '*',

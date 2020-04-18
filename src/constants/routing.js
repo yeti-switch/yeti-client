@@ -14,13 +14,11 @@ export const ACCOUNT_INFO_ROUTE_NAMES = {
 
 export const GENERAL_PATHS = {
   LOG_IN: '/login',
-  HOME: '/home',
   NOT_FOUND: '/404',
 };
 
 export const GENERAL_ROUTE_NAMES = {
   LOG_IN: 'login',
-  HOME: 'home',
   NOT_FOUND: 'notFound',
   VIEW_FILTERS: 'viewFilters',
 };

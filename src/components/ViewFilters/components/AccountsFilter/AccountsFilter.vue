@@ -1,7 +1,10 @@
 <template>
   <div>
     Account:
-    <b-dropdown :text="activeAccountName" class="m-md-2">
+    <b-dropdown
+      :text="activeAccountName"
+      class="m-md-2"
+    >
       <b-dropdown-item
         v-for="account in accounts"
         :key="account.id"

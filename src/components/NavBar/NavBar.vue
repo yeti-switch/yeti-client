@@ -4,7 +4,7 @@
     :class="mainNavClass"
   >
     <b-navbar-brand
-      href="/"
+      :href="linkOnLogo"
     >
       <img
         v-if="this.$data.navOpened"
@@ -114,7 +114,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isAuthenticated']),
+    ...mapGetters(['isAuthenticated', 'linkOnLogo']),
     statisticsVisible: {
       get() {
         return Object.values(ACCOUNT_INFO_PATHS).some((path) => this.$route.path === path);

@@ -1,35 +1,27 @@
 export const TABLE_HEADERS = [
   {
-    key: 'connect-fee',
-    label: 'Connect fee',
-  },
-  {
-    key: 'initial-interval',
-    label: 'Initial interval',
-  },
-  {
-    key: 'initial-rate',
-    label: 'Initial rate',
-  },
-  {
-    key: 'network-prefix',
-    label: 'Network prefix',
-  },
-  {
-    key: 'next-interval',
-    label: 'Next interval',
-  },
-  {
-    key: 'next-rate',
-    label: 'Next rate',
-  },
-  {
     key: 'prefix',
     label: 'Prefix',
   },
   {
     key: 'reject-calls',
     label: 'Reject calls',
+  },
+  {
+    key: 'billing-interval',
+    label: 'Billing interval',
+  },
+  {
+    key: 'rate',
+    label: 'Rate',
+  },
+  {
+    key: 'connect-fee',
+    label: 'Connect fee',
+  },
+  {
+    key: 'network-prefix',
+    label: 'Network prefix',
   },
   {
     key: 'valid-from',

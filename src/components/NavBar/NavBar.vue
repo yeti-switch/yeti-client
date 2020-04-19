@@ -123,9 +123,6 @@ export default {
     isNavItemVisible(name) {
       return !this.$store.getters.blockedPages.has(name);
     },
-    navItemNameHadler(name) {
-      return this.$data.navOpened ? name : name[0];
-    },
     logout() {
       this.$store.dispatch(AUTH.ACTIONS.LOGOUT).then(() => this.$router.push('/login'));
     },

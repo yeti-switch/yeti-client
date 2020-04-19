@@ -20,7 +20,8 @@
         router-link
         :to="navigationRoutesPaths.RATES"
       >
-        {{ navItemNameHadler('Rates') }}
+        <rates-icon />
+        {{ this.$data.navOpened ? "Rates" : '' }}
       </b-nav-item>
       <b-nav-item
         v-if="isNavItemVisible(navigationRoutesNames.CDRS)"
@@ -28,7 +29,8 @@
         router-link
         :to="navigationRoutesPaths.CDRS"
       >
-        {{ navItemNameHadler('Cdrs') }}
+        <cdrs-icon />
+        {{ this.$data.navOpened ? "Cdrs" : '' }}
       </b-nav-item>
       <b-nav-item
         v-if="isNavItemVisible(navigationRoutesNames.ACCOUNTS)"
@@ -36,14 +38,16 @@
         router-link
         :to="navigationRoutesPaths.ACCOUNTS"
       >
-        {{ navItemNameHadler('Accounts') }}
+        <accounts-icon />
+        {{ this.$data.navOpened ? "Accounts" : '' }}
       </b-nav-item>
       <b-nav-item
         router-link
         :to="navigationRoutesPaths.ACTIVE_CALLS"
         :active="this.$route.path === navigationRoutesPaths.ACTIVE_CALLS"
       >
-        {{ navItemNameHadler('Active Calls') }}
+        <active-calls-icon />
+        {{ this.$data.navOpened ? "Active Calls" : '' }}
       </b-nav-item>
     </b-nav>
     <b-nav
@@ -55,15 +59,8 @@
         href="#"
         @click="logout"
       >
-        <span v-if="this.$data.navOpened">
-
-          {{ navItemNameHadler('Logout') }}
-        </span>
-        <logout-compact
-          v-if="!this.$data.navOpened"
-          href="#"
-          @click="logout"
-        />
+        <logout-compact-icon />
+        {{ this.$data.navOpened ? "Logout" : '' }}
       </b-nav-item>
     </b-nav>
 
@@ -78,7 +75,9 @@
 </template>
 
 <script>
-import { BIconHouse, BIconBoxArrowLeft } from 'bootstrap-vue';
+import {
+  BIconHouse, BIconPeople, BIconCalendar, BIconBoxArrowLeft, BIconWallet, BIconGraphUp,
+} from 'bootstrap-vue';
 import { mapGetters } from 'vuex';
 import {
   STATISTICS_PATHS, STATISTICS_ROUTE_NAMES, AUTH, CHARTS_PATHS, CHARTS_ROUTE_NAMES,
@@ -88,7 +87,11 @@ export default {
   name: 'NavBar',
   components: {
     HomeCompact: BIconHouse,
-    LogoutCompact: BIconBoxArrowLeft,
+    LogoutCompactIcon: BIconBoxArrowLeft,
+    AccountsIcon: BIconPeople,
+    CdrsIcon: BIconCalendar,
+    RatesIcon: BIconWallet,
+    ActiveCallsIcon: BIconGraphUp,
   },
   data() {
     return {
@@ -169,14 +172,12 @@ export default {
 
     .logout-wrapper {
       .nav-link {
-        padding: .5rem 0;
         .b-icon.bi {
           font-size: 150%;
           color: #fff;
         }
       }
     }
-
   }
 
   .logout-wrapper {
@@ -221,9 +222,15 @@ export default {
     background-color: #2c3b41;
     color: #8aa4af;
     outline: none;
+    padding: .5rem 0.8rem;
+
 
     &.router-link-exact-active {
       color: white;
+    }
+
+    .b-icon.bi {
+      font-size: 150%;
     }
   }
 }

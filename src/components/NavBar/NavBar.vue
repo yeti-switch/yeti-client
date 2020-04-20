@@ -46,8 +46,8 @@
         :to="navigationRoutesPaths.ACTIVE_CALLS"
         :active="this.$route.path === navigationRoutesPaths.ACTIVE_CALLS"
       >
-        <active-calls-icon />
-        {{ this.$data.navOpened ? "Active Calls" : '' }}
+        <statistics-icon />
+        {{ this.$data.navOpened ? "Statistics" : '' }}
       </b-nav-item>
     </b-nav>
     <b-nav
@@ -91,7 +91,7 @@ export default {
     AccountsIcon: BIconPeople,
     CdrsIcon: BIconCalendar,
     RatesIcon: BIconWallet,
-    ActiveCallsIcon: BIconGraphUp,
+    StatisticsIcon: BIconGraphUp,
   },
   data() {
     return {

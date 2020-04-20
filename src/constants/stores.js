@@ -24,13 +24,12 @@ export const CDRS = {
   },
 };
 
-export const ACTIVE_CALLS = {
+export const STATISTICS = {
   MUTATIONS: {
-    SET_REQUEST_PENDING: 'setRequestPending',
-    SET_ACTIVE_CALLS: 'setActiveCalls',
+    SET_STATISTICS: 'setStatistics',
   },
   ACTIONS: {
-    GET_ACTIVE_CALLS: 'getActiveCalls',
+    GET_STATISTICS: 'getStatistics',
   },
 };
 

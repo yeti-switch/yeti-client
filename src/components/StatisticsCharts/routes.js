@@ -4,20 +4,20 @@ import {
   beforeGuardEnchancer,
 } from '@/router/helpers';
 import {
-  CHARTS_ROUTE_NAMES,
-  CHARTS_PATHS,
+  ACCOUNT_INFO_ROUTE_NAMES,
+  ACCOUNT_INFO_PATHS,
   GENERAL_ROUTE_NAMES,
 } from '@/constants/routing';
 
-import ActiveCallsChart from './ActiveCallsChart';
+import StatisticsCharts from './StatisticsCharts';
 import ViewFilters from '../ViewFilters/ViewFilters';
 
 export const routes = [
   {
-    path: CHARTS_PATHS.ACTIVE_CALLS,
-    name: CHARTS_ROUTE_NAMES.ACTIVE_CALLS,
+    path: ACCOUNT_INFO_PATHS.STATISTICS,
+    name: ACCOUNT_INFO_ROUTE_NAMES.STATISTICS,
     components: {
-      default: ActiveCallsChart,
+      default: StatisticsCharts,
       [GENERAL_ROUTE_NAMES.VIEW_FILTERS]: ViewFilters,
     },
     beforeEnter: beforeGuardEnchancer([requiresAuth, filterBlockedPages]),

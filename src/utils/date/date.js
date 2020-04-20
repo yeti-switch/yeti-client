@@ -6,7 +6,7 @@ export const formatTableDate = (dateStr) => (!isNil(dateStr) && dateStr.length
   : '');
 
 
-export const pickerDateToActiveCallsFilter = (dateStr) => format(dateStr, 'yyyy-MM-dd HH:mm:ss');
+export const pickerDateToStatisticsFilter = (dateStr) => format(dateStr, 'yyyy-MM-dd HH:mm:ss');
 
 export const formatPickerDate = (dateStr) =>
   (dateStr ? format(dateStr, 'yyyy-MM-dd HH:mm') : dateStr);

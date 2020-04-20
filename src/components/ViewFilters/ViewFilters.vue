@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { STATISTICS_ROUTE_NAMES, CHARTS_ROUTE_NAMES } from '@/constants';
+import { ACCOUNT_INFO_ROUTE_NAMES } from '@/constants';
 
 import TimeRangeFilter from './components/TimeRangeFilter/TimeRangeFilter';
 import AccountsFilter from './components/AccountsFilter/AccountsFilter';
@@ -18,8 +18,8 @@ export default {
   },
   computed: {
     isTimeRangeEnabled() {
-      return this.$store.state.route.name === STATISTICS_ROUTE_NAMES.CDRS
-        || this.$store.state.route.name === CHARTS_ROUTE_NAMES.ACTIVE_CALLS;
+      return this.$store.state.route.name === ACCOUNT_INFO_ROUTE_NAMES.CDRS
+        || this.$store.state.route.name === ACCOUNT_INFO_ROUTE_NAMES.STATISTICS;
     },
   },
 };

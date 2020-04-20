@@ -1,16 +1,18 @@
 <template>
-  <data-chart
-    v-if="!isRequestPending"
-    :chart-data="derivedChartData"
-    :options="chartOptions"
-    :height="null"
-    :width="null"
-  />
+  <div>
+    <data-chart
+      v-if="!isRequestPending"
+      :chart-data="derivedChartData"
+      :options="chartOptions"
+      :height="null"
+      :width="null"
+    />
+  </div>
 </template>
 
 <script>
 
-import { ACTIVE_CALLS } from '@/constants';
+import { STATISTICS } from '@/constants';
 
 import { CHART_OPTIONS, INITIAL_DATASETS_SETTINGS } from './fixtures';
 import DataChart from '../DataChart/DataChart';
@@ -55,7 +57,7 @@ export default {
         Object.keys(INITIAL_DATASETS_SETTINGS).forEach((key, index) => {
           this.$store.getters.activeCalls[key].forEach((dataEntry) => {
             chartData.datasets[index].data.push({
-              y: dataEntry.x, x: Date.parse(dataEntry.y),
+              y: dataEntry.y, x: Date.parse(dataEntry.x),
             });
           });
         });
@@ -65,11 +67,11 @@ export default {
     },
   },
   created() {
-    this.getActiveCalls();
+    this.getStatistics();
   },
   methods: {
-    getActiveCalls() {
-      this.$store.dispatch(ACTIVE_CALLS.ACTIONS.GET_ACTIVE_CALLS);
+    getStatistics() {
+      this.$store.dispatch(STATISTICS.ACTIONS.GET_STATISTICS);
     },
   },
 };

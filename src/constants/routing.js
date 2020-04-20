@@ -1,13 +1,15 @@
-export const STATISTICS_PATHS = {
+export const ACCOUNT_INFO_PATHS = {
   CDRS: '/cdrs',
   ACCOUNTS: '/accounts',
   RATES: '/rates',
+  STATISTICS: '/statistics',
 };
 
-export const STATISTICS_ROUTE_NAMES = {
+export const ACCOUNT_INFO_ROUTE_NAMES = {
   CDRS: 'cdrs',
   ACCOUNTS: 'accounts',
   RATES: 'rates',
+  STATISTICS: 'statistics',
 };
 
 export const GENERAL_PATHS = {
@@ -21,12 +23,4 @@ export const GENERAL_ROUTE_NAMES = {
   HOME: 'home',
   NOT_FOUND: 'notFound',
   VIEW_FILTERS: 'viewFilters',
-};
-
-export const CHARTS_PATHS = {
-  ACTIVE_CALLS: '/activeCalls',
-};
-
-export const CHARTS_ROUTE_NAMES = {
-  ACTIVE_CALLS: 'activeCalls',
 };

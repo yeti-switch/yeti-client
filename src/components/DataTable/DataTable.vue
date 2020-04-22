@@ -33,6 +33,16 @@
         sticky-header="calc(100vh - 7rem)"
         hover
       >
+        <template v-slot:cell(success)="data">
+          <b-badge
+            v-if="data.item.success === 'No'"
+            pill
+            variant="danger"
+          >
+            {{ data.item.success }}
+          </b-badge>
+          {{ data.item.success !== 'No' ? data.item.success : '' }}
+        </template>
         <template
           v-slot:empty="scope"
         >

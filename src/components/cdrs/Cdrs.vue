@@ -32,7 +32,7 @@ export default {
   },
   computed: {
     cdrs() {
-      return flow(utils.formatCdrs, utils.colorCdrsTable)(this.$store.getters.cdrs.items);
+      return flow(utils.formatCdrs)(this.$store.getters.cdrs.items);
     },
     rows() {
       return get(this.$store.getters, ['cdrs', 'meta', 'total-count'], 0);

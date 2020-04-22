@@ -12,14 +12,3 @@ export const formatCdrs = (cdrs = []) =>
     item['originator-address'] = `${item['auth-orig-ip']}:${item['auth-orig-port']}`;
     return item;
   });
-
-export const colorCdrsTable = (cdrs = []) =>
-  cdrs.map((item) => {
-    item._cellVariants = {};
-
-    if (item.success === 'No') {
-      item._cellVariants.success = 'danger';
-    }
-
-    return item;
-  });

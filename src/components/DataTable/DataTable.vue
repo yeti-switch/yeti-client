@@ -141,18 +141,18 @@ export default {
     right: 15px;
   }
 
-  // @todo this code breaks layout of table with large number of entries
-  // .datatable-content {
-  //   display: table;
-  //   min-width: 100%;
-  // }
-
   .pagination {
     padding-left: 15px;
   }
 
   tr:nth-child(2n) {
     background-color: #fff;
+  }
+
+  .badge {
+    border-radius: 0;
+    padding: 0.25rem 0.5rem;
+    font-size: 100%;
   }
 }
 </style>

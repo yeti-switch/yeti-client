@@ -219,7 +219,7 @@ export default {
     background-color: #2c3b41;
     color: #8aa4af;
     outline: none;
-    padding: .5rem 0.8rem;
+    padding: .5rem .7rem;
 
 
     &.router-link-exact-active {

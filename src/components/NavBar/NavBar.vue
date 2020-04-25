@@ -4,8 +4,7 @@
     :class="mainNavClass"
   >
     <b-navbar-brand
-      :href="linkOnLogo"
-      target="_blank"
+      href="/"
     >
       <img
         v-if="this.$data.navOpened"
@@ -48,6 +47,15 @@
         {{ this.$data.navOpened ? "Cdrs" : '' }}
       </b-nav-item>
       <b-nav-item
+        v-if="isNavItemVisible(navigationRoutesNames.ACCOUNTS)"
+        :active="this.$route.path === navigationRoutesPaths.ACCOUNTS"
+        router-link
+        :to="navigationRoutesPaths.ACCOUNTS"
+      >
+        <accounts-icon />
+        {{ this.$data.navOpened ? "Accounts" : '' }}
+      </b-nav-item>
+      <b-nav-item
         router-link
         :to="navigationRoutesPaths.STATISTICS"
         :active="this.$route.path === navigationRoutesPaths.STATISTICS"
@@ -81,13 +89,9 @@
 </template>
 
 <script>
-<<<<<<< HEAD
 import {
-  BIconHouse, BIconPeople, BIconCalendar, BIconBoxArrowLeft, BIconWallet, BIconGraphUp,
+  BIconPeople, BIconCalendar, BIconBoxArrowLeft, BIconWallet, BIconGraphUp,
 } from 'bootstrap-vue';
-=======
-import { BIconBoxArrowLeft } from 'bootstrap-vue';
->>>>>>> WIP: most changes done
 import { mapGetters } from 'vuex';
 import {
   AUTH, ACCOUNT_INFO_PATHS, ACCOUNT_INFO_ROUTE_NAMES,
@@ -96,16 +100,11 @@ import {
 export default {
   name: 'NavBar',
   components: {
-<<<<<<< HEAD
-    HomeCompact: BIconHouse,
     LogoutCompactIcon: BIconBoxArrowLeft,
     AccountsIcon: BIconPeople,
     CdrsIcon: BIconCalendar,
     RatesIcon: BIconWallet,
     StatisticsIcon: BIconGraphUp,
-=======
-    LogoutCompact: BIconBoxArrowLeft,
->>>>>>> WIP: most changes done
   },
   data() {
     return {
@@ -115,7 +114,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isAuthenticated', 'linkOnLogo']),
+    ...mapGetters(['isAuthenticated']),
     statisticsVisible: {
       get() {
         return Object.values(ACCOUNT_INFO_PATHS).some((path) => this.$route.path === path);

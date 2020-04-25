@@ -33,20 +33,21 @@
         sticky-header="calc(100vh - 7rem)"
         hover
       >
-        <template v-for="badge in itemsToBadge">
-          <template
-            v-slot:cell(badge.id)="data"
+        <!-- Idea for v-slot dynamic names: https://stackoverflow.com/questions/58140842/vue-and-bootstrap-vue-dynamically-use-slots/58143362#58143362 -->
+        <template
+          v-for="badge in itemsToBadge"
+          v-slot:[getBadgedCellName(badge.id)]="data"
+        >
+          <!-- Add support for different kind of badges, if needed -->
+          <b-badge
+            v-if="data.item[badge.id] === badge.errorValue"
+            :key="badge.errorValue"
+            pill
+            variant="danger"
           >
-            <b-badge
-              v-if="data.item.success === badge.errorValue"
-              :key="badge.errorValue"
-              pill
-              variant="danger"
-            >
-              {{ data.item.success }}
-            </b-badge>
-            {{ data.item.success !== 'No' ? data.item.success : '' }}
-          </template>
+            {{ data.item[badge.id] }}
+          </b-badge>
+          {{ data.item[badge.id] !== badge.errorValue ? data.item[badge.id] : '' }}
         </template>
       </b-table>
       <b-pagination
@@ -112,6 +113,11 @@ export default {
     },
     hiddenIfLoading() {
       return this.loading ? 'hidden' : 'visible';
+    },
+  },
+  methods: {
+    getBadgedCellName(id) {
+      return `cell(${id})`;
     },
   },
 };

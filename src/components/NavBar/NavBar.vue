@@ -21,14 +21,6 @@
     </b-navbar-brand>
     <b-nav vertical>
       <b-nav-item
-        v-if="isNavItemVisible(navigationRoutesNames.ACCOUNTS)"
-        :active="this.$route.path === navigationRoutesPaths.ACCOUNTS"
-        router-link
-        :to="navigationRoutesPaths.ACCOUNTS"
-      >
-        {{ navItemNameHadler('Account info') }}
-      </b-nav-item>
-      <b-nav-item
         v-if="isNavItemVisible(navigationRoutesNames.RATES)"
         :active="this.$route.path === navigationRoutesPaths.RATES"
         router-link

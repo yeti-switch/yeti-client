@@ -4,6 +4,7 @@
     :items="cdrs"
     :rows="rows"
     :get-data="getCdrs"
+    :items-to-badge="itemsToBadge"
   />
 </template>
 
@@ -28,6 +29,10 @@ export default {
     return {
       // Table fields
       fields: TABLE_HEADERS,
+      itemsToBadge: [{
+        id: 'success',
+        errorValue: 'No',
+      }],
     };
   },
   computed: {

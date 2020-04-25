@@ -167,10 +167,13 @@ export default {
       }
     }
 
+    .nav-link {
+      padding: .5rem .7rem .5rem .7rem;
+    }
+
     .logout-wrapper {
       .nav-link {
         .b-icon.bi {
-          font-size: 150%;
           color: #fff;
         }
       }
@@ -219,7 +222,7 @@ export default {
     background-color: #2c3b41;
     color: #8aa4af;
     outline: none;
-    padding: .5rem .7rem;
+    padding: .5rem .7rem .5rem .8rem;
 
 
     &.router-link-exact-active {

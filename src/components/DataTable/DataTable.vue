@@ -33,37 +33,20 @@
         sticky-header="calc(100vh - 7rem)"
         hover
       >
-        <template v-slot:cell(success)="data">
-          <b-badge
-            v-if="data.item.success === 'No'"
-            pill
-            variant="danger"
+        <template v-for="badge in itemsToBadge">
+          <template
+            v-slot:cell(badge.id)="data"
           >
-            {{ data.item.success }}
-          </b-badge>
-          {{ data.item.success !== 'No' ? data.item.success : '' }}
-        </template>
-        <template
-          v-slot:empty="scope"
-        >
-          <div
-            class="text-left"
-          >
-            <b>
-              {{ scope.emptyText }}
-            </b>
-          </div>
-        </template>
-        <template
-          v-slot:empty="scope"
-        >
-          <div
-            class="text-left"
-          >
-            <b>
-              {{ scope.emptyFilteredText }}
-            </b>
-          </div>
+            <b-badge
+              v-if="data.item.success === badge.errorValue"
+              :key="badge.errorValue"
+              pill
+              variant="danger"
+            >
+              {{ data.item.success }}
+            </b-badge>
+            {{ data.item.success !== 'No' ? data.item.success : '' }}
+          </template>
         </template>
       </b-table>
       <b-pagination
@@ -92,6 +75,12 @@ export default {
       },
     },
     items: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
+    itemsToBadge: {
       type: Array,
       default() {
         return [];

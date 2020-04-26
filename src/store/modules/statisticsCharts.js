@@ -8,6 +8,7 @@ const state = {
 };
 const getters = {
   activeCalls: (currentState) => currentState.activeCalls.data,
+  originatedCps: (currentState) => currentState.originatedCps.data,
 };
 const actions = {
   [STATISTICS.ACTIONS.GET_STATISTICS]: async ({ commit, rootGetters, rootState }) => {
@@ -39,7 +40,7 @@ const actions = {
     Promise.all([activeCallsPromise, originatedCpsPromise]).then(([activeCalls, originatedCps]) => {
       console.log('activeCalls, originatedCps', activeCalls, originatedCps);
 
-      commit(STATISTICS.MUTATIONS.SET_STATISTICS, activeCalls);
+      commit(STATISTICS.MUTATIONS.SET_STATISTICS, { activeCalls, originatedCps });
     });
 
 
@@ -47,9 +48,9 @@ const actions = {
   },
 };
 const mutations = {
-  [STATISTICS.MUTATIONS.SET_STATISTICS]: (currentState, activeCalls) => {
+  [STATISTICS.MUTATIONS.SET_STATISTICS]: (currentState, { activeCalls, originatedCps }) => {
     currentState.activeCalls = activeCalls;
-    // currentState.originatedCps = originatedCps;
+    currentState.originatedCps = originatedCps;
   },
 };
 

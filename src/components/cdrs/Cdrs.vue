@@ -4,6 +4,7 @@
     :items="cdrs"
     :rows="rows"
     :get-data="getCdrs"
+    :items-to-badge="itemsToBadge"
   />
 </template>
 
@@ -28,11 +29,15 @@ export default {
     return {
       // Table fields
       fields: TABLE_HEADERS,
+      itemsToBadge: [{
+        id: 'success',
+        errorValue: 'No',
+      }],
     };
   },
   computed: {
     cdrs() {
-      return flow(utils.formatCdrs, utils.colorCdrsTable)(this.$store.getters.cdrs.items);
+      return flow(utils.formatCdrs)(this.$store.getters.cdrs.items);
     },
     rows() {
       return get(this.$store.getters, ['cdrs', 'meta', 'total-count'], 0);

@@ -33,27 +33,21 @@
         sticky-header="calc(100vh - 9rem)"
         hover
       >
+        <!-- Idea for v-slot dynamic names: https://stackoverflow.com/questions/58140842/vue-and-bootstrap-vue-dynamically-use-slots/58143362#58143362 -->
         <template
-          v-slot:empty="scope"
+          v-for="badge in itemsToBadge"
+          v-slot:[getBadgedCellName(badge.id)]="data"
         >
-          <div
-            class="text-left"
+          <!-- Add support for different kind of badges, if needed -->
+          <b-badge
+            v-if="data.item[badge.id] === badge.errorValue"
+            :key="badge.errorValue"
+            pill
+            variant="danger"
           >
-            <b>
-              {{ scope.emptyText }}
-            </b>
-          </div>
-        </template>
-        <template
-          v-slot:empty="scope"
-        >
-          <div
-            class="text-left"
-          >
-            <b>
-              {{ scope.emptyFilteredText }}
-            </b>
-          </div>
+            {{ data.item[badge.id] }}
+          </b-badge>
+          {{ data.item[badge.id] !== badge.errorValue ? data.item[badge.id] : '' }}
         </template>
       </b-table>
       <b-pagination
@@ -87,6 +81,12 @@ export default {
         return [];
       },
     },
+    itemsToBadge: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
     rows: {
       type: Number,
       default: 0,
@@ -115,6 +115,11 @@ export default {
       return this.loading ? 'hidden' : 'visible';
     },
   },
+  methods: {
+    getBadgedCellName(id) {
+      return `cell(${id})`;
+    },
+  },
 };
 </script>
 
@@ -131,18 +136,18 @@ export default {
     right: 15px;
   }
 
-  // @todo this code breaks layout of table with large number of entries
-  // .datatable-content {
-  //   display: table;
-  //   min-width: 100%;
-  // }
-
   .pagination {
     padding-left: 15px;
   }
 
   tr:nth-child(2n) {
     background-color: #fff;
+  }
+
+  .badge {
+    border-radius: 0;
+    padding: 0.25rem 0.5rem;
+    font-size: 100%;
   }
 }
 </style>

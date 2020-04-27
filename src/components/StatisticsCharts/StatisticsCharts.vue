@@ -2,18 +2,18 @@
   <div>
     <data-chart
       v-if="!isRequestPending"
-      :chart-data="derivedChartData"
+      :chart-data="derivedActiveCallsChartData"
       :options="chartOptions"
       :height="null"
       :width="null"
     />
-    <!-- <data-chart
+    <data-chart
       v-if="!isRequestPending"
-      :chart-data="derivedChartData2"
+      :chart-data="derivedOriginatedCpsChartData"
       :options="chartOptions"
       :height="null"
       :width="null"
-    /> -->
+    />
   </div>
 </template>
 
@@ -38,7 +38,7 @@ export default {
     isRequestPending() {
       return this.$store.getters.requestIsPending;
     },
-    derivedChartData() {
+    derivedActiveCallsChartData() {
       const chartData = {
         datasets: [],
       };
@@ -61,8 +61,10 @@ export default {
 
         Object.keys(INITIAL_DATASETS_SETTINGS).forEach((key, index) => {
           this.$store.getters.activeCalls[key].forEach((dataEntry) => {
+            const { x, y } = dataEntry;
+
             chartData.datasets[index].data.push({
-              y: dataEntry.y, x: Date.parse(dataEntry.x),
+              y, x: Date.parse(x),
             });
           });
         });
@@ -70,27 +72,25 @@ export default {
 
       return chartData;
     },
-    // derivedChartData2() {
-    //   const chartData = {
-    //     datasets: [],
-    //   };
+    derivedOriginatedCpsChartData() {
+      const chartData = {
+        datasets: [],
+      };
 
-    //   console.log('this.$store.getters.originatedCps)', this.$store.getters.originatedCps.cps);
+      if (this.$store.getters.originatedCps) {
+        // For some reason, pushing dataset configs in scope of below Object.keys
+        // cause continous dataset refresh, which results in page crash
+        chartData.datasets.push({
+          label: 'Originated CPS',
+          data: this.$store.getters.originatedCps.cps.map((entry) =>
+            ({ y: entry.x, x: Date.parse(entry.y) })),
+          backgroundColor: 'transparent',
+          borderColor: 'orange',
+        });
+      }
 
-    // if (this.$store.getters.originatedCps) {
-    // For some reason, pushing dataset configs in scope of below Object.keys
-    // cause continous dataset refresh, which results in page crash
-    //     chartData.datasets.push({
-    //       label: 'Originated calls',
-    //       data: this.$store.getters.originatedCps.cps.map((entry) =>
-    //         ({ y: entry.x, x: Date.parse(entry.y) })),
-    //       backgroundColor: 'transparent',
-    //       borderColor: 'lightgreen',
-    //     });
-    //   }
-
-    //   return chartData;
-    // },
+      return chartData;
+    },
   },
   created() {
     this.getStatistics();

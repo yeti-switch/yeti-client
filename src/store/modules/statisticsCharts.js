@@ -11,7 +11,7 @@ const getters = {
   originatedCps: (currentState) => currentState.originatedCps.data,
 };
 const actions = {
-  [STATISTICS.ACTIONS.GET_STATISTICS]: async ({ commit, rootGetters, rootState }) => {
+  [STATISTICS.ACTIONS.GET_STATISTICS]: ({ commit, rootGetters, rootState }) => {
     commit(NETWORK_SERVICE.MUTATIONS.SWITCH_PENDING_STATE, true, { root: true });
 
     const { startDate, endDate } = rootState.timeRangeFilter.timeFilterValue;
@@ -20,7 +20,7 @@ const actions = {
     const toTime = utils.pickerDateToStatisticsFilter(endDate);
 
 
-    const activeCallsPromise = await jsonApi.createResource(RESOURCES.ACTIVE_CALLS, {
+    const activeCallsPromise = jsonApi.createResource(RESOURCES.ACTIVE_CALLS, {
       'from-time': fromTime,
       'to-time': toTime,
       account: {
@@ -29,7 +29,7 @@ const actions = {
     });
 
 
-    const originatedCpsPromise = await jsonApi.createResource(RESOURCES.ORIGINATED_CPS, {
+    const originatedCpsPromise = jsonApi.createResource(RESOURCES.ORIGINATED_CPS, {
       'from-time': fromTime,
       'to-time': toTime,
       account: {
@@ -38,13 +38,10 @@ const actions = {
     });
 
     Promise.all([activeCallsPromise, originatedCpsPromise]).then(([activeCalls, originatedCps]) => {
-      console.log('activeCalls, originatedCps', activeCalls, originatedCps);
-
       commit(STATISTICS.MUTATIONS.SET_STATISTICS, { activeCalls, originatedCps });
+
+      commit(NETWORK_SERVICE.MUTATIONS.SWITCH_PENDING_STATE, false, { root: true });
     });
-
-
-    commit(NETWORK_SERVICE.MUTATIONS.SWITCH_PENDING_STATE, false, { root: true });
   },
 };
 const mutations = {

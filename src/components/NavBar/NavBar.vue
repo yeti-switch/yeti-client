@@ -43,8 +43,8 @@
       </b-nav-item>
       <b-nav-item
         router-link
-        :to="navigationRoutesPaths.ACTIVE_CALLS"
-        :active="this.$route.path === navigationRoutesPaths.ACTIVE_CALLS"
+        :to="navigationRoutesPaths.STATISTICS"
+        :active="this.$route.path === navigationRoutesPaths.STATISTICS"
       >
         <statistics-icon />
         {{ this.$data.navOpened ? "Statistics" : '' }}
@@ -80,7 +80,7 @@ import {
 } from 'bootstrap-vue';
 import { mapGetters } from 'vuex';
 import {
-  STATISTICS_PATHS, STATISTICS_ROUTE_NAMES, AUTH, CHARTS_PATHS, CHARTS_ROUTE_NAMES,
+  AUTH, ACCOUNT_INFO_PATHS, ACCOUNT_INFO_ROUTE_NAMES,
 } from '@/constants';
 
 export default {
@@ -95,8 +95,8 @@ export default {
   },
   data() {
     return {
-      navigationRoutesPaths: { ...STATISTICS_PATHS, ...CHARTS_PATHS },
-      navigationRoutesNames: { ...STATISTICS_ROUTE_NAMES, CHARTS_ROUTE_NAMES },
+      navigationRoutesPaths: { ...ACCOUNT_INFO_PATHS },
+      navigationRoutesNames: { ...ACCOUNT_INFO_ROUTE_NAMES },
       navOpened: true,
     };
   },
@@ -104,7 +104,7 @@ export default {
     ...mapGetters(['isAuthenticated']),
     statisticsVisible: {
       get() {
-        return Object.values(STATISTICS_PATHS).some((path) => this.$route.path === path);
+        return Object.values(ACCOUNT_INFO_PATHS).some((path) => this.$route.path === path);
       },
 
       // Silly setter just to suppress vue warning

@@ -2,11 +2,11 @@ import VueRouter from 'vue-router';
 
 import Login from '../components/Login';
 import NotFound from '../components/NotFound';
+import Home from '../components/Home';
 import { routes as CdrsRoutes } from '../components/cdrs/routes';
 import { routes as RatesRoutes } from '../components/rates/routes';
 import { routes as AccountsRoutes } from '../components/accounts/routes';
-import { routes as ActiveCallsRoutes } from '../components/ActiveCallsChart/routes';
-import Home from '../components/Home';
+import { routes as StatisticsChartsRoutes } from '../components/StatisticsCharts/routes';
 import { requiresAuth, requiresNotAuth, beforeGuardEnchancer } from './helpers';
 import { GENERAL_ROUTE_NAMES, GENERAL_PATHS } from '../constants/routing';
 
@@ -45,7 +45,7 @@ const STATIC_ROUTES = [
   ...RatesRoutes,
   ...CdrsRoutes,
   ...AccountsRoutes,
-  ...ActiveCallsRoutes,
+  ...StatisticsChartsRoutes,
 ];
 
 export class Router {

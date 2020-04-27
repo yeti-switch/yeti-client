@@ -9,7 +9,7 @@ import errors from './modules/errors';
 import cdrs from './modules/cdrs';
 import config from './modules/config';
 import networkServices from './modules/networkServices';
-import activeCalls from './modules/activeCalls';
+import statisticsCharts from './modules/statisticsCharts';
 
 import { currentAccountWatcher } from './plugins/currentAccountWatcher';
 import { timeRangeWatcher } from './plugins/timeRangeWatcher';
@@ -30,6 +30,6 @@ export default new Vuex.Store({
     config,
     timeRangeFilter,
     networkServices,
-    activeCalls,
+    statisticsCharts,
   },
 });

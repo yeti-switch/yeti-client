@@ -7,6 +7,7 @@ export const RESOURCES = {
   AUTH: 'auth',
   TRANSPORT_PROTOCOLS: 'transport-protocols',
   ACTIVE_CALLS: 'chart-active-calls',
+  ORIGINATED_CPS: 'chart-originated-cps',
 };
 
 export const SPARSE_FIELDS = {
@@ -127,6 +128,20 @@ export const RELATIONSHIPS = {
       y: '',
     },
     originatedCalls: {
+      jsonApi: 'hasMany',
+      x: null,
+      y: '',
+    },
+  },
+  [RESOURCES.ORIGINATED_CPS]: {
+    'from-time': '',
+    'to-time': '',
+    account: {
+      jsonApi: 'hasOne',
+      type: 'accounts',
+      id: '',
+    },
+    cps: {
       jsonApi: 'hasMany',
       x: null,
       y: '',

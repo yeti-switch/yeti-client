@@ -1,16 +1,25 @@
 <template>
-  <data-chart
-    v-if="!isRequestPending"
-    :chart-data="derivedChartData"
-    :options="chartOptions"
-    :height="null"
-    :width="null"
-  />
+  <div>
+    <data-chart
+      v-if="!isRequestPending"
+      :chart-data="derivedActiveCallsChartData"
+      :options="chartOptions"
+      :height="null"
+      :width="null"
+    />
+    <data-chart
+      v-if="!isRequestPending"
+      :chart-data="derivedOriginatedCpsChartData"
+      :options="chartOptions"
+      :height="null"
+      :width="null"
+    />
+  </div>
 </template>
 
 <script>
 
-import { ACTIVE_CALLS } from '@/constants';
+import { STATISTICS } from '@/constants';
 
 import { CHART_OPTIONS, INITIAL_DATASETS_SETTINGS } from './fixtures';
 import DataChart from '../DataChart/DataChart';
@@ -21,8 +30,6 @@ export default {
   },
   data() {
     return {
-      currentXLength: 500,
-      currentThreshold: 300,
       chartOptions: CHART_OPTIONS,
       chart: undefined,
     };
@@ -31,7 +38,7 @@ export default {
     isRequestPending() {
       return this.$store.getters.requestIsPending;
     },
-    derivedChartData() {
+    derivedActiveCallsChartData() {
       const chartData = {
         datasets: [],
       };
@@ -54,8 +61,10 @@ export default {
 
         Object.keys(INITIAL_DATASETS_SETTINGS).forEach((key, index) => {
           this.$store.getters.activeCalls[key].forEach((dataEntry) => {
+            const { x, y } = dataEntry;
+
             chartData.datasets[index].data.push({
-              y: dataEntry.x, x: Date.parse(dataEntry.y),
+              y, x: Date.parse(x),
             });
           });
         });
@@ -63,13 +72,32 @@ export default {
 
       return chartData;
     },
+    derivedOriginatedCpsChartData() {
+      const chartData = {
+        datasets: [],
+      };
+
+      if (this.$store.getters.originatedCps) {
+        // For some reason, pushing dataset configs in scope of below Object.keys
+        // cause continous dataset refresh, which results in page crash
+        chartData.datasets.push({
+          label: 'Originated CPS',
+          data: this.$store.getters.originatedCps.cps.map((entry) =>
+            ({ y: entry.x, x: Date.parse(entry.y) })),
+          backgroundColor: 'transparent',
+          borderColor: 'orange',
+        });
+      }
+
+      return chartData;
+    },
   },
   created() {
-    this.getActiveCalls();
+    this.getStatistics();
   },
   methods: {
-    getActiveCalls() {
-      this.$store.dispatch(ACTIVE_CALLS.ACTIONS.GET_ACTIVE_CALLS);
+    getStatistics() {
+      this.$store.dispatch(STATISTICS.ACTIONS.GET_STATISTICS);
     },
   },
 };

@@ -3,6 +3,7 @@ YETI_CONFIG = {
   yeti: {
     apiBaseUrl: 'https://demo.yeti-switch.org',
     blockedPages: new Set([]),
+    linkOnLogo: 'https://yeti-switch.org/',
   },
 };
 

@@ -1,5 +1,6 @@
 <template>
   <div>
+    Account:
     <b-dropdown
       :text="activeAccountName"
       class="m-md-2"
@@ -25,7 +26,9 @@ export default {
       return this.$store.getters.accounts.items;
     },
     activeAccountName() {
-      return this.$store.getters.activeAccount ? this.$store.getters.activeAccount.name : '';
+      return this.$store.getters.activeAccount
+        ? this.$store.getters.activeAccount.name
+        : '';
     },
   },
   created() {
@@ -42,6 +45,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

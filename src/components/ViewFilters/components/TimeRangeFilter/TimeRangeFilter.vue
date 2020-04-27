@@ -1,6 +1,6 @@
 <template>
   <div class="time-range-filter">
-    Filter by time:
+    Time interval:
     <date-range-picker
       ref="picker"
       v-model="timeFilterValue"

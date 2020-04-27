@@ -2,19 +2,18 @@ import VueRouter from 'vue-router';
 
 import Login from '../components/Login';
 import NotFound from '../components/NotFound';
-import Home from '../components/Home';
 import { routes as CdrsRoutes } from '../components/cdrs/routes';
 import { routes as RatesRoutes } from '../components/rates/routes';
 import { routes as AccountsRoutes } from '../components/accounts/routes';
 import { routes as StatisticsChartsRoutes } from '../components/StatisticsCharts/routes';
-import { requiresAuth, requiresNotAuth, beforeGuardEnchancer } from './helpers';
-import { GENERAL_ROUTE_NAMES, GENERAL_PATHS } from '../constants/routing';
+import { requiresNotAuth, beforeGuardEnchancer } from './helpers';
+import { GENERAL_ROUTE_NAMES, GENERAL_PATHS, ACCOUNT_INFO_ROUTE_NAMES } from '../constants/routing';
 
 const STATIC_ROUTES = [
   {
     path: '/',
     redirect: {
-      name: GENERAL_ROUTE_NAMES.HOME,
+      name: ACCOUNT_INFO_ROUTE_NAMES.ACCOUNTS,
     },
   },
   {
@@ -29,12 +28,6 @@ const STATIC_ROUTES = [
     path: GENERAL_PATHS.NOT_FOUND,
     name: GENERAL_ROUTE_NAMES.NOT_FOUND,
     component: NotFound,
-  },
-  {
-    path: GENERAL_PATHS.HOME,
-    name: GENERAL_ROUTE_NAMES.HOME,
-    component: Home,
-    beforeEnter: beforeGuardEnchancer([requiresAuth]),
   },
   {
     path: '*',

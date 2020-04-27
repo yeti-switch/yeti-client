@@ -11,7 +11,13 @@
         alt="Yeti logo"
         src="../../assets/logo.png"
       >
-      <home-compact v-if="!this.$data.navOpened" />
+      <img
+        v-if="!this.$data.navOpened"
+        width="50px"
+        height="40px"
+        alt="Yeti logo"
+        src="../../assets/yeti.svg"
+      >
     </b-navbar-brand>
     <b-nav vertical>
       <b-nav-item
@@ -76,7 +82,7 @@
 
 <script>
 import {
-  BIconHouse, BIconPeople, BIconCalendar, BIconBoxArrowLeft, BIconWallet, BIconGraphUp,
+  BIconPeople, BIconCalendar, BIconBoxArrowLeft, BIconWallet, BIconGraphUp,
 } from 'bootstrap-vue';
 import { mapGetters } from 'vuex';
 import {
@@ -86,7 +92,6 @@ import {
 export default {
   name: 'NavBar',
   components: {
-    HomeCompact: BIconHouse,
     LogoutCompactIcon: BIconBoxArrowLeft,
     AccountsIcon: BIconPeople,
     CdrsIcon: BIconCalendar,
@@ -141,7 +146,7 @@ export default {
 
   .navbar-brand {
     margin: 10px 0 20px 15px;
-    color: #fff
+    color: #fff;
   }
 
   & > .nav {
@@ -153,6 +158,10 @@ export default {
   }
 
   &.collapsed {
+    .navbar-brand {
+      margin: 10px 0 20px 0;
+    }
+
     & > .nav {
       width: 50px;
       text-align: center;

@@ -20,9 +20,9 @@
 <script>
 
 import { STATISTICS } from '@/constants';
+import DataChart from '@/components/DataChart/DataChart';
 
 import { CHART_OPTIONS, INITIAL_DATASETS_SETTINGS } from './fixtures';
-import DataChart from '@/components/DataChart/DataChart';
 
 export default {
   components: {

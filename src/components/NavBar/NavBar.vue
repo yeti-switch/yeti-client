@@ -9,14 +9,14 @@
       <img
         v-if="this.$data.navOpened"
         alt="Yeti logo"
-        src="../../assets/logo.png"
+        src="@/assets/images/logo.png"
       >
       <img
         v-if="!this.$data.navOpened"
         width="50px"
         height="40px"
         alt="Yeti logo"
-        src="../../assets/yeti.svg"
+        src="@/assets/images/yeti.svg"
       >
     </b-navbar-brand>
     <b-nav vertical>
@@ -27,7 +27,7 @@
         :to="navigationRoutesPaths.RATES"
       >
         <rates-icon />
-        {{ this.$data.navOpened ? "Rates" : '' }}
+        {{ getNavItemName('Rates') }}
       </b-nav-item>
       <b-nav-item
         v-if="isNavItemVisible(navigationRoutesNames.CDRS)"
@@ -36,7 +36,7 @@
         :to="navigationRoutesPaths.CDRS"
       >
         <cdrs-icon />
-        {{ this.$data.navOpened ? "Cdrs" : '' }}
+        {{ getNavItemName('Cdrs') }}
       </b-nav-item>
       <b-nav-item
         v-if="isNavItemVisible(navigationRoutesNames.ACCOUNTS)"
@@ -45,7 +45,7 @@
         :to="navigationRoutesPaths.ACCOUNTS"
       >
         <accounts-icon />
-        {{ this.$data.navOpened ? "Accounts" : '' }}
+        {{ getNavItemName('Accounts') }}
       </b-nav-item>
       <b-nav-item
         router-link
@@ -53,7 +53,7 @@
         :active="this.$route.path === navigationRoutesPaths.STATISTICS"
       >
         <statistics-icon />
-        {{ this.$data.navOpened ? "Statistics" : '' }}
+        {{ getNavItemName('Statistics') }}
       </b-nav-item>
     </b-nav>
     <b-nav
@@ -66,7 +66,7 @@
         @click="logout"
       >
         <logout-compact-icon />
-        {{ this.$data.navOpened ? "Logout" : '' }}
+        {{ getNavItemName('Logout') }}
       </b-nav-item>
     </b-nav>
 
@@ -131,6 +131,9 @@ export default {
     logout() {
       this.$store.dispatch(AUTH.ACTIONS.LOGOUT).then(() => this.$router.push('/login'));
     },
+    getNavItemName(name) {
+      return this.$data.navOpened ? name : '';
+    },
   },
 };
 </script>
@@ -143,9 +146,8 @@ export default {
   position: relative;
     text-align: left;
 
-
   .navbar-brand {
-    margin: 10px 0 20px 15px;
+    margin: 10px 0 30px 15px;
     color: #fff;
   }
 
@@ -210,7 +212,7 @@ export default {
 
     &:after {
       content: '';
-      background: url('../../assets/arrow.svg') center no-repeat;
+      background: url('../../assets/images/arrow.svg') center no-repeat;
       position: absolute;
       right: 0;
       top: 0;
@@ -232,7 +234,6 @@ export default {
     color: #8aa4af;
     outline: none;
     padding: .5rem .7rem .5rem .8rem;
-
 
     &.router-link-exact-active {
       color: white;

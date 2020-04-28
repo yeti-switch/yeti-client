@@ -10,7 +10,7 @@ import {
 } from '@/constants/routing';
 
 import Rates from './Rates';
-import ViewFilters from '../ViewFilters/ViewFilters';
+import ViewFilters from '@/components/ViewFilters/ViewFilters';
 
 export const routes = [
   {

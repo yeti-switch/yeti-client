@@ -22,7 +22,7 @@
 import { STATISTICS } from '@/constants';
 
 import { CHART_OPTIONS, INITIAL_DATASETS_SETTINGS } from './fixtures';
-import DataChart from '../DataChart/DataChart';
+import DataChart from '@/components/DataChart/DataChart';
 
 export default {
   components: {

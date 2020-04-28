@@ -17,7 +17,7 @@ import { flow, get } from 'lodash';
 import utils from '@/utils';
 import { RATES } from '@/constants';
 
-import DataTable from '../DataTable/DataTable';
+import DataTable from '@/components/DataTable/DataTable';
 import { TABLE_HEADERS } from './constants';
 
 export default {

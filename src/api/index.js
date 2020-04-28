@@ -42,12 +42,10 @@ export class JsonApi {
       throw new Error(`Api was not initialized due to error: ${e}. Please check your config file.`);
     }
 
-
     this.initializeResources();
     this.instance.insertMiddlewareBefore('axios-request', JsonApi.authDataReqTransformationMiddleware);
     this.instance.insertMiddlewareBefore('response', JsonApi.authDataResTransformationMiddleware);
   }
-
 
   initializeResources = () => {
     Object.values(RESOURCES).forEach((resource) => {

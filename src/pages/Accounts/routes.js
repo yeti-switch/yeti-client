@@ -9,8 +9,10 @@ import {
   GENERAL_ROUTE_NAMES,
 } from '@/constants/routing';
 
+// @todo what is wrong with this import?
+// eslint-disable-next-line import/no-unresolved
 import Accounts from './Accounts';
-import ViewFilters from '../ViewFilters/ViewFilters';
+import ViewFilters from '@/components/ViewFilters/ViewFilters';
 
 export const routes = [
   {

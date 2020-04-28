@@ -2,10 +2,10 @@ import VueRouter from 'vue-router';
 
 import Login from '../components/Login';
 import NotFound from '../components/NotFound';
-import { routes as CdrsRoutes } from '../components/cdrs/routes';
-import { routes as RatesRoutes } from '../components/rates/routes';
-import { routes as AccountsRoutes } from '../components/accounts/routes';
-import { routes as StatisticsChartsRoutes } from '../components/StatisticsCharts/routes';
+import { routes as CdrsRoutes } from '../pages/Cdrs/routes';
+import { routes as RatesRoutes } from '../pages/Rates/routes';
+import { routes as AccountsRoutes } from '../pages/Accounts/routes';
+import { routes as StatisticsChartsRoutes } from '../pages/StatisticsCharts/routes';
 import { requiresNotAuth, beforeGuardEnchancer } from './helpers';
 import { GENERAL_ROUTE_NAMES, GENERAL_PATHS, ACCOUNT_INFO_ROUTE_NAMES } from '../constants/routing';
 

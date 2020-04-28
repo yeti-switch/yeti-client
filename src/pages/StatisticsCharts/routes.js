@@ -10,7 +10,7 @@ import {
 } from '@/constants/routing';
 
 import StatisticsCharts from './StatisticsCharts';
-import ViewFilters from '../ViewFilters/ViewFilters';
+import ViewFilters from '@/components/ViewFilters/ViewFilters';
 
 export const routes = [
   {

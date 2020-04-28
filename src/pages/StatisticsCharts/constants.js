@@ -62,7 +62,6 @@ export const CHART_OPTIONS = {
   },
 };
 
-
 export const INITIAL_DATASETS_SETTINGS = {
   terminatedCalls: {
     label: 'Terminated calls',

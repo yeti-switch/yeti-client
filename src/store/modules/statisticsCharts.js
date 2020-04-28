@@ -19,7 +19,6 @@ const actions = {
     const fromTime = utils.pickerDateToStatisticsFilter(startDate);
     const toTime = utils.pickerDateToStatisticsFilter(endDate);
 
-
     const activeCallsPromise = jsonApi.createResource(RESOURCES.ACTIVE_CALLS, {
       'from-time': fromTime,
       'to-time': toTime,
@@ -27,7 +26,6 @@ const actions = {
         id,
       },
     });
-
 
     const originatedCpsPromise = jsonApi.createResource(RESOURCES.ORIGINATED_CPS, {
       'from-time': fromTime,

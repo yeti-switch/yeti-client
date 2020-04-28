@@ -25,7 +25,8 @@
     "implicit-arrow-linebreak": "off",
     "import/prefer-default-export": "off",
     "no-param-reassign": ["error", { "props": false }],
-    "no-underscore-dangle": ["error", { "allow": ["_cellVariants"] }]
+    "no-underscore-dangle": ["error", { "allow": ["_cellVariants"] }],
+    "no-multiple-empty-lines": ["error", { "max": 1, "maxBOF": 0, "maxEOF": 1}]
   },
   "globals": {
     "YETI_CONFIG": "readonly"

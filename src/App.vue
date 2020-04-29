@@ -34,7 +34,7 @@ export default {
   },
   computed: {
     accountsAreLoaded() {
-      return this.$store.getters.accounts.items.length > 0;
+      return this.$store.getters.accounts.length > 0;
     },
   },
   beforeCreate() {

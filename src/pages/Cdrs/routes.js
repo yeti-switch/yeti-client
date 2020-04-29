@@ -8,9 +8,9 @@ import {
   ACCOUNT_INFO_ROUTE_NAMES,
   GENERAL_ROUTE_NAMES,
 } from '@/constants/routing';
+import ViewFilters from '@/components/ViewFilters/ViewFilters';
 
 import Cdrs from './Cdrs';
-import ViewFilters from '@/components/ViewFilters/ViewFilters';
 
 export const routes = [
   {

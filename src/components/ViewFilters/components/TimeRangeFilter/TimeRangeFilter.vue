@@ -3,7 +3,7 @@
     Time interval:
     <date-range-picker
       ref="picker"
-      v-model="timeFilterValue"
+      :date-range="timeFilterValue"
       :opens="settings.opens"
       :locale-data="settings.localeData"
       :time-picker="settings.timePicker"
@@ -27,7 +27,7 @@
       variant="light"
       size="sm"
       class="ml-2"
-      :disabled="loading"
+      :disabled="requestIsPending"
       @click="onResetClick"
     >
       Reset
@@ -36,7 +36,8 @@
 </template>
 
 <script>
-import DateRangePicker from 'vue2-daterange-picker/src';
+import DateRangePicker from 'vue2-daterange-picker';
+import { mapGetters } from 'vuex';
 
 import utils from '@/utils';
 import { TIME_RANGE_FILTER } from '@/constants';
@@ -72,19 +73,7 @@ export default {
     },
   },
   computed: {
-    timeFilterValue: {
-      get() {
-        return this.$store.getters.timeFilterValue;
-      },
-
-      // Silly setter just to suppress vue warning
-      set() {
-        return null;
-      },
-    },
-    loading() {
-      return this.$store.getters.requestIsPending;
-    },
+    ...mapGetters(['timeFilterValue', 'requestIsPending']),
   },
   methods: {
     updateValues(value) {
@@ -94,7 +83,7 @@ export default {
       this.$store.dispatch(TIME_RANGE_FILTER.ACTIONS.FILTER_RESET);
     },
     toggleIfNotLoading() {
-      if (this.loading) {
+      if (this.requestIsPending) {
         this.$refs.picker.open = false;
       }
     },

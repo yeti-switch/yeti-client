@@ -1,14 +1,14 @@
 <template>
   <div>
     <data-chart
-      v-if="!isRequestPending"
+      v-if="!requestIsPending"
       :chart-data="derivedActiveCallsChartData"
       :options="chartOptions"
       :height="null"
       :width="null"
     />
     <data-chart
-      v-if="!isRequestPending"
+      v-if="!requestIsPending"
       :chart-data="derivedOriginatedCpsChartData"
       :options="chartOptions"
       :height="null"
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-
+import { mapGetters } from 'vuex';
 import { STATISTICS } from '@/constants';
 import DataChart from '@/components/DataChart/DataChart';
 
@@ -35,9 +35,7 @@ export default {
     };
   },
   computed: {
-    isRequestPending() {
-      return this.$store.getters.requestIsPending;
-    },
+    ...mapGetters(['requestIsPending']),
     derivedActiveCallsChartData() {
       const chartData = {
         datasets: [],

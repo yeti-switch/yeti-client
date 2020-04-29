@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { isEmpty, flow, get } from 'lodash';
+import { flow, get } from 'lodash';
 
 import utils from '@/utils';
 import { CDRS } from '@/constants';
@@ -24,7 +24,6 @@ export default {
   components: {
     DataTable,
   },
-
   data() {
     return {
       // Table fields
@@ -44,17 +43,11 @@ export default {
     },
   },
   created() {
-    if (isEmpty(this.$store.getters.cdrFilter)) {
-      this.$store.dispatch(CDRS.ACTIONS.SET_CDRS_FILTER, this.filterValue);
-    }
     this.getCdrs();
   },
   methods: {
     getCdrs(pageNumber) {
       this.$store.dispatch(CDRS.ACTIONS.GET_CDRS, pageNumber);
-    },
-    onReset() {
-      this.$data.dateRange = utils.getLast24Hours();
     },
   },
 };

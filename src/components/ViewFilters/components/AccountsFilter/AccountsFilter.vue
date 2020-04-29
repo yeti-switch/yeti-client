@@ -2,6 +2,7 @@
   <div>
     Account:
     <b-dropdown
+      v-if="activeAccount"
       :text="activeAccountName"
       class="m-md-2"
     >
@@ -18,17 +19,15 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 import { ACCOUNTS } from '@/constants';
 
 export default {
   computed: {
-    accounts() {
-      return this.$store.getters.accounts.items;
-    },
+    ...mapGetters(['activeAccount', 'accounts']),
     activeAccountName() {
-      return this.$store.getters.activeAccount
-        ? this.$store.getters.activeAccount.name
-        : '';
+      return this.activeAccount.name;
     },
   },
   created() {
@@ -39,10 +38,10 @@ export default {
       this.$store.dispatch(ACCOUNTS.ACTIONS.GET_ACCOUNTS);
     },
     optionClick(id) {
-      this.$store.dispatch(ACCOUNTS.ACTIONS.SET_CHOSEN_ACCOUNT_ID, id);
+      if (this.$store.getters.activeAccount.id !== id) {
+        this.$store.dispatch(ACCOUNTS.ACTIONS.SET_CHOSEN_ACCOUNT_ID, id);
+      }
     },
   },
 };
 </script>
-
-<style lang="scss"></style>

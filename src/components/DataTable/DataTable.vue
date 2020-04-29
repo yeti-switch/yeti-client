@@ -13,7 +13,7 @@
       </h6>
 
       <b-progress
-        v-if="loading"
+        v-show="loading"
         :value="100"
         :animated="true"
         variant="secondary"
@@ -51,7 +51,7 @@
         </template>
       </b-table>
       <b-pagination
-        v-if="!loading && rows >= perPage"
+        v-show="!loading && rows >= perPage"
         v-model="currentPage"
         :total-rows="rows"
         :per-page="perPage"

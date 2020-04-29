@@ -11,9 +11,7 @@ const state = {
   activeAccountId: '',
 };
 const getters = {
-  accounts: (currentState) => ({
-    items: currentState.accounts.data, meta: currentState.accounts.meta,
-  }),
+  accounts: (currentState) => (currentState.accounts.data),
   currentAccountDetails: (currentState) => currentState.currentAccountDetails.data,
 
   activeAccount: (currentState) => (currentState.activeAccountId

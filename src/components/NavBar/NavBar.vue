@@ -7,12 +7,12 @@
       href="/"
     >
       <img
-        v-if="this.$data.navOpened"
+        v-show="this.$data.navOpened"
         alt="Yeti logo"
         src="@/assets/images/logo.png"
       >
       <img
-        v-if="!this.$data.navOpened"
+        v-show="!this.$data.navOpened"
         width="50px"
         height="40px"
         alt="Yeti logo"

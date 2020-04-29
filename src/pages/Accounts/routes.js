@@ -14,8 +14,8 @@ import ViewFilters from '@/components/ViewFilters/ViewFilters';
 
 export const routes = [
   {
-    path: ACCOUNT_INFO_PATHS.ACCOUNTS,
-    name: ACCOUNT_INFO_ROUTE_NAMES.ACCOUNTS,
+    path: ACCOUNT_INFO_PATHS.ACCOUNT,
+    name: ACCOUNT_INFO_ROUTE_NAMES.ACCOUNT,
     components: {
       default: Accounts,
       [GENERAL_ROUTE_NAMES.VIEW_FILTERS]: ViewFilters,

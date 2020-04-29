@@ -13,7 +13,7 @@ const STATIC_ROUTES = [
   {
     path: '/',
     redirect: {
-      name: ACCOUNT_INFO_ROUTE_NAMES.ACCOUNTS,
+      name: ACCOUNT_INFO_ROUTE_NAMES.ACCOUNT,
     },
   },
   {

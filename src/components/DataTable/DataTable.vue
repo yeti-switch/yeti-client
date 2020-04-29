@@ -6,14 +6,13 @@
       class="dataTable"
     >
       <h6
-        v-if="!loading"
+        v-if="!requestIsPending"
         class="datatable-total"
       >
         Items in table: {{ rows }}
       </h6>
-
       <b-progress
-        v-show="loading"
+        v-show="requestIsPending"
         :value="100"
         :animated="true"
         variant="secondary"
@@ -21,7 +20,7 @@
         height="7px"
       />
       <b-table
-        :busy="loading"
+        :busy="requestIsPending"
         :small="small"
         :items="items"
         :striped="striped"
@@ -38,7 +37,7 @@
           v-for="badge in itemsToBadge"
           v-slot:[getBadgedCellName(badge.id)]="data"
         >
-          <!-- Add support for different kind of badges, if needed -->
+          <!-- Add support for different kinds of badges, if needed -->
           <b-badge
             v-if="data.item[badge.id] === badge.errorValue"
             :key="badge.errorValue"
@@ -51,7 +50,7 @@
         </template>
       </b-table>
       <b-pagination
-        v-show="!loading && rows >= perPage"
+        v-show="!requestIsPending && rows >= perPage"
         v-model="currentPage"
         :total-rows="rows"
         :per-page="perPage"
@@ -65,8 +64,10 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
-  name: 'Cdrs',
+  name: 'DataTable',
   props: {
     fields: {
       type: Array,
@@ -107,11 +108,9 @@ export default {
     };
   },
   computed: {
-    loading() {
-      return this.$store.getters.requestIsPending;
-    },
+    ...mapGetters(['requestIsPending']),
     hiddenIfLoading() {
-      return this.loading ? 'hidden' : 'visible';
+      return this.requestIsPending ? 'hidden' : 'visible';
     },
   },
   methods: {

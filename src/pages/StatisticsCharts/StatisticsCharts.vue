@@ -25,6 +25,7 @@ import DataChart from '@/components/DataChart/DataChart';
 import { CHART_OPTIONS, INITIAL_DATASETS_SETTINGS } from './constants';
 
 export default {
+  name: 'StatisticsCharts',
   components: {
     dataChart: DataChart,
   },

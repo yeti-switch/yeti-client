@@ -20,41 +20,13 @@
       >
     </b-navbar-brand>
     <b-nav vertical>
-      <b-nav-item
-        v-if="isNavItemVisible(navigationRoutesNames.RATES)"
-        :active="this.$route.path === navigationRoutesPaths.RATES"
-        router-link
-        :to="navigationRoutesPaths.RATES"
-      >
-        <rates-icon />
-        {{ getNavItemName('Rates') }}
-      </b-nav-item>
-      <b-nav-item
-        v-if="isNavItemVisible(navigationRoutesNames.CDRS)"
-        :active="this.$route.path === navigationRoutesPaths.CDRS"
-        router-link
-        :to="navigationRoutesPaths.CDRS"
-      >
-        <cdrs-icon />
-        {{ getNavItemName('Cdrs') }}
-      </b-nav-item>
-      <b-nav-item
-        v-if="isNavItemVisible(navigationRoutesNames.ACCOUNTS)"
-        :active="this.$route.path === navigationRoutesPaths.ACCOUNTS"
-        router-link
-        :to="navigationRoutesPaths.ACCOUNTS"
-      >
-        <accounts-icon />
-        {{ getNavItemName('Accounts') }}
-      </b-nav-item>
-      <b-nav-item
-        router-link
-        :to="navigationRoutesPaths.STATISTICS"
-        :active="this.$route.path === navigationRoutesPaths.STATISTICS"
-      >
-        <statistics-icon />
-        {{ getNavItemName('Statistics') }}
-      </b-nav-item>
+      <nav-item
+        v-for="link in navLinks"
+        :key="link.routeName"
+        :route-name="link.routeName"
+        :route-path="link.routePath"
+        :nav-opened="navOpened"
+      />
     </b-nav>
     <b-nav
       vertical
@@ -69,65 +41,60 @@
         {{ getNavItemName('Logout') }}
       </b-nav-item>
     </b-nav>
-
     <b-button
       v-b-toggle
       class="nav-bar-collapse-button"
       :pressed.sync="navOpened"
     >
-      {{ collapseButtonText }}
+      {{ getNavItemName('Collapse') }}
     </b-button>
   </div>
 </template>
 
 <script>
 import {
-  BIconPeople, BIconCalendar, BIconBoxArrowLeft, BIconWallet, BIconGraphUp,
+  BIconBoxArrowLeft,
 } from 'bootstrap-vue';
 import { mapGetters } from 'vuex';
 import {
   AUTH, ACCOUNT_INFO_PATHS, ACCOUNT_INFO_ROUTE_NAMES,
 } from '@/constants';
 
+import NavItem from './components/NavItem';
+
 export default {
   name: 'NavBar',
   components: {
     LogoutCompactIcon: BIconBoxArrowLeft,
-    AccountsIcon: BIconPeople,
-    CdrsIcon: BIconCalendar,
-    RatesIcon: BIconWallet,
-    StatisticsIcon: BIconGraphUp,
+    NavItem,
   },
   data() {
     return {
       navigationRoutesPaths: { ...ACCOUNT_INFO_PATHS },
       navigationRoutesNames: { ...ACCOUNT_INFO_ROUTE_NAMES },
       navOpened: true,
+      navLinks: [{
+        routePath: ACCOUNT_INFO_PATHS.RATES,
+        routeName: ACCOUNT_INFO_ROUTE_NAMES.RATES,
+      }, {
+        routePath: ACCOUNT_INFO_PATHS.CDRS,
+        routeName: ACCOUNT_INFO_ROUTE_NAMES.CDRS,
+      }, {
+        routePath: ACCOUNT_INFO_PATHS.ACCOUNT,
+        routeName: ACCOUNT_INFO_ROUTE_NAMES.ACCOUNT,
+      }, {
+        routePath: ACCOUNT_INFO_PATHS.STATISTICS,
+        routeName: ACCOUNT_INFO_ROUTE_NAMES.STATISTICS,
+      }],
     };
   },
   computed: {
     ...mapGetters(['isAuthenticated']),
-    statisticsVisible: {
-      get() {
-        return Object.values(ACCOUNT_INFO_PATHS).some((path) => this.$route.path === path);
-      },
-
-      // Silly setter just to suppress vue warning
-      set() {
-        return null;
-      },
-    },
     mainNavClass() {
       return `vertical-navbar-menu ${this.$data.navOpened ? 'opened' : 'collapsed'}`;
     },
-    collapseButtonText() {
-      return this.$data.navOpened ? 'Collapse' : '';
-    },
   },
   methods: {
-    isNavItemVisible(name) {
-      return !this.$store.getters.blockedPages.has(name);
-    },
     logout() {
       this.$store.dispatch(AUTH.ACTIONS.LOGOUT).then(() => this.$router.push('/login'));
     },

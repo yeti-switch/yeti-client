@@ -1,6 +1,7 @@
 export const CHART_OPTIONS = {
   responsive: true,
   maintainAspectRatio: true,
+  aspectRatio: 3.4,
   elements: {
     line: {
       tension: 0,

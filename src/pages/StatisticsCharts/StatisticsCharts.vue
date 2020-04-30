@@ -81,8 +81,8 @@ export default {
         // cause continous dataset refresh, which results in page crash
         chartData.datasets.push({
           label: 'Originated CPS',
-          data: this.$store.getters.originatedCps.cps.map((entry) =>
-            ({ y: entry.x, x: Date.parse(entry.y) })),
+          data: this.$store.getters.originatedCps.cps.map(({ x, y }) =>
+            ({ y, x: Date.parse(x) })),
           backgroundColor: 'transparent',
           borderColor: 'orange',
         });

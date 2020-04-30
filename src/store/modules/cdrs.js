@@ -1,5 +1,6 @@
 import { jsonApi } from '@/api';
-import { RESOURCES, CDRS, NETWORK_SERVICE } from '@/constants';
+import { RESOURCES, CDRS } from '@/constants';
+import utils from '@/utils';
 
 const state = {
   cdrs: {},
@@ -12,22 +13,20 @@ const getters = {
   cdrFilter: (currentState) => currentState.cdrFilter,
 };
 const actions = {
-  [CDRS.ACTIONS.GET_CDRS]: async ({ commit, rootState }, page) => {
-    commit(NETWORK_SERVICE.MUTATIONS.SWITCH_PENDING_STATE, true, { root: true });
-    const filter = {
-      timeStartGteq: rootState.timeRangeFilter.timeFilterValue.startDate,
-      timeStartLteq: rootState.timeRangeFilter.timeFilterValue.endDate,
-    };
+  [CDRS.ACTIONS.GET_CDRS]: ({ commit, rootState }, page) =>
+    utils.wrapWithAsyncRequestStatus(commit, async () => {
+      const filter = {
+        timeStartGteq: rootState.timeRangeFilter.timeFilterValue.startDate,
+        timeStartLteq: rootState.timeRangeFilter.timeFilterValue.endDate,
+      };
 
-    const cdrs = await jsonApi.findAllResources(RESOURCES.CDR, {
-      filter,
-      page,
-    });
+      const cdrs = await jsonApi.findAllResources(RESOURCES.CDR, {
+        filter,
+        page,
+      });
 
-    commit(CDRS.MUTATIONS.SET_CDRS, cdrs);
-
-    commit(NETWORK_SERVICE.MUTATIONS.SWITCH_PENDING_STATE, false, { root: true });
-  },
+      commit(CDRS.MUTATIONS.SET_CDRS, cdrs);
+    }),
   [CDRS.ACTIONS.SET_CDRS_FILTER]: ({ commit }, filter) => {
     if (filter) {
       commit(CDRS.MUTATIONS.SAVE_CDRS_FILTER, filter);

@@ -16,24 +16,10 @@ const actions = {
 
     const { startDate, endDate } = rootState.timeRangeFilter.timeFilterValue;
     const { id } = rootGetters.activeAccount;
-    const fromTime = utils.pickerDateToStatisticsFilter(startDate);
-    const toTime = utils.pickerDateToStatisticsFilter(endDate);
+    const requestParams = utils.constructChartDataRequest({ id, startDate, endDate });
 
-    const activeCallsPromise = jsonApi.createResource(RESOURCES.ACTIVE_CALLS, {
-      'from-time': fromTime,
-      'to-time': toTime,
-      account: {
-        id,
-      },
-    });
-
-    const originatedCpsPromise = jsonApi.createResource(RESOURCES.ORIGINATED_CPS, {
-      'from-time': fromTime,
-      'to-time': toTime,
-      account: {
-        id,
-      },
-    });
+    const activeCallsPromise = jsonApi.createResource(RESOURCES.ACTIVE_CALLS, requestParams);
+    const originatedCpsPromise = jsonApi.createResource(RESOURCES.ORIGINATED_CPS, requestParams);
 
     Promise.all([activeCallsPromise, originatedCpsPromise]).then(([activeCalls, originatedCps]) => {
       commit(STATISTICS.MUTATIONS.SET_STATISTICS, { activeCalls, originatedCps });

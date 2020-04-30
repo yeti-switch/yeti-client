@@ -10,7 +10,6 @@ export const currentAccountWatcher = (store) => {
           store.dispatch(CDRS.ACTIONS.GET_CDRS);
           break;
         case ACCOUNT_INFO_ROUTE_NAMES.ACCOUNTS:
-          // @todo changes this to "get particular account info"
           store.dispatch(ACCOUNTS.ACTIONS.GET_ACCOUNT_DETAILS);
           break;
         case ACCOUNT_INFO_ROUTE_NAMES.RATES:

@@ -9,15 +9,15 @@ import {
   GENERAL_ROUTE_NAMES,
 } from '@/constants/routing';
 
-import Cdrs from './Cdrs';
-import ViewFilters from '../ViewFilters/ViewFilters';
+import Rates from './Rates';
+import ViewFilters from '@/components/ViewFilters/ViewFilters';
 
 export const routes = [
   {
-    path: ACCOUNT_INFO_PATHS.CDRS,
-    name: ACCOUNT_INFO_ROUTE_NAMES.CDRS,
+    path: ACCOUNT_INFO_PATHS.RATES,
+    name: ACCOUNT_INFO_ROUTE_NAMES.RATES,
     components: {
-      default: Cdrs,
+      default: Rates,
       [GENERAL_ROUTE_NAMES.VIEW_FILTERS]: ViewFilters,
     },
     beforeEnter: beforeGuardEnchancer([requiresAuth, filterBlockedPages]),

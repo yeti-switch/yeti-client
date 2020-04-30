@@ -5,7 +5,6 @@ export const formatTableDate = (dateStr) => (!isNil(dateStr) && dateStr.length
   ? format(new Date(Date.parse(dateStr)), 'yyyy-MM-dd HH:mm:ss')
   : '');
 
-
 export const pickerDateToStatisticsFilter = (dateStr) => format(dateStr, 'yyyy-MM-dd HH:mm:ss');
 
 export const formatPickerDate = (dateStr) =>

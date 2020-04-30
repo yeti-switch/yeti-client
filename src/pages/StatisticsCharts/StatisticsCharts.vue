@@ -1,14 +1,14 @@
 <template>
   <div>
     <data-chart
-      v-if="!isRequestPending"
+      v-if="!requestIsPending"
       :chart-data="derivedActiveCallsChartData"
       :options="chartOptions"
       :height="null"
       :width="null"
     />
     <data-chart
-      v-if="!isRequestPending"
+      v-if="!requestIsPending"
       :chart-data="derivedOriginatedCpsChartData"
       :options="chartOptions"
       :height="null"
@@ -18,13 +18,14 @@
 </template>
 
 <script>
-
+import { mapGetters } from 'vuex';
 import { STATISTICS } from '@/constants';
+import DataChart from '@/components/DataChart/DataChart';
 
-import { CHART_OPTIONS, INITIAL_DATASETS_SETTINGS } from './fixtures';
-import DataChart from '../DataChart/DataChart';
+import { CHART_OPTIONS, INITIAL_DATASETS_SETTINGS } from './constants';
 
 export default {
+  name: 'StatisticsCharts',
   components: {
     dataChart: DataChart,
   },
@@ -35,9 +36,7 @@ export default {
     };
   },
   computed: {
-    isRequestPending() {
-      return this.$store.getters.requestIsPending;
-    },
+    ...mapGetters(['requestIsPending']),
     derivedActiveCallsChartData() {
       const chartData = {
         datasets: [],
@@ -82,8 +81,8 @@ export default {
         // cause continous dataset refresh, which results in page crash
         chartData.datasets.push({
           label: 'Originated CPS',
-          data: this.$store.getters.originatedCps.cps.map((entry) =>
-            ({ y: entry.x, x: Date.parse(entry.y) })),
+          data: this.$store.getters.originatedCps.cps.map(({ x, y }) =>
+            ({ y, x: Date.parse(x) })),
           backgroundColor: 'transparent',
           borderColor: 'orange',
         });

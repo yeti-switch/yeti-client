@@ -4,20 +4,20 @@ import {
   beforeGuardEnchancer,
 } from '@/router/helpers';
 import {
-  ACCOUNT_INFO_ROUTE_NAMES,
   ACCOUNT_INFO_PATHS,
+  ACCOUNT_INFO_ROUTE_NAMES,
   GENERAL_ROUTE_NAMES,
 } from '@/constants/routing';
+import ViewFilters from '@/components/ViewFilters/ViewFilters';
 
-import Accounts from './Accounts';
-import ViewFilters from '../ViewFilters/ViewFilters';
+import Cdrs from './Cdrs';
 
 export const routes = [
   {
-    path: ACCOUNT_INFO_PATHS.ACCOUNTS,
-    name: ACCOUNT_INFO_ROUTE_NAMES.ACCOUNTS,
+    path: ACCOUNT_INFO_PATHS.CDRS,
+    name: ACCOUNT_INFO_ROUTE_NAMES.CDRS,
     components: {
-      default: Accounts,
+      default: Cdrs,
       [GENERAL_ROUTE_NAMES.VIEW_FILTERS]: ViewFilters,
     },
     beforeEnter: beforeGuardEnchancer([requiresAuth, filterBlockedPages]),

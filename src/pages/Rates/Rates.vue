@@ -4,11 +4,7 @@
     :items="rates"
     :rows="rows"
     :get-data="getRates"
-  >
-    <template v-slot:filter>
-      <!-- <RatesFilter v-on:applyFilter="getRates" /> -->
-    </template>
-  </DataTable>
+  />
 </template>
 
 <script>
@@ -16,14 +12,13 @@ import { flow, get } from 'lodash';
 
 import utils from '@/utils';
 import { RATES } from '@/constants';
+import DataTable from '@/components/DataTable/DataTable';
 
-import DataTable from '../DataTable/DataTable';
 import { TABLE_HEADERS } from './constants';
 
 export default {
   name: 'Rates',
   components: {
-    // RatesFilter,
     DataTable,
   },
   data() {

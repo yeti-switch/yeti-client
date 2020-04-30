@@ -1,13 +1,13 @@
 export const ACCOUNT_INFO_PATHS = {
   CDRS: '/cdrs',
-  ACCOUNTS: '/accounts',
+  ACCOUNT: '/account',
   RATES: '/rates',
   STATISTICS: '/statistics',
 };
 
 export const ACCOUNT_INFO_ROUTE_NAMES = {
   CDRS: 'cdrs',
-  ACCOUNTS: 'accounts',
+  ACCOUNT: 'account',
   RATES: 'rates',
   STATISTICS: 'statistics',
 };

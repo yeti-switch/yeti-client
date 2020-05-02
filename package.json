@@ -47,6 +47,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "5.2.3",
     "jest": "^24.8.0",
+    "jest-extended": "0.11.5",
     "vue-eslint-parser": "^6.0.4",
     "vue-jest": "3.0.5",
     "vue-template-compiler": "^2.6.10"

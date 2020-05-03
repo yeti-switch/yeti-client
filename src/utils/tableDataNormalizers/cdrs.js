@@ -10,5 +10,6 @@ export const formatCdrs = (cdrs = []) =>
     item.rate = `${item['destination-initial-rate']}/${item['destination-next-rate']}`;
     item['billing-intervals'] = `${item['destination-initial-interval']}/${item['destination-next-interval']}`;
     item['originator-address'] = `${item['auth-orig-ip']}:${item['auth-orig-port']}`;
+
     return item;
   });

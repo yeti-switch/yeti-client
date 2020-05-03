@@ -1,14 +1,11 @@
 import { format, subDays } from 'date-fns';
 import { isNil } from 'lodash';
 
-export const formatTableDate = (dateStr) => (!isNil(dateStr) && dateStr.length
-  ? format(new Date(Date.parse(dateStr)), 'yyyy-MM-dd HH:mm:ss')
+export const formatDateFromObject = (dateStr) => format(dateStr, 'yyyy-MM-dd HH:mm:ss');
+
+export const formatDateFromString = (dateStr) => (!isNil(dateStr) && dateStr.length
+  ? formatDateFromObject(new Date(Date.parse(dateStr)))
   : '');
-
-export const pickerDateToStatisticsFilter = (dateStr) => format(dateStr, 'yyyy-MM-dd HH:mm:ss');
-
-export const formatPickerDate = (dateStr) =>
-  (dateStr ? format(dateStr, 'yyyy-MM-dd HH:mm') : dateStr);
 
 export const getLast24Hours = () => ({
   startDate: subDays(new Date(Date.now()), 1),

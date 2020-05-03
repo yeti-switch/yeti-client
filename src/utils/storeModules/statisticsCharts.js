@@ -1,8 +1,8 @@
-import { pickerDateToStatisticsFilter } from '../date/date';
+import { formatDateFromObject } from '../date/date';
 
 export const constructChartDataRequest = ({ startDate, endDate, id }) => ({
-  'from-time': pickerDateToStatisticsFilter(startDate),
-  'to-time': pickerDateToStatisticsFilter(endDate),
+  'from-time': formatDateFromObject(startDate),
+  'to-time': formatDateFromObject(endDate),
   account: {
     id,
   },

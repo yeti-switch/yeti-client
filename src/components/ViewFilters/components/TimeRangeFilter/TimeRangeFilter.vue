@@ -51,7 +51,7 @@ export default {
   },
   filters: {
     date(dateStr) {
-      return utils.formatPickerDate(dateStr);
+      return utils.formatDateFromString(dateStr);
     },
   },
   props: {

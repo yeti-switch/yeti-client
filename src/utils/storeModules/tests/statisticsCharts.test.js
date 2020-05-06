@@ -1,4 +1,5 @@
 import * as statisticsCharts from '../statisticsCharts';
+import { createDateForTestResult } from '../../date/date';
 
 describe('constructChartDataRequest store helper', () => {
   it('construct correct object if all data are okay', () => {
@@ -8,8 +9,8 @@ describe('constructChartDataRequest store helper', () => {
       id: 'mockId',
     };
     const expectedResult = {
-      'from-time': '2020-05-02 14:25:05',
-      'to-time': '2020-05-03 14:25:05',
+      'from-time': createDateForTestResult(correctInitialParams.startDate),
+      'to-time': createDateForTestResult(correctInitialParams.endDate),
       account: {
         id: 'mockId',
       },

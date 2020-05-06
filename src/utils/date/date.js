@@ -4,7 +4,7 @@ import { isNil } from 'lodash';
 export const formatDateFromObject = (dateStr) => format(dateStr, 'yyyy-MM-dd HH:mm:ss');
 
 export const formatDateFromString = (dateStr) => (!isNil(dateStr) && dateStr.length
-  ? formatDateFromObject(new Date(Date.parse(dateStr)))
+  ? formatDateFromObject(new Date(dateStr))
   : '');
 
 export const getLast24Hours = () => ({

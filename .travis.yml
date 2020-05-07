@@ -7,14 +7,14 @@ language: node_js
 node_js:
 - '10'
 stages:
-- build application
+- test application
 - stable package
 - nightly package
 jobs:
   include:
-  - stage: build application
-    name: Test build
-    script: yarn build
+  - stage: test application
+    name: Run tests
+    script: yarn test
   - stage: stable package
     if: branch != master OR tag =~ ^.*$
     env: CACHE_NAME=yeti_client_package

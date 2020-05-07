@@ -1,5 +1,6 @@
 import { jsonApi } from '@/api';
-import { RESOURCES, RATES, NETWORK_SERVICE } from '@/constants';
+import { RESOURCES, RATES } from '@/constants';
+import utils from '@/utils';
 
 const state = {
   rates: {},
@@ -11,18 +12,15 @@ const getters = {
   }),
 };
 const actions = {
-  [RATES.ACTIONS.GET_RATES]: async ({ commit }, page) => {
-    commit(NETWORK_SERVICE.MUTATIONS.SWITCH_PENDING_STATE, true, { root: true });
+  [RATES.ACTIONS.GET_RATES]: ({ commit }, page) =>
+    utils.wrapWithAsyncRequestStatus(commit, async () => {
+      const rates = await jsonApi.findAllResources(RESOURCES.RATE, {
+        filter: state.rateFilter,
+        page,
+      });
 
-    const rates = await jsonApi.findAllResources(RESOURCES.RATE, {
-      filter: state.rateFilter,
-      page,
-    });
-
-    commit(RATES.MUTATIONS.SET_RATES, rates);
-
-    commit(NETWORK_SERVICE.MUTATIONS.SWITCH_PENDING_STATE, false, { root: true });
-  },
+      commit(RATES.MUTATIONS.SET_RATES, rates);
+    }),
 };
 const mutations = {
   [RATES.MUTATIONS.SET_RATES]: (currentState, rates) => {

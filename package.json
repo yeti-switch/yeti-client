@@ -29,9 +29,13 @@
   "devDependencies": {
     "@babel/core": "7.4.5",
     "@babel/plugin-proposal-class-properties": "7.5.5",
+    "@babel/plugin-transform-runtime": "7.9.0",
+    "@babel/preset-env": "7.9.0",
     "@vue/cli-plugin-babel": "4.0.3",
     "@vue/cli-plugin-eslint": "4.0.3",
     "@vue/cli-service": "4.0.3",
+    "@vue/test-utils": "1.0.0-beta.33",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "10.0.3",
     "babel-jest": "^24.8.0",
     "eslint": "^5.16.0",
@@ -43,13 +47,18 @@
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "5.2.3",
     "jest": "^24.8.0",
+    "jest-extended": "0.11.5",
+    "jest-transform-stub": "2.0.0",
     "vue-eslint-parser": "^6.0.4",
-    "vue-jest": "^3.0.4",
+    "vue-jest": "3.0.5",
     "vue-template-compiler": "^2.6.10"
   },
   "browserslist": [
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "resolutions": {
+    "**/moment": "2.24.0"
+  }
 }

@@ -5,7 +5,7 @@ import Accounts from '@/pages/Accounts/Accounts.vue';
 const localVue = createLocalVue();
 localVue.use(Vuex);
 
-describe('Accounts.vue', () => {
+xdescribe('Accounts.vue', () => {
   let actions;
   let store;
   let state;

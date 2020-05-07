@@ -1,7 +1,8 @@
 import { jsonApi } from '@/api';
 import {
-  ACCOUNTS, RESOURCES, NETWORK_SERVICE, SPARSE_FIELDS,
+  ACCOUNTS, RESOURCES, SPARSE_FIELDS,
 } from '@/constants';
+import utils from '@/utils';
 
 const state = {
   accounts: {
@@ -20,25 +21,21 @@ const getters = {
 };
 
 const actions = {
-  [ACCOUNTS.ACTIONS.GET_ACCOUNTS]: async ({ commit }) => {
-    commit(NETWORK_SERVICE.MUTATIONS.SWITCH_PENDING_STATE, true, { root: true });
+  [ACCOUNTS.ACTIONS.GET_ACCOUNTS]: ({ commit }) =>
+    utils.wrapWithAsyncRequestStatus(commit, async () => {
+      const accounts = await jsonApi.findAllResources(RESOURCES.ACCOUNTS, {
+        fields: { [RESOURCES.ACCOUNTS]: SPARSE_FIELDS[RESOURCES.ACCOUNTS] },
+      });
 
-    const accounts = await jsonApi.findAllResources(RESOURCES.ACCOUNTS, {
-      fields: { [RESOURCES.ACCOUNTS]: SPARSE_FIELDS[RESOURCES.ACCOUNTS] },
-    });
+      commit(ACCOUNTS.MUTATIONS.SET_ACCOUNTS, accounts);
+    }),
+  [ACCOUNTS.ACTIONS.GET_ACCOUNT_DETAILS]: ({ commit, getters: localGetters }) =>
+    utils.wrapWithAsyncRequestStatus(commit, async () => {
+      const account = await jsonApi
+        .findOneResource(RESOURCES.ACCOUNTS, localGetters.activeAccount.id);
 
-    commit(ACCOUNTS.MUTATIONS.SET_ACCOUNTS, accounts);
-    commit(NETWORK_SERVICE.MUTATIONS.SWITCH_PENDING_STATE, false, { root: true });
-  },
-  [ACCOUNTS.ACTIONS.GET_ACCOUNT_DETAILS]: async ({ commit, getters: localGetters }) => {
-    commit(NETWORK_SERVICE.MUTATIONS.SWITCH_PENDING_STATE, true, { root: true });
-
-    const account = await jsonApi
-      .findOneResource(RESOURCES.ACCOUNTS, localGetters.activeAccount.id);
-
-    commit(ACCOUNTS.MUTATIONS.SET_ACCOUNT_DETAILS, account);
-    commit(NETWORK_SERVICE.MUTATIONS.SWITCH_PENDING_STATE, false, { root: true });
-  },
+      commit(ACCOUNTS.MUTATIONS.SET_ACCOUNT_DETAILS, account);
+    }),
   [ACCOUNTS.ACTIONS.SET_CHOSEN_ACCOUNT_ID]: ({ commit }, id) => {
     commit(ACCOUNTS.MUTATIONS.SET_CHOSEN_ACCOUNT_ID, id);
   },

@@ -8,6 +8,7 @@ import accounts from './modules/accounts';
 import errors from './modules/errors';
 import cdrs from './modules/cdrs';
 import networks from './modules/networks';
+import networkDetails from './modules/networkDetails';
 import config from './modules/config';
 import networkServices from './modules/networkServices';
 import statisticsCharts from './modules/statisticsCharts';
@@ -33,5 +34,6 @@ export default new Vuex.Store({
     timeRangeFilter,
     networkServices,
     statisticsCharts,
+    networkDetails,
   },
 });

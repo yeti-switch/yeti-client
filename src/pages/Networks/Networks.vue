@@ -9,10 +9,10 @@
 </template>
 
 <script>
-import { get } from 'lodash';
+import { get, flow } from 'lodash';
 
 import { NETWORKS } from '@/constants';
-
+import utils from '@/utils';
 import DataTable from '@/components/DataTable/DataTable';
 import { TABLE_HEADERS } from './constants';
 
@@ -27,12 +27,12 @@ export default {
     return {
       // Table fields
       fields: TABLE_HEADERS,
-      linkItems: ['name'],
+      linkItems: [{ id: 'name', linkBase: '/network-details/' }],
     };
   },
   computed: {
     networks() {
-      return this.$store.getters.networks.items && this.$store.getters.networks.items.map((item) => ({ ...item, 'network-type': item['network-type'].name }));
+      return flow(utils.formatNetworks)(this.$store.getters.networks.items);
     },
     rows() {
       return get(this.$store.getters, ['networks', 'meta', 'total-count'], 0);

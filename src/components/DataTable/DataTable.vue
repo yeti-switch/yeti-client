@@ -29,7 +29,7 @@
         :per-page="perPage"
         class="datatable-content"
         show-empty
-        sticky-header="calc(100vh - 9rem)"
+        sticky-header="calc(100vh - 10rem)"
         hover
       >
         <!-- Idea for v-slot dynamic names: https://stackoverflow.com/questions/58140842/vue-and-bootstrap-vue-dynamically-use-slots/58143362#58143362 -->
@@ -50,14 +50,15 @@
         </template>
         <template
           v-for="link in linkItems"
-          v-slot:[getCustomCellName(link)]="data"
+          v-slot:[getCustomCellName(link.id)]="data"
         >
-          <b-link
-            :key="link"
-            :href="data.item.link"
+          <b-nav-item
+            :key="link.id"
+            router-link
+            :to="link.linkBase + data.item.id"
           >
-            {{ data.item[link] }}
-          </b-link>
+            {{ data.item[link.id] }}
+          </b-nav-item>
         </template>
       </b-table>
       <b-pagination

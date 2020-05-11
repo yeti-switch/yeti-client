@@ -1,31 +1,31 @@
 <template>
-  <div class="accounts-page">
+  <div class="network-details-page">
     <b-table
       stacked
-      :items="account"
+      :items="networkDetails"
     />
   </div>
 </template>
 
 <script>
-import { ACCOUNTS, COMMON_TABLE_ENTITY_EXCLUDED_FIELDS } from '@/constants';
+import { NETWORKS, COMMON_TABLE_ENTITY_EXCLUDED_FIELDS } from '@/constants';
 import utils from '@/utils';
 
 export default {
-  name: 'Account',
+  name: 'NetworkDetails',
   computed: {
-    account() {
-      return utils.formatAccount(
-        this.$store.getters.currentAccountDetails, COMMON_TABLE_ENTITY_EXCLUDED_FIELDS,
+    networkDetails() {
+      return utils.formatNetworkDetails(
+        this.$store.getters.networkDetails, COMMON_TABLE_ENTITY_EXCLUDED_FIELDS,
       );
     },
   },
   created() {
-    this.getAccount();
+    this.getNetworkDetails();
   },
   methods: {
-    getAccount() {
-      this.$store.dispatch(ACCOUNTS.ACTIONS.GET_ACCOUNT_DETAILS);
+    getNetworkDetails() {
+      this.$store.dispatch(NETWORKS.ACTIONS.GET_NETWORK_DETAILS, this.$route.params.id);
     },
   },
 };

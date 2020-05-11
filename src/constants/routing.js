@@ -14,6 +14,9 @@ export const ACCOUNT_INFO_ROUTE_NAMES = {
   STATISTICS: 'statistics',
 };
 
+export const NETWORK_DETAILS_PATH = '/network-details/:id';
+export const NETWORK_DETAILS_ROUTE_NAME = 'network-details';
+
 export const GENERAL_PATHS = {
   LOG_IN: '/login',
   NOT_FOUND: '/404',

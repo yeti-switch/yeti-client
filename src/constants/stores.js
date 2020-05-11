@@ -27,10 +27,12 @@ export const CDRS = {
 export const NETWORKS = {
   MUTATIONS: {
     SET_NETWORKS: 'setNetworks',
+    SAVE_NETWORK_DETAILS: 'saveNetworkDetails',
     SAVE_NETWORKS_FILTER: 'saveNetworksFilter',
   },
   ACTIONS: {
     GET_NETWORKS: 'getNetworks',
+    GET_NETWORK_DETAILS: 'getNetworkDetails',
     SET_NETWORKS_FILTER: 'setNetworksFilter',
   },
 };

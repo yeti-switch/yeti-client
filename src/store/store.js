@@ -7,6 +7,7 @@ import rates from './modules/rates';
 import accounts from './modules/accounts';
 import errors from './modules/errors';
 import cdrs from './modules/cdrs';
+import networks from './modules/networks';
 import config from './modules/config';
 import networkServices from './modules/networkServices';
 import statisticsCharts from './modules/statisticsCharts';
@@ -27,6 +28,7 @@ export default new Vuex.Store({
     accounts,
     errors,
     cdrs,
+    networks,
     config,
     timeRangeFilter,
     networkServices,

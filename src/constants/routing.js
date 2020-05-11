@@ -2,6 +2,7 @@ export const ACCOUNT_INFO_PATHS = {
   CDRS: '/cdrs',
   ACCOUNT: '/account',
   RATES: '/rates',
+  NETWORKS: '/networks',
   STATISTICS: '/statistics',
 };
 
@@ -9,6 +10,7 @@ export const ACCOUNT_INFO_ROUTE_NAMES = {
   CDRS: 'cdrs',
   ACCOUNT: 'account',
   RATES: 'rates',
+  NETWORKS: 'networks',
   STATISTICS: 'statistics',
 };
 

@@ -24,6 +24,17 @@ export const CDRS = {
   },
 };
 
+export const NETWORKS = {
+  MUTATIONS: {
+    SET_NETWORKS: 'setNetworks',
+    SAVE_NETWORKS_FILTER: 'saveNetworksFilter',
+  },
+  ACTIONS: {
+    GET_NETWORKS: 'getNetworks',
+    SET_NETWORKS_FILTER: 'setNetworksFilter',
+  },
+};
+
 export const STATISTICS = {
   MUTATIONS: {
     SET_STATISTICS: 'setStatistics',

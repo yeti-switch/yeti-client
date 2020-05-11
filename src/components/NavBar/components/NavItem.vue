@@ -13,7 +13,7 @@
 <script>
 import { capitalize } from 'lodash';
 import {
-  BIconPeople, BIconCalendar, BIconWallet, BIconGraphUp,
+  BIconPeople, BIconCalendar, BIconWallet, BIconGraphUp, BIconShuffle,
 } from 'bootstrap-vue';
 
 export default {
@@ -23,6 +23,7 @@ export default {
     CdrsIcon: BIconCalendar,
     RatesIcon: BIconWallet,
     StatisticsIcon: BIconGraphUp,
+    NetworksIcon: BIconShuffle,
   },
   props: {
     routeName: {

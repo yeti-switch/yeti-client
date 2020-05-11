@@ -3,8 +3,10 @@ export const RESOURCES = {
   CDR: 'cdrs',
   AUTH_ORIGIN_TRANSPORT_PROTOCOL: 'auth-orig-transport-protocol',
   ACCOUNTS: 'accounts',
+  NETWORKS: 'networks',
   AUTH: 'auth',
   TRANSPORT_PROTOCOLS: 'transport-protocols',
+  NETWORK_TYPES: 'network-types',
   ACTIVE_CALLS: 'chart-active-calls',
   ORIGINATED_CPS: 'chart-originated-cps',
 };
@@ -112,6 +114,17 @@ export const RELATIONSHIPS = {
     'origination-capacity': '',
     'termination-capacity': '',
     'total-capacity': '',
+  },
+  [RESOURCES.NETWORKS]: {
+    name: '',
+    'network-type': {
+      jsonApi: 'hasOne',
+      type: 'network-type',
+      name: '',
+    },
+  },
+  [RESOURCES.NETWORK_TYPES]: {
+    name: '',
   },
   [RESOURCES.ACTIVE_CALLS]: {
     'from-time': '',

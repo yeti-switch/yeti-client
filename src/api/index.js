@@ -57,9 +57,9 @@ export class JsonApi {
     this.instance.define(resource, RELATIONSHIPS[resource]);
   };
 
-  findAllResources = (resourceName, data) => this.instance.findAll(resourceName, data);
+  findAllResources = (resourceName, params) => this.instance.findAll(resourceName, params);
 
-  findOneResource = (resourceName, id) => this.instance.find(resourceName, id);
+  findOneResource = (resourceName, id, params) => this.instance.find(resourceName, id, params);
 
   createResource = (resourceName, data) => this.instance.create(resourceName, data);
 

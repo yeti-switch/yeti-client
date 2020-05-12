@@ -1,15 +1,23 @@
 import { omit, lowerCase, capitalize } from 'lodash';
 
-export const formatNetworkDetails = (accountDetails = {}, excludedFields) => {
-  const result = Object.entries(
+export const formatNetworkDetails = (networkDetails, excludedFields) => {
+  if (networkDetails) {
+    networkDetails.uuid = networkDetails.id;
+    networkDetails['network-type'] = networkDetails['network-type'].name;
+
+    const result = Object.entries(
     // Get rid of not needed properties
-    omit(accountDetails, excludedFields),
-  ).reduce((resultObj, [key, value]) => {
+      omit(networkDetails, [...excludedFields, 'id']),
+    ).reduce((resultObj, [key, value]) => {
     // Make keys more human-readable
-    resultObj[capitalize(lowerCase(key))] = value;
+      resultObj[capitalize(lowerCase(key))] = value;
 
-    return resultObj;
-  }, {});
+      return resultObj;
+    }, {});
 
-  return [result];
+    return [result];
+  }
+
+  // Fallback to empty network details
+  return [{}];
 };

@@ -11,7 +11,7 @@ const getters = {
 const actions = {
   [NETWORKS.ACTIONS.GET_NETWORK_DETAILS]: ({ commit }, id) =>
     utils.wrapWithAsyncRequestStatus(commit, async () => {
-      const networkDetails = await jsonApi.findOneResource(`${RESOURCES.NETWORKS}/${id}`);
+      const networkDetails = await jsonApi.findOneResource(`${RESOURCES.NETWORKS}`, id, { include: 'network-type' });
 
       commit(NETWORKS.MUTATIONS.SAVE_NETWORK_DETAILS, networkDetails);
     }),

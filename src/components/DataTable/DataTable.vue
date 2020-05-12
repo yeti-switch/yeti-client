@@ -52,13 +52,13 @@
           v-for="link in linkItems"
           v-slot:[getCustomCellName(link.id)]="data"
         >
-          <b-nav-item
+          <b-link
             :key="link.id"
             router-link
             :to="link.linkBase + data.item.id"
           >
             {{ data.item[link.id] }}
-          </b-nav-item>
+          </b-link>
         </template>
       </b-table>
       <b-pagination

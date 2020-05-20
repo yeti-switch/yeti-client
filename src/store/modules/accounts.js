@@ -21,13 +21,18 @@ const getters = {
 };
 
 const actions = {
-  [ACCOUNTS.ACTIONS.GET_ACCOUNTS]: ({ commit }) =>
+  [ACCOUNTS.ACTIONS.GET_ACCOUNTS]: ({ commit, dispatch, state: localState }) =>
     utils.wrapWithAsyncRequestStatus(commit, async () => {
       const accounts = await jsonApi.findAllResources(RESOURCES.ACCOUNTS, {
         fields: { [RESOURCES.ACCOUNTS]: SPARSE_FIELDS[RESOURCES.ACCOUNTS] },
       });
 
-      commit(ACCOUNTS.MUTATIONS.SET_ACCOUNTS, accounts);
+      if (localState.activeAccountId === '') {
+        commit(ACCOUNTS.MUTATIONS.SET_ACCOUNTS, accounts);
+        dispatch(ACCOUNTS.ACTIONS.GET_ACCOUNT_DETAILS);
+      } else {
+        commit(ACCOUNTS.MUTATIONS.SET_ACCOUNTS, accounts);
+      }
     }),
   [ACCOUNTS.ACTIONS.GET_ACCOUNT_DETAILS]: ({ commit, getters: localGetters }) =>
     utils.wrapWithAsyncRequestStatus(commit, async () => {

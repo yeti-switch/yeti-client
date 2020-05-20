@@ -8,28 +8,16 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import { ACCOUNTS, COMMON_TABLE_ENTITY_EXCLUDED_FIELDS } from '@/constants';
+import { COMMON_TABLE_ENTITY_EXCLUDED_FIELDS } from '@/constants';
 import utils from '@/utils';
 
 export default {
   name: 'Account',
   computed: {
-    ...mapGetters(['accounts']),
     account() {
       return utils.formatAccount(
         this.$store.getters.currentAccountDetails, COMMON_TABLE_ENTITY_EXCLUDED_FIELDS,
       );
-    },
-  },
-  watch: {
-    accounts() {
-      this.getAccount();
-    },
-  },
-  methods: {
-    getAccount() {
-      this.$store.dispatch(ACCOUNTS.ACTIONS.GET_ACCOUNT_DETAILS);
     },
   },
 };

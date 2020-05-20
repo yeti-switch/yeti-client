@@ -1,4 +1,5 @@
 import { formatDateFromString } from '../date/date';
+import { prettifyNullValue } from './common';
 
 export const formatCdrs = (cdrs = []) =>
   cdrs.map((item) => {
@@ -7,8 +8,8 @@ export const formatCdrs = (cdrs = []) =>
     item['time-end'] = formatDateFromString(item['time-end']);
     item.success = item.success ? 'Yes' : 'No';
     item['disconnect-full-info'] = `${item['lega-disconnect-code']} ${item['lega-disconnect-reason']}`;
-    item.rate = `${item['destination-initial-rate']}/${item['destination-next-rate']}`;
-    item['billing-intervals'] = `${item['destination-initial-interval']}/${item['destination-next-interval']}`;
+    item.rate = `${prettifyNullValue(item['destination-initial-rate'])}/${prettifyNullValue(item['destination-next-rate'])}`;
+    item['billing-intervals'] = `${prettifyNullValue(item['destination-initial-interval'])}/${prettifyNullValue(item['destination-next-interval'])}`;
     item['originator-address'] = `${item['auth-orig-ip']}:${item['auth-orig-port']}`;
 
     return item;

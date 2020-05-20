@@ -1,4 +1,5 @@
 import { formatDateFromString } from '../date/date';
+import { prettifyNullValue } from './common';
 
 export const formatRates = (rates = []) =>
   rates.map((item) => {
@@ -9,7 +10,7 @@ export const formatRates = (rates = []) =>
       item['next-interval']
     }`;
 
-    item.rate = `${item['initial-rate']}/${item['next-rate']}`;
+    item.rate = `${prettifyNullValue(item['initial-rate'])}/${prettifyNullValue(item['next-rate'])}`;
 
     return item;
   });

@@ -45,23 +45,4 @@ describe('Accounts page', () => {
 
     expect(wrapper.findAll('td').length).toBe(numberOfRowsInAccountInfo);
   });
-  it('queries proper account on accounts array change', () => {
-    const getAccountDetails = jest.fn();
-    const store = new Vuex.Store({
-      getters: {
-        accounts: () => ([]),
-        currentAccountDetails: () => (ACCOUNT_DETAILS),
-      },
-      modules: {
-        accounts: {
-          actions: {
-            getAccountDetails,
-          },
-        },
-      },
-    });
-    const wrapper = shallowMount(Accounts, { store, localVue });
-    wrapper.setData({ accounts: [{ id: 'newId' }] });
-    expect(getAccountDetails).toHaveBeenCalled();
-  });
 });

@@ -4,6 +4,7 @@
     :items="rates"
     :rows="rows"
     :get-data="getRates"
+    :items-to-badge="itemsToBadge"
   />
 </template>
 
@@ -24,6 +25,10 @@ export default {
   data() {
     return {
       fields: TABLE_HEADERS,
+      itemsToBadge: [{
+        id: 'reject-calls',
+        errorValue: false,
+      }],
     };
   },
   computed: {

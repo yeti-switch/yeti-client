@@ -85,7 +85,9 @@ export const RELATIONSHIPS = {
     'local-tag': '',
     'auth-orig-transport-protocol': {
       jsonApi: 'hasMany',
-      type: 'comments',
+    },
+    account: {
+      jsonApi: 'hasOne',
     },
     // These fields are not used in the table
     'diversion-in': '',

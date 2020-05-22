@@ -6,7 +6,7 @@
       <div class="working-area-wrapper">
         <router-view :name="loginRouteName" />
         <router-view :name="filtersRouteName" />
-        <router-view v-if="accountsAreLoaded" />
+        <router-view />
       </div>
     </main>
   </div>
@@ -31,11 +31,6 @@ export default {
       loginRouteName: GENERAL_ROUTE_NAMES.LOG_IN,
       filtersRouteName: GENERAL_ROUTE_NAMES.VIEW_FILTERS,
     };
-  },
-  computed: {
-    accountsAreLoaded() {
-      return this.$store.getters.accounts.length > 0;
-    },
   },
   beforeCreate() {
     this.$store.dispatch(AUTH.ACTIONS.LOCAL_AUTH);

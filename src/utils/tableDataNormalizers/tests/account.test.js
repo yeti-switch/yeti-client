@@ -1,5 +1,4 @@
-import { EXLUDED_RESPONSE_FIELDS } from '@/pages/Accounts/constants';
-import { ACCOUNT_DETAILS } from '@/constants';
+import { ACCOUNT_DETAILS, COMMON_TABLE_ENTITY_EXCLUDED_FIELDS } from '@/constants';
 import * as account from '../account';
 
 describe('formatAccount store helper', () => {
@@ -19,7 +18,7 @@ describe('formatAccount store helper', () => {
       },
     ];
 
-    const result = account.formatAccount(correctInitialParams, EXLUDED_RESPONSE_FIELDS);
+    const result = account.formatAccount(correctInitialParams, COMMON_TABLE_ENTITY_EXCLUDED_FIELDS);
     expect(result).toMatchObject(expectedResult);
   });
 });

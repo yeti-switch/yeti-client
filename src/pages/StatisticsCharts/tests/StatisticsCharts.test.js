@@ -24,7 +24,6 @@ describe('StatisticsCharts page', () => {
 
     const wrapper = shallowMount(StatisticsCharts, { store, localVue });
     expect(wrapper.isVueInstance()).toBeTruthy();
-    expect(getStatistics).toHaveBeenCalled();
   });
 
   it('builds two charts if there are statistics entries in store', () => {

@@ -83,6 +83,9 @@ export default {
         routePath: ACCOUNT_INFO_PATHS.ACCOUNT,
         routeName: ACCOUNT_INFO_ROUTE_NAMES.ACCOUNT,
       }, {
+        routePath: ACCOUNT_INFO_PATHS.NETWORKS,
+        routeName: ACCOUNT_INFO_ROUTE_NAMES.NETWORKS,
+      }, {
         routePath: ACCOUNT_INFO_PATHS.STATISTICS,
         routeName: ACCOUNT_INFO_ROUTE_NAMES.STATISTICS,
       }],

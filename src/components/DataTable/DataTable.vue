@@ -29,13 +29,13 @@
         :per-page="perPage"
         class="datatable-content"
         show-empty
-        sticky-header="calc(100vh - 9rem)"
+        sticky-header="calc(100vh - 10rem)"
         hover
       >
         <!-- Idea for v-slot dynamic names: https://stackoverflow.com/questions/58140842/vue-and-bootstrap-vue-dynamically-use-slots/58143362#58143362 -->
         <template
           v-for="badge in itemsToBadge"
-          v-slot:[getBadgedCellName(badge.id)]="data"
+          v-slot:[getCustomCellName(badge.id)]="data"
         >
           <!-- Add support for different kinds of badges, if needed -->
           <b-badge
@@ -47,6 +47,18 @@
             {{ data.item[badge.id] }}
           </b-badge>
           {{ data.item[badge.id] !== badge.errorValue ? data.item[badge.id] : '' }}
+        </template>
+        <template
+          v-for="link in linkItems"
+          v-slot:[getCustomCellName(link.id)]="data"
+        >
+          <b-link
+            :key="link.id"
+            router-link
+            :to="link.linkBase + data.item.id"
+          >
+            {{ data.item[link.id] }}
+          </b-link>
         </template>
       </b-table>
       <b-pagination
@@ -87,6 +99,12 @@ export default {
         return [];
       },
     },
+    linkItems: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
     rows: {
       type: Number,
       default: 0,
@@ -114,7 +132,7 @@ export default {
     },
   },
   methods: {
-    getBadgedCellName(id) {
+    getCustomCellName(id) {
       return `cell(${id})`;
     },
   },

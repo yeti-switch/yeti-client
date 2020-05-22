@@ -8,26 +8,16 @@
 </template>
 
 <script>
-import { ACCOUNTS } from '@/constants';
+import { COMMON_TABLE_ENTITY_EXCLUDED_FIELDS } from '@/constants';
 import utils from '@/utils';
-
-import { EXLUDED_RESPONSE_FIELDS } from './constants';
 
 export default {
   name: 'Account',
   computed: {
     account() {
       return utils.formatAccount(
-        this.$store.getters.currentAccountDetails, EXLUDED_RESPONSE_FIELDS,
+        this.$store.getters.currentAccountDetails, COMMON_TABLE_ENTITY_EXCLUDED_FIELDS,
       );
-    },
-  },
-  created() {
-    this.getAccount();
-  },
-  methods: {
-    getAccount() {
-      this.$store.dispatch(ACCOUNTS.ACTIONS.GET_ACCOUNT_DETAILS);
     },
   },
 };

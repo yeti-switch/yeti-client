@@ -19,7 +19,6 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { STATISTICS } from '@/constants';
 import DataChart from '@/components/DataChart/DataChart';
 
 import { CHART_OPTIONS, INITIAL_DATASETS_SETTINGS } from './constants';
@@ -89,14 +88,6 @@ export default {
       }
 
       return chartData;
-    },
-  },
-  created() {
-    this.getStatistics();
-  },
-  methods: {
-    getStatistics() {
-      this.$store.dispatch(STATISTICS.ACTIONS.GET_STATISTICS);
     },
   },
 };

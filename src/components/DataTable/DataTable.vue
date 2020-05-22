@@ -19,25 +19,36 @@
         class="mt-1"
         height="7px"
       />
-      <b-input-group
+      <b-container
         v-if="filterEnabled"
-        size="sm"
+        fluid
+        class="mb-4 mt-2"
       >
-        <b-form-input
-          id="filterInput"
-          v-model="filter"
-          type="search"
-          placeholder="Type to Search"
-        />
-        <b-input-group-append>
-          <b-button
-            :disabled="!filter"
-            @click="filter = ''"
+        <b-row
+          align-h="start"
+        >
+          <b-col
+            cols="3"
           >
-            Clear
-          </b-button>
-        </b-input-group-append>
-      </b-input-group>
+            <b-input-group>
+              <b-form-input
+                id="filterInput"
+                v-model="filter"
+                type="search"
+                placeholder="Type to Search"
+              />
+              <b-input-group-append>
+                <b-button
+                  :disabled="!filter"
+                  @click="filter = ''"
+                >
+                  Clear
+                </b-button>
+              </b-input-group-append>
+            </b-input-group>
+          </b-col>
+        </b-row>
+      </b-container>
       <b-table
         :busy="requestIsPending"
         :small="small"
@@ -190,6 +201,10 @@ export default {
     position: absolute;
     top: 0.5rem;
     right: 15px;
+  }
+
+  .filter-group-wrapper {
+    margin-bottom: 20px;
   }
 
   .pagination {

@@ -1,5 +1,5 @@
 <template>
-  <div class="view-filters">
+  <div class="view-filters mb-3">
     <AccountsFilter />
     <TimeRangeFilter v-if="isTimeRangeEnabled" />
   </div>
@@ -30,6 +30,5 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
   }
 </style>

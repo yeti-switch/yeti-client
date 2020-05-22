@@ -1,15 +1,19 @@
 <template>
   <DataTable
+    v-if="!requestIsPending"
     :fields="fields"
     :items="networks"
     :rows="rows"
     :link-items="linkItems"
     :get-data="getNetworks"
+    filter-enabled
+    :filtered-fields="['name']"
   />
 </template>
 
 <script>
 import { get, flow } from 'lodash';
+import { mapGetters } from 'vuex';
 
 import { NETWORKS } from '@/constants';
 import utils from '@/utils';
@@ -31,6 +35,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(['requestIsPending']),
     networks() {
       return flow(utils.formatNetworks)(this.$store.getters.networks.items);
     },

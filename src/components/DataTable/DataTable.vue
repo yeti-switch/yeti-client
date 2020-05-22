@@ -19,18 +19,40 @@
         class="mt-1"
         height="7px"
       />
+      <b-input-group
+        v-if="filterEnabled"
+        size="sm"
+      >
+        <b-form-input
+          id="filterInput"
+          v-model="filter"
+          type="search"
+          placeholder="Type to Search"
+        />
+        <b-input-group-append>
+          <b-button
+            :disabled="!filter"
+            @click="filter = ''"
+          >
+            Clear
+          </b-button>
+        </b-input-group-append>
+      </b-input-group>
       <b-table
         :busy="requestIsPending"
         :small="small"
         :items="items"
         :striped="striped"
-        :fixed="fixed"
         :fields="fields"
+        :filter="filter"
+        :filter-included-fields="filteredFields"
+        :fixed="fixed"
         :per-page="perPage"
         class="datatable-content"
         show-empty
         sticky-header="calc(100vh - 10rem)"
         hover
+        @filtered="updatePagintationOnFilterChange"
       >
         <!-- Idea for v-slot dynamic names: https://stackoverflow.com/questions/58140842/vue-and-bootstrap-vue-dynamically-use-slots/58143362#58143362 -->
         <template
@@ -64,7 +86,7 @@
       <b-pagination
         v-show="!requestIsPending && rows >= perPage"
         v-model="currentPage"
-        :total-rows="rows"
+        :total-rows="rowsFiltered"
         :per-page="perPage"
         align="center"
         size="sm"
@@ -81,6 +103,16 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'DataTable',
   props: {
+    filterEnabled: {
+      type: Boolean,
+      default: false,
+    },
+    filteredFields: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
     fields: {
       type: Array,
       default() {
@@ -118,11 +150,15 @@ export default {
   },
   data() {
     return {
+      // Table options
       small: false,
       striped: true,
       fixed: false,
       perPage: 50,
       currentPage: 1,
+      // Dynamic data
+      filter: null,
+      rowsFiltered: this.rows,
     };
   },
   computed: {
@@ -134,6 +170,11 @@ export default {
   methods: {
     getCustomCellName(id) {
       return `cell(${id})`;
+    },
+    updatePagintationOnFilterChange(filteredItems) {
+      this.rowsFiltered = filteredItems.length;
+      console.log(this.rowsFiltered);
+      this.currentPage = 1;
     },
   },
 };

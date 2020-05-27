@@ -17,7 +17,7 @@ export default {
   name: 'NetworkDetails',
   computed: {
     networkDetails() {
-      return this.$store.getters.networkDetails ? utils.formatNetworkDetails(
+      return this.$store.getters.networkDetails.id ? utils.formatNetworkDetails(
         this.$store.getters.networkDetails, COMMON_TABLE_ENTITY_EXCLUDED_FIELDS,
       ) : [{}];
     },

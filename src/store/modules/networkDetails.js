@@ -3,7 +3,7 @@ import { RESOURCES, NETWORKS } from '@/constants';
 import utils from '@/utils';
 
 const state = {
-  networkDetails: {},
+  networkDetails: { data: {} },
 };
 const getters = {
   networkDetails: (currentState) => currentState.networkDetails.data,

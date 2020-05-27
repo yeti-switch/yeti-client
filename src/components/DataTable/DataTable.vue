@@ -11,14 +11,6 @@
       >
         Items in table: {{ rows }}
       </h6>
-      <b-progress
-        v-show="requestIsPending"
-        :value="100"
-        :animated="true"
-        variant="secondary"
-        class="mt-1"
-        height="7px"
-      />
       <b-container
         v-if="filterEnabled"
         fluid
@@ -36,11 +28,12 @@
                 v-model="filter"
                 type="search"
                 placeholder="Type to Search"
+                @input="onFilterChange"
               />
               <b-input-group-append>
                 <b-button
                   :disabled="!filter"
-                  @click="filter = ''"
+                  @click="clearLocalFilter"
                 >
                   Clear
                 </b-button>
@@ -49,21 +42,26 @@
           </b-col>
         </b-row>
       </b-container>
+      <b-progress
+        v-show="requestIsPending"
+        :value="100"
+        :animated="true"
+        variant="secondary"
+        class="mt-1"
+        height="7px"
+      />
       <b-table
         :busy="requestIsPending"
         :small="small"
         :items="items"
         :striped="striped"
         :fields="fields"
-        :filter="filter"
-        :filter-included-fields="filteredFields"
         :fixed="fixed"
         :per-page="perPage"
         class="datatable-content"
         show-empty
         sticky-header="calc(100vh - 10rem)"
         hover
-        @filtered="updatePagintationOnFilterChange"
       >
         <!-- Idea for v-slot dynamic names: https://stackoverflow.com/questions/58140842/vue-and-bootstrap-vue-dynamically-use-slots/58143362#58143362 -->
         <template
@@ -97,7 +95,7 @@
       <b-pagination
         v-show="!requestIsPending && rows >= perPage"
         v-model="currentPage"
-        :total-rows="rowsFiltered"
+        :total-rows="rows"
         :per-page="perPage"
         align="center"
         size="sm"
@@ -110,6 +108,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { debounce } from 'lodash';
 
 export default {
   name: 'DataTable',
@@ -117,6 +116,14 @@ export default {
     filterEnabled: {
       type: Boolean,
       default: false,
+    },
+    onFilter: {
+      type: Function,
+      default: () => null,
+    },
+    filterTerm: {
+      type: String,
+      default: null,
     },
     filteredFields: {
       type: Array,
@@ -168,8 +175,7 @@ export default {
       perPage: 50,
       currentPage: 1,
       // Dynamic data
-      filter: null,
-      rowsFiltered: this.rows,
+      filter: this.filterTerm || null,
     };
   },
   computed: {
@@ -182,10 +188,12 @@ export default {
     getCustomCellName(id) {
       return `cell(${id})`;
     },
-    updatePagintationOnFilterChange(filteredItems) {
-      this.rowsFiltered = filteredItems.length;
-      console.log(this.rowsFiltered);
-      this.currentPage = 1;
+    onFilterChange: debounce(function onInputChange(filterTerm) {
+      this.onFilter(filterTerm);
+    }, 300),
+    clearLocalFilter() {
+      this.filter = '';
+      this.onFilter(this.filter);
     },
   },
 };

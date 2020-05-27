@@ -4,7 +4,7 @@ import utils from '@/utils';
 
 const state = {
   networks: {},
-  networksFilter: {},
+  networksFilter: '',
 };
 const getters = {
   networks: (currentState) => ({
@@ -13,16 +13,21 @@ const getters = {
   networksFilter: (currentState) => currentState.networksFilter,
 };
 const actions = {
-  [NETWORKS.ACTIONS.GET_NETWORKS]: ({ commit }, page) =>
+  [NETWORKS.ACTIONS.GET_NETWORKS]: ({ commit, state: localState }, page) =>
     utils.wrapWithAsyncRequestStatus(commit, async () => {
-      const networks = await jsonApi.findAllResources(RESOURCES.NETWORKS, { page, include: 'network-type' });
+      const queryParams = { page, include: 'network-type' };
+
+      if (localState.networksFilter) {
+        queryParams.filter = { nameCont: localState.networksFilter };
+      }
+
+      const networks = await jsonApi.findAllResources(RESOURCES.NETWORKS, queryParams);
 
       commit(NETWORKS.MUTATIONS.SET_NETWORKS, networks);
     }),
-  [NETWORKS.ACTIONS.SET_NETWORKS_FILTER]: ({ commit }, filter) => {
-    if (filter) {
-      commit(NETWORKS.MUTATIONS.SAVE_NETWORKS_FILTER, filter);
-    }
+  [NETWORKS.ACTIONS.SET_NETWORKS_FILTER]: ({ commit, dispatch }, filter) => {
+    commit(NETWORKS.MUTATIONS.SAVE_NETWORKS_FILTER, filter);
+    dispatch(NETWORKS.ACTIONS.GET_NETWORKS, 1);
   },
 };
 const mutations = {

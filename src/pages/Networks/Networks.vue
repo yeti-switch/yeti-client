@@ -1,6 +1,5 @@
 <template>
   <DataTable
-    v-if="!requestIsPending"
     :fields="fields"
     :items="networks"
     :rows="rows"
@@ -8,13 +7,14 @@
     :get-data="getNetworks"
     filter-enabled
     :filtered-fields="['name']"
+    :filter-term="networksFilter"
+    :on-filter="onNetworksFilter"
   />
 </template>
 
 <script>
 import { get, flow } from 'lodash';
 import { mapGetters } from 'vuex';
-
 import { NETWORKS } from '@/constants';
 import utils from '@/utils';
 import DataTable from '@/components/DataTable/DataTable';
@@ -35,7 +35,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['requestIsPending']),
+    ...mapGetters(['networksFilter']),
     networks() {
       return flow(utils.formatNetworks)(this.$store.getters.networks.items);
     },
@@ -49,6 +49,9 @@ export default {
   methods: {
     getNetworks(pageNumber) {
       this.$store.dispatch(NETWORKS.ACTIONS.GET_NETWORKS, pageNumber);
+    },
+    onNetworksFilter(filterTerm) {
+      this.$store.dispatch(NETWORKS.ACTIONS.SET_NETWORKS_FILTER, filterTerm);
     },
   },
 };

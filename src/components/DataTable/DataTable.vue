@@ -24,7 +24,7 @@
           >
             <b-input-group>
               <b-form-input
-                id="filterInput"
+                id="localFilterInput"
                 v-model="localFilter"
                 type="search"
                 placeholder="Type to Search"
@@ -198,6 +198,12 @@ export default {
   font-size: 12px;
   white-space: nowrap;
   position: relative;
+
+  #localFilterInput {
+    &:focus {
+      box-shadow: none;
+    }
+  }
 
   .datatable-total {
     position: absolute;

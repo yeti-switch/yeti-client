@@ -12,7 +12,7 @@
         Items in table: {{ rows }}
       </h6>
       <b-container
-        v-if="filterEnabled"
+        v-if="localFilterEnabled"
         fluid
         class="mb-4 mt-2"
       >
@@ -25,14 +25,14 @@
             <b-input-group>
               <b-form-input
                 id="filterInput"
-                v-model="filter"
+                v-model="localFilter"
                 type="search"
                 placeholder="Type to Search"
                 @input="onFilterChange"
               />
               <b-input-group-append>
                 <b-button
-                  :disabled="!filter"
+                  :disabled="!localFilter"
                   @click="clearLocalFilter"
                 >
                   Clear
@@ -113,23 +113,17 @@ import { debounce } from 'lodash';
 export default {
   name: 'DataTable',
   props: {
-    filterEnabled: {
+    localFilterEnabled: {
       type: Boolean,
       default: false,
     },
-    onFilter: {
+    onLocalFilter: {
       type: Function,
       default: () => null,
     },
-    filterTerm: {
+    localFilterTerm: {
       type: String,
       default: null,
-    },
-    filteredFields: {
-      type: Array,
-      default() {
-        return [];
-      },
     },
     fields: {
       type: Array,
@@ -175,7 +169,7 @@ export default {
       perPage: 50,
       currentPage: 1,
       // Dynamic data
-      filter: this.filterTerm || null,
+      localFilter: this.localFilterTerm || null,
     };
   },
   computed: {
@@ -188,12 +182,12 @@ export default {
     getCustomCellName(id) {
       return `cell(${id})`;
     },
-    onFilterChange: debounce(function onInputChange(filterTerm) {
-      this.onFilter(filterTerm);
+    onFilterChange: debounce(function onInputChange(localFilterTerm) {
+      this.onLocalFilter(localFilterTerm);
     }, 300),
     clearLocalFilter() {
-      this.filter = '';
-      this.onFilter(this.filter);
+      this.localFilter = '';
+      this.onLocalFilter(this.localFilter);
     },
   },
 };

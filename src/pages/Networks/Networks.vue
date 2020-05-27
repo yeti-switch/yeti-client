@@ -5,10 +5,9 @@
     :rows="rows"
     :link-items="linkItems"
     :get-data="getNetworks"
-    filter-enabled
-    :filtered-fields="['name']"
-    :filter-term="networksFilter"
-    :on-filter="onNetworksFilter"
+    local-filter-enabled
+    :local-filter-term="networksFilter"
+    :on-local-filter="onNetworksFilter"
   />
 </template>
 

@@ -11,6 +11,37 @@
       >
         Items in table: {{ rows }}
       </h6>
+      <b-container
+        v-if="localFilterEnabled"
+        fluid
+        class="mb-4 mt-2"
+      >
+        <b-row
+          align-h="start"
+        >
+          <b-col
+            cols="3"
+          >
+            <b-input-group>
+              <b-form-input
+                id="localFilterInput"
+                v-model="localFilter"
+                type="search"
+                placeholder="Type to Search"
+                @input="onFilterChange"
+              />
+              <b-input-group-append>
+                <b-button
+                  :disabled="!localFilter"
+                  @click="clearLocalFilter"
+                >
+                  Clear
+                </b-button>
+              </b-input-group-append>
+            </b-input-group>
+          </b-col>
+        </b-row>
+      </b-container>
       <b-progress
         v-show="requestIsPending"
         :value="100"
@@ -24,8 +55,8 @@
         :small="small"
         :items="items"
         :striped="striped"
-        :fixed="fixed"
         :fields="fields"
+        :fixed="fixed"
         :per-page="perPage"
         class="datatable-content"
         show-empty
@@ -77,10 +108,23 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import { debounce } from 'lodash';
 
 export default {
   name: 'DataTable',
   props: {
+    localFilterEnabled: {
+      type: Boolean,
+      default: false,
+    },
+    onLocalFilter: {
+      type: Function,
+      default: () => null,
+    },
+    localFilterTerm: {
+      type: String,
+      default: null,
+    },
     fields: {
       type: Array,
       default() {
@@ -118,11 +162,14 @@ export default {
   },
   data() {
     return {
+      // Table options
       small: false,
       striped: true,
       fixed: false,
       perPage: 50,
       currentPage: 1,
+      // Dynamic data
+      localFilter: this.localFilterTerm || null,
     };
   },
   computed: {
@@ -135,6 +182,13 @@ export default {
     getCustomCellName(id) {
       return `cell(${id})`;
     },
+    onFilterChange: debounce(function onInputChange(localFilterTerm) {
+      this.onLocalFilter(localFilterTerm);
+    }, 300),
+    clearLocalFilter() {
+      this.localFilter = '';
+      this.onLocalFilter(this.localFilter);
+    },
   },
 };
 </script>
@@ -145,10 +199,20 @@ export default {
   white-space: nowrap;
   position: relative;
 
+  #localFilterInput {
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
   .datatable-total {
     position: absolute;
     top: 0.5rem;
     right: 15px;
+  }
+
+  .filter-group-wrapper {
+    margin-bottom: 20px;
   }
 
   .pagination {

@@ -5,12 +5,15 @@
     :rows="rows"
     :link-items="linkItems"
     :get-data="getNetworks"
+    local-filter-enabled
+    :local-filter-term="networksFilter"
+    :on-local-filter="onNetworksFilter"
   />
 </template>
 
 <script>
 import { get, flow } from 'lodash';
-
+import { mapGetters } from 'vuex';
 import { NETWORKS } from '@/constants';
 import utils from '@/utils';
 import DataTable from '@/components/DataTable/DataTable';
@@ -31,6 +34,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(['networksFilter']),
     networks() {
       return flow(utils.formatNetworks)(this.$store.getters.networks.items);
     },
@@ -45,9 +49,13 @@ export default {
     getNetworks(pageNumber) {
       this.$store.dispatch(NETWORKS.ACTIONS.GET_NETWORKS, pageNumber);
     },
+    onNetworksFilter(filterTerm) {
+      this.$store.dispatch(NETWORKS.ACTIONS.SET_NETWORKS_FILTER, filterTerm);
+    },
   },
 };
 </script>
 
 <style>
+
 </style>

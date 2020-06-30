@@ -4,7 +4,8 @@
     :class="mainNavClass"
   >
     <b-navbar-brand
-      href="/"
+      :href="linkOnLogo"
+      target="_blank"
     >
       <img
         v-show="this.$data.navOpened"
@@ -92,7 +93,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isAuthenticated']),
+    ...mapGetters(['isAuthenticated', 'linkOnLogo']),
     mainNavClass() {
       return `vertical-navbar-menu ${this.$data.navOpened ? 'opened' : 'collapsed'}`;
     },
@@ -117,8 +118,10 @@ export default {
     text-align: left;
 
   .navbar-brand {
-    margin: 10px 0 30px 15px;
+    margin: 13px 0 30px;
     color: #fff;
+    display: flex;
+    justify-content: center;
   }
 
   & > .nav {

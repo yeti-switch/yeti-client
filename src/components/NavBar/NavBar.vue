@@ -45,7 +45,7 @@
     <b-button
       v-b-toggle
       class="nav-bar-collapse-button"
-      :pressed.sync="navOpened"
+      :pressed.sync="navPanelState"
     >
       {{ getNavItemName('Collapse') }}
     </b-button>
@@ -57,6 +57,7 @@ import {
   BIconBoxArrowLeft,
 } from 'bootstrap-vue';
 import { mapGetters } from 'vuex';
+import store from 'store';
 import {
   AUTH, ACCOUNT_INFO_PATHS, ACCOUNT_INFO_ROUTE_NAMES,
 } from '@/constants';
@@ -73,7 +74,7 @@ export default {
     return {
       navigationRoutesPaths: { ...ACCOUNT_INFO_PATHS },
       navigationRoutesNames: { ...ACCOUNT_INFO_ROUTE_NAMES },
-      navOpened: true,
+      navOpened: store.get('yetiNavCollapseOpened', true),
       navLinks: [{
         routePath: ACCOUNT_INFO_PATHS.RATES,
         routeName: ACCOUNT_INFO_ROUTE_NAMES.RATES,
@@ -96,6 +97,16 @@ export default {
     ...mapGetters(['isAuthenticated', 'linkOnLogo']),
     mainNavClass() {
       return `vertical-navbar-menu ${this.$data.navOpened ? 'opened' : 'collapsed'}`;
+    },
+    navPanelState: {
+      get() {
+        return this.navOpened;
+      },
+      set(navOpened) {
+        store.set('yetiNavCollapseOpened', navOpened);
+
+        this.navOpened = navOpened;
+      },
     },
   },
   methods: {

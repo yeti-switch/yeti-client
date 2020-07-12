@@ -1,5 +1,5 @@
 <template>
-  <DataTable
+  <DataTableAnt
     :fields="fields"
     :items="cdrs"
     :rows="rows"
@@ -14,20 +14,22 @@ import { flow, get } from 'lodash';
 import utils from '@/utils';
 import { CDRS } from '@/constants';
 
-import DataTable from '@/components/DataTable/DataTable';
-import { TABLE_HEADERS } from './constants';
+// import DataTable from '@/components/DataTable/DataTable';
+import DataTableAnt from '@/components/DataTableAnt/DataTableAnt';
+import { TABLE_HEADERS_ANT } from './constants';
 
 import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
 
 export default {
   name: 'Cdrs',
   components: {
-    DataTable,
+    // DataTable,
+    DataTableAnt,
   },
   data() {
     return {
       // Table fields
-      fields: TABLE_HEADERS,
+      fields: TABLE_HEADERS_ANT,
       itemsToBadge: [{
         id: 'success',
         errorValue: 'No',

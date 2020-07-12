@@ -12,6 +12,7 @@ import networkDetails from './modules/networkDetails';
 import config from './modules/config';
 import networkServices from './modules/networkServices';
 import statisticsCharts from './modules/statisticsCharts';
+import uiState from './modules/ui-state';
 
 import { currentAccountWatcher } from './plugins/currentAccountWatcher';
 import { timeRangeWatcher } from './plugins/timeRangeWatcher';
@@ -35,5 +36,6 @@ export default new Vuex.Store({
     networkServices,
     statisticsCharts,
     networkDetails,
+    uiState,
   },
 });

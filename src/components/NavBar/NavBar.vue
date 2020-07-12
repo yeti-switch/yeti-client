@@ -8,12 +8,12 @@
       target="_blank"
     >
       <img
-        v-show="this.$data.navOpened"
+        v-show="navOpened"
         alt="Yeti logo"
         src="@/assets/images/logo.png"
       >
       <img
-        v-show="!this.$data.navOpened"
+        v-show="!navOpened"
         width="50px"
         height="40px"
         alt="Yeti logo"
@@ -45,7 +45,7 @@
     <b-button
       v-b-toggle
       class="nav-bar-collapse-button"
-      :pressed.sync="navPanelState"
+      @click="toggleNavState"
     >
       {{ getNavItemName('Collapse') }}
     </b-button>
@@ -57,9 +57,8 @@ import {
   BIconBoxArrowLeft,
 } from 'bootstrap-vue';
 import { mapGetters } from 'vuex';
-import store from 'store';
 import {
-  AUTH, ACCOUNT_INFO_PATHS, ACCOUNT_INFO_ROUTE_NAMES,
+  AUTH, ACCOUNT_INFO_PATHS, ACCOUNT_INFO_ROUTE_NAMES, UI_STATE,
 } from '@/constants';
 
 import NavItem from './components/NavItem';
@@ -74,7 +73,6 @@ export default {
     return {
       navigationRoutesPaths: { ...ACCOUNT_INFO_PATHS },
       navigationRoutesNames: { ...ACCOUNT_INFO_ROUTE_NAMES },
-      navOpened: store.get('yetiNavCollapseOpened', true),
       navLinks: [{
         routePath: ACCOUNT_INFO_PATHS.RATES,
         routeName: ACCOUNT_INFO_ROUTE_NAMES.RATES,
@@ -94,27 +92,20 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isAuthenticated', 'linkOnLogo']),
+    ...mapGetters(['isAuthenticated', 'linkOnLogo', 'navOpened']),
     mainNavClass() {
-      return `vertical-navbar-menu ${this.$data.navOpened ? 'opened' : 'collapsed'}`;
-    },
-    navPanelState: {
-      get() {
-        return this.navOpened;
-      },
-      set(navOpened) {
-        store.set('yetiNavCollapseOpened', navOpened);
-
-        this.navOpened = navOpened;
-      },
+      return `vertical-navbar-menu ${this.navOpened ? 'opened' : 'collapsed'}`;
     },
   },
   methods: {
+    toggleNavState() {
+      this.$store.dispatch(UI_STATE.ACTIONS.SET_NAV_STATE, !this.navOpened);
+    },
     logout() {
       this.$store.dispatch(AUTH.ACTIONS.LOGOUT).then(() => this.$router.push('/login'));
     },
     getNavItemName(name) {
-      return this.$data.navOpened ? name : '';
+      return this.navOpened ? name : '';
     },
   },
 };

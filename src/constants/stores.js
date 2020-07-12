@@ -87,3 +87,12 @@ export const NETWORK_SERVICE = {
     SWITCH_PENDING_STATE: 'switchPendingState',
   },
 };
+
+export const UI_STATE = {
+  MUTATIONS: {
+    SET_NAV_STATE: 'setNavState',
+  },
+  ACTIONS: {
+    SET_NAV_STATE: 'setNavState',
+  },
+};

@@ -4,14 +4,14 @@
       v-if="!requestIsPending"
       :chart-data="derivedActiveCallsChartData"
       :options="chartOptions"
-      :height="null"
+      :height="chartHeight"
       :width="null"
     />
     <data-chart
       v-if="!requestIsPending"
       :chart-data="derivedOriginatedCpsChartData"
       :options="chartOptions"
-      :height="null"
+      :height="chartHeight"
       :width="null"
     />
   </div>
@@ -32,6 +32,7 @@ export default {
     return {
       chartOptions: CHART_OPTIONS,
       chart: undefined,
+      chartHeight: 0,
     };
   },
   computed: {
@@ -89,6 +90,10 @@ export default {
 
       return chartData;
     },
+  },
+  mounted() {
+    // 100 is kinda magic number which will gave us nice chart height
+    this.chartHeight = (document.querySelector('.working-area-wrapper').clientHeight - 100) / 2;
   },
 };
 </script>

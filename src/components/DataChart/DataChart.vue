@@ -1,4 +1,5 @@
 <script>
+import { mapGetters } from 'vuex';
 import { Line, mixins } from 'vue-chartjs';
 import Downsample from 'chartjs-plugin-downsample';
 
@@ -13,6 +14,14 @@ export default {
       default() {
         return {};
       },
+    },
+  },
+  computed: {
+    ...mapGetters(['navOpened']),
+  },
+  watch: {
+    navOpened() {
+      this.$data._chart.resize(); // eslint-disable-line no-underscore-dangle
     },
   },
   mounted() {

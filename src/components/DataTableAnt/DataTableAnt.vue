@@ -56,7 +56,7 @@
         >
           <a-tag
             :key="badge"
-            :color="badge === 'No' ? 'volcano' : ''"
+            :color="badge === 'No' || badge === 'false' ? 'volcano' : ''"
           >
             {{ badge }}
           </a-tag>

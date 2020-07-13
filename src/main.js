@@ -23,3 +23,6 @@ new Vue({
   store,
   router: router.instance,
 }).$mount('#app');
+
+// Setting up page title
+document.head.querySelector('title').textContent = YETI_CONFIG.yeti.pageTitle;

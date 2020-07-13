@@ -1,6 +1,12 @@
 <template>
   <div id="auth">
+    <img
+      src="https://picsum.photos/800/450"
+      @load="onImageLoad"
+      @error="onImageLoad"
+    >
     <b-form
+      v-if="imageLoaded"
       class="login"
       @submit.prevent="onSubmit"
     >
@@ -40,9 +46,18 @@ export default {
     return {
       login: '',
       password: '',
+      imageLoaded: false,
     };
   },
+  mounted() {
+    setTimeout(() => {
+      this.imageLoaded = true;
+    }, 3000);
+  },
   methods: {
+    onImageLoad() {
+      this.imageLoaded = true;
+    },
     onSubmit() {
       const { login, password } = this;
       this.$store.dispatch(AUTH.ACTIONS.AUTH_REQUEST, { login, password })
@@ -58,6 +73,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
+img {
+  margin-bottom: 50px;
+}
 .login {
   display: flex;
   margin: 0 auto;

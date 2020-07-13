@@ -4,7 +4,9 @@ YETI_CONFIG = {
     apiBaseUrl: 'https://demo.yeti-switch.org',
     blockedPages: new Set([]),
     linkOnLogo: 'https://yeti-switch.org/',
+    pageTitle: 'Yeti switch web client',
   },
 };
 
-// Possible values for yeti.blockedpages set are 'rates', 'accounts', 'cdrs'
+// Possible values for yeti.blockedpages set are:
+// 'rates', 'accounts', 'cdrs', 'networks', 'statistics'

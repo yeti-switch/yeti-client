@@ -4,15 +4,16 @@
     :class="mainNavClass"
   >
     <b-navbar-brand
-      href="/"
+      :href="linkOnLogo"
+      target="_blank"
     >
       <img
-        v-show="this.$data.navOpened"
+        v-show="navOpened"
         alt="Yeti logo"
         src="@/assets/images/logo.png"
       >
       <img
-        v-show="!this.$data.navOpened"
+        v-show="!navOpened"
         width="50px"
         height="40px"
         alt="Yeti logo"
@@ -44,7 +45,7 @@
     <b-button
       v-b-toggle
       class="nav-bar-collapse-button"
-      :pressed.sync="navOpened"
+      @click="toggleNavState"
     >
       {{ getNavItemName('Collapse') }}
     </b-button>
@@ -57,7 +58,7 @@ import {
 } from 'bootstrap-vue';
 import { mapGetters } from 'vuex';
 import {
-  AUTH, ACCOUNT_INFO_PATHS, ACCOUNT_INFO_ROUTE_NAMES,
+  AUTH, ACCOUNT_INFO_PATHS, ACCOUNT_INFO_ROUTE_NAMES, UI_STATE,
 } from '@/constants';
 
 import NavItem from './components/NavItem';
@@ -72,7 +73,6 @@ export default {
     return {
       navigationRoutesPaths: { ...ACCOUNT_INFO_PATHS },
       navigationRoutesNames: { ...ACCOUNT_INFO_ROUTE_NAMES },
-      navOpened: true,
       navLinks: [{
         routePath: ACCOUNT_INFO_PATHS.RATES,
         routeName: ACCOUNT_INFO_ROUTE_NAMES.RATES,
@@ -92,17 +92,20 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isAuthenticated']),
+    ...mapGetters(['isAuthenticated', 'linkOnLogo', 'navOpened']),
     mainNavClass() {
-      return `vertical-navbar-menu ${this.$data.navOpened ? 'opened' : 'collapsed'}`;
+      return `vertical-navbar-menu ${this.navOpened ? 'opened' : 'collapsed'}`;
     },
   },
   methods: {
+    toggleNavState() {
+      this.$store.dispatch(UI_STATE.ACTIONS.SET_NAV_STATE, !this.navOpened);
+    },
     logout() {
       this.$store.dispatch(AUTH.ACTIONS.LOGOUT).then(() => this.$router.push('/login'));
     },
     getNavItemName(name) {
-      return this.$data.navOpened ? name : '';
+      return this.navOpened ? name : '';
     },
   },
 };
@@ -117,8 +120,10 @@ export default {
     text-align: left;
 
   .navbar-brand {
-    margin: 10px 0 30px 15px;
+    margin: 13px 0 30px;
     color: #fff;
+    display: flex;
+    justify-content: center;
   }
 
   & > .nav {

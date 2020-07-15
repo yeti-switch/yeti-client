@@ -1,13 +1,8 @@
 <template>
-  <DataTable
+  <DataTableAnt
     :fields="fields"
     :items="networks"
-    :rows="rows"
-    :link-items="linkItems"
     :get-data="getNetworks"
-    local-filter-enabled
-    :local-filter-term="networksFilter"
-    :on-local-filter="onNetworksFilter"
   />
 </template>
 
@@ -16,21 +11,58 @@ import { get, flow } from 'lodash';
 import { mapGetters } from 'vuex';
 import { NETWORKS } from '@/constants';
 import utils from '@/utils';
-import DataTable from '@/components/DataTable/DataTable';
-import { TABLE_HEADERS } from './constants';
-
-import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
+import DataTableAnt from '@/components/DataTableAnt/DataTableAnt';
 
 export default {
   name: 'Networks',
   components: {
-    DataTable,
+    DataTableAnt,
   },
   data() {
     return {
       // Table fields
-      fields: TABLE_HEADERS,
-      linkItems: [{ id: 'name', linkBase: '/network-details/' }],
+      fields: [
+        {
+          key: 'name',
+          dataIndex: 'name',
+          title: 'Name',
+          width: 300,
+          scopedSlots: {
+            filterDropdown: 'filterDropdown',
+            filterIcon: 'filterIcon',
+          },
+          onFilter: (value, record) =>
+            record.name
+              .toString()
+              .toLowerCase()
+              .includes(value.toLowerCase()),
+          onFilterDropdownVisibleChange: (visible) => {
+            if (visible) {
+              setTimeout(() => {
+                this.searchInput.focus();
+              }, 0);
+            }
+          },
+          customRender: (name, row) => (<a
+            router-link
+            href={`#/network-details/${row.id}`}
+          >
+            {name}
+          </a>),
+        },
+        {
+          key: 'network-type',
+          dataIndex: 'network-type',
+          title: 'Type',
+          width: 300,
+        },
+        {
+          key: 'id',
+          dataIndex: 'id',
+          title: 'Uuid',
+          width: 300,
+        },
+      ],
     };
   },
   computed: {
@@ -55,7 +87,3 @@ export default {
   },
 };
 </script>
-
-<style>
-
-</style>

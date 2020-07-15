@@ -50,6 +50,42 @@
         :scroll="{ x: true, y: 700 }"
         :pagination="{ pageSize: 30 }"
       >
+        <div
+          slot="filterDropdown"
+          slot-scope="{ setSelectedKeys, selectedKeys, confirm, clearFilters, column }"
+          style="padding: 8px"
+        >
+          <a-input
+            v-ant-ref="c => (searchInput = c)"
+            :placeholder="`Search ${column.dataIndex}`"
+            :value="selectedKeys[0]"
+            style="width: 188px; margin-bottom: 8px; display: block;"
+            @change="e => setSelectedKeys(e.target.value ? [e.target.value] : [])"
+            @pressEnter="() => handleSearch(selectedKeys, confirm, column.dataIndex)"
+          />
+          <a-button
+            type="primary"
+            icon="search"
+            size="small"
+            style="width: 90px; margin-right: 8px"
+            @click="() => handleSearch(selectedKeys, confirm, column.dataIndex)"
+          >
+            Search
+          </a-button>
+          <a-button
+            size="small"
+            style="width: 90px"
+            @click="() => handleReset(clearFilters)"
+          >
+            Reset
+          </a-button>
+        </div>
+        <a-icon
+          slot="filterIcon"
+          slot-scope="filtered"
+          type="search"
+          :style="{ color: filtered ? '#108ee9' : undefined }"
+        />
         <span
           slot="badge"
           slot-scope="badge"
@@ -102,6 +138,7 @@ export default {
     return {
       // Dynamic data
       localFilter: this.localFilterTerm || null,
+      searchText: '',
     };
   },
   computed: {
@@ -117,6 +154,17 @@ export default {
     clearLocalFilter() {
       this.localFilter = '';
       this.onLocalFilter(this.localFilter);
+    },
+    handleSearch(selectedKeys, confirm, dataIndex) {
+      confirm();
+      const [selectedKey] = selectedKeys;
+      this.searchText = selectedKey;
+      this.searchedColumn = dataIndex;
+    },
+
+    handleReset(clearFilters) {
+      clearFilters();
+      this.searchText = '';
     },
   },
 };

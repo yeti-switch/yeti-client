@@ -18,8 +18,6 @@ import { CDRS } from '@/constants';
 import DataTableAnt from '@/components/DataTableAnt/DataTableAnt';
 import { TABLE_HEADERS_ANT } from './constants';
 
-import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
-
 export default {
   name: 'Cdrs',
   components: {

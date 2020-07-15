@@ -3,6 +3,10 @@
     :fields="fields"
     :items="networks"
     :get-data="getNetworks"
+    local-filter-enabled
+    :local-filter-term="networksFilter"
+    :on-local-filter="onNetworksFilter"
+    :rows="rows"
   />
 </template>
 
@@ -30,18 +34,6 @@ export default {
           scopedSlots: {
             filterDropdown: 'filterDropdown',
             filterIcon: 'filterIcon',
-          },
-          onFilter: (value, record) =>
-            record.name
-              .toString()
-              .toLowerCase()
-              .includes(value.toLowerCase()),
-          onFilterDropdownVisibleChange: (visible) => {
-            if (visible) {
-              setTimeout(() => {
-                this.searchInput.focus();
-              }, 0);
-            }
           },
           customRender: (name, row) => (<a
             router-link

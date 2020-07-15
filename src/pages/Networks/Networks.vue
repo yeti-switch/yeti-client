@@ -13,6 +13,7 @@
 <script>
 import { get, flow } from 'lodash';
 import { mapGetters } from 'vuex';
+
 import { NETWORKS } from '@/constants';
 import utils from '@/utils';
 import DataTableAnt from '@/components/DataTableAnt/DataTableAnt';
@@ -31,10 +32,6 @@ export default {
           dataIndex: 'name',
           title: 'Name',
           width: 300,
-          scopedSlots: {
-            filterDropdown: 'filterDropdown',
-            filterIcon: 'filterIcon',
-          },
           customRender: (name, row) => (<a
             router-link
             href={`#/network-details/${row.id}`}

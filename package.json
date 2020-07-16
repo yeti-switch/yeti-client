@@ -15,7 +15,7 @@
     "chartjs-plugin-downsample": "^1.1.0",
     "date-fns": "^2.4.1",
     "devour-client": "^2.0.23",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "node-sass": "^4.13.0",
     "sass-loader": "^8.0.0",
     "store": "2.0.12",

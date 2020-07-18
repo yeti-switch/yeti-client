@@ -11,6 +11,7 @@ describe('Rates page', () => {
     const getRates = jest.fn();
     const store = new Vuex.Store({
       getters: {
+        activeAccount: () => ({ id: 'someId' }),
         rates: () => ({ items: [] }),
       },
       modules: {

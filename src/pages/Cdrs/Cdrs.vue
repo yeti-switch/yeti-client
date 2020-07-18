@@ -10,6 +10,7 @@
 
 <script>
 import { flow, get } from 'lodash';
+import { mapGetters } from 'vuex';
 
 import utils from '@/utils';
 import { CDRS } from '@/constants';
@@ -35,6 +36,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(['activeAccount']),
     cdrs() {
       return flow(utils.formatCdrs)(this.$store.getters.cdrs.items);
     },
@@ -42,8 +44,15 @@ export default {
       return get(this.$store.getters, ['cdrs', 'meta', 'total-count'], 0);
     },
   },
+  watch: {
+    activeAccount() {
+      this.getCdrs();
+    },
+  },
   created() {
-    this.getCdrs();
+    if (this.activeAccount) {
+      this.getCdrs();
+    }
   },
   methods: {
     getCdrs(pageNumber) {

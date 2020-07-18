@@ -14,7 +14,6 @@ import networkServices from './modules/networkServices';
 import statisticsCharts from './modules/statisticsCharts';
 import uiState from './modules/ui-state';
 
-import { currentAccountWatcher } from './plugins/currentAccountWatcher';
 import { timeRangeWatcher } from './plugins/timeRangeWatcher';
 
 Vue.use(Vuex);
@@ -23,7 +22,7 @@ export default new Vuex.Store({
   state: {},
   mutations: {},
   actions: {},
-  plugins: [currentAccountWatcher, timeRangeWatcher],
+  plugins: [timeRangeWatcher],
   modules: {
     auth,
     rates,

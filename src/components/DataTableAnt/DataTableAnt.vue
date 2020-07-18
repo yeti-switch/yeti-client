@@ -48,7 +48,7 @@
         :columns="fields"
         :data-source="items"
         :scroll="{ x: true, y: 700 }"
-        :pagination="{ pageSize: 50, total: rows}"
+        :pagination="{ pageSize: 50, total: rows, hideOnSinglePage: true }"
         @change="onPaginationChange"
       >
         <span

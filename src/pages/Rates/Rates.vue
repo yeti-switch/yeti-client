@@ -33,6 +33,7 @@ export default {
       return get(this.$store.getters, ['rates', 'meta', 'total-count'], 0);
     },
   },
+
   created() {
     this.getRates();
   },

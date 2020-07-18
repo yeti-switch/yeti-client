@@ -1,15 +1,15 @@
 import { mount, createLocalVue } from '@vue/test-utils';
 import Vuex from 'vuex';
-import {
-  BTable, BProgress, BPagination, BBadge,
-} from 'bootstrap-vue';
+import { BProgress } from 'bootstrap-vue';
 
-import DataTable from '../DataTable.vue';
+import { Table, Tag } from 'ant-design-vue';
+
+import DataTableAnt from '../DataTableAnt.vue';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
 
-describe('DataTable page', () => {
+describe('DataTableAnt', () => {
   it('is instance of Vue, with no entries passed as propsData', () => {
     const store = new Vuex.Store({
       getters: {
@@ -17,16 +17,16 @@ describe('DataTable page', () => {
       },
     });
 
-    const wrapper = mount(DataTable, {
+    const wrapper = mount(DataTableAnt, {
       store,
       localVue,
       stubs: {
-        'b-table': BTable,
-        'b-pagination': BPagination,
+        'a-table': Table,
         'b-progress': BProgress,
       },
     });
     expect(wrapper.isVueInstance()).toBeTruthy();
+    wrapper.destroy();
   });
   it('is instance of Vue, with correct entries passed as propsData', () => {
     const store = new Vuex.Store({
@@ -39,44 +39,49 @@ describe('DataTable page', () => {
       fields: [
         {
           key: 'name',
-          lable: 'Name',
+          dataIndex: 'name',
+          title: 'Name',
         },
         {
           key: 'surname',
-          label: 'Surname',
+          dataIndex: 'surname',
+          title: 'Surname',
         },
       ],
       items: [
         {
           name: 'Ivan',
+          key: 'Ivan',
           surname: 'Ivanoff',
         },
         {
           name: 'Andrzej',
+          key: 'Andrzej',
           surname: 'Kowalski',
         },
         {
           name: 'John',
+          key: 'John',
           surname: 'Dou',
         },
       ],
       rows: 2,
     };
 
-    const wrapper = mount(DataTable, {
+    const wrapper = mount(DataTableAnt, {
       store,
       localVue,
       propsData,
       stubs: {
-        'b-table': BTable,
-        'b-pagination': BPagination,
+        'a-table': Table,
         'b-progress': BProgress,
       },
     });
     expect(wrapper.findAll('tr').length).toBe(4); // Data + one tr for header
     expect(wrapper.findAll('td').at(4).text()).toBe('John');
+    wrapper.destroy();
   });
-  it('is instance of Vue, with correct entries passed as propsData, with badged column', () => {
+  it('is instance of Vue, with correct entries passed as propsData, with tagged column', () => {
     const store = new Vuex.Store({
       getters: {
         requestIsPending: () => false,
@@ -87,52 +92,57 @@ describe('DataTable page', () => {
       fields: [
         {
           key: 'name',
-          lable: 'Name',
+          dataIndex: 'name',
+          title: 'Name',
         },
         {
           key: 'surname',
-          label: 'Surname',
+          dataIndex: 'surname',
+          title: 'Surname',
         },
         {
           key: 'is-admin',
-          label: 'Is admin',
+          dataIndex: 'is-admin',
+          title: 'Is admin',
+          scopedSlots: {
+            customRender: 'badge',
+          },
         },
       ],
       items: [
         {
           name: 'Ivan',
+          key: 'Ivan',
           surname: 'Ivanoff',
           'is-admin': 'No',
         },
         {
           name: 'Andrzej',
+          key: 'Andrzej',
           surname: 'Kowalski',
           'is-admin': 'No',
         },
         {
           name: 'John',
+          key: 'John',
           surname: 'Dou',
           'is-admin': 'Yes',
         },
       ],
       rows: 3,
-      itemsToBadge: [{
-        id: 'is-admin',
-        errorValue: 'No',
-      }],
     };
 
-    const wrapper = mount(DataTable, {
+    const wrapper = mount(DataTableAnt, {
       store,
       localVue,
       propsData,
       stubs: {
-        'b-table': BTable,
-        'b-pagination': BPagination,
+        'a-table': Table,
+        'a-tag': Tag,
         'b-progress': BProgress,
-        'b-badge': BBadge,
       },
     });
-    expect(wrapper.findAll('.badge-pill').length).toBe(2);
+    expect(wrapper.findAll('.ant-tag-volcano').length).toBe(2);
+    wrapper.destroy();
   });
 });

@@ -13,9 +13,10 @@ const getters = {
   cdrFilter: (currentState) => currentState.cdrFilter,
 };
 const actions = {
-  [CDRS.ACTIONS.GET_CDRS]: ({ commit, rootState }, page) =>
+  [CDRS.ACTIONS.GET_CDRS]: ({ commit, rootState, rootGetters }, page) =>
     utils.wrapWithAsyncRequestStatus(commit, async () => {
       const filter = {
+        accountIdEq: rootGetters.activeAccount.id,
         timeStartGteq: rootState.timeRangeFilter.timeFilterValue.startDate,
         timeStartLteq: rootState.timeRangeFilter.timeFilterValue.endDate,
       };

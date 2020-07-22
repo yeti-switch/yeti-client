@@ -12,6 +12,7 @@ describe('StatisticsCharts page', () => {
     const store = new Vuex.Store({
       getters: {
         requestIsPending: () => false,
+        activeAccount: () => ({ id: 'someId' }),
       },
       modules: {
         statisticsCharts: {
@@ -30,6 +31,7 @@ describe('StatisticsCharts page', () => {
     const store = new Vuex.Store({
       getters: {
         requestIsPending: () => false,
+        activeAccount: () => ({ id: 'someId' }),
         activeCalls: () => (
           {
             terminatedCalls: [{ y: 12, x: 1000000000 }],

@@ -1,10 +1,8 @@
 <template>
-  <DataTable
+  <DataTableAnt
     :fields="fields"
     :items="rates"
-    :rows="rows"
     :get-data="getRates"
-    :items-to-badge="itemsToBadge"
   />
 </template>
 
@@ -13,22 +11,18 @@ import { flow, get } from 'lodash';
 
 import utils from '@/utils';
 import { RATES } from '@/constants';
-import DataTable from '@/components/DataTable/DataTable';
+import DataTableAnt from '@/components/DataTableAnt/DataTableAnt';
 
-import { TABLE_HEADERS } from './constants';
+import { TABLE_HEADERS_ANT } from './constants';
 
 export default {
   name: 'Rates',
   components: {
-    DataTable,
+    DataTableAnt,
   },
   data() {
     return {
-      fields: TABLE_HEADERS,
-      itemsToBadge: [{
-        id: 'reject-calls',
-        errorValue: false,
-      }],
+      fields: TABLE_HEADERS_ANT,
     };
   },
   computed: {
@@ -39,6 +33,7 @@ export default {
       return get(this.$store.getters, ['rates', 'meta', 'total-count'], 0);
     },
   },
+
   created() {
     this.getRates();
   },

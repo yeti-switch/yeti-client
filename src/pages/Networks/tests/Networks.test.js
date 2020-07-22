@@ -1,7 +1,7 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 import Vuex from 'vuex';
 
-import DataTable from '@/components/DataTable/DataTable';
+import DataTableAnt from '@/components/DataTableAnt/DataTableAnt';
 import Networks from '../Networks.vue';
 
 const localVue = createLocalVue();
@@ -60,8 +60,8 @@ describe('Networks page', () => {
     });
 
     const wrapper = shallowMount(Networks, { store, localVue });
-    expect(wrapper.find(DataTable).props('localFilterTerm')).toBe('alabama');
-    expect(wrapper.find(DataTable).props('items').length).toBe(2);
-    expect(wrapper.find(DataTable).props('rows')).toBe(500);
+    expect(wrapper.find(DataTableAnt).props('localFilterTerm')).toBe('alabama');
+    expect(wrapper.find(DataTableAnt).props('items').length).toBe(2);
+    expect(wrapper.find(DataTableAnt).props('rows')).toBe(500);
   });
 });

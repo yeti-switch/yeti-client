@@ -20,6 +20,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import DataChart from '@/components/DataChart/DataChart';
+import { STATISTICS } from '@/constants';
 
 import { CHART_OPTIONS, INITIAL_DATASETS_SETTINGS } from './constants';
 
@@ -36,7 +37,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['requestIsPending']),
+    ...mapGetters(['requestIsPending', 'activeAccount']),
     derivedActiveCallsChartData() {
       const chartData = {
         datasets: [],
@@ -91,9 +92,19 @@ export default {
       return chartData;
     },
   },
+  watch: {
+    activeAccount() {
+      this.$store.dispatch(STATISTICS.ACTIONS.GET_STATISTICS);
+    },
+  },
   mounted() {
     // 100 is kinda magic number which will gave us nice chart height
     this.chartHeight = (document.querySelector('.working-area-wrapper').clientHeight - 100) / 2;
+  },
+  created() {
+    if (this.activeAccount) {
+      this.$store.dispatch(STATISTICS.ACTIONS.GET_STATISTICS);
+    }
   },
 };
 </script>

@@ -32,7 +32,7 @@ export const RATE_ENTRY_FROM_API = {
 export const RATE_ENTRY_IN_TABLE = {
   prefix: '380',
   'connect-fee': '0.0',
-  'reject-calls': false,
+  'reject-calls': 'false',
   'valid-from': createDateForTestResult(RATE_ENTRY_FROM_API['valid-from']),
   'valid-till': createDateForTestResult(RATE_ENTRY_FROM_API['valid-till']),
   'network-prefix-id': 996,

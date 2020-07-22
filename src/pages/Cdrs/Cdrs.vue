@@ -1,5 +1,5 @@
 <template>
-  <DataTable
+  <DataTableAnt
     :fields="fields"
     :items="cdrs"
     :rows="rows"
@@ -10,24 +10,25 @@
 
 <script>
 import { flow, get } from 'lodash';
+import { mapGetters } from 'vuex';
 
 import utils from '@/utils';
 import { CDRS } from '@/constants';
 
-import DataTable from '@/components/DataTable/DataTable';
-import { TABLE_HEADERS } from './constants';
-
-import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
+// import DataTable from '@/components/DataTable/DataTable';
+import DataTableAnt from '@/components/DataTableAnt/DataTableAnt';
+import { TABLE_HEADERS_ANT } from './constants';
 
 export default {
   name: 'Cdrs',
   components: {
-    DataTable,
+    // DataTable,
+    DataTableAnt,
   },
   data() {
     return {
       // Table fields
-      fields: TABLE_HEADERS,
+      fields: TABLE_HEADERS_ANT,
       itemsToBadge: [{
         id: 'success',
         errorValue: 'No',
@@ -35,6 +36,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(['activeAccount']),
     cdrs() {
       return flow(utils.formatCdrs)(this.$store.getters.cdrs.items);
     },
@@ -42,8 +44,15 @@ export default {
       return get(this.$store.getters, ['cdrs', 'meta', 'total-count'], 0);
     },
   },
+  watch: {
+    activeAccount() {
+      this.getCdrs();
+    },
+  },
   created() {
-    this.getCdrs();
+    if (this.activeAccount) {
+      this.getCdrs();
+    }
   },
   methods: {
     getCdrs(pageNumber) {

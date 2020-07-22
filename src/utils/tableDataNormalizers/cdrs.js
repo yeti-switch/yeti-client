@@ -2,7 +2,7 @@ import { formatDateFromString } from '../date/date';
 import { prettifyNullValue } from './common';
 
 export const formatCdrs = (cdrs = []) =>
-  cdrs.map((item) => {
+  cdrs.map((item, index) => {
     item['time-start'] = formatDateFromString(item['time-start']);
     item['time-connect'] = formatDateFromString(item['time-connect']);
     item['time-end'] = formatDateFromString(item['time-end']);
@@ -11,6 +11,7 @@ export const formatCdrs = (cdrs = []) =>
     item.rate = `${prettifyNullValue(item['destination-initial-rate'])}/${prettifyNullValue(item['destination-next-rate'])}`;
     item['billing-intervals'] = `${prettifyNullValue(item['destination-initial-interval'])}/${prettifyNullValue(item['destination-next-interval'])}`;
     item['originator-address'] = `${item['auth-orig-ip']}:${item['auth-orig-port']}`;
+    item.key = index;
 
     return item;
   });

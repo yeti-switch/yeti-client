@@ -11,10 +11,19 @@ localVue.use(BootstrapVue);
 
 describe('Accounts page', () => {
   it('is instance of Vue, with no account entries in store', () => {
+    const getAccountDetails = jest.fn();
     const store = new Vuex.Store({
       getters: {
+        activeAccount: () => ({ id: 'someId' }),
         accounts: () => ([]),
         currentAccountDetails: () => (ACCOUNT_DETAILS),
+      },
+      modules: {
+        accounts: {
+          actions: {
+            getAccountDetails,
+          },
+        },
       },
     });
     const wrapper = shallowMount(Accounts, { store, localVue });
@@ -28,6 +37,7 @@ describe('Accounts page', () => {
     const store = new Vuex.Store({
       getters: {
         accounts: () => ([]),
+        activeAccount: () => ({ id: 'someId' }),
         currentAccountDetails: () => (ACCOUNT_DETAILS),
       },
       modules: {

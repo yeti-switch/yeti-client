@@ -1,34 +1,53 @@
-export const TABLE_HEADERS = [
+export const TABLE_HEADERS_ANT = [
   {
     key: 'prefix',
-    label: 'Prefix',
+    dataIndex: 'prefix',
+    title: 'Prefix',
+    width: 200,
   },
   {
     key: 'reject-calls',
-    label: 'Reject calls',
+    dataIndex: 'reject-calls',
+    title: 'Reject calls',
+    width: 200,
+    scopedSlots: {
+      customRender: 'badge',
+    },
   },
   {
     key: 'billing-interval',
-    label: 'Billing interval',
+    dataIndex: 'billing-interval',
+    title: 'Billing interval',
+    width: 200,
   },
   {
     key: 'rate',
-    label: 'Rate',
+    dataIndex: 'rate',
+    title: 'Rate',
+    width: 200,
   },
   {
     key: 'connect-fee',
-    label: 'Connect fee',
+    dataIndex: 'connect-fee',
+    title: 'Connect fee',
+    width: 200,
   },
   {
     key: 'network-prefix',
-    label: 'Network prefix',
+    dataIndex: 'network-prefix',
+    title: 'Network prefix',
+    width: 200,
   },
   {
     key: 'valid-from',
-    label: 'Valid from',
+    dataIndex: 'valid-from',
+    title: 'Valid from',
+    width: 200,
   },
   {
     key: 'valid-till',
-    label: 'Valid till',
+    dataIndex: 'valid-till',
+    title: 'Valid till',
+    width: 200,
   },
 ];

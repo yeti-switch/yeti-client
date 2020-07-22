@@ -11,6 +11,7 @@ describe('Cdrs page', () => {
     const getCdrs = jest.fn();
     const store = new Vuex.Store({
       getters: {
+        activeAccount: () => ({ id: 'someId' }),
         cdrs: () => ({ items: [] }),
       },
       modules: {

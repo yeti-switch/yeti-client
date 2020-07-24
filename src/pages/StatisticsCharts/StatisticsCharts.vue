@@ -18,7 +18,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
+
 import DataChart from '@/components/DataChart/DataChart';
 import { STATISTICS } from '@/constants';
 
@@ -37,13 +38,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['requestIsPending', 'activeAccount']),
+    ...mapGetters(['requestIsPending', 'activeAccount', 'activeCalls', 'originatedCps']),
     derivedActiveCallsChartData() {
       const chartData = {
         datasets: [],
       };
 
-      if (this.$store.getters.activeCalls) {
+      if (this.activeCalls) {
         // For some reason, pushing dataset configs in scope of below Object.keys
         // cause continous dataset refresh, which results in page crash
         chartData.datasets.push({
@@ -60,7 +61,7 @@ export default {
         });
 
         Object.keys(INITIAL_DATASETS_SETTINGS).forEach((key, index) => {
-          this.$store.getters.activeCalls[key].forEach((dataEntry) => {
+          this.activeCalls[key].forEach((dataEntry) => {
             const { x, y } = dataEntry;
 
             chartData.datasets[index].data.push({
@@ -77,12 +78,12 @@ export default {
         datasets: [],
       };
 
-      if (this.$store.getters.originatedCps) {
+      if (this.originatedCps) {
         // For some reason, pushing dataset configs in scope of below Object.keys
         // cause continous dataset refresh, which results in page crash
         chartData.datasets.push({
           label: 'Originated CPS',
-          data: this.$store.getters.originatedCps.cps.map(({ x, y }) =>
+          data: this.originatedCps.cps.map(({ x, y }) =>
             ({ y, x: Date.parse(x) })),
           backgroundColor: 'transparent',
           borderColor: 'orange',
@@ -94,17 +95,20 @@ export default {
   },
   watch: {
     activeAccount() {
-      this.$store.dispatch(STATISTICS.ACTIONS.GET_STATISTICS);
+      this[STATISTICS.ACTIONS.GET_STATISTICS]();
     },
   },
   mounted() {
-    // 100 is kinda magic number which will gave us nice chart height
+    // 100 is magic number which will gave us nice chart height
     this.chartHeight = (document.querySelector('.working-area-wrapper').clientHeight - 100) / 2;
   },
   created() {
     if (this.activeAccount) {
-      this.$store.dispatch(STATISTICS.ACTIONS.GET_STATISTICS);
+      this[STATISTICS.ACTIONS.GET_STATISTICS]();
     }
+  },
+  methods: {
+    ...mapActions([STATISTICS.ACTIONS.GET_STATISTICS]),
   },
 };
 </script>

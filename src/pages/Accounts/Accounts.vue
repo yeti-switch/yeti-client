@@ -19,7 +19,7 @@ export default {
     ...mapGetters(['activeAccount', 'currentAccountDetails']),
     account() {
       return utils.formatAccount(
-        this.currentAccountDetails, COMMON_TABLE_ENTITY_EXCLUDED_FIELDS,
+        COMMON_TABLE_ENTITY_EXCLUDED_FIELDS, this.currentAccountDetails,
       );
     },
   },

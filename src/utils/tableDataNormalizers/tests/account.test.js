@@ -18,7 +18,7 @@ describe('formatAccount store helper', () => {
       },
     ];
 
-    const result = account.formatAccount(correctInitialParams, COMMON_TABLE_ENTITY_EXCLUDED_FIELDS);
+    const result = account.formatAccount(COMMON_TABLE_ENTITY_EXCLUDED_FIELDS, correctInitialParams);
     expect(result).toMatchObject(expectedResult);
   });
 });

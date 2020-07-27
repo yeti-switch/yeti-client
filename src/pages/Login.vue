@@ -2,6 +2,7 @@
   <div id="auth">
     <img
       src="https://picsum.photos/800/450"
+      alt="Yeti logo"
       @load="onImageLoad"
       @error="onImageLoad"
     >

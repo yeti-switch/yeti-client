@@ -2,6 +2,8 @@
 node_modules
 /dist
 TODO.list
+/coverage
+.scannerwork/
 
 # local env files
 .env.local

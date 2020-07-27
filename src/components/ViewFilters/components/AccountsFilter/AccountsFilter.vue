@@ -3,7 +3,7 @@
     Account:
     <b-dropdown
       v-if="activeAccount"
-      :text="activeAccountName"
+      :text="activeAccount.name"
       class="m-md-2"
     >
       <b-dropdown-item
@@ -19,27 +19,22 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 import { ACCOUNTS } from '@/constants';
 
 export default {
   computed: {
     ...mapGetters(['activeAccount', 'accounts']),
-    activeAccountName() {
-      return this.activeAccount.name;
-    },
   },
   created() {
-    this.getAccounts();
+    this[ACCOUNTS.ACTIONS.GET_ACCOUNTS]();
   },
   methods: {
-    getAccounts() {
-      this.$store.dispatch(ACCOUNTS.ACTIONS.GET_ACCOUNTS);
-    },
+    ...mapActions([ACCOUNTS.ACTIONS.GET_ACCOUNTS, ACCOUNTS.ACTIONS.SET_CHOSEN_ACCOUNT_ID]),
     optionClick(id) {
-      if (this.$store.getters.activeAccount.id !== id) {
-        this.$store.dispatch(ACCOUNTS.ACTIONS.SET_CHOSEN_ACCOUNT_ID, id);
+      if (this.activeAccount.id !== id) {
+        this[ACCOUNTS.ACTIONS.SET_CHOSEN_ACCOUNT_ID](id);
       }
     },
   },

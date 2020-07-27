@@ -39,7 +39,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .accounts-page {
   // Following rules are so big, so they will be able to overwrite library styles
   .table.b-table.b-table-stacked {

@@ -15,6 +15,7 @@ import { capitalize } from 'lodash';
 import {
   BIconPeople, BIconCalendar, BIconWallet, BIconGraphUp, BIconShuffle,
 } from 'bootstrap-vue';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'NavItem',
@@ -40,19 +41,20 @@ export default {
     },
   },
   computed: {
+    ...mapGetters(['blockedPages']),
     iconName() {
-      return `${this.$props.routeName}-icon`;
+      return `${this.routeName}-icon`;
     },
     itemText() {
-      return capitalize(this.$props.routeName);
+      return capitalize(this.routeName);
     },
   },
   methods: {
     isNavItemVisible(name) {
-      return !this.$store.getters.blockedPages.has(name);
+      return !this.blockedPages.has(name);
     },
     getNavItemName(name) {
-      return this.$props.navOpened ? name : '';
+      return this.navOpened ? name : '';
     },
   },
 };

@@ -36,7 +36,7 @@
       <b-nav-item
         v-if="isAuthenticated"
         href="#"
-        @click="logout"
+        @click="logoutHandler"
       >
         <logout-compact-icon />
         {{ getNavItemName('Logout') }}
@@ -56,7 +56,7 @@
 import {
   BIconBoxArrowLeft,
 } from 'bootstrap-vue';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import {
   AUTH, ACCOUNT_INFO_PATHS, ACCOUNT_INFO_ROUTE_NAMES, UI_STATE,
 } from '@/constants';
@@ -98,11 +98,12 @@ export default {
     },
   },
   methods: {
+    ...mapActions([UI_STATE.ACTIONS.SET_NAV_STATE, AUTH.ACTIONS.LOGOUT]),
     toggleNavState() {
-      this.$store.dispatch(UI_STATE.ACTIONS.SET_NAV_STATE, !this.navOpened);
+      this[UI_STATE.ACTIONS.SET_NAV_STATE](!this.navOpened);
     },
-    logout() {
-      this.$store.dispatch(AUTH.ACTIONS.LOGOUT).then(() => this.$router.push('/login'));
+    logoutHandler() {
+      this[AUTH.ACTIONS.LOGOUT]().then(() => this.$router.push('/login'));
     },
     getNavItemName(name) {
       return this.navOpened ? name : '';

@@ -18,8 +18,8 @@ export default {
   },
   computed: {
     isTimeRangeEnabled() {
-      return this.$store.state.route.name === ACCOUNT_INFO_ROUTE_NAMES.CDRS
-        || this.$store.state.route.name === ACCOUNT_INFO_ROUTE_NAMES.STATISTICS;
+      return this.$route.name === ACCOUNT_INFO_ROUTE_NAMES.CDRS
+        || this.$route.name === ACCOUNT_INFO_ROUTE_NAMES.STATISTICS;
     },
   },
 };

@@ -11,7 +11,7 @@
       :date-util="settings.dateUtil"
       :linked-calendars="settings.linkedCalendars"
       @toggle="toggleIfNotLoading"
-      @update="updateValues"
+      @update="filterSet"
     >
       >
       <div
@@ -28,7 +28,7 @@
       size="sm"
       class="ml-2"
       :disabled="requestIsPending"
-      @click="onResetClick"
+      @click="filterReset"
     >
       Reset
     </b-button>
@@ -37,7 +37,7 @@
 
 <script>
 import DateRangePicker from 'vue2-daterange-picker';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 import utils from '@/utils';
 import { TIME_RANGE_FILTER } from '@/constants';
@@ -76,12 +76,7 @@ export default {
     ...mapGetters(['timeFilterValue', 'requestIsPending']),
   },
   methods: {
-    updateValues(value) {
-      this.$store.dispatch(TIME_RANGE_FILTER.ACTIONS.FILTER_SET, value);
-    },
-    onResetClick() {
-      this.$store.dispatch(TIME_RANGE_FILTER.ACTIONS.FILTER_RESET);
-    },
+    ...mapActions([TIME_RANGE_FILTER.ACTIONS.FILTER_SET, TIME_RANGE_FILTER.ACTIONS.FILTER_RESET]),
     toggleIfNotLoading() {
       if (this.requestIsPending) {
         this.$refs.picker.open = false;

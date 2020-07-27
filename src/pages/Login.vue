@@ -38,6 +38,7 @@
 
 <script>
 
+import { mapActions } from 'vuex';
 import { AUTH, NOTIFICATION_TYPES } from '../constants';
 
 export default {
@@ -55,12 +56,13 @@ export default {
     }, 3000);
   },
   methods: {
+    ...mapActions([AUTH.ACTIONS.AUTH_REQUEST]),
     onImageLoad() {
       this.imageLoaded = true;
     },
     onSubmit() {
       const { login, password } = this;
-      this.$store.dispatch(AUTH.ACTIONS.AUTH_REQUEST, { login, password })
+      this[AUTH.ACTIONS.AUTH_REQUEST]({ login, password })
         .then(() => this.$router.push(this.$route.query.redirect || '/'))
         .then(() => this.$notify({
           type: NOTIFICATION_TYPES.SUCCESS,

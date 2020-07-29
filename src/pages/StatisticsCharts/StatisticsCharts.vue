@@ -2,14 +2,14 @@
   <div>
     <data-chart
       v-if="!requestIsPending"
-      :chart-data="derivedActiveCallsChartData"
+      :chart-data="activeCallsData"
       :options="chartOptions"
       :height="chartHeight"
       :width="null"
     />
     <data-chart
       v-if="!requestIsPending"
-      :chart-data="derivedOriginatedCpsChartData"
+      :chart-data="originatedCpsData"
       :options="chartOptions"
       :height="chartHeight"
       :width="null"
@@ -47,27 +47,31 @@ export default {
       if (this.activeCalls) {
         // For some reason, pushing dataset configs in scope of below Object.keys
         // cause continous dataset refresh, which results in page crash
-        chartData.datasets.push({
-          label: 'Originated calls',
-          data: [],
-          backgroundColor: 'transparent',
-          borderColor: 'lightgreen',
-        });
-        chartData.datasets.push({
-          label: 'Terminated calls',
-          data: [],
-          backgroundColor: 'transparent',
-          borderColor: 'lightblue',
-        });
+        // chartData.datasets.push({
+        //   label: 'Originated calls',
+        //   data: [],
+        //   backgroundColor: 'transparent',
+        //   borderColor: 'lightgreen',
+        // });
+        // chartData.datasets.push({
+        //   label: 'Terminated calls',
+        //   data: [],
+        //   backgroundColor: 'transparent',
+        //   borderColor: 'lightblue',
+        // });
 
-        Object.keys(INITIAL_DATASETS_SETTINGS).forEach((key, index) => {
-          this.activeCalls[key].forEach((dataEntry) => {
-            const { x, y } = dataEntry;
+        Object.keys(INITIAL_DATASETS_SETTINGS).forEach((key) => {
+          const dataset = { ...INITIAL_DATASETS_SETTINGS[key] };
+          dataset.data = this.activeCalls[key].map(({ x, y }) =>
+            ({ y: x, x: Date.parse(y) }));
+          chartData.datasets.push(dataset);
+          // this.activeCalls[key].forEach((dataEntry) => {
+          //   const { x, y } = dataEntry;
 
-            chartData.datasets[index].data.push({
-              y, x: Date.parse(x),
-            });
-          });
+          //   chartData.datasets[index].data.push({
+          //     y, x: Date.parse(x),
+          //   });
+          // });
         });
       }
 
@@ -84,13 +88,31 @@ export default {
         chartData.datasets.push({
           label: 'Originated CPS',
           data: this.originatedCps.cps.map(({ x, y }) =>
-            ({ y, x: Date.parse(x) })),
+            ({ y: x, x: Date.parse(y) })),
           backgroundColor: 'transparent',
           borderColor: 'orange',
         });
       }
 
       return chartData;
+    },
+    derivedCharData() {
+      const chartsData = { ...this.activeCalls, ...this.originatedCps };
+
+      return Object.entries(INITIAL_DATASETS_SETTINGS).reduce((acc, [key, value]) => {
+        acc[key] = {
+          ...value,
+          data: chartsData[key].map(({ x, y }) => ({ y: x, x: Date.parse(y) })),
+        };
+
+        return acc;
+      }, {});
+    },
+    originatedCpsData() {
+      return { datasets: [this.derivedCharData.cps] };
+    },
+    activeCallsData() {
+      return { datasets: Object.entries(this.derivedCharData).filter(([key]) => key !== 'cps').map(([, value]) => value) };
     },
   },
   watch: {

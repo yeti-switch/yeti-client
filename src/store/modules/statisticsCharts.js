@@ -7,8 +7,8 @@ const state = {
   originatedCps: {},
 };
 const getters = {
-  activeCalls: (currentState) => currentState.activeCalls.data,
-  originatedCps: (currentState) => currentState.originatedCps.data,
+  activeCalls: (currentState) => currentState.activeCalls,
+  originatedCps: (currentState) => currentState.originatedCps,
 };
 const actions = {
   [STATISTICS.ACTIONS.GET_STATISTICS]: ({ commit, rootGetters, rootState }) => {
@@ -30,8 +30,8 @@ const actions = {
 };
 const mutations = {
   [STATISTICS.MUTATIONS.SET_STATISTICS]: (currentState, { activeCalls, originatedCps }) => {
-    currentState.activeCalls = activeCalls;
-    currentState.originatedCps = originatedCps;
+    currentState.activeCalls = activeCalls.data;
+    currentState.originatedCps = originatedCps.data;
   },
 };
 

@@ -69,7 +69,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "docker run --network=host -e SONAR_HOST_URL='http://127.0.0.1:9000' --user='$(id -u):$(id -g)' -v '$PWD:/usr/src' sonarsource/sonar-scanner-cli"
+      "pre-push": "docker run --network=host -e SONAR_HOST_URL='http://127.0.0.1:9000' -v `pwd`:'/usr/src' sonarsource/sonar-scanner-cli"
     }
   }
 }

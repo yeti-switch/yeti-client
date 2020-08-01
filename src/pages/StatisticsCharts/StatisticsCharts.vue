@@ -40,16 +40,20 @@ export default {
   computed: {
     ...mapGetters(['requestIsPending', 'activeAccount', 'activeCalls', 'originatedCps']),
     derivedCharData() {
-      const chartsData = { ...this.activeCalls, ...this.originatedCps };
+      if (this.activeCalls && this.originatedCps) {
+        const chartsData = { ...this.activeCalls, ...this.originatedCps };
 
-      return Object.entries(INITIAL_DATASETS_SETTINGS).reduce((acc, [key, value]) => {
-        acc[key] = {
-          ...value,
-          data: chartsData[key].map(({ x, y }) => ({ y, x: Date.parse(x) })),
-        };
+        return Object.entries(INITIAL_DATASETS_SETTINGS).reduce((acc, [key, value]) => {
+          acc[key] = {
+            ...value,
+            data: chartsData[key].map(({ x, y }) => ({ y, x: Date.parse(x) })),
+          };
 
-        return acc;
-      }, {});
+          return acc;
+        }, {});
+      }
+
+      return {};
     },
     originatedCpsData() {
       return { datasets: [this.derivedCharData.cps] };

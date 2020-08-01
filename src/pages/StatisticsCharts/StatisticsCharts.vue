@@ -45,7 +45,7 @@ export default {
       return Object.entries(INITIAL_DATASETS_SETTINGS).reduce((acc, [key, value]) => {
         acc[key] = {
           ...value,
-          data: chartsData[key].map(({ x, y }) => ({ y: x, x: Date.parse(y) })),
+          data: chartsData[key].map(({ x, y }) => ({ y, x: Date.parse(x) })),
         };
 
         return acc;

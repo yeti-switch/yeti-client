@@ -1,18 +1,18 @@
 <template>
   <DataTableAnt
     :fields="fields"
-    :items="networks"
+    :items="formattedNetworks"
     :get-data="getNetworks"
     local-filter-enabled
     :local-filter-term="networksFilter"
-    :on-local-filter="onNetworksFilter"
+    :on-local-filter="setNetworksFilter"
     :rows="rows"
   />
 </template>
 
 <script>
 import { get, flow } from 'lodash';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 import { NETWORKS } from '@/constants';
 import utils from '@/utils';
@@ -55,24 +55,19 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['networksFilter']),
-    networks() {
-      return flow(utils.formatNetworks)(this.$store.getters.networks.items);
+    ...mapGetters(['networksFilter', 'networks']),
+    formattedNetworks() {
+      return flow(utils.formatNetworks)(this.networks.items);
     },
     rows() {
-      return get(this.$store.getters, ['networks', 'meta', 'total-count'], 0);
+      return get(this.networks, ['meta', 'total-count'], 0);
     },
   },
   created() {
-    this.getNetworks();
+    this[NETWORKS.ACTIONS.GET_NETWORKS]();
   },
   methods: {
-    getNetworks(pageNumber) {
-      this.$store.dispatch(NETWORKS.ACTIONS.GET_NETWORKS, pageNumber);
-    },
-    onNetworksFilter(filterTerm) {
-      this.$store.dispatch(NETWORKS.ACTIONS.SET_NETWORKS_FILTER, filterTerm);
-    },
+    ...mapActions([NETWORKS.ACTIONS.GET_NETWORKS, NETWORKS.ACTIONS.SET_NETWORKS_FILTER]),
   },
 };
 </script>

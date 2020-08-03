@@ -1,13 +1,14 @@
 <template>
   <DataTableAnt
     :fields="fields"
-    :items="rates"
+    :items="formattedRates"
     :get-data="getRates"
   />
 </template>
 
 <script>
 import { flow, get } from 'lodash';
+import { mapGetters, mapActions } from 'vuex';
 
 import utils from '@/utils';
 import { RATES } from '@/constants';
@@ -26,24 +27,19 @@ export default {
     };
   },
   computed: {
-    rates() {
-      return flow(utils.formatRates)(this.$store.getters.rates.items);
+    ...mapGetters(['rates']),
+    formattedRates() {
+      return flow(utils.formatRates)(this.rates.items);
     },
     rows() {
-      return get(this.$store.getters, ['rates', 'meta', 'total-count'], 0);
+      return get(this.rates, ['meta', 'total-count'], 0);
     },
   },
-
   created() {
-    this.getRates();
+    this[RATES.ACTIONS.GET_RATES]();
   },
   methods: {
-    getRates(pageNumber) {
-      this.$store.dispatch(RATES.ACTIONS.GET_RATES, pageNumber);
-    },
+    ...mapActions([RATES.ACTIONS.GET_RATES]),
   },
 };
 </script>
-
-<style>
-</style>

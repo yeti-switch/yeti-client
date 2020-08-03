@@ -72,4 +72,7 @@ export const INITIAL_DATASETS_SETTINGS = {
   originatedCalls: {
     label: 'Originated calls', data: [], backgroundColor: 'transparent', borderColor: 'lightgreen',
   },
+  cps: {
+    label: 'Originated CPS', data: [], backgroundColor: 'transparent', borderColor: 'orange',
+  },
 };

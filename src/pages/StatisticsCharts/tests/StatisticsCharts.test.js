@@ -13,6 +13,8 @@ describe('StatisticsCharts page', () => {
       getters: {
         requestIsPending: () => false,
         activeAccount: () => ({ id: 'someId' }),
+        activeCalls: () => undefined,
+        originatedCps: () => undefined,
       },
       modules: {
         statisticsCharts: {

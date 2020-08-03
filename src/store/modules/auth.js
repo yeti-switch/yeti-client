@@ -1,8 +1,10 @@
 import { jsonApi } from '@/api';
 import { RESOURCES, AUTH } from '@/constants';
 
+const YETI_TOKEN = 'yeti-token';
+
 const state = {
-  token: sessionStorage.getItem('yeti-token'),
+  token: sessionStorage.getItem(YETI_TOKEN),
   status: '',
 };
 const getters = {
@@ -17,10 +19,10 @@ const actions = {
 
     jsonApi.setToken(jwt);
     commit(AUTH.MUTATIONS.AUTH_SUCCESS, jwt);
-    sessionStorage.setItem('yeti-token', jwt);
+    sessionStorage.setItem(YETI_TOKEN, jwt);
   },
   [AUTH.ACTIONS.LOCAL_AUTH]: ({ commit }) => {
-    const jwt = sessionStorage.getItem('yeti-token');
+    const jwt = sessionStorage.getItem(YETI_TOKEN);
 
     jsonApi.setToken(jwt);
     if (jwt) {
@@ -32,7 +34,7 @@ const actions = {
   [AUTH.ACTIONS.LOGOUT]: ({ commit }) =>
     new Promise((resolve) => {
       commit(AUTH.MUTATIONS.LOGOUT);
-      sessionStorage.removeItem('yeti-token');
+      sessionStorage.removeItem(YETI_TOKEN);
       resolve();
     }),
 };

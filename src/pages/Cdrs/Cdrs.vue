@@ -1,7 +1,7 @@
 <template>
   <DataTableAnt
     :fields="fields"
-    :items="cdrs"
+    :items="formattedCdrs"
     :rows="rows"
     :get-data="getCdrs"
     :items-to-badge="itemsToBadge"
@@ -10,19 +10,17 @@
 
 <script>
 import { flow, get } from 'lodash';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 import utils from '@/utils';
 import { CDRS } from '@/constants';
-
-// import DataTable from '@/components/DataTable/DataTable';
 import DataTableAnt from '@/components/DataTableAnt/DataTableAnt';
+
 import { TABLE_HEADERS_ANT } from './constants';
 
 export default {
   name: 'Cdrs',
   components: {
-    // DataTable,
     DataTableAnt,
   },
   data() {
@@ -36,31 +34,26 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['activeAccount']),
-    cdrs() {
-      return flow(utils.formatCdrs)(this.$store.getters.cdrs.items);
+    ...mapGetters(['activeAccount', 'cdrs']),
+    formattedCdrs() {
+      return flow(utils.formatCdrs)(this.cdrs.items);
     },
     rows() {
-      return get(this.$store.getters, ['cdrs', 'meta', 'total-count'], 0);
+      return get(this.cdrs, ['meta', 'total-count'], 0);
     },
   },
   watch: {
     activeAccount() {
-      this.getCdrs();
+      this[CDRS.ACTIONS.GET_CDRS]();
     },
   },
   created() {
     if (this.activeAccount) {
-      this.getCdrs();
+      this[CDRS.ACTIONS.GET_CDRS]();
     }
   },
   methods: {
-    getCdrs(pageNumber) {
-      this.$store.dispatch(CDRS.ACTIONS.GET_CDRS, pageNumber);
-    },
+    ...mapActions([CDRS.ACTIONS.GET_CDRS]),
   },
 };
 </script>
-
-<style>
-</style>

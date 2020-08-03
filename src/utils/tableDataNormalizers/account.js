@@ -1,6 +1,6 @@
 import { omit, lowerCase, capitalize } from 'lodash';
 
-export const formatAccount = (accountDetails = {}, excludedFields) => {
+export const formatAccount = (excludedFields, accountDetails = {}) => {
   const result = Object.entries(
     // Get rid of not needed properties
     omit(accountDetails, excludedFields),

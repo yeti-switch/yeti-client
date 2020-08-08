@@ -2,12 +2,16 @@
   <div id="app">
     <notifications />
     <main>
-      <NavBar />
-      <div class="working-area-wrapper">
-        <router-view :name="loginRouteName" />
-        <router-view :name="filtersRouteName" />
-        <router-view />
-      </div>
+      <a-layout>
+        <NavBar />
+        <a-layout-content>
+          <div class="working-area-wrapper">
+            <router-view :name="loginRouteName" />
+            <router-view :name="filtersRouteName" />
+            <router-view />
+          </div>
+        </a-layout-content>
+      </a-layout>
     </main>
   </div>
 </template>

@@ -142,6 +142,10 @@ export default {
   td {
     white-space: nowrap;
   }
+
+  table {
+    width: 100% !important;
+  }
 }
 
 #localFilterInput {
@@ -159,6 +163,7 @@ export default {
         vertical-align: .125em;
       }
     }
+
   }
 }
 </style>

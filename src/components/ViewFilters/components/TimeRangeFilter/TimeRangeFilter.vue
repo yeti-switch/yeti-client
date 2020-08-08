@@ -22,16 +22,14 @@
         {{ picker.startDate | date }} - {{ picker.endDate | date }}
       </div>
     </date-range-picker>
-    <b-button
-      type="reset"
+    <a-button
       variant="light"
-      size="sm"
-      class="ml-2"
+      size="large"
       :disabled="requestIsPending"
       @click="filterReset"
     >
       Reset
-    </b-button>
+    </a-button>
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <a-layout-header class="view-filters mb-3">
+  <a-layout-header class="view-filters">
     <AccountsFilter />
     <TimeRangeFilter v-if="isTimeRangeEnabled" />
   </a-layout-header>

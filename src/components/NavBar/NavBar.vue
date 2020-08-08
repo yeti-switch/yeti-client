@@ -9,18 +9,14 @@
       :href="linkOnLogo"
       target="_blank"
     >
-      <img
-        v-show="!navOpened"
-        alt="Yeti logo"
-        src="@/assets/images/logo.png"
-      >
-      <img
-        v-show="navOpened"
-        width="50px"
-        height="40px"
-        alt="Yeti logo"
-        src="@/assets/images/yeti.svg"
-      >
+      <div
+        v-show="!navCollapsed"
+        class="logo-regular"
+      />
+      <div
+        v-show="navCollapsed"
+        class="logo-collapsed"
+      />
     </a>
     <a-menu
       mode="inline"
@@ -69,10 +65,10 @@ import { NAV_ITEMS } from './constants';
 export default {
   name: 'NavBar',
   computed: {
-    ...mapGetters(['isAuthenticated', 'linkOnLogo', 'navOpened', 'blockedPages']),
+    ...mapGetters(['isAuthenticated', 'linkOnLogo', 'navCollapsed', 'blockedPages']),
     collapsed: {
       get() {
-        return this.navOpened;
+        return this.navCollapsed;
       },
       set(value) {
         this[UI_STATE.ACTIONS.SET_NAV_STATE](value);
@@ -82,7 +78,6 @@ export default {
       return NAV_ITEMS.filter(this.isNavItemVisible);
     },
     activeLink() {
-      console.log(this.$route);
       return [(this.$route.query.redirect || this.$route.path).slice(1)];
     },
   },
@@ -127,7 +122,7 @@ export default {
 }
 
 .logo {
-  margin: 13px 0 30px;
+  margin: 13px 0 20px;
   color: #fff;
   display: flex;
   justify-content: center;
@@ -139,10 +134,16 @@ export default {
   position: relative;
 }
 
-.ant-layout-sider-collapsed {
-  .logo {
-    margin: 10px 0 20px 0;
-  }
+.logo-regular {
+  height: 80px;
+  width: 100%;
+  background: url('../../assets/images/logo.png') top center no-repeat;
+}
+
+.logo-collapsed {
+  height: 80px;
+  width: 100%;
+  background: url('../../assets/images/yeti.svg') top/50px no-repeat;
 }
 
 .ant-menu-item > a {

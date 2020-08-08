@@ -2,24 +2,24 @@ import store from 'store';
 import { UI_STATE } from '@/constants';
 
 const state = {
-  navOpened: store.get('yetiNavCollapseOpened', true),
+  navCollapsed: store.get('yetiNavCollapsed', false),
 };
 
 const getters = {
-  navOpened: (currentState) => currentState.navOpened,
+  navCollapsed: (currentState) => currentState.navCollapsed,
 };
 
 const actions = {
   [UI_STATE.ACTIONS.SET_NAV_STATE]: ({ commit }, value) => {
-    store.set('yetiNavCollapseOpened', value);
+    store.set('yetiNavCollapsed', value);
 
     commit(UI_STATE.MUTATIONS.SET_NAV_STATE, value);
   },
 };
 
 const mutations = {
-  [UI_STATE.ACTIONS.SET_NAV_STATE]: (currentState, navOpened) => {
-    currentState.navOpened = navOpened;
+  [UI_STATE.ACTIONS.SET_NAV_STATE]: (currentState, navCollapsed) => {
+    currentState.navCollapsed = navCollapsed;
   },
 };
 

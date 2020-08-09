@@ -2,38 +2,56 @@
   <div id="auth">
     <img
       src="https://picsum.photos/800/450"
-      alt="Yeti logo"
       @load="onImageLoad"
       @error="onImageLoad"
     >
-    <b-form
-      v-if="imageLoaded"
-      class="login"
+    <a-form
+      id="components-form-demo-normal-login"
+      :form="form"
+      class="login-form"
       @submit.prevent="onSubmit"
     >
-      <b-form-group label="Welcome to Yeti">
-        <b-form-input
-          v-model="login"
-          required
-          type="text"
+      <a-form-item>
+        <a-input
+          v-decorator="[
+            'login',
+            { rules: [{ required: true, message: 'Please input your login!' }] },
+          ]"
           placeholder="Login"
-          autocomplete="login"
-        />
-        <b-form-input
-          v-model="password"
-          required
+        >
+          <a-icon
+            slot="prefix"
+            type="user"
+            style="color: rgba(0,0,0,.25)"
+          />
+        </a-input>
+      </a-form-item>
+      <a-form-item>
+        <a-input
+          v-decorator="[
+            'password',
+            { rules: [{ required: true, message: 'Please input your Password!' }] },
+          ]"
           type="password"
           placeholder="Password"
-          autocomplete="current-password"
-        />
-      </b-form-group>
-      <b-button
-        type="submit"
-        variant="primary"
-      >
-        Login
-      </b-button>
-    </b-form>
+        >
+          <a-icon
+            slot="prefix"
+            type="lock"
+            style="color: rgba(0,0,0,.25)"
+          />
+        </a-input>
+      </a-form-item>
+      <a-form-item>
+        <a-button
+          type="primary"
+          html-type="submit"
+          class="login-form-button"
+        >
+          Log in
+        </a-button>
+      </a-form-item>
+    </a-form>
   </div>
 </template>
 
@@ -46,10 +64,11 @@ export default {
   name: 'Login',
   data() {
     return {
-      login: '',
-      password: '',
       imageLoaded: false,
     };
+  },
+  beforeCreate() {
+    this.form = this.$form.createForm(this, { name: 'normal_login' });
   },
   mounted() {
     setTimeout(() => {
@@ -62,28 +81,38 @@ export default {
       this.imageLoaded = true;
     },
     onSubmit() {
-      const { login, password } = this;
-      this[AUTH.ACTIONS.AUTH_REQUEST]({ login, password })
-        .then(() => this.$router.push(this.$route.query.redirect || '/'))
-        .then(() => this.$notify({
-          type: NOTIFICATION_TYPES.SUCCESS,
-          text: 'Login successful',
-        }));
+      this.form.validateFields((err, values) => {
+        if (!err) {
+          const { login, password } = values;
+          this[AUTH.ACTIONS.AUTH_REQUEST]({ login, password })
+            .then(() => this.$router.push(this.$route.query.redirect || '/'))
+            .then(() => this.$notify({
+              type: NOTIFICATION_TYPES.SUCCESS,
+              text: 'Login successful',
+            }));
+        }
+      });
     },
   },
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
+<style lang="scss">
 img {
   margin-bottom: 50px;
 }
-.login {
+
+#auth {
   display: flex;
-  margin: 0 auto;
   flex-direction: column;
-  width: 300px;
-  padding: 10px;
+  align-items: center;
+
+  #components-form-demo-normal-login {
+    max-width: 300px;
+  }
+  #components-form-demo-normal-login .login-form-button {
+    width: 100%;
+  }
 }
+
 </style>

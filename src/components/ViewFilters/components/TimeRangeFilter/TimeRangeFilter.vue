@@ -22,16 +22,14 @@
         {{ picker.startDate | date }} - {{ picker.endDate | date }}
       </div>
     </date-range-picker>
-    <b-button
-      type="reset"
+    <a-button
       variant="light"
-      size="sm"
-      class="ml-2"
+      size="large"
       :disabled="requestIsPending"
       @click="filterReset"
     >
       Reset
-    </b-button>
+    </a-button>
   </div>
 </template>
 
@@ -86,10 +84,15 @@ export default {
 };
 </script>
 
-<style>
+<style scope>
 .time-range-filter {
   text-align: left;
   padding: 0 0 10px 15px;
+}
+.form-control {
+  color: #495057;
+  line-height: 1.5;
+  font-weight: 400;
 }
 .time-range-filter .form-control {
   font-size: 0.9rem;

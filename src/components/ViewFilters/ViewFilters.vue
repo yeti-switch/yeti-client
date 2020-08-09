@@ -1,8 +1,8 @@
 <template>
-  <div class="view-filters mb-3">
+  <a-layout-header class="view-filters">
     <AccountsFilter />
     <TimeRangeFilter v-if="isTimeRangeEnabled" />
-  </div>
+  </a-layout-header>
 </template>
 
 <script>
@@ -30,5 +30,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: transparent;
+    padding: 0;
   }
 </style>

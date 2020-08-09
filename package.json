@@ -11,8 +11,6 @@
   },
   "dependencies": {
     "ant-design-vue": "1.6.3",
-    "bootstrap": "^4.3.1",
-    "bootstrap-vue": "^2.0.2",
     "chart.js": "^2.9.3",
     "chartjs-plugin-downsample": "^1.1.0",
     "date-fns": "^2.4.1",
@@ -38,7 +36,7 @@
     "@vue/cli-plugin-babel": "4.4.3",
     "@vue/cli-plugin-eslint": "4.4.3",
     "@vue/cli-service": "4.4.3",
-    "@vue/test-utils": "1.0.0-beta.33",
+    "@vue/test-utils": "1.0.2",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "10.0.3",
     "babel-jest": "^24.8.0",

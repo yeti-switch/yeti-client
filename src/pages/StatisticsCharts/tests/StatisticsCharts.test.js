@@ -25,8 +25,8 @@ describe('StatisticsCharts page', () => {
       },
     });
 
-    const wrapper = shallowMount(StatisticsCharts, { store, localVue });
-    expect(wrapper.isVueInstance()).toBeTruthy();
+    shallowMount(StatisticsCharts, { store, localVue });
+    expect(getStatistics).toHaveBeenCalled();
   });
 
   it('builds two charts if there are statistics entries in store', () => {
@@ -55,6 +55,6 @@ describe('StatisticsCharts page', () => {
 
     const wrapper = shallowMount(StatisticsCharts, { store, localVue });
 
-    expect(wrapper.findAll(DataChart).length).toBe(2);
+    expect(wrapper.findAllComponents(DataChart).length).toBe(2);
   });
 });

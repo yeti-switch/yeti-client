@@ -23,8 +23,7 @@ describe('Rates page', () => {
       },
     });
 
-    const wrapper = shallowMount(Rates, { store, localVue });
-    expect(wrapper.isVueInstance()).toBeTruthy();
+    shallowMount(Rates, { store, localVue });
     expect(getRates).toHaveBeenCalled();
   });
 });

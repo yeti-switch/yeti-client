@@ -1,223 +1,175 @@
 <template>
-  <div
+  <a-layout-sider
     v-if="isAuthenticated"
-    :class="mainNavClass"
+    v-model="collapsed"
+    collapsible
   >
-    <b-navbar-brand
+    <a
+      class="logo"
       :href="linkOnLogo"
       target="_blank"
     >
-      <img
-        v-show="navOpened"
-        alt="Yeti logo"
-        src="@/assets/images/logo.png"
-      >
-      <img
-        v-show="!navOpened"
-        width="50px"
-        height="40px"
-        alt="Yeti logo"
-        src="@/assets/images/yeti.svg"
-      >
-    </b-navbar-brand>
-    <b-nav vertical>
-      <nav-item
+      <div
+        v-show="!navCollapsed"
+        class="logo-regular"
+      />
+      <div
+        v-show="navCollapsed"
+        class="logo-collapsed"
+      />
+    </a>
+    <a-menu
+      mode="inline"
+      theme="dark"
+      :selected-keys="selectedKeys"
+    >
+      <a-menu-item
         v-for="link in navLinks"
         :key="link.routeName"
-        :route-name="link.routeName"
-        :route-path="link.routePath"
-        :nav-opened="navOpened"
-      />
-    </b-nav>
-    <b-nav
-      vertical
+        :level="2"
+      >
+        <router-link :to="link.routePath">
+          <a-icon
+            :type="getIconType(link.routeName)"
+          />
+          <span>{{ getItemText(link.routeName) }}</span>
+        </router-link>
+      </a-menu-item>
+    </a-menu>
+    <a-menu
       class="logout-wrapper"
+      theme="dark"
+      mode="vertical"
     >
-      <b-nav-item
+      <a-menu-item
         v-if="isAuthenticated"
         href="#"
         @click="logoutHandler"
       >
-        <logout-compact-icon />
-        {{ getNavItemName('Logout') }}
-      </b-nav-item>
-    </b-nav>
-    <b-button
-      v-b-toggle
-      class="nav-bar-collapse-button"
-      @click="toggleNavState"
-    >
-      {{ getNavItemName('Collapse') }}
-    </b-button>
-  </div>
+        <a-icon type="logout" />
+        <span>Logout</span>
+      </a-menu-item>
+    </a-menu>
+  </a-layout-sider>
 </template>
 
 <script>
-import {
-  BIconBoxArrowLeft,
-} from 'bootstrap-vue';
+import { capitalize } from 'lodash';
 import { mapGetters, mapActions } from 'vuex';
 import {
-  AUTH, ACCOUNT_INFO_PATHS, ACCOUNT_INFO_ROUTE_NAMES, UI_STATE,
+  AUTH, ACCOUNT_INFO_ROUTE_NAMES, UI_STATE,
 } from '@/constants';
 
-import NavItem from './components/NavItem';
+import { NAV_ITEMS } from './constants';
 
 export default {
   name: 'NavBar',
-  components: {
-    LogoutCompactIcon: BIconBoxArrowLeft,
-    NavItem,
-  },
   data() {
     return {
-      navigationRoutesPaths: { ...ACCOUNT_INFO_PATHS },
-      navigationRoutesNames: { ...ACCOUNT_INFO_ROUTE_NAMES },
-      navLinks: [{
-        routePath: ACCOUNT_INFO_PATHS.RATES,
-        routeName: ACCOUNT_INFO_ROUTE_NAMES.RATES,
-      }, {
-        routePath: ACCOUNT_INFO_PATHS.CDRS,
-        routeName: ACCOUNT_INFO_ROUTE_NAMES.CDRS,
-      }, {
-        routePath: ACCOUNT_INFO_PATHS.ACCOUNT,
-        routeName: ACCOUNT_INFO_ROUTE_NAMES.ACCOUNT,
-      }, {
-        routePath: ACCOUNT_INFO_PATHS.NETWORKS,
-        routeName: ACCOUNT_INFO_ROUTE_NAMES.NETWORKS,
-      }, {
-        routePath: ACCOUNT_INFO_PATHS.STATISTICS,
-        routeName: ACCOUNT_INFO_ROUTE_NAMES.STATISTICS,
-      }],
+      selectedKeys: [''],
     };
   },
   computed: {
-    ...mapGetters(['isAuthenticated', 'linkOnLogo', 'navOpened']),
-    mainNavClass() {
-      return `vertical-navbar-menu ${this.navOpened ? 'opened' : 'collapsed'}`;
+    ...mapGetters(['isAuthenticated', 'linkOnLogo', 'navCollapsed', 'blockedPages']),
+    collapsed: {
+      get() {
+        return this.navCollapsed;
+      },
+      set(value) {
+        this[UI_STATE.ACTIONS.SET_NAV_STATE](value);
+      },
     },
+    navLinks() {
+      return NAV_ITEMS.filter(this.isNavItemVisible);
+    },
+  },
+  watch: {
+    $route(to) {
+      this.selectedKeys = [to.name];
+    },
+  },
+  mounted() {
+    this.selectedKeys = [this.$route.name];
   },
   methods: {
     ...mapActions([UI_STATE.ACTIONS.SET_NAV_STATE, AUTH.ACTIONS.LOGOUT]),
-    toggleNavState() {
-      this[UI_STATE.ACTIONS.SET_NAV_STATE](!this.navOpened);
-    },
     logoutHandler() {
       this[AUTH.ACTIONS.LOGOUT]().then(() => this.$router.push('/login'));
     },
-    getNavItemName(name) {
-      return this.navOpened ? name : '';
+    getItemText(routeName) {
+      return capitalize(routeName);
+    },
+    isNavItemVisible({ routename }) {
+      return !this.blockedPages.has(routename);
+    },
+    getIconType(routeName) {
+      if (routeName === ACCOUNT_INFO_ROUTE_NAMES.RATES) {
+        return 'dollar';
+      }
+      if (routeName === ACCOUNT_INFO_ROUTE_NAMES.CDRS) {
+        return 'bars';
+      }
+      if (routeName === ACCOUNT_INFO_ROUTE_NAMES.STATISTICS) {
+        return 'line-chart';
+      }
+      if (routeName === ACCOUNT_INFO_ROUTE_NAMES.ACCOUNT) {
+        return 'team';
+      }
+      if (routeName === ACCOUNT_INFO_ROUTE_NAMES.NETWORKS) {
+        return 'cluster';
+      }
+      return '';
     },
   },
 };
 </script>
 
 <style lang="scss">
+.ant-layout-sider {
+  padding-bottom: 0;
+  height: 100%;
+  background-color: #222d32;
+}
+
+.logo {
+  margin: 13px 0 20px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+}
+
 .vertical-navbar-menu {
   height: 100%;
-  flex: 1 1 230px;
-  background-color: #222d32;
+  text-align: left;
   position: relative;
-    text-align: left;
+}
 
-  .navbar-brand {
-    margin: 13px 0 30px;
-    color: #fff;
+.logo-regular {
+  height: 80px;
+  width: 100%;
+  background: url('../../assets/images/logo.png') top center no-repeat;
+}
+
+.logo-collapsed {
+  height: 80px;
+  width: 100%;
+  background: url('../../assets/images/yeti.svg') top/50px no-repeat;
+}
+
+.ant-menu-item > a {
+  display: flex;
+  align-items: center;
+}
+
+.logout-wrapper {
+  position: absolute;
+  left: 0;
+  bottom: 60px;
+  width: 100%;
+
+  .ant-menu-item {
     display: flex;
-    justify-content: center;
-  }
-
-  & > .nav {
-    width: 230px;
-
-    .router-link-exact-active {
-      border-left: 1px solid #3c8dbc;
-    }
-  }
-
-  &.collapsed {
-    .navbar-brand {
-      margin: 10px 0 20px 0;
-    }
-
-    & > .nav {
-      width: 50px;
-      text-align: center;
-    }
-
-    flex-basis: 0px;
-    flex-grow: 0;
-
-    .nav-bar-collapse-button {
-      &:after {
-        transform: rotateY(180deg)
-      }
-    }
-
-    .nav-link {
-      padding: .5rem .7rem .5rem .7rem;
-    }
-
-    .logout-wrapper {
-      .nav-link {
-        .b-icon.bi {
-          color: #fff;
-        }
-      }
-    }
-  }
-
-  .logout-wrapper {
-    position: absolute;
-    left: 0;
-    bottom: 60px;
-  }
-
-  .nav-bar-collapse-button {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    z-index: 3;
-    width: 100%;
-    padding: 10px;
-    font-size: 14px;
-    border-radius: initial;
-    box-shadow: initial !important; // Needed to overwrite default library box-shadow
-    outline: none;
-    height: 40px;
-
-    &:after {
-      content: '';
-      background: url('../../assets/images/arrow.svg') center no-repeat;
-      position: absolute;
-      right: 0;
-      top: 0;
-      height: 100%;
-      width: 50px;
-    }
-  }
-
-  .menu-collapse {
-    box-shadow: initial;
-    border-radius: initial;
-    background-color: #1e282c;
-    border: initial;
-    border-left: 1px solid #3c8dbc;
-  }
-
-  .nav-link {
-    background-color: #2c3b41;
-    color: #8aa4af;
-    outline: none;
-    padding: .5rem .7rem .5rem .8rem;
-
-    &.router-link-exact-active {
-      color: white;
-    }
-
-    .b-icon.bi {
-      font-size: 150%;
-    }
+    align-items: center;
   }
 }
 </style>

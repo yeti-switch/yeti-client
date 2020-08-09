@@ -1,8 +1,9 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils';
-import { BTable } from 'bootstrap-vue';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 
 import NetworkDetails from '../NetworkDetails.vue';
+import VerticalListAnt from '@/components/VerticalListAnt/VerticalListAnt';
+import { COMMON_TABLE_ENTITY_EXCLUDED_FIELDS, NETWORK_DETAILS } from '@/constants';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -31,9 +32,9 @@ describe('NetworkDetails page', () => {
     });
 
     const wrapper = shallowMount(NetworkDetails, {
-      store, localVue, mocks: { $route }, stubs: { 'b-table': BTable },
+      store, localVue, mocks: { $route },
     });
-    expect(wrapper.isVueInstance()).toBeTruthy();
+    expect(wrapper.findComponent(VerticalListAnt).exists()).toBeTruthy();
     expect(getNetworkDetails).toHaveBeenCalled();
   });
 
@@ -41,14 +42,7 @@ describe('NetworkDetails page', () => {
     const getNetworkDetails = jest.fn();
     const store = new Vuex.Store({
       getters: {
-        networkDetails: () => ({
-          id: 'someId',
-          links: {},
-          name: 'ALBANIA',
-          'network-type': 'Unknown',
-          type: 'networks',
-          uuid: 'someId',
-        }),
+        networkDetails: () => NETWORK_DETAILS,
       },
       modules: {
         rates: {
@@ -60,9 +54,10 @@ describe('NetworkDetails page', () => {
     });
 
     const wrapper = shallowMount(NetworkDetails, {
-      store, localVue, mocks: { $route }, stubs: { 'b-table': BTable },
+      store, localVue, mocks: { $route },
     });
-    expect(wrapper.findAll('td').length).toBe(3);
-    expect(wrapper.findAll('td').at(0).find('div').text()).toBe('ALBANIA');
+    const numberOfRowsInNetworkInfo = Object.keys(NETWORK_DETAILS).length
+    - COMMON_TABLE_ENTITY_EXCLUDED_FIELDS.length - 1; // one additional key for id
+    expect(wrapper.findComponent(VerticalListAnt).props('dataSource').length).toBe(numberOfRowsInNetworkInfo);
   });
 });

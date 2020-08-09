@@ -4,7 +4,6 @@
     :items="formattedCdrs"
     :rows="rows"
     :get-data="getCdrs"
-    :items-to-badge="itemsToBadge"
   />
 </template>
 

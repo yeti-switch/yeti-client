@@ -24,8 +24,7 @@ describe('Networks page', () => {
       },
     });
 
-    const wrapper = shallowMount(Networks, { store, localVue });
-    expect(wrapper.isVueInstance()).toBeTruthy();
+    shallowMount(Networks, { store, localVue });
     expect(getNetworks).toHaveBeenCalled();
   });
   it('is instance of Vue, with proper networks entries in store', () => {
@@ -60,8 +59,8 @@ describe('Networks page', () => {
     });
 
     const wrapper = shallowMount(Networks, { store, localVue });
-    expect(wrapper.find(DataTableAnt).props('localFilterTerm')).toBe('alabama');
-    expect(wrapper.find(DataTableAnt).props('items').length).toBe(2);
-    expect(wrapper.find(DataTableAnt).props('rows')).toBe(500);
+    expect(wrapper.findComponent(DataTableAnt).props('localFilterTerm')).toBe('alabama');
+    expect(wrapper.findComponent(DataTableAnt).props('items').length).toBe(2);
+    expect(wrapper.findComponent(DataTableAnt).props('rows')).toBe(500);
   });
 });

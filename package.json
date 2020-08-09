@@ -11,8 +11,6 @@
   },
   "dependencies": {
     "ant-design-vue": "1.6.3",
-    "bootstrap": "^4.3.1",
-    "bootstrap-vue": "^2.0.2",
     "chart.js": "^2.9.3",
     "chartjs-plugin-downsample": "^1.1.0",
     "date-fns": "^2.4.1",

@@ -23,8 +23,7 @@ describe('Cdrs page', () => {
       },
     });
 
-    const wrapper = shallowMount(Cdrs, { store, localVue });
-    expect(wrapper.isVueInstance()).toBeTruthy();
+    shallowMount(Cdrs, { store, localVue });
     expect(getCdrs).toHaveBeenCalled();
   });
 });

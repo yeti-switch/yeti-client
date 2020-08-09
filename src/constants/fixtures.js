@@ -126,3 +126,12 @@ export const CDR_ENTRY_IN_TABLE = {
   'auth-orig-ip': '193.186.15.24',
   'auth-orig-port': 5060,
 };
+
+export const NETWORK_DETAILS = {
+  id: 'someId',
+  links: {},
+  name: 'ALBANIA',
+  'network-type': 'Unknown',
+  type: 'networks',
+  uuid: 'someId',
+};

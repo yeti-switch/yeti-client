@@ -1,6 +1,5 @@
 import { mount, createLocalVue } from '@vue/test-utils';
 import Vuex from 'vuex';
-
 import { Table, Tag } from 'ant-design-vue';
 
 import DataTableAnt from '../DataTableAnt.vue';
@@ -23,7 +22,7 @@ describe('DataTableAnt', () => {
         'a-table': Table,
       },
     });
-    expect(wrapper.isVueInstance()).toBeTruthy();
+    expect(wrapper.findComponent(Table)).toBeTruthy();
     wrapper.destroy();
   });
   it('is instance of Vue, with correct entries passed as propsData', () => {

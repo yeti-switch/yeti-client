@@ -5,17 +5,15 @@ describe('formatAccount store helper', () => {
   it('formats account data according to spec', () => {
     const correctInitialParams = ACCOUNT_DETAILS;
     const expectedResult = [
-      {
-        Id: 'mockId',
-        Name: 'test user',
-        Balance: '0.0',
-        'Min balance': '99.0',
-        'Max balance': '100.0',
-        'Destination rate limit': '1',
-        'Origination capacity': '2',
-        'Termination capacity': '3',
-        'Total capacity': '4',
-      },
+      { key: 'Id', value: 'mockId' },
+      { key: 'Name', value: 'test user' },
+      { key: 'Balance', value: '0.0' },
+      { key: 'Min balance', value: '99.0' },
+      { key: 'Max balance', value: '100.0' },
+      { key: 'Destination rate limit', value: '1' },
+      { key: 'Origination capacity', value: '2' },
+      { key: 'Termination capacity', value: '3' },
+      { key: 'Total capacity', value: '4' },
     ];
 
     const result = account.formatAccount(COMMON_TABLE_ENTITY_EXCLUDED_FIELDS, correctInitialParams);

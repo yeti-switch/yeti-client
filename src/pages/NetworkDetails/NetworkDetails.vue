@@ -1,11 +1,7 @@
 <template>
   <div class="network-details-page">
-    <h5>{{ formattedNetworkDetails[0].Name }} network details:</h5>
-    <b-table
-      stacked
-      :items="formattedNetworkDetails"
-      small
-    />
+    <h5>{{ networkName }} network details:</h5>
+    <vertical-list-ant :data-source="formattedNetworkDetails" />
   </div>
 </template>
 
@@ -14,15 +10,22 @@ import { mapGetters, mapActions } from 'vuex';
 
 import { NETWORKS, COMMON_TABLE_ENTITY_EXCLUDED_FIELDS } from '@/constants';
 import utils from '@/utils';
+import VerticalListAnt from '@/components/VerticalListAnt/VerticalListAnt';
 
 export default {
   name: 'NetworkDetails',
+  components: {
+    VerticalListAnt,
+  },
   computed: {
     ...mapGetters(['networkDetails']),
     formattedNetworkDetails() {
       return this.networkDetails.id ? utils.formatNetworkDetails(
         this.networkDetails, COMMON_TABLE_ENTITY_EXCLUDED_FIELDS,
-      ) : [{}];
+      ) : [];
+    },
+    networkName() {
+      return this.networkDetails.name;
     },
   },
   created() {
@@ -34,30 +37,11 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .network-details-page {
-  // Following rules are so big, so they will be able to overwrite library styles
   h5 {
     padding: 30px 0 30px 0;
     text-align: left;
-  }
-
-  .table.b-table.b-table-stacked {
-    width: 50%;
-
-    & > tbody {
-      & > tr {
-        & > [data-label] {
-          text-align: left;
-
-          &::before {
-            text-align: left;
-            width: 20%;
-          }
-        }
-
-      }
-    }
   }
 }
 </style>

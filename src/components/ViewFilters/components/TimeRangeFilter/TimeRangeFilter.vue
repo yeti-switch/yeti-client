@@ -84,10 +84,15 @@ export default {
 };
 </script>
 
-<style>
+<style scope>
 .time-range-filter {
   text-align: left;
   padding: 0 0 10px 15px;
+}
+.form-control {
+  color: #495057;
+  line-height: 1.5;
+  font-weight: 400;
 }
 .time-range-filter .form-control {
   font-size: 0.9rem;

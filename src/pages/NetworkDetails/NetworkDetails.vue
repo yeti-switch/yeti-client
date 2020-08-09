@@ -42,6 +42,7 @@ export default {
   h5 {
     padding: 30px 0 30px 0;
     text-align: left;
+    font-size: 1.25rem;
   }
 }
 </style>

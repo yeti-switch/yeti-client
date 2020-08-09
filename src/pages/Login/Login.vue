@@ -96,7 +96,7 @@ img {
 #auth {
   display: flex;
   background: url('https://picsum.photos/1800/900') center/cover no-repeat;
-  height: calc(100% + 20px);
+  height: calc(100% + 10px);
   margin: -10px -10px 0 -10px;
   display: flex;
   justify-content: flex-end;

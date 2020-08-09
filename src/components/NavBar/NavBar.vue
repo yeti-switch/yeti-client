@@ -21,7 +21,7 @@
     <a-menu
       mode="inline"
       theme="dark"
-      :default-selected-keys="activeLink"
+      :selected-keys="selectedKeys"
     >
       <a-menu-item
         v-for="link in navLinks"
@@ -64,6 +64,11 @@ import { NAV_ITEMS } from './constants';
 
 export default {
   name: 'NavBar',
+  data() {
+    return {
+      selectedKeys: [''],
+    };
+  },
   computed: {
     ...mapGetters(['isAuthenticated', 'linkOnLogo', 'navCollapsed', 'blockedPages']),
     collapsed: {
@@ -77,9 +82,14 @@ export default {
     navLinks() {
       return NAV_ITEMS.filter(this.isNavItemVisible);
     },
-    activeLink() {
-      return [(this.$route.query.redirect || this.$route.path).slice(1)];
+  },
+  watch: {
+    $route(to) {
+      this.selectedKeys = [to.name];
     },
+  },
+  mounted() {
+    this.selectedKeys = [this.$route.name];
   },
   methods: {
     ...mapActions([UI_STATE.ACTIONS.SET_NAV_STATE, AUTH.ACTIONS.LOGOUT]),

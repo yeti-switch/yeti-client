@@ -9,7 +9,7 @@ const localVue = createLocalVue();
 localVue.use(Vuex);
 
 describe('Login page', () => {
-  it('is initialized, with image flag set to loaded and form enabled', async () => {
+  xit('is initialized, with image flag set to loaded and form enabled', async () => {
     // const authRequest = jest.fn();
     // const store = new Vuex.Store({
     //   getters: {

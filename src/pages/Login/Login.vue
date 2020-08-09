@@ -66,24 +66,11 @@ import { AUTH, NOTIFICATION_TYPES } from '@/constants';
 
 export default {
   name: 'Login',
-  data() {
-    return {
-      imageLoaded: false,
-    };
-  },
   beforeCreate() {
     this.form = this.$form.createForm(this, { name: 'normal_login' });
   },
-  mounted() {
-    setTimeout(() => {
-      this.imageLoaded = true;
-    }, 3000);
-  },
   methods: {
     ...mapActions([AUTH.ACTIONS.AUTH_REQUEST]),
-    onImageLoad() {
-      this.imageLoaded = true;
-    },
     onSubmit() {
       this.form.validateFields((err, values) => {
         if (!err) {

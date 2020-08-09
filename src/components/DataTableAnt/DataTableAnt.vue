@@ -1,54 +1,39 @@
 <template>
   <div id="dataTableAnt">
-    <slot name="filter" />
     <div
       :style="{overflow: hiddenIfLoading}"
       class="dataTable"
     >
-      <b-container
+      <a-row
         v-if="localFilterEnabled"
-        fluid
-        class="mb-4 mt-2"
+        :gutter="[16, 16]"
       >
-        <b-row
-          align-h="start"
+        <a-col
+          :span="6"
+          class="gutter-row"
         >
-          <b-col
-            cols="3"
+          <a-input-search
+            v-model="localFilter"
+            placeholder="input search text"
+            size="large"
+            @change="onFilterChange"
           >
-            <b-input-group>
-              <b-form-input
-                id="localFilterInput"
-                v-model="localFilter"
-                type="search"
-                placeholder="Type to Search"
-                @input="onFilterChange"
-              />
-              <b-input-group-append>
-                <b-button
-                  :disabled="!localFilter"
-                  @click="clearLocalFilter"
-                >
-                  Clear
-                </b-button>
-              </b-input-group-append>
-            </b-input-group>
-          </b-col>
-        </b-row>
-      </b-container>
-      <b-progress
-        v-show="requestIsPending"
-        :value="100"
-        :animated="true"
-        variant="secondary"
-        class="mt-1"
-        height="7px"
-      />
+            <a-button
+              slot="enterButton"
+              :disabled="!localFilter"
+              @mousedown.stop="clearLocalFilter"
+            >
+              Clear
+            </a-button>
+          </a-input-search>
+        </a-col>
+      </a-row>
       <a-table
         :columns="fields"
         :data-source="items"
         :scroll="{ x: true, y: 700 }"
         :pagination="{ pageSize: 50, total: rows, hideOnSinglePage: true }"
+        :loading="requestIsPending"
         @change="onPaginationChange"
       >
         <span
@@ -123,8 +108,8 @@ export default {
     },
   },
   methods: {
-    onFilterChange: debounce(function onInputChange(localFilterTerm) {
-      this.onLocalFilter(localFilterTerm);
+    onFilterChange: debounce(function onInputChange(e) {
+      this.onLocalFilter(e.target.value);
     }, 300),
     clearLocalFilter() {
       this.localFilter = '';
@@ -145,12 +130,6 @@ export default {
 
   table {
     width: 100% !important;
-  }
-}
-
-#localFilterInput {
-  &:focus {
-    box-shadow: none;
   }
 }
 

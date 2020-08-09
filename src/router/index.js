@@ -1,6 +1,6 @@
 import VueRouter from 'vue-router';
 
-import Login from '../pages/Login';
+import Login from '../pages/Login/Login';
 import NotFound from '../pages/NotFound';
 import { routes as CdrsRoutes } from '../pages/Cdrs/routes';
 import { routes as RatesRoutes } from '../pages/Rates/routes';

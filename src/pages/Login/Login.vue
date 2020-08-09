@@ -58,7 +58,7 @@
 <script>
 
 import { mapActions } from 'vuex';
-import { AUTH, NOTIFICATION_TYPES } from '../constants';
+import { AUTH, NOTIFICATION_TYPES } from '@/constants';
 
 export default {
   name: 'Login',

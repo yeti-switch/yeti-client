@@ -1,16 +1,20 @@
 <template>
   <div id="auth">
-    <img
-      src="https://picsum.photos/800/450"
-      @load="onImageLoad"
-      @error="onImageLoad"
-    >
     <a-form
       id="components-form-demo-normal-login"
       :form="form"
       class="login-form"
       @submit.prevent="onSubmit"
     >
+      <a-icon
+        type="login"
+        height="30"
+      />
+      <a-row>
+        <h1 class="login-title">
+          Login
+        </h1>
+      </a-row>
       <a-form-item>
         <a-input
           v-decorator="[
@@ -104,12 +108,25 @@ img {
 
 #auth {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  background: url('https://picsum.photos/1800/900') center/cover no-repeat;
+  height: calc(100% + 20px);
+  margin: -10px -10px 0 -10px;
+  display: flex;
+  justify-content: flex-end;
 
   #components-form-demo-normal-login {
-    max-width: 300px;
+    padding: 20px 10px 0;
+    max-width: 30%;
+    height: 100%;
+    background-color: #fff;
+    flex: 1 1 30%;
+
+    .anticon-login svg {
+      height: 30px;
+      width: 30px;
+    }
   }
+
   #components-form-demo-normal-login .login-form-button {
     width: 100%;
   }

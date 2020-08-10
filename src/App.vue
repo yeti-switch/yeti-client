@@ -2,16 +2,12 @@
   <div id="app">
     <notifications />
     <main>
-      <a-layout>
-        <NavBar />
-        <a-layout-content>
-          <div class="working-area-wrapper">
-            <router-view :name="loginRouteName" />
-            <router-view :name="filtersRouteName" />
-            <router-view />
-          </div>
-        </a-layout-content>
-      </a-layout>
+      <NavBar />
+      <div class="working-area-wrapper">
+        <router-view :name="loginRouteName" />
+        <router-view :name="filtersRouteName" />
+        <router-view />
+      </div>
     </main>
   </div>
 </template>
@@ -97,7 +93,7 @@ main {
 .working-area-wrapper {
   flex: 1 1 auto;
   width: calc(100vw - 230px);
-  padding: 10px;
+  padding: 10px 10px 0;
   background-color: #ecf0f5;
   overflow: auto;
 }

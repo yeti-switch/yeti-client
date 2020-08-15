@@ -37,8 +37,6 @@ export default {
     ...mapGetters(['locale']),
   },
   beforeCreate() {
-    this.$store.dispatch(AUTH.ACTIONS.LOCAL_AUTH);
-
     const errorMiddleware = {
       name: 'logout-redirect',
       error: (payload) => {
@@ -60,6 +58,7 @@ export default {
     };
 
     jsonApi.instance.insertMiddlewareAfter('errors', errorMiddleware);
+    this.$store.dispatch(AUTH.ACTIONS.LOCAL_AUTH);
   },
   created() {
     this.$i18n.locale = this.locale;

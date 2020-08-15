@@ -49,6 +49,7 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
 
 export default {
   name: 'TimeRangeFilter',
+  i18n: locale,
   components: {
     DateRangePicker,
   },

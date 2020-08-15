@@ -55,6 +55,8 @@ import utils from '@/utils';
 import { TIME_RANGE_FILTER } from '@/constants';
 
 import locale from './locale';
+import { DEFAULT_PROPS } from './constants';
+import { getLocalePartOfSettings, getLocaleRanges } from './helpers';
 
 import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
 
@@ -73,18 +75,8 @@ export default {
       type: Object,
       default() {
         return {
-          opens: 'left',
-          timePicker: true,
-          linkedCalendars: false,
-          dateUtil: 'moment',
-          localeData: {
-            firstDay: 1,
-            format: 'DD-MM-YYYY HH:mm:ss',
-            applyLabel: locale.messages[this.$i18n.locale].message.applyLabel,
-            cancelLabel: locale.messages[this.$i18n.locale].message.cancelLabel,
-            daysOfWeek: locale.messages[this.$i18n.locale].message.daysOfWeek,
-            monthNames: locale.messages[this.$i18n.locale].message.monthNames,
-          },
+          ...DEFAULT_PROPS,
+          localeData: getLocalePartOfSettings(locale, this.$i18n.locale),
         };
       },
     },
@@ -92,26 +84,7 @@ export default {
   computed: {
     ...mapGetters(['timeFilterValue', 'requestIsPending']),
     ranges() {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      const yesterday = new Date();
-      yesterday.setDate(today.getDate() - 1);
-      yesterday.setHours(0, 0, 0, 0);
-      const thisMonthStart = new Date(today.getFullYear(), today.getMonth(), 1);
-      const thisMonthEnd = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-
-      return {
-        [locale.messages[this.$i18n.locale].message.today]: [today, today],
-        [locale.messages[this.$i18n.locale].message.yesterday]: [yesterday, yesterday],
-        [locale.messages[this.$i18n.locale].message.thisMonth]: [thisMonthStart, thisMonthEnd],
-        [locale.messages[this.$i18n.locale].message.thisYear]:
-          [new Date(today.getFullYear(), 0, 1), new Date(today.getFullYear(), 11, 31)],
-        [locale.messages[this.$i18n.locale].message.lastMonth]:
-          [
-            new Date(today.getFullYear(), today.getMonth() - 1, 1),
-            new Date(today.getFullYear(), today.getMonth(), 0),
-          ],
-      };
+      return getLocaleRanges(locale, this.$i18n.locale);
     },
   },
   methods: {

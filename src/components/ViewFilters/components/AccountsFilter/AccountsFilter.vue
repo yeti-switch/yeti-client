@@ -1,6 +1,17 @@
+<i18n>
+{
+  "en": {
+    "account": "Account:"
+  },
+  "ua": {
+    "account": "Акаунт:"
+  }
+}
+</i18n>
+
 <template>
   <div>
-    Account:
+    {{ $t('account') }}
     <a-dropdown
       v-if="activeAccount"
       :trigger="['click']"

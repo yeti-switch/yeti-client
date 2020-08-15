@@ -1,6 +1,19 @@
+<i18n>
+{
+  "en": {
+    "timeInterval": "Time interval:",
+    "reset": "Reset"
+  },
+  "ua": {
+    "timeInterval": "Інтервал часу:",
+    "reset": "Скинути"
+  }
+}
+</i18n>
+
 <template>
   <div class="time-range-filter">
-    Time interval:
+    {{ $t('timeInterval') }}
     <date-range-picker
       ref="picker"
       :date-range="timeFilterValue"
@@ -28,7 +41,7 @@
       :disabled="requestIsPending"
       @click="filterReset"
     >
-      Reset
+      {{ $t('reset') }}
     </a-button>
   </div>
 </template>
@@ -84,10 +97,23 @@ export default {
 };
 </script>
 
-<style scope>
+<style lang="scss">
 .time-range-filter {
   text-align: left;
   padding: 0 0 10px 15px;
+
+  .calendars {
+    display: flex;
+
+    .calendar-time {
+      display: flex;
+      justify-content: center;
+
+      select {
+        margin: 0;
+      }
+    }
+  }
 }
 .form-control {
   color: #495057;

@@ -3,8 +3,8 @@ import { RESOURCES, STATISTICS, NETWORK_SERVICE } from '@/constants';
 import utils from '@/utils';
 
 const state = {
-  activeCalls: {},
-  originatedCps: {},
+  activeCalls: null,
+  originatedCps: null,
 };
 const getters = {
   activeCalls: (currentState) => currentState.activeCalls,

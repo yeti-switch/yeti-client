@@ -34,7 +34,7 @@ export default {
     return {
       chartOptions: CHART_OPTIONS,
       chart: undefined,
-      chartHeight: 0,
+      chartHeight: (document.body.clientHeight - 100) / 2,
     };
   },
   computed: {
@@ -53,7 +53,7 @@ export default {
         }, {});
       }
 
-      return {};
+      return { cps: { data: [] }, activeCalls: { data: [] }, originatedCps: { data: [] } };
     },
     originatedCpsData() {
       return { datasets: [this.derivedCharData.cps] };
@@ -66,10 +66,6 @@ export default {
     activeAccount() {
       this[STATISTICS.ACTIONS.GET_STATISTICS]();
     },
-  },
-  mounted() {
-    // 100 is magic number which will gave us nice chart height
-    this.chartHeight = (document.querySelector('.working-area-wrapper').clientHeight - 100) / 2;
   },
   created() {
     if (this.activeAccount) {

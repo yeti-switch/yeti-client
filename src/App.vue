@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import NavBar from './components/NavBar/NavBar';
 import {
   AUTH, NOTIFICATION_TYPES, GENERAL_ROUTE_NAMES, NETWORK_SERVICE,
@@ -31,6 +32,9 @@ export default {
       loginRouteName: GENERAL_ROUTE_NAMES.LOG_IN,
       filtersRouteName: GENERAL_ROUTE_NAMES.VIEW_FILTERS,
     };
+  },
+  computed: {
+    ...mapGetters(['locale']),
   },
   beforeCreate() {
     this.$store.dispatch(AUTH.ACTIONS.LOCAL_AUTH);
@@ -56,6 +60,9 @@ export default {
     };
 
     jsonApi.instance.insertMiddlewareAfter('errors', errorMiddleware);
+  },
+  created() {
+    this.$i18n.locale = this.locale;
   },
   methods: {
     setMessage(message) {

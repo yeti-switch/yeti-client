@@ -19,10 +19,13 @@ Vue.config.productionTip = false;
 
 sync(store, router.instance);
 
+const i18n = new VueI18n();
+
 new Vue({
   render: (h) => h(App),
   store,
   router: router.instance,
+  i18n,
 }).$mount('#app');
 
 // Setting up page title

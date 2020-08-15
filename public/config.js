@@ -5,6 +5,7 @@ const YETI_CONFIG = {
     blockedPages: new Set([]),
     linkOnLogo: 'https://yeti-switch.org/',
     pageTitle: 'Yeti switch web client',
+    locale: 'ru',
   },
 };
 

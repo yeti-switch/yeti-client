@@ -1,3 +1,13 @@
+<i18n>
+{
+  "en": {
+    "networkDetails": "Network details for"
+  },
+  "uk": {
+    "networkDetails": "Інформація о мережі"
+  }
+}
+</i18n>
 <template>
   <DataTableAnt
     :fields="fields"

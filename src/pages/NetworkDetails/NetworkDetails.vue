@@ -3,7 +3,7 @@
   "en": {
     "networkDetails": "Network details for"
   },
-  "ru": {
+  "ua": {
     "networkDetails": "Информация о сети"
   }
 }

@@ -1,5 +1,6 @@
 <template>
   <div id="auth">
+    <div class="background" />
     <a-form
       id="components-form-demo-normal-login"
       :form="form"
@@ -98,11 +99,20 @@ img {
 
 #auth {
   display: flex;
-  background: url('https://picsum.photos/1800/900') center/cover no-repeat;
   height: calc(100% + 10px);
   margin: -10px -10px 0 -10px;
   display: flex;
   justify-content: flex-end;
+  position: relative;
+
+  .background {
+    background: url('https://picsum.photos/1800/900') left top/cover no-repeat;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+  }
 
   #components-form-demo-normal-login {
     padding: 20px 10px 0;
@@ -110,6 +120,7 @@ img {
     height: 100%;
     background-color: #fff;
     flex: 1 1 30%;
+    position: relative;
 
     .anticon-login svg {
       height: 30px;

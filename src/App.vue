@@ -93,7 +93,7 @@ main {
   height: 100vh;
   display: flex;
   /* Aligned to the height of charts */
-  min-height: 900px;
+  /* min-height: 900px; */
 }
 
 .working-area-wrapper {

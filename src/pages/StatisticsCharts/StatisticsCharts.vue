@@ -19,11 +19,13 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import { set } from 'lodash';
 
 import DataChart from '@/components/DataChart/DataChart';
 import { STATISTICS } from '@/constants';
 
 import { CHART_OPTIONS, INITIAL_DATASETS_SETTINGS } from './constants';
+import locale from './locale';
 
 export default {
   name: 'StatisticsCharts',
@@ -32,7 +34,7 @@ export default {
   },
   data() {
     return {
-      chartOptions: CHART_OPTIONS,
+      chartOptions: set(CHART_OPTIONS, 'scales.xAxes[0].scaleLabel.labelString', locale.messages[this.$i18n.locale].message.time),
       chart: undefined,
       chartHeight: (document.body.clientHeight - 100) / 2,
     };
@@ -46,6 +48,7 @@ export default {
         return Object.entries(INITIAL_DATASETS_SETTINGS).reduce((acc, [key, value]) => {
           acc[key] = {
             ...value,
+            label: locale.messages[this.$i18n.locale].message[key],
             data: chartsData[key].map(({ x, y }) => ({ y, x: Date.parse(x) })),
           };
 

@@ -11,6 +11,8 @@ export default {
         thisMonth: 'This month',
         thisYear: 'This year',
         lastMonth: 'Last month',
+        timeInterval: 'Time interval:',
+        reset: 'Reset',
       },
     },
     ua: {
@@ -24,6 +26,8 @@ export default {
         thisMonth: 'Поточний місяць',
         thisYear: 'Поточний рік',
         lastMonth: 'Минулий місяць',
+        timeInterval: 'Інтервал часу:',
+        reset: 'Скинути',
       },
     },
   },

@@ -1,17 +1,6 @@
-<i18n>
-{
-  "en": {
-    "account": "Account:"
-  },
-  "ua": {
-    "account": "Акаунт:"
-  }
-}
-</i18n>
-
 <template>
   <div>
-    {{ $t('account') }}
+    {{ $t('message.account') }}
     <a-dropdown
       v-if="activeAccount"
       :trigger="['click']"
@@ -51,7 +40,10 @@ import { mapGetters, mapActions } from 'vuex';
 
 import { ACCOUNTS } from '@/constants';
 
+import locale from './locale';
+
 export default {
+  i18n: locale,
   data() {
     return {
       visible: undefined,

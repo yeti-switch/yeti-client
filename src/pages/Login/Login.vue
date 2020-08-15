@@ -1,24 +1,3 @@
-<i18n>
-{
-  "en": {
-    "loginTitle": "Login",
-    "userName": "Username",
-    "userNameError": "Username can't be empty",
-    "password": "Password",
-    "passwordError": "Password can't be empty",
-    "loginAction": "Log in"
-  },
-  "ua": {
-    "loginTitle": "Логування",
-    "userName": "Ім'я користувача",
-    "userNameError": "Будь-ласка, введіть ім'я користувача",
-    "password": "Пароль",
-    "passwordError": "Будь-ласка, введіть пароль",
-    "loginAction": "Увійти"
-  }
-}
-</i18n>
-
 <template>
   <div id="auth">
     <a-form
@@ -33,16 +12,16 @@
       />
       <a-row>
         <h1 class="login-title">
-          {{ $t('loginTitle') }}
+          {{ $t('message.loginTitle') }}
         </h1>
       </a-row>
       <a-form-item>
         <a-input
           v-decorator="[
             'login',
-            { rules: [{ required: true, message: $t('userNameError') }] },
+            { rules: [{ required: true, message: $t('message.userNameError') }] },
           ]"
-          :placeholder="$t('userName')"
+          :placeholder="$t('message.userName')"
         >
           <a-icon
             slot="prefix"
@@ -55,10 +34,10 @@
         <a-input
           v-decorator="[
             'password',
-            { rules: [{ required: true, message: $t('passwordError') }] },
+            { rules: [{ required: true, message: $t('message.passwordError') }] },
           ]"
           type="password"
-          :placeholder="$t('password')"
+          :placeholder="$t('message.password')"
         >
           <a-icon
             slot="prefix"
@@ -73,7 +52,7 @@
           html-type="submit"
           class="login-form-button"
         >
-          {{ $t('loginAction') }}
+          {{ $t('message.loginAction') }}
         </a-button>
       </a-form-item>
     </a-form>
@@ -85,8 +64,11 @@
 import { mapActions } from 'vuex';
 import { AUTH, NOTIFICATION_TYPES } from '@/constants';
 
+import locale from './locale';
+
 export default {
   name: 'Login',
+  i18n: locale,
   beforeCreate() {
     this.form = this.$form.createForm(this, { name: 'normal_login' });
   },

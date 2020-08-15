@@ -1,19 +1,6 @@
-<i18n>
-{
-  "en": {
-    "timeInterval": "Time interval:",
-    "reset": "Reset"
-  },
-  "ua": {
-    "timeInterval": "Інтервал часу:",
-    "reset": "Скинути"
-  }
-}
-</i18n>
-
 <template>
   <div class="time-range-filter">
-    {{ $t('timeInterval') }}
+    {{ $t('message.timeInterval') }}
     <date-range-picker
       ref="picker"
       :date-range="timeFilterValue"
@@ -42,7 +29,7 @@
       :disabled="requestIsPending"
       @click="filterReset"
     >
-      {{ $t('reset') }}
+      {{ $t('message.reset') }}
     </a-button>
   </div>
 </template>

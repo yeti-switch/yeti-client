@@ -1,3 +1,24 @@
+<i18n>
+{
+  "en": {
+    "loginTitle": "Login",
+    "userName": "Username",
+    "userNameError": "Username can't be empty",
+    "password": "Password",
+    "passwordError": "Password can't be empty",
+    "loginAction": "Log in"
+  },
+  "ua": {
+    "loginTitle": "Логування",
+    "userName": "Ім'я користувача",
+    "userNameError": "Будь-ласка, введіть ім'я користувача",
+    "password": "Пароль",
+    "passwordError": "Будь-ласка, введіть пароль",
+    "loginAction": "Увійти"
+  }
+}
+</i18n>
+
 <template>
   <div id="auth">
     <a-form
@@ -12,16 +33,16 @@
       />
       <a-row>
         <h1 class="login-title">
-          Login
+          {{ $t('loginTitle') }}
         </h1>
       </a-row>
       <a-form-item>
         <a-input
           v-decorator="[
             'login',
-            { rules: [{ required: true, message: 'Please input your login!' }] },
+            { rules: [{ required: true, message: $t('userNameError') }] },
           ]"
-          placeholder="Login"
+          :placeholder="$t('userName')"
         >
           <a-icon
             slot="prefix"
@@ -34,10 +55,10 @@
         <a-input
           v-decorator="[
             'password',
-            { rules: [{ required: true, message: 'Please input your Password!' }] },
+            { rules: [{ required: true, message: $t('passwordError') }] },
           ]"
           type="password"
-          placeholder="Password"
+          :placeholder="$t('password')"
         >
           <a-icon
             slot="prefix"
@@ -52,7 +73,7 @@
           html-type="submit"
           class="login-form-button"
         >
-          Log in
+          {{ $t('loginAction') }}
         </a-button>
       </a-form-item>
     </a-form>

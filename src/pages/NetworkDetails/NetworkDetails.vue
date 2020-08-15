@@ -4,7 +4,7 @@
     "networkDetails": "Network details for"
   },
   "ua": {
-    "networkDetails": "Информация о сети"
+    "networkDetails": "Информація о мережі"
   }
 }
 </i18n>

@@ -1,5 +1,6 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
+import VueI18n from 'vue-i18n';
 
 import NetworkDetails from '../NetworkDetails.vue';
 import VerticalListAnt from '@/components/VerticalListAnt/VerticalListAnt';
@@ -7,6 +8,7 @@ import { COMMON_TABLE_ENTITY_EXCLUDED_FIELDS, NETWORK_DETAILS } from '@/constant
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
+localVue.use(VueI18n);
 
 const $route = {
   params: {

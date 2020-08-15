@@ -2,8 +2,8 @@ import { NETWORK_SERVICE } from '@/constants';
 import * as commonStoreHelpers from '../common';
 
 describe('wrapWithAsyncRequestStatus store helper', () => {
-  it('should call commits and callback in approproate order', async () => {
-    const callback = jest.fn();
+  it('should call commits and callback in appropriate order', async () => {
+    const callback = jest.fn(() => Promise.resolve());
     const commit = jest.fn();
 
     const caller = async () =>

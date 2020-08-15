@@ -29,6 +29,7 @@ import locale from './locale';
 
 export default {
   name: 'StatisticsCharts',
+  i18n: locale,
   components: {
     dataChart: DataChart,
   },

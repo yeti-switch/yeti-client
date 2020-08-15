@@ -12,26 +12,26 @@ const state = {
   activeAccountId: '',
 };
 const getters = {
-  accounts: (currentState) => (currentState.accounts.data),
+  accounts: (currentState) => (currentState.accounts),
   currentAccountDetails: (currentState) => currentState.currentAccountDetails.data,
 
   activeAccount: (currentState) => (currentState.activeAccountId
-    ? currentState.accounts.data.find((account) => account.id === currentState.activeAccountId)
-    : currentState.accounts.data[0]),
+    ? currentState.accounts.find((account) => account.id === currentState.activeAccountId)
+    : currentState.accounts[0]),
 };
 
 const actions = {
   [ACCOUNTS.ACTIONS.GET_ACCOUNTS]: ({ commit, dispatch, state: localState }) =>
     utils.wrapWithAsyncRequestStatus(commit, async () => {
-      const accounts = await jsonApi.findAllResources(RESOURCES.ACCOUNTS, {
+      const { data } = await jsonApi.findAllResources(RESOURCES.ACCOUNTS, {
         fields: { [RESOURCES.ACCOUNTS]: SPARSE_FIELDS[RESOURCES.ACCOUNTS] },
       });
 
       if (localState.activeAccountId === '') {
-        commit(ACCOUNTS.MUTATIONS.SET_ACCOUNTS, accounts);
+        commit(ACCOUNTS.MUTATIONS.SET_ACCOUNTS, data);
         dispatch(ACCOUNTS.ACTIONS.GET_ACCOUNT_DETAILS);
       } else {
-        commit(ACCOUNTS.MUTATIONS.SET_ACCOUNTS, accounts);
+        commit(ACCOUNTS.MUTATIONS.SET_ACCOUNTS, data);
       }
     }),
   [ACCOUNTS.ACTIONS.GET_ACCOUNT_DETAILS]: ({ commit, getters: localGetters }) =>

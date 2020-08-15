@@ -17,10 +17,10 @@ const actions = {
 const mutations = {
   [NETWORK_SERVICE.MUTATIONS.SWITCH_PENDING_STATE]: (currentState, requestIsPending) => {
     // Here we're simply sum active network requests. It can be dangerous
-    const quntator = requestIsPending ? 1 : -1;
+    const quantator = requestIsPending ? 1 : -1;
     const { requestsPending } = currentState;
 
-    currentState.requestsPending = requestsPending >= 0 ? requestsPending + quntator : 0;
+    currentState.requestsPending = requestsPending > 0 ? requestsPending + quantator : 0;
   },
 };
 

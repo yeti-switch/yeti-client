@@ -1,6 +1,6 @@
 <template>
   <div class="time-range-filter">
-    Time interval:
+    {{ $t('message.timeInterval') }}
     <date-range-picker
       ref="picker"
       :date-range="timeFilterValue"
@@ -10,6 +10,7 @@
       :auto-apply="settings.autoApply"
       :date-util="settings.dateUtil"
       :linked-calendars="settings.linkedCalendars"
+      :ranges="ranges"
       @toggle="toggleIfNotLoading"
       @update="filterSet"
     >
@@ -28,7 +29,7 @@
       :disabled="requestIsPending"
       @click="filterReset"
     >
-      Reset
+      {{ $t('message.reset') }}
     </a-button>
   </div>
 </template>
@@ -40,10 +41,15 @@ import { mapGetters, mapActions } from 'vuex';
 import utils from '@/utils';
 import { TIME_RANGE_FILTER } from '@/constants';
 
+import locale from './locale';
+import { DEFAULT_PROPS } from './constants';
+import { getLocalePartOfSettings, getLocaleRanges } from './helpers';
+
 import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
 
 export default {
   name: 'TimeRangeFilter',
+  i18n: locale,
   components: {
     DateRangePicker,
   },
@@ -57,21 +63,17 @@ export default {
       type: Object,
       default() {
         return {
-          opens: 'left',
-          timePicker: true,
-          linkedCalendars: false,
-          dateUtil: 'moment',
-          localeData: {
-            firstDay: 1,
-            format: 'DD-MM-YYYY HH:mm:ss',
-            applyLabel: 'Filter',
-          },
+          ...DEFAULT_PROPS,
+          localeData: getLocalePartOfSettings(locale, this.$i18n.locale),
         };
       },
     },
   },
   computed: {
     ...mapGetters(['timeFilterValue', 'requestIsPending']),
+    ranges() {
+      return getLocaleRanges(locale, this.$i18n.locale);
+    },
   },
   methods: {
     ...mapActions([TIME_RANGE_FILTER.ACTIONS.FILTER_SET, TIME_RANGE_FILTER.ACTIONS.FILTER_RESET]),
@@ -84,10 +86,23 @@ export default {
 };
 </script>
 
-<style scope>
+<style lang="scss">
 .time-range-filter {
   text-align: left;
   padding: 0 0 10px 15px;
+
+  .calendars {
+    display: flex;
+
+    .calendar-time {
+      display: flex;
+      justify-content: center;
+
+      select {
+        margin: 0;
+      }
+    }
+  }
 }
 .form-control {
   color: #495057;

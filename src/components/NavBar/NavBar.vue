@@ -32,7 +32,7 @@
           <a-icon
             :type="getIconType(link.routeName)"
           />
-          <span>{{ getItemText(link.routeName) }}</span>
+          <span>{{ $t(`message.${link.routeName}`) }}</span>
         </router-link>
       </a-menu-item>
     </a-menu>
@@ -47,23 +47,22 @@
         @click="logoutHandler"
       >
         <a-icon type="logout" />
-        <span>Logout</span>
+        <span>{{ $t('message.logout') }}</span>
       </a-menu-item>
     </a-menu>
   </a-layout-sider>
 </template>
 
 <script>
-import { capitalize } from 'lodash';
 import { mapGetters, mapActions } from 'vuex';
-import {
-  AUTH, ACCOUNT_INFO_ROUTE_NAMES, UI_STATE,
-} from '@/constants';
+import { AUTH, UI_STATE } from '@/constants';
 
-import { NAV_ITEMS } from './constants';
+import { NAV_ITEMS, ROUTE_TO_ICON_MAPPINGS } from './constants';
+import locale from './locale';
 
 export default {
   name: 'NavBar',
+  i18n: locale,
   data() {
     return {
       selectedKeys: [''],
@@ -96,29 +95,11 @@ export default {
     logoutHandler() {
       this[AUTH.ACTIONS.LOGOUT]().then(() => this.$router.push('/login'));
     },
-    getItemText(routeName) {
-      return capitalize(routeName);
-    },
     isNavItemVisible({ routename }) {
       return !this.blockedPages.has(routename);
     },
     getIconType(routeName) {
-      if (routeName === ACCOUNT_INFO_ROUTE_NAMES.RATES) {
-        return 'dollar';
-      }
-      if (routeName === ACCOUNT_INFO_ROUTE_NAMES.CDRS) {
-        return 'bars';
-      }
-      if (routeName === ACCOUNT_INFO_ROUTE_NAMES.STATISTICS) {
-        return 'line-chart';
-      }
-      if (routeName === ACCOUNT_INFO_ROUTE_NAMES.ACCOUNT) {
-        return 'team';
-      }
-      if (routeName === ACCOUNT_INFO_ROUTE_NAMES.NETWORKS) {
-        return 'cluster';
-      }
-      return '';
+      return ROUTE_TO_ICON_MAPPINGS[routeName];
     },
   },
 };

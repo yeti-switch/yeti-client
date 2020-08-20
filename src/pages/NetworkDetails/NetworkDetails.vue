@@ -1,6 +1,6 @@
 <template>
   <div class="network-details-page">
-    <h5>{{ networkName }} network details:</h5>
+    <h5>{{ $t('message.networkDetails') }} {{ networkName }}</h5>
     <vertical-list-ant :data-source="formattedNetworkDetails" />
   </div>
 </template>
@@ -12,8 +12,11 @@ import { NETWORKS, COMMON_TABLE_ENTITY_EXCLUDED_FIELDS } from '@/constants';
 import utils from '@/utils';
 import VerticalListAnt from '@/components/VerticalListAnt/VerticalListAnt';
 
+import locale from './locale';
+
 export default {
   name: 'NetworkDetails',
+  i18n: locale,
   components: {
     VerticalListAnt,
   },

@@ -14,7 +14,7 @@
         >
           <a-input-search
             v-model="localFilter"
-            placeholder="input search text"
+            :placeholder="$t('message.inputPlaceholder')"
             size="large"
             @change="onFilterChange"
           >
@@ -23,7 +23,7 @@
               :disabled="!localFilter"
               @mousedown.stop="clearLocalFilter"
             >
-              Clear
+              {{ $t('message.clear') }}
             </a-button>
           </a-input-search>
         </a-col>
@@ -56,8 +56,11 @@
 import { mapGetters } from 'vuex';
 import { debounce } from 'lodash';
 
+import locale from './locale';
+
 export default {
   name: 'DataTableAnt',
+  i18n: locale,
   props: {
     localFilterEnabled: {
       type: Boolean,

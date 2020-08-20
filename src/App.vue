@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import NavBar from './components/NavBar/NavBar';
 import {
   AUTH, NOTIFICATION_TYPES, GENERAL_ROUTE_NAMES, NETWORK_SERVICE,
@@ -32,9 +33,10 @@ export default {
       filtersRouteName: GENERAL_ROUTE_NAMES.VIEW_FILTERS,
     };
   },
+  computed: {
+    ...mapGetters(['locale']),
+  },
   beforeCreate() {
-    this.$store.dispatch(AUTH.ACTIONS.LOCAL_AUTH);
-
     const errorMiddleware = {
       name: 'logout-redirect',
       error: (payload) => {
@@ -56,6 +58,10 @@ export default {
     };
 
     jsonApi.instance.insertMiddlewareAfter('errors', errorMiddleware);
+    this.$store.dispatch(AUTH.ACTIONS.LOCAL_AUTH);
+  },
+  created() {
+    this.$i18n.locale = this.locale;
   },
   methods: {
     setMessage(message) {
@@ -87,7 +93,7 @@ main {
   height: 100vh;
   display: flex;
   /* Aligned to the height of charts */
-  min-height: 900px;
+  /* min-height: 900px; */
 }
 
 .working-area-wrapper {

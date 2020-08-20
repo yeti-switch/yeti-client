@@ -17,11 +17,14 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['navOpened']),
+    ...mapGetters(['navCollapsed']),
   },
   watch: {
-    navOpened() {
-      this.$data._chart.resize(); // eslint-disable-line no-underscore-dangle
+    navCollapsed() {
+      // magic timeout to resize chart after navbar was animated in or out
+      setTimeout(() => {
+        this.$data._chart.resize(); // eslint-disable-line no-underscore-dangle
+      }, 100);
     },
   },
   mounted() {

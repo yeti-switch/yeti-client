@@ -19,22 +19,25 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import { set } from 'lodash';
 
 import DataChart from '@/components/DataChart/DataChart';
 import { STATISTICS } from '@/constants';
 
 import { CHART_OPTIONS, INITIAL_DATASETS_SETTINGS } from './constants';
+import locale from './locale';
 
 export default {
   name: 'StatisticsCharts',
+  i18n: locale,
   components: {
     dataChart: DataChart,
   },
   data() {
     return {
-      chartOptions: CHART_OPTIONS,
+      chartOptions: set(CHART_OPTIONS, 'scales.xAxes[0].scaleLabel.labelString', locale.messages[this.$i18n.locale].message.time),
       chart: undefined,
-      chartHeight: 0,
+      chartHeight: (document.body.clientHeight - 100) / 2,
     };
   },
   computed: {
@@ -46,6 +49,7 @@ export default {
         return Object.entries(INITIAL_DATASETS_SETTINGS).reduce((acc, [key, value]) => {
           acc[key] = {
             ...value,
+            label: locale.messages[this.$i18n.locale].message[key],
             data: chartsData[key].map(({ x, y }) => ({ y, x: Date.parse(x) })),
           };
 
@@ -53,7 +57,7 @@ export default {
         }, {});
       }
 
-      return {};
+      return { cps: { data: [] }, activeCalls: { data: [] }, originatedCps: { data: [] } };
     },
     originatedCpsData() {
       return { datasets: [this.derivedCharData.cps] };
@@ -66,10 +70,6 @@ export default {
     activeAccount() {
       this[STATISTICS.ACTIONS.GET_STATISTICS]();
     },
-  },
-  mounted() {
-    // 100 is magic number which will gave us nice chart height
-    this.chartHeight = (document.querySelector('.working-area-wrapper').clientHeight - 100) / 2;
   },
   created() {
     if (this.activeAccount) {

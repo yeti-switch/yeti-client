@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 
 import DataTableAnt from '@/components/DataTableAnt/DataTableAnt';
 import Networks from '../Networks.vue';
+import { mockedLocale } from '@/../test/mocks/componentLocale';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -24,7 +25,11 @@ describe('Networks page', () => {
       },
     });
 
-    shallowMount(Networks, { store, localVue });
+    shallowMount(Networks, {
+      store,
+      localVue,
+      mocks: { ...mockedLocale() },
+    });
     expect(getNetworks).toHaveBeenCalled();
   });
   it('is instance of Vue, with proper networks entries in store', () => {
@@ -58,7 +63,11 @@ describe('Networks page', () => {
       },
     });
 
-    const wrapper = shallowMount(Networks, { store, localVue });
+    const wrapper = shallowMount(Networks, {
+      store,
+      localVue,
+      mocks: { ...mockedLocale() },
+    });
     expect(wrapper.findComponent(DataTableAnt).props('localFilterTerm')).toBe('alabama');
     expect(wrapper.findComponent(DataTableAnt).props('items').length).toBe(2);
     expect(wrapper.findComponent(DataTableAnt).props('rows')).toBe(500);

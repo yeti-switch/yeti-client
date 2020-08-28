@@ -1,6 +1,6 @@
 <template>
   <DataTableAnt
-    :fields="fields"
+    :fields="tableFields"
     :items="formattedNetworks"
     :get-data="getNetworks"
     local-filter-enabled
@@ -18,41 +18,12 @@ import { NETWORKS } from '@/constants';
 import utils from '@/utils';
 import DataTableAnt from '@/components/DataTableAnt/DataTableAnt';
 
+import { TABLE_HEADERS_ANT } from './constants';
+
 export default {
   name: 'Networks',
   components: {
     DataTableAnt,
-  },
-  data() {
-    return {
-      // Table fields
-      fields: [
-        {
-          key: 'name',
-          dataIndex: 'name',
-          title: 'Name',
-          width: 300,
-          customRender: (name, row) => (<a
-            router-link
-            href={`#/network-details/${row.id}`}
-          >
-            {name}
-          </a>),
-        },
-        {
-          key: 'network-type',
-          dataIndex: 'network-type',
-          title: 'Type',
-          width: 300,
-        },
-        {
-          key: 'id',
-          dataIndex: 'id',
-          title: 'Uuid',
-          width: 300,
-        },
-      ],
-    };
   },
   computed: {
     ...mapGetters(['networksFilter', 'networks']),
@@ -61,6 +32,15 @@ export default {
     },
     rows() {
       return get(this.networks, ['meta', 'total-count'], 0);
+    },
+    tableFields() {
+      return TABLE_HEADERS_ANT.map((header) => (
+        {
+          ...header,
+          title: header.title[this.$i18n.locale],
+          customRender: header.customRender && header.customRender.bind(this),
+        }
+      ));
     },
   },
   created() {

@@ -2,6 +2,7 @@ import { shallowMount, createLocalVue } from '@vue/test-utils';
 import Vuex from 'vuex';
 
 import Cdrs from '../Cdrs.vue';
+import { mockedLocale } from '@/../test/mocks/componentLocale';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -23,7 +24,11 @@ describe('Cdrs page', () => {
       },
     });
 
-    shallowMount(Cdrs, { store, localVue });
+    shallowMount(Cdrs, {
+      store,
+      localVue,
+      mocks: { ...mockedLocale() },
+    });
     expect(getCdrs).toHaveBeenCalled();
   });
 });

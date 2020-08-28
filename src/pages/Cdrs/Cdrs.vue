@@ -1,6 +1,6 @@
 <template>
   <DataTableAnt
-    :fields="fields"
+    :fields="tableFields"
     :items="formattedCdrs"
     :rows="rows"
     :get-data="getCdrs"
@@ -39,6 +39,14 @@ export default {
     },
     rows() {
       return get(this.cdrs, ['meta', 'total-count'], 0);
+    },
+    tableFields() {
+      return TABLE_HEADERS_ANT.map((header) => (
+        {
+          ...header,
+          title: header.title[this.$i18n.locale],
+        }
+      ));
     },
   },
   watch: {

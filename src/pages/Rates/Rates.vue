@@ -1,6 +1,6 @@
 <template>
   <DataTableAnt
-    :fields="fields"
+    :fields="tableFields"
     :items="formattedRates"
     :get-data="getRates"
   />
@@ -21,11 +21,6 @@ export default {
   components: {
     DataTableAnt,
   },
-  data() {
-    return {
-      fields: TABLE_HEADERS_ANT,
-    };
-  },
   computed: {
     ...mapGetters(['rates']),
     formattedRates() {
@@ -33,6 +28,14 @@ export default {
     },
     rows() {
       return get(this.rates, ['meta', 'total-count'], 0);
+    },
+    tableFields() {
+      return TABLE_HEADERS_ANT.map((header) => (
+        {
+          ...header,
+          title: header.title[this.$i18n.locale],
+        }
+      ));
     },
   },
   created() {

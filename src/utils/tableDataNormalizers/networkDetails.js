@@ -1,6 +1,6 @@
-import { omit, lowerCase, capitalize } from 'lodash';
+import { omit } from 'lodash';
 
-export const formatNetworkDetails = (networkDetails, excludedFields) => {
+export const formatNetworkDetails = (excludedFields) => (networkDetails) => {
   if (networkDetails) {
     networkDetails.uuid = networkDetails.id;
     networkDetails['network-type'] = networkDetails['network-type'].name;
@@ -8,7 +8,7 @@ export const formatNetworkDetails = (networkDetails, excludedFields) => {
     return Object.entries(
     // Get rid of not needed properties
       omit(networkDetails, [...excludedFields, 'id']),
-    ).map(([key, value]) => ({ key: capitalize(lowerCase(key)), value }));
+    );
   }
 
   // Fallback to empty network details

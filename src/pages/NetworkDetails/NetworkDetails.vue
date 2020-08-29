@@ -7,6 +7,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
+import { flow } from 'lodash';
 
 import { NETWORKS, COMMON_TABLE_ENTITY_EXCLUDED_FIELDS } from '@/constants';
 import utils from '@/utils';
@@ -23,9 +24,10 @@ export default {
   computed: {
     ...mapGetters(['networkDetails']),
     formattedNetworkDetails() {
-      return this.networkDetails.id ? utils.formatNetworkDetails(
-        this.networkDetails, COMMON_TABLE_ENTITY_EXCLUDED_FIELDS,
-      ) : [];
+      return this.networkDetails.id ? flow(
+        utils.formatNetworkDetails(COMMON_TABLE_ENTITY_EXCLUDED_FIELDS),
+        utils.applyLocaleHeaders(locale.messages[this.$i18n.locale].tableMessage),
+      )(this.networkDetails) : [];
     },
     networkName() {
       return this.networkDetails.name;

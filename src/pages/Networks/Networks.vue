@@ -19,6 +19,7 @@ import utils from '@/utils';
 import DataTableAnt from '@/components/DataTableAnt/DataTableAnt';
 
 import { TABLE_HEADERS_ANT } from './constants';
+import locale from './locale';
 
 export default {
   name: 'Networks',
@@ -37,7 +38,7 @@ export default {
       return TABLE_HEADERS_ANT.map((header) => (
         {
           ...header,
-          title: header.title[this.$i18n.locale],
+          title: locale.messages[this.$i18n.locale].tableMessage[header.key],
           customRender: header.customRender && header.customRender.bind(this),
         }
       ));

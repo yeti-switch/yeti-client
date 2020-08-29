@@ -16,21 +16,12 @@ import { CDRS } from '@/constants';
 import DataTableAnt from '@/components/DataTableAnt/DataTableAnt';
 
 import { TABLE_HEADERS_ANT } from './constants';
+import locale from './locale';
 
 export default {
   name: 'Cdrs',
   components: {
     DataTableAnt,
-  },
-  data() {
-    return {
-      // Table fields
-      fields: TABLE_HEADERS_ANT,
-      itemsToBadge: [{
-        id: 'success',
-        errorValue: 'No',
-      }],
-    };
   },
   computed: {
     ...mapGetters(['activeAccount', 'cdrs']),
@@ -44,7 +35,7 @@ export default {
       return TABLE_HEADERS_ANT.map((header) => (
         {
           ...header,
-          title: header.title[this.$i18n.locale],
+          title: locale.messages[this.$i18n.locale].tableMessage[header.key],
         }
       ));
     },

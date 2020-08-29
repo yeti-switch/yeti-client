@@ -2,31 +2,26 @@ export const TABLE_HEADERS_ANT = [
   {
     key: 'time-start',
     dataIndex: 'time-start',
-    title: { en: 'Start Time', ua: 'Час початку' },
     width: 200,
   },
   {
     key: 'time-connect',
     dataIndex: 'time-connect',
-    title: { en: 'Connect Time', ua: "Час з'єднання" },
     width: 200,
   },
   {
     key: 'time-end',
     dataIndex: 'time-end',
-    title: { en: 'End Time', ua: 'Час закінчення' },
     width: 200,
   },
   {
     key: 'duration',
     dataIndex: 'duration',
-    title: { en: 'Duration', ua: 'Тривалість' },
     width: 200,
   },
   {
     key: 'success',
     dataIndex: 'success',
-    title: { en: 'Success', ua: 'Успіх' },
     width: 200,
     scopedSlots: {
       customRender: 'badge',
@@ -35,91 +30,76 @@ export const TABLE_HEADERS_ANT = [
   {
     key: 'src-name-in',
     dataIndex: 'src-name-in',
-    title: { en: 'Source Name', ua: 'Джерело' },
     width: 200,
   },
   {
     key: 'src-prefix-in',
     dataIndex: 'src-prefix-in',
-    title: { en: 'Source Number', ua: 'Вихідний номер' },
     width: 200,
   },
   {
     key: 'src-prefix-routing',
     dataIndex: 'src-prefix-routing',
-    title: { en: 'Routing Source number', ua: 'Номер маршрутизації джерела' },
     width: 200,
   },
   {
     key: 'dst-prefix-in',
     dataIndex: 'dst-prefix-in',
-    title: { en: 'Destination number', ua: 'Номер отримувача' },
     width: 200,
   },
   {
     key: 'dst-prefix-routing',
     dataIndex: 'dst-prefix-routing',
-    title: { en: 'Routing Destination number', ua: 'Номер маршрутизації отримувача' },
     width: 200,
   },
   {
     key: 'disconnect-full-info',
     dataIndex: 'disconnect-full-info',
-    title: { en: 'Disconnect code', ua: "Код розз'єднання" },
     width: 200,
   },
   {
     key: 'rate',
     dataIndex: 'rate',
-    title: { en: 'Rate', ua: 'Тариф' },
     width: 200,
   },
   {
     key: 'destination-fee',
     dataIndex: 'destination-fee',
-    title: { en: 'Connection Fee', ua: "Плата за з'єднання" },
     width: 200,
   },
   {
     key: 'billing-intervals',
     dataIndex: 'billing-intervals',
-    title: { en: 'Billing Intervals', ua: 'Інтервали оплати' },
     width: 200,
   },
   {
     key: 'customer-price',
     dataIndex: 'customer-price',
-    title: { en: 'Customer Price', ua: 'Ціна для користувача' },
     width: 200,
   },
   {
     key: 'originator-address',
     dataIndex: 'originator-address',
-    title: { en: 'Originator Address', ua: 'Адреса ініціатора' },
     width: 200,
   },
   {
     key: 'from-domain',
     dataIndex: 'from-domain',
-    title: { en: 'From domain', ua: 'Вихідний домен' },
     width: 200,
   },
   {
     key: 'to-domain',
     dataIndex: 'to-domain',
-    title: { en: 'To domain', ua: 'Цільовий домен' },
     width: 200,
   },
   {
     key: 'ruri-domain',
     dataIndex: 'ruri-domain',
-    title: { en: 'R-URI Domain', ua: 'Домен R-URI' },
     width: 200,
   },
   {
     key: 'local-tag',
     dataIndex: 'local-tag',
-    title: { en: 'Local Tag', ua: 'Локальний тег' },
     width: 200,
   },
 ];

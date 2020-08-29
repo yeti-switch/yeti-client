@@ -1,12 +1,15 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils';
 import Vuex from 'vuex';
+import VueI18n from 'vue-i18n';
 
 import DataTableAnt from '@/components/DataTableAnt/DataTableAnt';
+
 import Networks from '../Networks.vue';
-import { mockedLocale } from '@/../test/mocks/componentLocale';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
+localVue.use(VueI18n);
+const i18n = new VueI18n({ locale: 'en' });
 
 describe('Networks page', () => {
   it('is instance of Vue, with no networks entries in store', () => {
@@ -28,7 +31,7 @@ describe('Networks page', () => {
     shallowMount(Networks, {
       store,
       localVue,
-      mocks: { ...mockedLocale() },
+      i18n,
     });
     expect(getNetworks).toHaveBeenCalled();
   });
@@ -66,7 +69,7 @@ describe('Networks page', () => {
     const wrapper = shallowMount(Networks, {
       store,
       localVue,
-      mocks: { ...mockedLocale() },
+      i18n,
     });
     expect(wrapper.findComponent(DataTableAnt).props('localFilterTerm')).toBe('alabama');
     expect(wrapper.findComponent(DataTableAnt).props('items').length).toBe(2);

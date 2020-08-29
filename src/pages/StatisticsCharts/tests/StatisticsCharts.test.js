@@ -4,14 +4,12 @@ import VueI18n from 'vue-i18n';
 import StatisticsCharts from '../StatisticsCharts.vue';
 import DataChart from '@/components/DataChart/DataChart';
 
-// const i18n = new VueI18n({ locale: 'en' });
-// const i18n = new VueI18n();
-
 const localVue = createLocalVue();
 localVue.use(Vuex);
 localVue.use(VueI18n);
+const i18n = new VueI18n({ locale: 'en' });
 
-xdescribe('StatisticsCharts page', () => {
+describe('StatisticsCharts page', () => {
   it('is instance of Vue, with no statistics entries in store', () => {
     const getStatistics = jest.fn();
     const store = new Vuex.Store({

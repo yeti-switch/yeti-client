@@ -1,6 +1,6 @@
 <template>
   <DataTableAnt
-    :fields="fields"
+    :fields="tableFields"
     :items="formattedCdrs"
     :rows="rows"
     :get-data="getCdrs"
@@ -16,21 +16,12 @@ import { CDRS } from '@/constants';
 import DataTableAnt from '@/components/DataTableAnt/DataTableAnt';
 
 import { TABLE_HEADERS_ANT } from './constants';
+import locale from './locale';
 
 export default {
   name: 'Cdrs',
   components: {
     DataTableAnt,
-  },
-  data() {
-    return {
-      // Table fields
-      fields: TABLE_HEADERS_ANT,
-      itemsToBadge: [{
-        id: 'success',
-        errorValue: 'No',
-      }],
-    };
   },
   computed: {
     ...mapGetters(['activeAccount', 'cdrs']),
@@ -39,6 +30,14 @@ export default {
     },
     rows() {
       return get(this.cdrs, ['meta', 'total-count'], 0);
+    },
+    tableFields() {
+      return TABLE_HEADERS_ANT.map((header) => (
+        {
+          ...header,
+          title: locale.messages[this.$i18n.locale].tableMessage[header.key],
+        }
+      ));
     },
   },
   watch: {

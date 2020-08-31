@@ -9,6 +9,7 @@ import { COMMON_TABLE_ENTITY_EXCLUDED_FIELDS, NETWORK_DETAILS } from '@/constant
 const localVue = createLocalVue();
 localVue.use(Vuex);
 localVue.use(VueI18n);
+const i18n = new VueI18n({ locale: 'en', messages: { en: { message: { networkDetails: 'ALBANIA' } } } });
 
 const $route = {
   params: {
@@ -34,7 +35,7 @@ describe('NetworkDetails page', () => {
     });
 
     const wrapper = shallowMount(NetworkDetails, {
-      store, localVue, mocks: { $route },
+      store, localVue, i18n, mocks: { $route },
     });
     expect(wrapper.findComponent(VerticalListAnt).exists()).toBeTruthy();
     expect(getNetworkDetails).toHaveBeenCalled();
@@ -56,7 +57,7 @@ describe('NetworkDetails page', () => {
     });
 
     const wrapper = shallowMount(NetworkDetails, {
-      store, localVue, mocks: { $route },
+      store, localVue, i18n, mocks: { $route },
     });
     const numberOfRowsInNetworkInfo = Object.keys(NETWORK_DETAILS).length
     - COMMON_TABLE_ENTITY_EXCLUDED_FIELDS.length - 1; // one additional key for id

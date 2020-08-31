@@ -11,3 +11,28 @@ describe('prettifyRateValue store helper', () => {
     expect(result).toBe(1);
   });
 });
+
+describe('applyLocaleHeaders store helper', () => {
+  it('transforms header values to a proper format', () => {
+    const inputData = [
+      ['name', 'Some network name'],
+      ['uuid', '12345'],
+      ['network-type', 'Current'],
+    ];
+
+    const localeHeaders = {
+      name: 'Name',
+      'network-type': 'Network Type',
+      uuid: 'Uuid',
+    };
+
+    const expectedResult = [
+      { key: 'Name', value: 'Some network name' },
+      { key: 'Uuid', value: '12345' },
+      { key: 'Network Type', value: 'Current' },
+    ];
+
+    const result = common.applyLocaleHeaders(localeHeaders)(inputData);
+    expect(result).toStrictEqual(expectedResult);
+  });
+});

@@ -2,31 +2,26 @@ export const TABLE_HEADERS_ANT = [
   {
     key: 'time-start',
     dataIndex: 'time-start',
-    title: 'Start Time',
     width: 200,
   },
   {
     key: 'time-connect',
     dataIndex: 'time-connect',
-    title: 'Connect Time',
     width: 200,
   },
   {
     key: 'time-end',
     dataIndex: 'time-end',
-    title: 'End Time',
     width: 200,
   },
   {
     key: 'duration',
     dataIndex: 'duration',
-    title: 'Duration',
     width: 200,
   },
   {
     key: 'success',
     dataIndex: 'success',
-    title: 'Success',
     width: 200,
     scopedSlots: {
       customRender: 'badge',
@@ -35,91 +30,76 @@ export const TABLE_HEADERS_ANT = [
   {
     key: 'src-name-in',
     dataIndex: 'src-name-in',
-    title: 'Source Name',
     width: 200,
   },
   {
     key: 'src-prefix-in',
     dataIndex: 'src-prefix-in',
-    title: 'Source Number',
     width: 200,
   },
   {
     key: 'src-prefix-routing',
     dataIndex: 'src-prefix-routing',
-    title: 'Routing Source number',
     width: 200,
   },
   {
     key: 'dst-prefix-in',
     dataIndex: 'dst-prefix-in',
-    title: 'Destination number',
     width: 200,
   },
   {
     key: 'dst-prefix-routing',
     dataIndex: 'dst-prefix-routing',
-    title: 'Routing Destination number',
     width: 200,
   },
   {
     key: 'disconnect-full-info',
     dataIndex: 'disconnect-full-info',
-    title: 'Disconnect code',
     width: 200,
   },
   {
     key: 'rate',
     dataIndex: 'rate',
-    title: 'Rate',
     width: 200,
   },
   {
     key: 'destination-fee',
     dataIndex: 'destination-fee',
-    title: 'Connection Fee',
     width: 200,
   },
   {
     key: 'billing-intervals',
     dataIndex: 'billing-intervals',
-    title: 'Billing Intervals',
     width: 200,
   },
   {
     key: 'customer-price',
     dataIndex: 'customer-price',
-    title: 'Customer Price',
     width: 200,
   },
   {
     key: 'originator-address',
     dataIndex: 'originator-address',
-    title: 'Originator Address',
     width: 200,
   },
   {
     key: 'from-domain',
     dataIndex: 'from-domain',
-    title: 'From domain',
     width: 200,
   },
   {
     key: 'to-domain',
     dataIndex: 'to-domain',
-    title: 'To domain',
     width: 200,
   },
   {
     key: 'ruri-domain',
     dataIndex: 'ruri-domain',
-    title: 'R-URI Domain',
     width: 200,
   },
   {
     key: 'local-tag',
     dataIndex: 'local-tag',
-    title: 'Local Tag',
     width: 200,
   },
 ];

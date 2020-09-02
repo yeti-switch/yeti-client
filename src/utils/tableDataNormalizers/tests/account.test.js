@@ -19,4 +19,11 @@ describe('formatAccount store helper', () => {
     const result = account.formatAccount(COMMON_TABLE_ENTITY_EXCLUDED_FIELDS)(correctInitialParams);
     expect(result).toMatchObject(expectedResult);
   });
+
+  it('returns an empty array if no account was passed', () => {
+    const expectedResult = [];
+
+    const result = account.formatAccount(COMMON_TABLE_ENTITY_EXCLUDED_FIELDS)();
+    expect(result).toMatchObject(expectedResult);
+  });
 });

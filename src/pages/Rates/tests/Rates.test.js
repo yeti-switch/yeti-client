@@ -10,7 +10,9 @@ localVue.use(VueI18n);
 const i18n = new VueI18n({ locale: 'en' });
 
 describe('Rates page', () => {
-  it('is instance of Vue, with no rates entries in store', () => {
+  it('calls getRates endpoint on created, if active account is set', () => {
+    expect.assertions(1);
+
     const getRates = jest.fn();
     const store = new Vuex.Store({
       getters: {

@@ -12,7 +12,9 @@ localVue.use(VueI18n);
 const i18n = new VueI18n({ locale: 'en' });
 
 describe('Networks page', () => {
-  it('is instance of Vue, with no networks entries in store', () => {
+  it('calls getNetworks endpoint on created, if active account is set', () => {
+    expect.assertions(1);
+
     const getNetworks = jest.fn();
     const store = new Vuex.Store({
       getters: {
@@ -35,7 +37,10 @@ describe('Networks page', () => {
     });
     expect(getNetworks).toHaveBeenCalled();
   });
-  it('is instance of Vue, with proper networks entries in store', () => {
+
+  it('builds DataTableAnt with correct props', () => {
+    expect.assertions(3);
+
     const getNetworks = jest.fn();
     const store = new Vuex.Store({
       getters: {

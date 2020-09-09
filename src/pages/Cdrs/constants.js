@@ -6,16 +6,6 @@ export const TABLE_HEADERS_ANT = [
     showInHeader: true,
   },
   {
-    key: 'time-connect',
-    dataIndex: 'time-connect',
-    width: 200,
-  },
-  {
-    key: 'time-end',
-    dataIndex: 'time-end',
-    width: 200,
-  },
-  {
     key: 'duration',
     dataIndex: 'duration',
     width: 200,
@@ -31,6 +21,11 @@ export const TABLE_HEADERS_ANT = [
     },
   },
   {
+    key: 'time-connect',
+    dataIndex: 'time-connect',
+    width: 200,
+  },
+  {
     key: 'src-name-in',
     dataIndex: 'src-name-in',
     width: 200,
@@ -38,6 +33,11 @@ export const TABLE_HEADERS_ANT = [
   {
     key: 'src-prefix-in',
     dataIndex: 'src-prefix-in',
+    width: 200,
+  },
+  {
+    key: 'time-end',
+    dataIndex: 'time-end',
     width: 200,
   },
   {

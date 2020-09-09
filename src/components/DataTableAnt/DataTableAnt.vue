@@ -159,7 +159,7 @@ export default {
 .ant-table-wrapper {
   .ant-table-pagination {
     &.ant-pagination {
-      float: initial;
+      float: left;
 
       .anticon {
         vertical-align: .125em;

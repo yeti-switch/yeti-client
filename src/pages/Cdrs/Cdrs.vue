@@ -4,6 +4,7 @@
     :items="formattedCdrs"
     :rows="rows"
     :get-data="getCdrs"
+    expandable
   />
 </template>
 

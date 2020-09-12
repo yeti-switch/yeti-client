@@ -1,21 +1,29 @@
-import { mount, createLocalVue } from '@vue/test-utils';
+import { shallowMount, createLocalVue, mount } from '@vue/test-utils';
+import sinon from 'sinon';
 import Vuex from 'vuex';
-import { Table, Tag } from 'ant-design-vue';
+import VueI18n from 'vue-i18n';
+import {
+  Table, Tag, Row, Col, Input, Button,
+} from 'ant-design-vue';
 
 import DataTableAnt from '../DataTableAnt.vue';
 
+jest.useFakeTimers();
+
 const localVue = createLocalVue();
 localVue.use(Vuex);
+localVue.use(VueI18n);
+const i18n = new VueI18n({ locale: 'en', messages: { en: { message: { inputPlaceholder: 'Input', clear: 'Clear' } } } });
 
 describe('DataTableAnt', () => {
-  it('is instance of Vue, with no entries passed as propsData', () => {
+  it('empty table will be displayed with on props passed', () => {
     const store = new Vuex.Store({
       getters: {
         requestIsPending: () => false,
       },
     });
 
-    const wrapper = mount(DataTableAnt, {
+    const wrapper = shallowMount(DataTableAnt, {
       store,
       localVue,
       stubs: {
@@ -25,124 +33,52 @@ describe('DataTableAnt', () => {
     expect(wrapper.findComponent(Table)).toBeTruthy();
     wrapper.destroy();
   });
-  it('is instance of Vue, with correct entries passed as propsData', () => {
+
+  it('will react to the changes', () => {
+    expect.assertions(3);
+
+    const clock = sinon.useFakeTimers();
     const store = new Vuex.Store({
       getters: {
         requestIsPending: () => false,
       },
     });
-
+    const getDataMock = jest.fn();
+    const onLocalFilterMock = jest.fn();
     const propsData = {
-      fields: [
-        {
-          key: 'name',
-          dataIndex: 'name',
-          title: 'Name',
-          showInHeader: true,
-        },
-        {
-          key: 'surname',
-          dataIndex: 'surname',
-          title: 'Surname',
-          showInHeader: true,
-        },
-      ],
-      items: [
-        {
-          name: 'Ivan',
-          key: 'Ivan',
-          surname: 'Ivanoff',
-        },
-        {
-          name: 'Andrzej',
-          key: 'Andrzej',
-          surname: 'Kowalski',
-        },
-        {
-          name: 'John',
-          key: 'John',
-          surname: 'Dou',
-        },
-      ],
-      rows: 2,
+      localFilterEnabled: true,
+      localFilterTerm: 'user',
+      onLocalFilter: onLocalFilterMock,
+      getData: getDataMock,
     };
 
     const wrapper = mount(DataTableAnt, {
       store,
       localVue,
       propsData,
-      stubs: {
-        'a-table': Table,
-      },
-    });
-    expect(wrapper.findAll('tr').length).toBe(4); // Data + one tr for header
-    expect(wrapper.findAll('td').at(4).text()).toBe('John');
-    wrapper.destroy();
-  });
-  it('is instance of Vue, with correct entries passed as propsData, with tagged column', () => {
-    const store = new Vuex.Store({
-      getters: {
-        requestIsPending: () => false,
-      },
-    });
-
-    const propsData = {
-      fields: [
-        {
-          key: 'name',
-          dataIndex: 'name',
-          title: 'Name',
-          showInHeader: true,
-        },
-        {
-          key: 'surname',
-          dataIndex: 'surname',
-          title: 'Surname',
-          showInHeader: true,
-        },
-        {
-          key: 'is-admin',
-          dataIndex: 'is-admin',
-          title: 'Is admin',
-          showInHeader: true,
-          scopedSlots: {
-            customRender: 'badge',
-          },
-        },
-      ],
-      items: [
-        {
-          name: 'Ivan',
-          key: 'Ivan',
-          surname: 'Ivanoff',
-          'is-admin': 'No',
-        },
-        {
-          name: 'Andrzej',
-          key: 'Andrzej',
-          surname: 'Kowalski',
-          'is-admin': 'No',
-        },
-        {
-          name: 'John',
-          key: 'John',
-          surname: 'Dou',
-          'is-admin': 'Yes',
-        },
-      ],
-      rows: 3,
-    };
-
-    const wrapper = mount(DataTableAnt, {
-      store,
-      localVue,
-      propsData,
+      i18n,
       stubs: {
         'a-table': Table,
         'a-tag': Tag,
+        'a-row': Row,
+        'a-col': Col,
+        'a-input-search': Input.Search,
+        'a-button': Button,
       },
     });
-    expect(wrapper.findAll('.ant-tag-volcano').length).toBe(2);
+    const inputComponent = wrapper.findComponent(Input.Search);
+
+    wrapper.findComponent(Table).vm.$emit('change', { current: 1 });
+    expect(getDataMock).toHaveBeenCalledWith(1);
+
+    inputComponent.vm.$emit('change', { target: { value: 'fakeSearchTerm' } });
+    clock.tick(500);
+    expect(onLocalFilterMock).toHaveBeenCalledWith('fakeSearchTerm');
+
+    inputComponent.findComponent(Button).vm.$emit('mousedown', { stopPropagation: () => null });
+    expect(onLocalFilterMock).toHaveBeenCalledTimes(2);
+
     wrapper.destroy();
+    clock.restore();
   });
 });

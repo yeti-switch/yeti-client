@@ -31,7 +31,6 @@
       <a-table
         :columns="fields.filter(field => field.showInHeader)"
         :data-source="items"
-        :scroll="{ x: true, y: 700 }"
         :pagination="{ pageSize: 50, total: rows, hideOnSinglePage: true }"
         :loading="requestIsPending"
         @change="onPaginationChange"
@@ -165,7 +164,10 @@ export default {
         vertical-align: .125em;
       }
     }
-
   }
+  .ant-table-body {
+    background-color: #ffffff;
+  }
+
 }
 </style>

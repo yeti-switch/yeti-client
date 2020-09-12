@@ -40,7 +40,7 @@ describe('DataTableAnt', () => {
     const clock = sinon.useFakeTimers();
     const store = new Vuex.Store({
       getters: {
-        requestIsPending: () => false,
+        requestIsPending: () => true,
       },
     });
     const getDataMock = jest.fn();

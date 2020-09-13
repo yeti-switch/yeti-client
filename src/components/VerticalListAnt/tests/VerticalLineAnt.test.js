@@ -1,12 +1,7 @@
 import { shallowMount, createLocalVue, mount } from '@vue/test-utils';
-import sinon from 'sinon';
-import {
-  Table, Tag, Row, Col, Input, Button, List,
-} from 'ant-design-vue';
+import { Row, Col, List } from 'ant-design-vue';
 
 import VerticalListAnt from '../VerticalListAnt.vue';
-
-jest.useFakeTimers();
 
 const localVue = createLocalVue();
 

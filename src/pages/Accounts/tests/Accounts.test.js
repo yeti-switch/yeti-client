@@ -59,6 +59,7 @@ describe('Accounts page', () => {
       },
     };
     const store = new Vuex.Store(adjustedStoreParams);
+
     shallowMount(Accounts, { store, localVue, i18n });
     expect(getAccountDetails).toHaveBeenCalledTimes(0);
   });

@@ -76,15 +76,22 @@ export default {
   methods: {
     ...mapActions([AUTH.ACTIONS.AUTH_REQUEST]),
     onSubmit() {
-      this.form.validateFields((err, values) => {
+      this.form.validateFields(async (err, values) => {
         if (!err) {
           const { login, password } = values;
-          this[AUTH.ACTIONS.AUTH_REQUEST]({ login, password })
-            .then(() => this.$router.push(this.$route.query.redirect || '/'))
-            .then(() => this.$notify({
-              type: NOTIFICATION_TYPES.SUCCESS,
-              text: 'Login successful',
-            }));
+          await this[AUTH.ACTIONS.AUTH_REQUEST]({ login, password });
+
+          await this.$router.push(this.$route.query.redirect || '/');
+          await this.$notify({
+            type: NOTIFICATION_TYPES.SUCCESS,
+            text: 'Login successful',
+          });
+          // this[AUTH.ACTIONS.AUTH_REQUEST]({ login, password })
+          //   .then(() => this.$router.push(this.$route.query.redirect || '/'))
+          //   .then(() => this.$notify({
+          //     type: NOTIFICATION_TYPES.SUCCESS,
+          //     text: 'Login successful',
+          //   }));
         }
       });
     },

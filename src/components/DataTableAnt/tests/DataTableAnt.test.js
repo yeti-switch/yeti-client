@@ -38,11 +38,13 @@ describe('DataTableAnt', () => {
           key: 'name',
           dataIndex: 'name',
           title: 'Name',
+          showInHeader: true,
         },
         {
           key: 'surname',
           dataIndex: 'surname',
           title: 'Surname',
+          showInHeader: true,
         },
       ],
       items: [
@@ -90,16 +92,19 @@ describe('DataTableAnt', () => {
           key: 'name',
           dataIndex: 'name',
           title: 'Name',
+          showInHeader: true,
         },
         {
           key: 'surname',
           dataIndex: 'surname',
           title: 'Surname',
+          showInHeader: true,
         },
         {
           key: 'is-admin',
           dataIndex: 'is-admin',
           title: 'Is admin',
+          showInHeader: true,
           scopedSlots: {
             customRender: 'badge',
           },

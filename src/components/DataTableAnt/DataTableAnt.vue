@@ -29,9 +29,8 @@
         </a-col>
       </a-row>
       <a-table
-        :columns="fields"
+        :columns="fields.filter(field => field.showInHeader)"
         :data-source="items"
-        :scroll="{ x: true, y: 700 }"
         :pagination="{ pageSize: 50, total: rows, hideOnSinglePage: true }"
         :loading="requestIsPending"
         @change="onPaginationChange"
@@ -47,6 +46,20 @@
             {{ badge }}
           </a-tag>
         </span>
+        <template
+          v-if="expandable"
+          v-slot:expandedRowRender="record"
+        >
+          <a-descriptions>
+            <a-descriptions-item
+              v-for="(field) of fields"
+              :key="field"
+              :label="field.title"
+            >
+              {{ record[field.key] }}
+            </a-descriptions-item>
+          </a-descriptions>
+        </template>
       </a-table>
     </div>
   </div>
@@ -96,6 +109,12 @@ export default {
         return [];
       },
     },
+    expandable: {
+      type: Boolean,
+      default() {
+        return false;
+      },
+    },
   },
   data() {
     return {
@@ -139,13 +158,16 @@ export default {
 .ant-table-wrapper {
   .ant-table-pagination {
     &.ant-pagination {
-      float: initial;
+      float: left;
 
       .anticon {
         vertical-align: .125em;
       }
     }
-
   }
+  .ant-table-body {
+    background-color: #ffffff;
+  }
+
 }
 </style>

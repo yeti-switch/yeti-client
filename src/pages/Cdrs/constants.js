@@ -3,29 +3,27 @@ export const TABLE_HEADERS_ANT = [
     key: 'time-start',
     dataIndex: 'time-start',
     width: 200,
-  },
-  {
-    key: 'time-connect',
-    dataIndex: 'time-connect',
-    width: 200,
-  },
-  {
-    key: 'time-end',
-    dataIndex: 'time-end',
-    width: 200,
+    showInHeader: true,
   },
   {
     key: 'duration',
     dataIndex: 'duration',
     width: 200,
+    showInHeader: true,
   },
   {
     key: 'success',
     dataIndex: 'success',
     width: 200,
+    showInHeader: true,
     scopedSlots: {
       customRender: 'badge',
     },
+  },
+  {
+    key: 'time-connect',
+    dataIndex: 'time-connect',
+    width: 200,
   },
   {
     key: 'src-name-in',
@@ -38,6 +36,11 @@ export const TABLE_HEADERS_ANT = [
     width: 200,
   },
   {
+    key: 'time-end',
+    dataIndex: 'time-end',
+    width: 200,
+  },
+  {
     key: 'src-prefix-routing',
     dataIndex: 'src-prefix-routing',
     width: 200,
@@ -46,6 +49,7 @@ export const TABLE_HEADERS_ANT = [
     key: 'dst-prefix-in',
     dataIndex: 'dst-prefix-in',
     width: 200,
+    showInHeader: true,
   },
   {
     key: 'dst-prefix-routing',
@@ -76,6 +80,7 @@ export const TABLE_HEADERS_ANT = [
     key: 'customer-price',
     dataIndex: 'customer-price',
     width: 200,
+    showInHeader: true,
   },
   {
     key: 'originator-address',

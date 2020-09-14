@@ -30,7 +30,25 @@ describe('DataTableAnt', () => {
         'a-table': Table,
       },
     });
-    expect(wrapper.findComponent(Table)).toBeTruthy();
+    expect(wrapper.find('.dataTable').element.style.overflow).toBe('visible');
+    wrapper.destroy();
+  });
+
+  it('no table will be displayed if request is in pending state', () => {
+    const store = new Vuex.Store({
+      getters: {
+        requestIsPending: () => true,
+      },
+    });
+
+    const wrapper = shallowMount(DataTableAnt, {
+      store,
+      localVue,
+      stubs: {
+        'a-table': Table,
+      },
+    });
+    expect(wrapper.find('.dataTable').element.style.overflow).toBe('hidden');
     wrapper.destroy();
   });
 
@@ -40,16 +58,61 @@ describe('DataTableAnt', () => {
     const clock = sinon.useFakeTimers();
     const store = new Vuex.Store({
       getters: {
-        requestIsPending: () => true,
+        requestIsPending: () => false,
       },
     });
     const getDataMock = jest.fn();
     const onLocalFilterMock = jest.fn();
     const propsData = {
+      fields: [
+        {
+          key: 'name',
+          dataIndex: 'name',
+          title: 'Name',
+          visibleInOverview: true,
+        },
+        {
+          key: 'surname',
+          dataIndex: 'surname',
+          title: 'Surname',
+          visibleInOverview: true,
+        },
+        {
+          key: 'is-admin',
+          dataIndex: 'is-admin',
+          title: 'Is admin',
+          visibleInOverview: true,
+          scopedSlots: {
+            customRender: 'badge',
+          },
+        },
+      ],
+      items: [
+        {
+          name: 'Ivan',
+          key: 'Ivan',
+          surname: 'Ivanoff',
+          'is-admin': 'No',
+        },
+        {
+          name: 'Andrzej',
+          key: 'Andrzej',
+          surname: 'Kowalski',
+          'is-admin': 'No',
+        },
+        {
+          name: 'John',
+          key: 'John',
+          surname: 'Dou',
+          'is-admin': 'Yes',
+        },
+      ],
+      rows: 3,
       localFilterEnabled: true,
       localFilterTerm: 'user',
       onLocalFilter: onLocalFilterMock,
       getData: getDataMock,
+      visibleInOverview: true,
     };
 
     const wrapper = mount(DataTableAnt, {

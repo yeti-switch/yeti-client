@@ -29,7 +29,7 @@
         </a-col>
       </a-row>
       <a-table
-        :columns="fields.filter(field => field.showInHeader)"
+        :columns="visibleInOverview"
         :data-source="items"
         :pagination="{ pageSize: 50, total: rows, hideOnSinglePage: true }"
         :loading="requestIsPending"
@@ -127,6 +127,9 @@ export default {
     ...mapGetters(['requestIsPending']),
     hiddenIfLoading() {
       return this.requestIsPending ? 'hidden' : 'visible';
+    },
+    visibleInOverview() {
+      return this.fields.filter((field) => field.visibleInOverview);
     },
   },
   methods: {

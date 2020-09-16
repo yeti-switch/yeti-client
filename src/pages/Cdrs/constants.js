@@ -3,19 +3,19 @@ export const TABLE_HEADERS_ANT = [
     key: 'time-start',
     dataIndex: 'time-start',
     width: 200,
-    showInHeader: true,
+    visibleInOverview: true,
   },
   {
     key: 'duration',
     dataIndex: 'duration',
     width: 200,
-    showInHeader: true,
+    visibleInOverview: true,
   },
   {
     key: 'success',
     dataIndex: 'success',
     width: 200,
-    showInHeader: true,
+    visibleInOverview: true,
     scopedSlots: {
       customRender: 'badge',
     },
@@ -49,7 +49,7 @@ export const TABLE_HEADERS_ANT = [
     key: 'dst-prefix-in',
     dataIndex: 'dst-prefix-in',
     width: 200,
-    showInHeader: true,
+    visibleInOverview: true,
   },
   {
     key: 'dst-prefix-routing',
@@ -80,7 +80,7 @@ export const TABLE_HEADERS_ANT = [
     key: 'customer-price',
     dataIndex: 'customer-price',
     width: 200,
-    showInHeader: true,
+    visibleInOverview: true,
   },
   {
     key: 'originator-address',

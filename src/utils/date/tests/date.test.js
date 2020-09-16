@@ -28,4 +28,19 @@ describe('date helper', () => {
       expect(result).toBe(expected);
     });
   });
+
+  describe('getLast24Hours', () => {
+    it('returns last 24 hours', () => {
+      const expectedResult = {
+        startDate: new Date('2017-02-13T12:51:48.000Z'),
+        endDate: new Date('2017-02-14T12:51:48.000Z'),
+      };
+      const mockedDateNow = jest.fn(() => 1487076708000);
+      Date.now = mockedDateNow;
+      const result = date.getLast24Hours();
+
+      expect(result).toMatchObject(expectedResult);
+      mockedDateNow.mockRestore();
+    });
+  });
 });

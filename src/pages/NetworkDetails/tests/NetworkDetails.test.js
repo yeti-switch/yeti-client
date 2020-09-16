@@ -18,49 +18,57 @@ const $route = {
 };
 
 describe('NetworkDetails page', () => {
-  it('is instance of Vue, without correct entry in store', () => {
-    const getNetworkDetails = jest.fn();
-    const store = new Vuex.Store({
+  let storeParams;
+  let getNetworkDetails;
+
+  beforeEach(() => {
+    getNetworkDetails = jest.fn();
+    storeParams = {
       getters: {
-        networkDetails: () => ({
-        }),
+        networkDetails: () => ({}),
       },
       modules: {
-        rates: {
+        networkDetails: {
           actions: {
             getNetworkDetails,
           },
         },
       },
-    });
-
-    const wrapper = shallowMount(NetworkDetails, {
-      store, localVue, i18n, mocks: { $route },
-    });
-    expect(wrapper.findComponent(VerticalListAnt).exists()).toBeTruthy();
-    expect(getNetworkDetails).toHaveBeenCalled();
+    };
   });
 
-  it('is instance of Vue, with correct entry in store', () => {
-    const getNetworkDetails = jest.fn();
-    const store = new Vuex.Store({
-      getters: {
-        networkDetails: () => NETWORK_DETAILS,
-      },
-      modules: {
-        rates: {
-          actions: {
-            getNetworkDetails,
-          },
-        },
-      },
+  afterEach(() => {
+    getNetworkDetails = undefined;
+    storeParams = undefined;
+  });
+
+  it('calls getNetworkDetails on created', () => {
+    expect.assertions(1);
+
+    const store = new Vuex.Store(storeParams);
+    shallowMount(NetworkDetails, {
+      store, localVue, i18n, mocks: { $route },
     });
 
+    expect(getNetworkDetails).toHaveBeenCalledWith(expect.anything(), $route.params.id);
+  });
+
+  it('builds VerticalListAnt with proper dataSource prop', () => {
+    expect.assertions(1);
+
+    const adjustedStoreParams = {
+      ...storeParams,
+      getters: {
+        ...storeParams.getters, networkDetails: () => NETWORK_DETAILS,
+      },
+    };
+    const store = new Vuex.Store(adjustedStoreParams);
     const wrapper = shallowMount(NetworkDetails, {
       store, localVue, i18n, mocks: { $route },
     });
     const numberOfRowsInNetworkInfo = Object.keys(NETWORK_DETAILS).length
     - COMMON_TABLE_ENTITY_EXCLUDED_FIELDS.length - 1; // one additional key for id
+
     expect(wrapper.findComponent(VerticalListAnt).props('dataSource').length).toBe(numberOfRowsInNetworkInfo);
   });
 });

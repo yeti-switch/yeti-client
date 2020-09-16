@@ -10,4 +10,11 @@ describe('formatRates store helper', () => {
     const result = rates.formatRates(correctInitialParams);
     expect(result).toMatchObject(expectedResult);
   });
+
+  it('returns an empty array if no rates were passed', () => {
+    const expectedResult = [];
+
+    const result = rates.formatRates();
+    expect(result).toMatchObject(expectedResult);
+  });
 });

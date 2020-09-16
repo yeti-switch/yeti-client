@@ -51,9 +51,11 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "5.2.3",
+    "flush-promises": "1.0.2",
     "jest": "^25.2.7",
     "jest-extended": "0.11.5",
     "jest-transform-stub": "2.0.0",
+    "sinon": "9.0.3",
     "vue-eslint-parser": "^6.0.4",
     "vue-jest": "3.0.5",
     "vue-template-compiler": "^2.6.10"

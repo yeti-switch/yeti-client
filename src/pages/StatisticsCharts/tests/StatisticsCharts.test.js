@@ -10,9 +10,12 @@ localVue.use(VueI18n);
 const i18n = new VueI18n({ locale: 'en' });
 
 describe('StatisticsCharts page', () => {
-  it('is instance of Vue, with no statistics entries in store', () => {
-    const getStatistics = jest.fn();
-    const store = new Vuex.Store({
+  let storeParams;
+  let getStatistics;
+
+  beforeEach(() => {
+    getStatistics = jest.fn();
+    storeParams = {
       getters: {
         requestIsPending: () => false,
         activeAccount: () => ({ id: 'someId' }),
@@ -26,17 +29,44 @@ describe('StatisticsCharts page', () => {
           },
         },
       },
-    });
+    };
+  });
 
+  afterEach(() => {
+    getStatistics = undefined;
+    storeParams = undefined;
+  });
+
+  it('calls getStatistics endpoint on created, if active account is set', () => {
+    expect.assertions(1);
+
+    const store = new Vuex.Store(storeParams);
     shallowMount(StatisticsCharts, { store, localVue, i18n });
     expect(getStatistics).toHaveBeenCalled();
   });
 
-  it('builds two charts if there are statistics entries in store', () => {
-    const store = new Vuex.Store({
+  it('do not call getStatistics if account is not set', () => {
+    expect.assertions(1);
+
+    const adjustedStoreParams = {
+      ...storeParams,
       getters: {
-        requestIsPending: () => false,
-        activeAccount: () => ({ id: 'someId' }),
+        ...storeParams.getters,
+        activeAccount: () => null,
+      },
+    };
+    const store = new Vuex.Store(adjustedStoreParams);
+    shallowMount(StatisticsCharts, { store, localVue, i18n });
+    expect(getStatistics).toHaveBeenCalledTimes(0);
+  });
+
+  it('builds two charts if there are statistics entries in store', () => {
+    expect.assertions(1);
+
+    const adjustedStoreParams = {
+      ...storeParams,
+      getters: {
+        ...storeParams.getters,
         activeCalls: () => (
           {
             terminatedCalls: [{ y: 12, x: 1000000000 }],
@@ -47,17 +77,21 @@ describe('StatisticsCharts page', () => {
           cps: [{ y: 1234, x: 3000000000 }],
         }),
       },
-      modules: {
-        statisticsCharts: {
-          actions: {
-            getStatistics: jest.fn(),
-          },
-        },
-      },
-    });
-
+    };
+    const store = new Vuex.Store(adjustedStoreParams);
     const wrapper = shallowMount(StatisticsCharts, { store, localVue, i18n });
 
     expect(wrapper.findAllComponents(DataChart).length).toBe(2);
+  });
+
+  it('calls getStatistics if active account is changed', () => {
+    expect.assertions(1);
+
+    const store = new Vuex.Store(storeParams);
+    const component = shallowMount(StatisticsCharts, { store, localVue, i18n });
+
+    component.vm.$options.watch.activeAccount.call(component.vm);
+
+    expect(getStatistics).toHaveBeenCalledTimes(2);
   });
 });

@@ -9,4 +9,19 @@ describe('formatCdrs store helper', () => {
     const result = cdrs.formatCdrs(correctInitialParams);
     expect(result).toMatchObject(expectedResult);
   });
+
+  it('formats cdrs data according to spec, substituting boolean value', () => {
+    const correctInitialParams = [{ ...CDR_ENTRY_FROM_API, success: true }];
+    const expectedResult = [{ ...CDR_ENTRY_IN_TABLE, success: 'Yes' }];
+
+    const result = cdrs.formatCdrs(correctInitialParams);
+    expect(result).toMatchObject(expectedResult);
+  });
+
+  it('returns an empty array if no cdrs were passed', () => {
+    const expectedResult = [];
+
+    const result = cdrs.formatCdrs();
+    expect(result).toMatchObject(expectedResult);
+  });
 });

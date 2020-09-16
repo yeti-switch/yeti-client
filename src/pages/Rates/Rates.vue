@@ -3,6 +3,7 @@
     :fields="tableFields"
     :items="formattedRates"
     :get-data="getRates"
+    :rows="rows"
   />
 </template>
 

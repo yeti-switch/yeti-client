@@ -8,8 +8,6 @@ import {
 
 import DataTableAnt from '../DataTableAnt.vue';
 
-jest.useFakeTimers();
-
 const localVue = createLocalVue();
 localVue.use(Vuex);
 localVue.use(VueI18n);

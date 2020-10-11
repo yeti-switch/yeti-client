@@ -68,7 +68,7 @@ describe('AccountsFilter', () => {
     wrapper.destroy();
   });
 
-  it('show dd with items if some account is active', () => {
+  it('show dropdown with items if some account is active', () => {
     expect.assertions(3);
     const store = getStore({
       accounts: [

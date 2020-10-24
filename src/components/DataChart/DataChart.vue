@@ -28,7 +28,6 @@ export default {
     },
   },
   mounted() {
-    console.log(this.chartData.datasets[0].data);
     this.addPlugin(Downsample);
     this.renderChart(this.chartData, this.options);
   },

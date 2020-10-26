@@ -8,7 +8,7 @@ const getters = {
   timeFilterValue: (currentState) => currentState.timeFilterValue,
 };
 
-const actions = {
+export const actions = {
   [TIME_RANGE_FILTER.ACTIONS.FILTER_SET]: ({ commit }, value) => {
     commit(TIME_RANGE_FILTER.MUTATIONS.SET_VALUE, value);
   },
@@ -16,7 +16,7 @@ const actions = {
     commit(TIME_RANGE_FILTER.MUTATIONS.SET_VALUE, utils.getLast24Hours());
   },
 };
-const mutations = {
+export const mutations = {
   [TIME_RANGE_FILTER.MUTATIONS.SET_VALUE]: (currentState, value) => {
     currentState.timeFilterValue = value;
   },

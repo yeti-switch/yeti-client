@@ -9,7 +9,7 @@ const getters = {
   navCollapsed: (currentState) => currentState.navCollapsed,
 };
 
-const actions = {
+export const actions = {
   [UI_STATE.ACTIONS.SET_NAV_STATE]: ({ commit }, value) => {
     store.set('yetiNavCollapsed', value);
 
@@ -17,7 +17,7 @@ const actions = {
   },
 };
 
-const mutations = {
+export const mutations = {
   [UI_STATE.ACTIONS.SET_NAV_STATE]: (currentState, navCollapsed) => {
     currentState.navCollapsed = navCollapsed;
   },

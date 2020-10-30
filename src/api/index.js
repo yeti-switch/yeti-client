@@ -2,7 +2,7 @@ import Api from 'devour-client';
 
 import { RELATIONSHIPS, RESOURCES } from '../constants';
 
-export class JsonApi {
+export default class JsonApi {
   static authDataReqTransformationMiddleware = {
     name: 'auth-data-transformation-req',
     req: (payload) => {
@@ -45,6 +45,13 @@ export class JsonApi {
     this.initializeResources();
     this.instance.insertMiddlewareBefore('axios-request', JsonApi.authDataReqTransformationMiddleware);
     this.instance.insertMiddlewareBefore('response', JsonApi.authDataResTransformationMiddleware);
+  }
+
+  get apiInstance() {
+    if (typeof this.jsonApiInstance === 'undefined') {
+      this.jsonApiInstance = new JsonApi();
+    }
+    return this.jsonApiInstance;
   }
 
   initializeResources = () => {

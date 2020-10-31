@@ -49,7 +49,6 @@ describe('accounts', () => {
     let commit;
     beforeEach(() => {
       commit = jest.fn();
-      jest.resetModules();
     });
     afterEach(() => {
       commit = null;

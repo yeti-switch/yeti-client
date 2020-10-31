@@ -1,4 +1,4 @@
-import { CDRS, NETWORKS, RESOURCES } from '@/constants';
+import { NETWORKS, RESOURCES } from '@/constants';
 import { mutations, actions } from '../networkDetails';
 
 jest.mock('@/utils', () => ({

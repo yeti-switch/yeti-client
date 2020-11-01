@@ -18,7 +18,7 @@ import NavBar from './components/NavBar/NavBar';
 import {
   AUTH, NOTIFICATION_TYPES, GENERAL_ROUTE_NAMES, NETWORK_SERVICE,
 } from './constants';
-import { jsonApi } from './api';
+import api from './api';
 
 export default {
   name: 'App',
@@ -57,7 +57,7 @@ export default {
       },
     };
 
-    jsonApi.instance.insertMiddlewareAfter('errors', errorMiddleware);
+    api.apiInstance.instance.insertMiddlewareAfter('errors', errorMiddleware);
     this.$store.dispatch(AUTH.ACTIONS.LOCAL_AUTH);
   },
   created() {

@@ -32,6 +32,13 @@ export default class JsonApi {
     },
   };
 
+  static get apiInstance() {
+    if (typeof this.jsonApiInstance === 'undefined') {
+      this.jsonApiInstance = new JsonApi();
+    }
+    return this.jsonApiInstance;
+  }
+
   constructor() {
     try {
       this.instance = new Api({
@@ -45,13 +52,6 @@ export default class JsonApi {
     this.initializeResources();
     this.instance.insertMiddlewareBefore('axios-request', JsonApi.authDataReqTransformationMiddleware);
     this.instance.insertMiddlewareBefore('response', JsonApi.authDataResTransformationMiddleware);
-  }
-
-  get apiInstance() {
-    if (typeof this.jsonApiInstance === 'undefined') {
-      this.jsonApiInstance = new JsonApi();
-    }
-    return this.jsonApiInstance;
   }
 
   initializeResources = () => {
@@ -74,5 +74,3 @@ export default class JsonApi {
     this.instance.headers.Authorization = `Bearer ${token}`;
   };
 }
-
-export const jsonApi = new JsonApi();

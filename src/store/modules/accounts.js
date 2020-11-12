@@ -1,4 +1,4 @@
-import { jsonApi } from '@/api';
+import api from '@/api';
 import {
   ACCOUNTS, RESOURCES, SPARSE_FIELDS,
 } from '@/constants';
@@ -11,6 +11,7 @@ const state = {
   currentAccountDetails: {},
   activeAccountId: '',
 };
+
 const getters = {
   accounts: (currentState) => (currentState.accounts),
   currentAccountDetails: (currentState) => currentState.currentAccountDetails.data,
@@ -20,10 +21,10 @@ const getters = {
     : currentState.accounts[0]),
 };
 
-const actions = {
+export const actions = {
   [ACCOUNTS.ACTIONS.GET_ACCOUNTS]: ({ commit, dispatch, state: localState }) =>
     utils.wrapWithAsyncRequestStatus(commit, async () => {
-      const { data } = await jsonApi.findAllResources(RESOURCES.ACCOUNTS, {
+      const { data } = await api.apiInstance.findAllResources(RESOURCES.ACCOUNTS, {
         fields: { [RESOURCES.ACCOUNTS]: SPARSE_FIELDS[RESOURCES.ACCOUNTS] },
       });
 
@@ -36,7 +37,7 @@ const actions = {
     }),
   [ACCOUNTS.ACTIONS.GET_ACCOUNT_DETAILS]: ({ commit, getters: localGetters }) =>
     utils.wrapWithAsyncRequestStatus(commit, async () => {
-      const account = await jsonApi
+      const account = await api.apiInstance
         .findOneResource(RESOURCES.ACCOUNTS, localGetters.activeAccount.id);
 
       commit(ACCOUNTS.MUTATIONS.SET_ACCOUNT_DETAILS, account);
@@ -45,7 +46,8 @@ const actions = {
     commit(ACCOUNTS.MUTATIONS.SET_CHOSEN_ACCOUNT_ID, id);
   },
 };
-const mutations = {
+
+export const mutations = {
   [ACCOUNTS.MUTATIONS.SET_ACCOUNTS]: (currentState, accounts) => {
     currentState.accounts = accounts;
   },

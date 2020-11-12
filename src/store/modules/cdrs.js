@@ -1,4 +1,4 @@
-import { jsonApi } from '@/api';
+import api from '@/api';
 import { RESOURCES, CDRS } from '@/constants';
 import utils from '@/utils';
 
@@ -12,7 +12,7 @@ const getters = {
   }),
   cdrFilter: (currentState) => currentState.cdrFilter,
 };
-const actions = {
+export const actions = {
   [CDRS.ACTIONS.GET_CDRS]: ({ commit, rootState, rootGetters }, page) =>
     utils.wrapWithAsyncRequestStatus(commit, async () => {
       const filter = {
@@ -21,7 +21,7 @@ const actions = {
         timeStartLteq: rootState.timeRangeFilter.timeFilterValue.endDate,
       };
 
-      const cdrs = await jsonApi.findAllResources(RESOURCES.CDR, {
+      const cdrs = await api.apiInstance.findAllResources(RESOURCES.CDR, {
         filter,
         page,
       });
@@ -34,7 +34,7 @@ const actions = {
     }
   },
 };
-const mutations = {
+export const mutations = {
   [CDRS.MUTATIONS.SET_CDRS]: (currentState, cdrs) => {
     currentState.cdrs = cdrs;
   },

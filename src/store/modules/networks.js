@@ -1,4 +1,4 @@
-import { jsonApi } from '@/api';
+import api from '@/api';
 import { RESOURCES, NETWORKS } from '@/constants';
 import utils from '@/utils';
 
@@ -12,7 +12,7 @@ const getters = {
   }),
   networksFilter: (currentState) => currentState.networksFilter,
 };
-const actions = {
+export const actions = {
   [NETWORKS.ACTIONS.GET_NETWORKS]: ({ commit, state: localState }, page) =>
     utils.wrapWithAsyncRequestStatus(commit, async () => {
       const queryParams = { page, include: 'network-type' };
@@ -21,7 +21,7 @@ const actions = {
         queryParams.filter = { nameCont: localState.networksFilter };
       }
 
-      const networks = await jsonApi.findAllResources(RESOURCES.NETWORKS, queryParams);
+      const networks = await api.apiInstance.findAllResources(RESOURCES.NETWORKS, queryParams);
 
       commit(NETWORKS.MUTATIONS.SET_NETWORKS, networks);
     }),
@@ -30,7 +30,7 @@ const actions = {
     dispatch(NETWORKS.ACTIONS.GET_NETWORKS, 1);
   },
 };
-const mutations = {
+export const mutations = {
   [NETWORKS.MUTATIONS.SET_NETWORKS]: (currentState, networks) => {
     currentState.networks = networks;
   },

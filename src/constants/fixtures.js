@@ -36,7 +36,7 @@ export const RATE_ENTRY_IN_TABLE = {
   'valid-from': createDateForTestResult(RATE_ENTRY_FROM_API['valid-from']),
   'valid-till': createDateForTestResult(RATE_ENTRY_FROM_API['valid-till']),
   'network-prefix-id': 996,
-  'billing-intervals': '1/1',
+  'billing-interval': '1/1',
   rate: '0.11/0.11',
 
   'initial-rate': '0.11',

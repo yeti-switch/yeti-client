@@ -6,7 +6,7 @@ export const formatRates = (rates = []) =>
     item['valid-from'] = formatDateFromString(item['valid-from']);
     item['valid-till'] = formatDateFromString(item['valid-till']);
 
-    item['billing-intervals'] = `${item['initial-interval']}/${
+    item['billing-interval'] = `${item['initial-interval']}/${
       item['next-interval']
     }`;
 

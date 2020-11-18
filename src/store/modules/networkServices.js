@@ -20,8 +20,9 @@ export const mutations = {
     const quantator = requestIsPending ? 1 : -1;
     const { requestsPending } = currentState;
 
-    // Potential bug here. Probably it should say requestsPending >= 0
-    currentState.requestsPending = requestsPending > 0 ? requestsPending + quantator : 0;
+    currentState.requestsPending = requestsPending + quantator > 0
+      ? requestsPending + quantator
+      : 0;
   },
 };
 

@@ -27,7 +27,6 @@ export default {
   },
   data() {
     return {
-      message: '',
       type: NOTIFICATION_TYPES.ERROR,
       loginRouteName: GENERAL_ROUTE_NAMES.LOG_IN,
       filtersRouteName: GENERAL_ROUTE_NAMES.VIEW_FILTERS,
@@ -43,11 +42,6 @@ export default {
   },
   created() {
     this.$i18n.locale = this.locale;
-  },
-  methods: {
-    setMessage(message) {
-      this.message = message;
-    },
   },
 };
 </script>

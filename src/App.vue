@@ -16,7 +16,7 @@
 import { mapGetters } from 'vuex';
 import NavBar from './components/NavBar/NavBar';
 import {
-  AUTH, NOTIFICATION_TYPES, GENERAL_ROUTE_NAMES, NETWORK_SERVICE,
+  AUTH, NOTIFICATION_TYPES, GENERAL_ROUTE_NAMES,
 } from './constants';
 import api from './api';
 
@@ -37,27 +37,8 @@ export default {
     ...mapGetters(['locale']),
   },
   beforeCreate() {
-    const errorMiddleware = {
-      name: 'logout-redirect',
-      error: (payload) => {
-        this.$notify({
-          type: NOTIFICATION_TYPES.ERROR,
-          title: payload[0].title,
-          text: payload[0].detail,
-        });
-
-        if (payload[0].title === 'Authorization failed') {
-          this.$store.dispatch(AUTH.ACTIONS.LOGOUT);
-          this.$router.push('/login');
-        }
-
-        this.$store.dispatch(NETWORK_SERVICE.ACTIONS.SWITCH_PENDING_STATE, false);
-
-        return payload;
-      },
-    };
-
-    api.apiInstance.instance.insertMiddlewareAfter('errors', errorMiddleware);
+    api.apiInstance.insertNetworkErrorMiddleware(this.$notify, this.$store.dispatch);
+    api.apiInstance.insertNetworkAuthErrorMiddleware(this.$router.push, this.$store.dispatch);
     this.$store.dispatch(AUTH.ACTIONS.LOCAL_AUTH);
   },
   created() {

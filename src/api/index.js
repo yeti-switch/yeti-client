@@ -1,6 +1,9 @@
 import Api from 'devour-client';
 
-import { RELATIONSHIPS, RESOURCES } from '../constants';
+import {
+  AUTH,
+  NETWORK_SERVICE, NOTIFICATION_TYPES, RELATIONSHIPS, RESOURCES, GENERAL_PATHS,
+} from '../constants';
 
 export default class JsonApi {
   static authDataReqTransformationMiddleware = {
@@ -31,6 +34,35 @@ export default class JsonApi {
       return payload;
     },
   };
+
+  static getNetworkErrorMiddleware = (notify, storeDispatch) => ({
+    name: 'error-notify',
+    error: (payload) => {
+      console.log(111);
+      notify({
+        type: NOTIFICATION_TYPES.ERROR,
+        title: payload[0].title,
+        text: payload[0].detail,
+      });
+
+      storeDispatch(NETWORK_SERVICE.ACTIONS.SWITCH_PENDING_STATE, false);
+
+      return payload;
+    },
+  });
+
+  static getNetworkAuthErrorMiddleware = (push, storeDispatch) => ({
+    name: 'auth-redirect',
+    error: (payload) => {
+      console.log(222);
+      if (payload[0].title === 'Authorization failed') {
+        storeDispatch(AUTH.ACTIONS.LOGOUT);
+        push(GENERAL_PATHS.LOGIN);
+      }
+
+      return payload;
+    },
+  });
 
   static get apiInstance() {
     if (typeof this.jsonApiInstance === 'undefined') {
@@ -73,4 +105,14 @@ export default class JsonApi {
   setToken = (token) => {
     this.instance.headers.Authorization = `Bearer ${token}`;
   };
+
+  insertNetworkErrorMiddleware = (notify, storeDispatch) => {
+    const middleware = JsonApi.getNetworkErrorMiddleware(notify, storeDispatch);
+    this.instance.insertMiddlewareAfter('errors', middleware);
+  }
+
+  insertNetworkAuthErrorMiddleware = (push, storeDispatch) => {
+    const middleware = JsonApi.getNetworkAuthErrorMiddleware(push, storeDispatch);
+    this.instance.insertMiddlewareAfter('errors', middleware);
+  }
 }

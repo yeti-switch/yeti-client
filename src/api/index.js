@@ -1,6 +1,9 @@
 import Api from 'devour-client';
 
-import { RELATIONSHIPS, RESOURCES } from '../constants';
+import {
+  AUTH,
+  NETWORK_SERVICE, NOTIFICATION_TYPES, RELATIONSHIPS, RESOURCES, GENERAL_PATHS,
+} from '../constants';
 
 export default class JsonApi {
   static authDataReqTransformationMiddleware = {
@@ -32,6 +35,33 @@ export default class JsonApi {
     },
   };
 
+  static getNetworkErrorMiddleware = (notify, storeDispatch) => ({
+    name: 'error-notify',
+    error: (payload) => {
+      notify({
+        type: NOTIFICATION_TYPES.ERROR,
+        title: payload[0].title,
+        text: payload[0].detail,
+      });
+
+      storeDispatch(NETWORK_SERVICE.ACTIONS.SWITCH_PENDING_STATE, false);
+
+      return payload;
+    },
+  });
+
+  static getNetworkAuthErrorMiddleware = (push, storeDispatch) => ({
+    name: 'auth-redirect',
+    error: (payload) => {
+      if (payload[0].title === 'Authorization failed') {
+        storeDispatch(AUTH.ACTIONS.LOGOUT);
+        push(GENERAL_PATHS.LOGIN);
+      }
+
+      return payload;
+    },
+  });
+
   static get apiInstance() {
     if (typeof this.jsonApiInstance === 'undefined') {
       this.jsonApiInstance = new JsonApi();
@@ -54,23 +84,33 @@ export default class JsonApi {
     this.instance.insertMiddlewareBefore('response', JsonApi.authDataResTransformationMiddleware);
   }
 
-  initializeResources = () => {
+  initializeResources() {
     Object.values(RESOURCES).forEach((resource) => {
       this.addRelationship(resource);
     });
-  };
+  }
 
-  addRelationship = (resource) => {
+  addRelationship(resource) {
     this.instance.define(resource, RELATIONSHIPS[resource]);
-  };
+  }
 
-  findAllResources = (resourceName, params) => this.instance.findAll(resourceName, params);
+  findAllResources(resourceName, params) { return this.instance.findAll(resourceName, params); }
 
-  findOneResource = (resourceName, id, params) => this.instance.find(resourceName, id, params);
+  findOneResource(resourceName, id, params) { return this.instance.find(resourceName, id, params); }
 
-  createResource = (resourceName, data) => this.instance.create(resourceName, data);
+  createResource(resourceName, data) { return this.instance.create(resourceName, data); }
 
-  setToken = (token) => {
+  setToken(token) {
     this.instance.headers.Authorization = `Bearer ${token}`;
-  };
+  }
+
+  insertNetworkErrorMiddleware(notify, storeDispatch) {
+    const middleware = JsonApi.getNetworkErrorMiddleware(notify, storeDispatch);
+    this.instance.insertMiddlewareAfter('errors', middleware);
+  }
+
+  insertNetworkAuthErrorMiddleware(push, storeDispatch) {
+    const middleware = JsonApi.getNetworkAuthErrorMiddleware(push, storeDispatch);
+    this.instance.insertMiddlewareAfter('errors', middleware);
+  }
 }

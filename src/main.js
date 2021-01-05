@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 import AntVue from 'ant-design-vue';
 import VueI18n from 'vue-i18n';
 import Notifications from 'vue-notification';
+import * as Sentry from '@sentry/vue';
 import 'ant-design-vue/dist/antd.min.css';
 
 import App from './App.vue';
@@ -20,6 +21,14 @@ Vue.config.productionTip = false;
 sync(store, router.instance);
 
 const i18n = new VueI18n();
+
+Sentry.init({
+  Vue,
+  dsn: 'https://7725872f254e423f8d07b8b2b17b58f2@errors.yeti-switch.org/3',
+  denyUrls: [
+    'http://localhost',
+  ],
+});
 
 new Vue({
   render: (h) => h(App),

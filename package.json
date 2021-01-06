@@ -10,6 +10,7 @@
     "sonar": "sonar-scanner"
   },
   "dependencies": {
+    "@sentry/vue": "^5.29.2",
     "ant-design-vue": "1.6.3",
     "chart.js": "^2.9.3",
     "chartjs-plugin-downsample": "^1.1.0",

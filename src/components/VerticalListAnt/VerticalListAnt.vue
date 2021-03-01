@@ -35,6 +35,9 @@ export default {
 </script>
 
 <style lang="scss" >
+  .ant-list {
+    background-color: #ffffff;
+  }
   .ant-col {
     text-align: left;
   }

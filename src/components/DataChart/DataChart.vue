@@ -33,3 +33,9 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+  .chartjs-render-monitor {
+    background-color: #ffffff;
+    margin-bottom: 10px;
+  }
+</style>

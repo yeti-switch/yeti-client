@@ -22,6 +22,7 @@ export default {
         [ACCOUNT_INFO_ROUTE_NAMES.ACCOUNT]: 'Акаунт',
         [ACCOUNT_INFO_ROUTE_NAMES.NETWORKS]: 'Мережі',
         [ACCOUNT_INFO_ROUTE_NAMES.STATISTICS]: 'Статистика',
+        [ACCOUNT_INFO_ROUTE_NAMES.INVOICES]: 'Інвойси',
         logout: 'Вийти',
       },
     },

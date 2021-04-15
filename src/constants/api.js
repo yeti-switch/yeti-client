@@ -9,6 +9,7 @@ export const RESOURCES = {
   NETWORK_TYPES: 'network-types',
   ACTIVE_CALLS: 'chart-active-calls',
   ORIGINATED_CPS: 'chart-originated-cps',
+  INVOICES: 'invoices',
 };
 
 export const SPARSE_FIELDS = {
@@ -145,6 +146,26 @@ export const RELATIONSHIPS = {
       jsonApi: 'hasMany',
       x: null,
       y: '',
+    },
+  },
+  [RESOURCES.INVOICES]: {
+    amount: '',
+    'billing-duration': '',
+    'calls-count': '',
+    'calls-duration': '',
+    'end-date': '',
+    'first-call-at': '',
+    'first-successful-call-at': '',
+    'has-pdf': '',
+    'last-call-at': '',
+    'last-successful-call-at': '',
+    reference: '',
+    'start-date': '',
+    'successful-calls-count': '',
+    account: {
+      jsonApi: 'hasOne',
+      type: 'accounts',
+      id: '',
     },
   },
   [RESOURCES.ORIGINATED_CPS]: {

@@ -1,0 +1,16 @@
+name: Tests
+on:
+  pull_request:
+  push:
+    branches: [ master ]
+
+jobs:
+  test:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run yarn tests
+        run: yarn test
+

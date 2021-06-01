@@ -1,0 +1,32 @@
+name: Release process
+
+on:
+  release:
+    types: [ published ]
+
+jobs:
+  deb10:
+    name: Debian 10 release package building
+    runs-on: ubuntu-latest
+    container: switchyeti/yeti-client:build_buster
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Build package
+        run: make package
+
+      - name: Save deb package as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: deb-package
+          path: /__w/yeti-client/*.deb
+
+      - name: Upload package to ${{github.ref}} repo
+        env:
+          PKG_API_BASE: ${{secrets.PKG_API_BASE}}
+          PKG_TAG: ${{github.ref}} 
+        run: v=${PKG_TAG##*/};major_version=${v%\.[0-9]*};ci/deploy.sh buster $major_version main ../*.deb
+
+

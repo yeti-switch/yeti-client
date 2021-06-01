@@ -1,0 +1,31 @@
+name: Nigthly packages build
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deb10:
+    name: Debian 10 nightly package building
+    runs-on: ubuntu-latest
+    container: switchyeti/yeti-client:build_buster
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Build package
+        run: make package
+
+      - name: Save deb package as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: deb-package
+          path: /__w/yeti-client/*.deb
+
+      - name: Upload package to ${{github.ref}} repo
+        env:
+          PKG_API_BASE: ${{secrets.PKG_API_BASE}}
+        run: ci/deploy.sh buster nightly main ../*.deb
+
+

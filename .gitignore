@@ -23,3 +23,4 @@ yarn-error.log*
 *.sln
 *.sw*
 *.code-workspace
+.vscode-upload.json

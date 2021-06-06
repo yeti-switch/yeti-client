@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 import AntVue from 'ant-design-vue';
 import VueI18n from 'vue-i18n';
 import Notifications from 'vue-notification';
+import VueAuthHref from 'vue-auth-href';
 import * as Sentry from '@sentry/vue';
 import 'ant-design-vue/dist/antd.min.css';
 
@@ -11,10 +12,15 @@ import App from './App.vue';
 import { router } from './router';
 import store from './store/store';
 
+const authHrefOptions = {
+  token: () => sessionStorage.getItem('yeti-token'),
+};
+
 Vue.use(VueRouter);
 Vue.use(AntVue);
 Vue.use(Notifications);
 Vue.use(VueI18n);
+Vue.use(VueAuthHref, authHrefOptions);
 
 Vue.config.productionTip = false;
 

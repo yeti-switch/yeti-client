@@ -4,11 +4,12 @@ export const TABLE_HEADERS_ANT = [
     dataIndex: 'has-pdf',
     width: 100,
     visibleInOverview: true,
-    customRender(name) {
+    customRender(name, row) {
       return <a
         download
         disabled={!name}
-        href={`${name}`}
+        v-auth-href
+        href={`${row.links.self}/download`}
       >
         <a-icon type="download" />
       </a>;

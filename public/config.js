@@ -10,7 +10,7 @@ const YETI_CONFIG = {
 };
 
 // Possible values for yeti.blockedpages set are:
-// 'rates', 'accounts', 'cdrs', 'networks', 'statistics'
+// 'rates', 'accounts', 'cdrs', 'networks', 'statistics', 'invoices'
 
 // Possible values for yeti.locale set are:
 // 'ua' for Ukrainian

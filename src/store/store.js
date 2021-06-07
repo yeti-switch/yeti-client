@@ -8,6 +8,7 @@ import accounts from './modules/accounts';
 import errors from './modules/errors';
 import cdrs from './modules/cdrs';
 import networks from './modules/networks';
+import invoices from './modules/invoices';
 import networkDetails from './modules/networkDetails';
 import config from './modules/config';
 import networkServices from './modules/networkServices';
@@ -30,6 +31,7 @@ export default new Vuex.Store({
     errors,
     cdrs,
     networks,
+    invoices,
     config,
     timeRangeFilter,
     networkServices,
